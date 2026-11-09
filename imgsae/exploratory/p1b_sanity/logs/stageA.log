@@ -1,0 +1,14 @@
+﻿=== Stage A start 2026-11-09T08:41:06
+start a1 2026-11-09T08:41:06
+done a1 rc=0 13 min
+start a2 2026-11-09T08:54:03
+=== Stage A start 2026-11-09T09:41:32
+skip a1 (done)
+start a2 2026-11-09T09:41:32
+done a2 rc=0 215.2 min
+start a3_cpu 2026-11-09T13:16:41
+done a3_cpu rc=0 41.9 min
+skip a3_sae (done)
+start a4 2026-11-09T13:58:36
+done a4 rc=0 0.1 min
+STAGE A DONE 2026-11-09T13:58:40

@@ -1,0 +1,9 @@
+ok  scripts/p1_encode.py /private/tmp/claude-501/-Users-Hemato-project-3-antig-N2-paper-imaging-SAE/7fb7f0d4-5a33-47c3-828a-5704d3f7d553/scratchpad/smoke/totalseg/ids.txt  DONE 12/12
+ok  scripts/p1_assemble.py  rows 576 scans 12 excluded 0 eligible groups 4 s* {'z': 1, 'y': 2, 'x': None} n_eff 48 M 16 k 1 DONE
+ok  scripts/p1_probe.py  gated 4 beyond-HU 0 gate_S False DONE
+ok  scripts/p1_encode.py /private/tmp/claude-501/-Users-Hemato-project-3-antig-N2-paper-imaging-SAE/7fb7f0d4-5a33-47c3-828a-5704d3f7d553/scratchpad/smoke/pert.txt  DONE 3/3
+ok  scripts/p1_encode.py /private/tmp/claude-501/-Users-Hemato-project-3-antig-N2-paper-imaging-SAE/7fb7f0d4-5a33-47c3-828a-5704d3f7d553/scratchpad/smoke/pert.txt  DONE 3/3
+ok  scripts/p1_encode.py /private/tmp/claude-501/-Users-Hemato-project-3-antig-N2-paper-imaging-SAE/7fb7f0d4-5a33-47c3-828a-5704d3f7d553/scratchpad/smoke/pert.txt  DONE 3/3
+ok  scripts/p1_fit.py --reps  DONE
+ok  scripts/p1_decide.py  NO-GO DONE
+SMOKE OK

@@ -1,0 +1,13 @@
+Apple M5  4P+6E cores, 10-core GPU  | mean of 2 x 1 s
+P cluster 100.0% @ 3236 MHz   per core:  59  59  59  59
+E cluster  69.6% @ 2063 MHz   per core:  32  23  17  10   6   4
+GPU  13.9% @ 594 MHz   power CPU 7.3 W  GPU 0.4 W  DRAM bw 14 GB/s   thermal Heavy (76 C)
+memory avail 12.8 / 24 GB   swap 3.9 GB   pressure Normal
+top processes (cpu %, gpu ms/s, mem):
+    7808    5.0%     85 ms/s 0  stable
+   57452  185.1%      0 ms/s 0  python3.10
+   51042    8.8%      0 ms/s 0  zsh
+   46956    2.9%      0 ms/s 0  Telegram
+   20117    2.6%      0 ms/s 0  2.1.319
+   98223    2.5%      0 ms/s 0  mactop
+advice: GPU under 40% busy while an MPS job runs: likely CPU-bound feeding (small batches, Python loops, host<->device copies, .item()/.cpu() syncs); profile before adding jobs; swap/pressure high: unified memory is shared with the GPU; avoid starting another large job, free caches (torch.mps.empty_cache()); thermal Heavy: clocks throttle; long multi-hour jobs run slower than their profile; avoid stacking jobs

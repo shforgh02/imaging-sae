@@ -1,0 +1,293 @@
+{
+ "soft_kmeans": {
+  "area_orig": 0.04166666666666667,
+  "area_neutral": 0.2725694444444444,
+  "area_run": 0.04166666666666667,
+  "C07_orig": [
+   0,
+   1
+  ],
+  "C07_neutral": [
+   6,
+   7
+  ],
+  "n_v0": 850,
+  "chim_share_orig": 0.788235294117647,
+  "chim_share_neutral": 0.04823529411764706,
+  "trigger_top": [
+   [
+    "other",
+    659
+   ],
+   [
+    "lung_right",
+    6
+   ],
+   [
+    "lung_left",
+    5
+   ]
+  ],
+  "trigger_other_share": 0.9835820895522388
+ },
+ "sae_cons": {
+  "area_orig": 0.0,
+  "area_neutral": 0.0,
+  "area_run": 0.0,
+  "C07_orig": [
+   0,
+   0
+  ],
+  "C07_neutral": [
+   0,
+   0
+  ],
+  "n_v0": 72,
+  "chim_share_orig": 0.8611111111111112,
+  "chim_share_neutral": 0.041666666666666664,
+  "trigger_top": [
+   [
+    "other",
+    62
+   ]
+  ],
+  "trigger_other_share": 1.0
+ },
+ "sae_single": {
+  "area_orig": 0.006944444444444444,
+  "area_neutral": 0.06597222222222222,
+  "area_run": 0.006944444444444444,
+  "C07_orig": [
+   0,
+   0
+  ],
+  "C07_neutral": [
+   0,
+   0
+  ],
+  "n_v0": 850,
+  "chim_share_orig": 0.8858823529411765,
+  "chim_share_neutral": 0.07529411764705882,
+  "trigger_top": [
+   [
+    "other",
+    732
+   ],
+   [
+    "lung_right",
+    11
+   ],
+   [
+    "lung_left",
+    5
+   ],
+   [
+    "liver",
+    4
+   ],
+   [
+    "gluteal",
+    1
+   ]
+  ],
+  "trigger_other_share": 0.9721115537848606
+ },
+ "hu_sae_cons": {
+  "area_orig": 0.0,
+  "area_neutral": 0.015625,
+  "area_run": 0.0,
+  "C07_orig": [
+   0,
+   0
+  ],
+  "C07_neutral": [
+   0,
+   1
+  ],
+  "n_v0": 37,
+  "chim_share_orig": 0.918918918918919,
+  "chim_share_neutral": 0.05405405405405406,
+  "trigger_top": [
+   [
+    "other",
+    32
+   ],
+   [
+    "lung_right",
+    1
+   ],
+   [
+    "colon",
+    1
+   ]
+  ],
+  "trigger_other_share": 0.9411764705882353
+ },
+ "null_enc_cons": {
+  "area_orig": 0.003472222222222222,
+  "area_neutral": 0.03125,
+  "area_run": 0.003472222222222222,
+  "C07_orig": [
+   0,
+   0
+  ],
+  "C07_neutral": [
+   0,
+   0
+  ],
+  "n_v0": 294,
+  "chim_share_orig": 0.8401360544217688,
+  "chim_share_neutral": 0.05102040816326531,
+  "trigger_top": [
+   [
+    "other",
+    352
+   ],
+   [
+    "lung_right",
+    11
+   ],
+   [
+    "lung_left",
+    7
+   ],
+   [
+    "liver",
+    1
+   ]
+  ],
+  "trigger_other_share": 0.9487870619946092
+ },
+ "pca": {
+  "area_orig": 0.0,
+  "area_neutral": 0.001736111111111111,
+  "area_run": 0.0,
+  "C07_orig": [
+   0,
+   0
+  ],
+  "C07_neutral": [
+   0,
+   0
+  ],
+  "n_v0": 2048,
+  "chim_share_orig": 0.99951171875,
+  "chim_share_neutral": 0.0419921875,
+  "trigger_top": [
+   [
+    "other",
+    2046
+   ],
+   [
+    "lung_left",
+    1
+   ]
+  ],
+  "trigger_other_share": 0.9995114802149487
+ },
+ "varimax": {
+  "area_orig": 0.0,
+  "area_neutral": 0.0,
+  "area_run": 0.0,
+  "C07_orig": [
+   0,
+   0
+  ],
+  "C07_neutral": [
+   0,
+   0
+  ],
+  "n_v0": 2048,
+  "chim_share_orig": 0.9990234375,
+  "chim_share_neutral": 0.1142578125,
+  "trigger_top": [
+   [
+    "other",
+    2044
+   ],
+   [
+    "lung_left",
+    1
+   ],
+   [
+    "lung_right",
+    1
+   ]
+  ],
+  "trigger_other_share": 0.9990224828934506
+ },
+ "sparse_varimax": {
+  "area_orig": 0.0,
+  "area_neutral": 0.0954861111111111,
+  "area_run": 0.0,
+  "C07_orig": [
+   0,
+   0
+  ],
+  "C07_neutral": [
+   0,
+   1
+  ],
+  "n_v0": 461,
+  "chim_share_orig": 0.9631236442516269,
+  "chim_share_neutral": 0.11062906724511931,
+  "trigger_top": [
+   [
+    "other",
+    527
+   ],
+   [
+    "lung_left",
+    6
+   ],
+   [
+    "liver",
+    4
+   ],
+   [
+    "lung_right",
+    2
+   ]
+  ],
+  "trigger_other_share": 0.9777365491651205
+ },
+ "raw_sparse": {
+  "area_orig": 0.005208333333333333,
+  "area_neutral": 0.2170138888888889,
+  "area_run": 0.005208333333333333,
+  "C07_orig": [
+   0,
+   0
+  ],
+  "C07_neutral": [
+   1,
+   1
+  ],
+  "n_v0": 2042,
+  "chim_share_orig": 0.9559255631733594,
+  "chim_share_neutral": 0.10186092066601371,
+  "trigger_top": [
+   [
+    "other",
+    1942
+   ],
+   [
+    "lung_left",
+    8
+   ],
+   [
+    "lung_right",
+    4
+   ],
+   [
+    "liver",
+    1
+   ],
+   [
+    "heart",
+    1
+   ]
+  ],
+  "trigger_other_share": 0.9928425357873211
+ }
+}

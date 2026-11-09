@@ -1,0 +1,10 @@
+device cuda
+sae_cons: area run 0.000 orig 0.000 neutral 0.000 | chimeric 0.86 -> 0.04 | trigger 'other' 1.00 | C07 [0, 0] -> [0, 0]
+sae_single: area run 0.007 orig 0.007 neutral 0.066 | chimeric 0.89 -> 0.08 | trigger 'other' 0.97 | C07 [0, 0] -> [0, 0]
+hu_sae_cons: area run 0.000 orig 0.000 neutral 0.016 | chimeric 0.92 -> 0.05 | trigger 'other' 0.94 | C07 [0, 0] -> [0, 1]
+null_enc_cons: area run 0.003 orig 0.003 neutral 0.031 | chimeric 0.84 -> 0.05 | trigger 'other' 0.95 | C07 [0, 0] -> [0, 0]
+pca: area run 0.000 orig 0.000 neutral 0.002 | chimeric 1.00 -> 0.04 | trigger 'other' 1.00 | C07 [0, 0] -> [0, 0]
+varimax: area run 0.000 orig 0.000 neutral 0.000 | chimeric 1.00 -> 0.11 | trigger 'other' 1.00 | C07 [0, 0] -> [0, 0]
+sparse_varimax: area run 0.000 orig 0.000 neutral 0.095 | chimeric 0.96 -> 0.11 | trigger 'other' 0.98 | C07 [0, 0] -> [0, 1]
+raw_sparse: area run 0.005 orig 0.005 neutral 0.217 | chimeric 0.96 -> 0.10 | trigger 'other' 0.99 | C07 [0, 0] -> [1, 1]
+DONE

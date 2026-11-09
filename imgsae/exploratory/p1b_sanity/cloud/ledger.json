@@ -1,0 +1,111 @@
+{
+ "cap_usd": 29.0,
+ "rule": "User, 2026-11-09: Modal free credit is $30/month; stop at $29 for the whole project; every task has its own budget and must not exceed it. Check usage before every launch. Using 'reserve' or moving money between tasks needs the user's OK.",
+ "budgets": {
+  "a3_sae": 3.0,
+  "stageC_encode": 10.0,
+  "stageC_fit": 4.0,
+  "stageD_dinov3": 6.0,
+  "reserve": 6.0
+ },
+ "runs": [
+  {
+   "id": "a3_sae-001",
+   "task": "a3_sae",
+   "opened": "2026-11-09T11:43:50",
+   "worst_usd": 0.4352,
+   "info": {
+    "app": "imgsae-p1b-a3sae",
+    "jobs": [
+     "sae_run:0"
+    ],
+    "timeout_min": 15,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T12:10:44",
+   "measured_usd": 0.1874,
+   "note": "ok 1, failed 0, unfinished 0"
+  },
+  {
+   "id": "a3_sae-002",
+   "task": "a3_sae",
+   "opened": "2026-11-09T12:11:52",
+   "worst_usd": 1.1241,
+   "info": {
+    "app": "imgsae-p1b-a3sae",
+    "jobs": [
+     "sae_run:1",
+     "sae_run:2",
+     "sae_cons_run:0",
+     "sae_cons_run:1",
+     "sae_cons_run:2"
+    ],
+    "timeout_min": 8,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T12:39:20",
+   "measured_usd": 0.6295,
+   "note": "ok 5, failed 0, unfinished 0"
+  },
+  {
+   "id": "a3_sae-003",
+   "task": "a3_sae",
+   "opened": "2026-11-09T12:39:52",
+   "worst_usd": 1.6641,
+   "info": {
+    "app": "imgsae-p1b-a3sae",
+    "jobs": [
+     "sae_best_k6:0",
+     "sae_best_k6:1",
+     "sae_best_k6:2",
+     "sae_best_k27:0",
+     "sae_best_k27:1",
+     "sae_best_k27:2"
+    ],
+    "timeout_min": 11,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T13:11:42",
+   "measured_usd": 0.8634,
+   "note": "ok 6, failed 0, unfinished 0"
+  }
+ ],
+ "checks": [
+  {
+   "time": "2026-11-09T11:39:17",
+   "month_used_usd": 0.0,
+   "open_worst_usd": 0,
+   "project_committed_usd": 0.0
+  },
+  {
+   "time": "2026-11-09T11:43:50",
+   "month_used_usd": 0.0005,
+   "open_worst_usd": 0,
+   "project_committed_usd": 0.0
+  },
+  {
+   "time": "2026-11-09T12:11:52",
+   "month_used_usd": 0.0505,
+   "open_worst_usd": 0,
+   "project_committed_usd": 0.1874
+  },
+  {
+   "time": "2026-11-09T12:39:52",
+   "month_used_usd": 0.3405,
+   "open_worst_usd": 0,
+   "project_committed_usd": 0.8169
+  },
+  {
+   "time": "2026-11-09T13:11:55",
+   "month_used_usd": 0.7305,
+   "open_worst_usd": 0,
+   "project_committed_usd": 1.6803
+  }
+ ]
+}

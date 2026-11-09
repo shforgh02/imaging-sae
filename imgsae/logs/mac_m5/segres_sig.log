@@ -1,0 +1,4 @@
+(self, spatial_dims: 'int' = 3, init_filters: 'int' = 32, in_channels: 'int' = 1, act: 'tuple | str' = 'relu', norm: 'tuple | str' = 'batch', blocks_down: 'tuple' = (1, 2, 2, 4), head_module: 'nn.Module | None' = None, anisotropic_scales: 'tuple | None' = None)
+    def forward(self, x: torch.Tensor) -> list[torch.Tensor]:
+        return self._forward(x)
+

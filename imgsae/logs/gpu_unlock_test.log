@@ -1,0 +1,68 @@
+﻿**********************
+Windows PowerShell transcript start
+Start time: 20261107152130
+Username: ARMASUS\Arman
+RunAs User: ARMASUS\Arman
+Configuration Name: 
+Machine: ARMASUS (Microsoft Windows NT 10.0.26200.0)
+Host Application: C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -ExecutionPolicy Bypass -File D:\Shayan\imgsae\scripts\gpu_unlock_test.ps1
+Process ID: 17384
+PSVersion: 5.1.26100.9711
+PSEdition: Desktop
+PSCompatibleVersions: 1.0, 2.0, 3.0, 4.0, 5.0, 5.1.26100.9711
+BuildVersion: 10.0.26100.9711
+CLRVersion: 4.0.30319.42000
+WSManStackVersion: 3.0
+PSRemotingProtocolVersion: 2.3
+SerializationVersion: 1.1.0.1
+**********************
+
+=== baseline
+210 MHz, 2100 MHz, 752.67 W, 50.00 W, 45.75, Active
+210 MHz, 2100 MHz, 752.67 W, 50.00 W, 46.50, Active
+210 MHz, 2100 MHz, 752.67 W, 50.00 W, 46.91, Active
+seconds per 160^3 window: 1.052  ->  POWER-CAPPED (see EXECUTION_LOG)
+RESULT baseline: 1.052 s per window, still capped
+
+--- step 1: nvidia-smi -lgc 1200,2100
+GPU clocks set to "(gpuClkMin 1200, gpuClkMax 2100)" for GPU 00000000:01:00.0
+All done.
+
+=== clock lock
+210 MHz, 2100 MHz, 752.67 W, 50.00 W, 45.12, Active
+210 MHz, 2100 MHz, 752.67 W, 50.00 W, 45.72, Active
+210 MHz, 2100 MHz, 752.67 W, 50.00 W, 46.16, Active
+seconds per 160^3 window: 1.055  ->  POWER-CAPPED (see EXECUTION_LOG)
+RESULT clock lock: 1.055 s per window, still capped
+no gain -> clock lock removed
+
+--- step 2: disable ACPI\NVDA0820\NPCF
+Microsoft PnP Utility
+
+Disabling device:          ACPI\NVDA0820\NPCF
+Device disabled successfully.
+
+=== NVPCF disabled
+210 MHz, 2100 MHz, 752.67 W, 35.00 W, 45.56, Active
+210 MHz, 2100 MHz, 752.67 W, 35.00 W, 46.28, Active
+210 MHz, 2100 MHz, 752.67 W, 35.00 W, 46.56, Active
+seconds per 160^3 window: 1.053  ->  POWER-CAPPED (see EXECUTION_LOG)
+RESULT NVPCF disabled: 1.053 s per window, still capped
+
+=== NVPCF disabled + clock lock
+210 MHz, 2100 MHz, 752.67 W, 35.00 W, 45.41, Active
+210 MHz, 2100 MHz, 752.67 W, 35.00 W, 46.00, Active
+210 MHz, 2100 MHz, 752.67 W, 35.00 W, 46.59, Active
+seconds per 160^3 window: 1.053  ->  POWER-CAPPED (see EXECUTION_LOG)
+RESULT NVPCF disabled + clock lock: 1.053 s per window, still capped
+no gain -> NVPCF re-enabled, clock lock removed
+
+=== SUMMARY
+baseline 1.052 s/window
+Nothing helped; system left exactly as before.
+Final state:
+
+**********************
+Windows PowerShell transcript end
+End time: 20261107152336
+**********************

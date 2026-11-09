@@ -1,0 +1,44 @@
+[   0.0 min] A1 quick: loading rows
+[   0.1 min] max |rebuilt run reference - X_ref| = 0.00e+00
+[   0.1 min] task T1a: 5000 tokens, 146 patients, 29 classes
+[   0.1 min] task T1b: 4035 tokens, 150 patients, 34 classes
+[   0.1 min] task T2: 3300 tokens, 148 patients, 33 classes
+[   0.1 min] task T3_vert: 1933 tokens, 145 patients, 24 classes
+[   0.1 min] task T3_lobe: 500 tokens, 110 patients, 5 classes
+[   0.1 min] task T3_side: 1277 tokens, 139 patients, 2 classes
+[   0.1 min] task T3_rib SKIPPED (< 2 classes with >= 10 patients): {'rib01': {'tokens': 24, 'patients': 19}}
+[   0.1 min] probes: 69 total, 30 to run, 4 workers
+[   0.3 min]   probe 1/30 T3_vert__ctfm+R3.npy
+[   0.3 min]   probe 2/30 T3_vert__null+R3.npy
+[   0.3 min]   probe 3/30 T3_lobe__ctfm.npy
+[   0.3 min]   probe 4/30 T3_lobe__null.npy
+[   0.3 min]   probe 5/30 T3_lobe__R0.npy
+[   0.3 min]   probe 6/30 T3_lobe__R1.npy
+[   0.3 min]   probe 7/30 T3_lobe__R2.npy
+[   0.3 min]   probe 8/30 T3_lobe__R3.npy
+[   0.3 min]   probe 9/30 T3_lobe__R4.npy
+[   0.3 min]   probe 10/30 T3_lobe__run.npy
+[   0.3 min]   probe 11/30 T3_lobe__ctfm+R3.npy
+[   0.3 min]   probe 12/30 T3_lobe__null+R3.npy
+[   0.3 min]   probe 13/30 T4_T3_lobe__ctfm__n3__d0.npy
+[   0.3 min]   probe 14/30 T4_T3_lobe__null__n3__d0.npy
+[   0.3 min]   probe 15/30 T4_T3_lobe__R3__n3__d0.npy
+[   0.3 min]   probe 16/30 T4_T3_lobe__R4__n3__d0.npy
+[   0.3 min]   probe 17/30 T3_side__ctfm.npy
+[   0.3 min]   probe 18/30 T3_side__null.npy
+[   0.3 min]   probe 19/30 T3_side__R0.npy
+[   0.3 min]   probe 20/30 T3_side__R1.npy
+[   0.3 min]   probe 21/30 T3_side__R2.npy
+[   0.3 min]   probe 22/30 T3_side__R3.npy
+[   0.3 min]   probe 23/30 T3_side__R4.npy
+[   0.3 min]   probe 24/30 T3_side__run.npy
+[   0.3 min]   probe 25/30 T3_side__ctfm+R3.npy
+[   0.3 min]   probe 26/30 T3_side__null+R3.npy
+[   0.3 min]   probe 27/30 T4_T3_side__ctfm__n3__d0.npy
+[   0.3 min]   probe 28/30 T4_T3_side__null__n3__d0.npy
+[   0.3 min]   probe 29/30 T4_T3_side__R3__n3__d0.npy
+[   0.3 min]   probe 30/30 T4_T3_side__R4__n3__d0.npy
+[   0.3 min] bootstrap: 538 comparisons
+[   0.3 min] R_sat {'median_ctfm': 0.9979466327827192, 'median_null': 0.9236264294790343, 'median_R3': 0.9892249047013977, 'median_diff_ctfm_R3': 0.0046277001270648155, 'holds': False}
+[   0.3 min] R_fm holds True: T4:T1b:n3 0.12, T2 0.03, T3_vert 0.38, T4:T3_vert:n3 0.33, T3_lobe 0.40, T4:T3_lobe:n3 0.80, T3_side 0.00, T4:T3_side:n3 1.00
+[   0.3 min] DONE

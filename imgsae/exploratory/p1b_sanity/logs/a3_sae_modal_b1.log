@@ -1,0 +1,56 @@
+✓ Initialized. View run at 
+https://modal.com/apps/shforghani2002/main/ap-Ing7DGIKE9CK0M8W0M0WP0
+✓ Created objects.
+├── 🔨 Created mount 
+│   D:\Shayan\imgsae\exploratory\p1b_sanity\cloud\a3_sae_modal.py
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\p1b_sanity\a3_decomp_fair.py
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\p1b_sanity\common.py
+├── 🔨 Created mount 
+│   D:\Shayan\imgsae\exploratory\p1_checks\c1b_chimera_other.py
+├── 🔨 Created mount D:\Shayan\imgsae\scripts\p1_assemble.py
+├── 🔨 Created mount D:\Shayan\imgsae\scripts\p1_probe.py
+├── 🔨 Created mount D:\Shayan\imgsae\scripts\p1_fit.py
+├── 🔨 Created mount D:\Shayan\imgsae\imgsae
+└── 🔨 Created function run_one.
+methods ['sae_run', 'sae_cons_run', 'sae_best_k6', 'sae_best_k27']; to run [('sae_run', 1), ('sae_run', 2), ('sae_cons_run', 0), ('sae_cons_run', 1), ('sae_cons_run', 2)]; timeout 8 min, max containers 5, L4
+{
+ "status": {
+  "time": "2026-11-09T12:11:52",
+  "month_used_usd": 0.0505,
+  "open_worst_usd": 0,
+  "project_committed_usd": 0.1874,
+  "per_task_usd": {
+   "a3_sae": 0.1874,
+   "stageC_encode": 0.0,
+   "stageC_fit": 0.0,
+   "stageD_dinov3": 0.0,
+   "reserve": 0.0
+  },
+  "cap_usd": 29.0
+ },
+ "tests": {
+  "task a3_sae: 0.19 + 1.12 <= 3.00": true,
+  "project: 0.19 + 1.12 <= 29.00": true,
+  "month (Modal billing): 0.05 + open 0.00 + 1.12 <= 29.00": true
+ }
+}
+launch a3_sae-002: 5 jobs, worst case $1.12
+sae_run rep 1: device cuda NVIDIA L4
+sae_run rep 1: R1 0.052 area orig 0.007 neutral 0.062 | fit 0.7 min, total 1.2 min
+saved sae_run_rep1 (1/5); measured so far $0.18
+sae_run rep 2: device cuda NVIDIA L4
+saved sae_run_rep2 (2/5); measured so far $0.25
+sae_run rep 2: R1 0.064 area orig 0.005 neutral 0.061 | fit 0.6 min, total 1.0 min
+sae_cons_run rep 0: device cuda NVIDIA L4
+saved sae_cons_run_rep0 (3/5); measured so far $0.38
+sae_cons_run rep 0: R1 0.553 area orig 0.000 neutral 0.002 | fit 3.2 min, total 3.7 min
+sae_cons_run rep 1: device cuda NVIDIA L4
+sae_cons_run rep 1: R1 0.531 area orig 0.000 neutral 0.014 | fit 3.2 min, total 3.7 min
+saved sae_cons_run_rep1 (4/5); measured so far $0.50
+sae_cons_run rep 2: device cuda NVIDIA L4
+saved sae_cons_run_rep2 (5/5); measured so far $0.63
+sae_cons_run rep 2: R1 0.440 area orig 0.000 neutral 0.002 | fit 3.3 min, total 3.7 min
+closed a3_sae-002: ok 5 failed 0 unfinished 0, cost estimate $0.63
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/shforghani2002/main/ap-Ing7DGIKE9CK0M8W0M0WP0

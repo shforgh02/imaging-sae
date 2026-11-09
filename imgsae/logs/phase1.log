@@ -1,0 +1,31 @@
+python D:\Shayan\imgsae\.venv\Scripts\python.exe  threads 4  Sat Nov  7 15:50:11 2026
+start fetch: D:\Shayan\imgsae\.venv\Scripts\python.exe scripts/fetch_subset.py get D:\Shayan\imgsae\data\p1_dev_ids.txt hf 6
+done fetch rc=0 0.3 min
+skip tests
+start units: D:\Shayan\imgsae\.venv\Scripts\python.exe tests/test_units.py
+done units rc=0 0.3 min
+start encode: D:\Shayan\imgsae\.venv\Scripts\python.exe scripts/p1_encode.py D:\Shayan\imgsae\data\p1_dev_ids.txt --spacing 1.0
+FAILED encode rc=1 0.0 min
+STOP encode
+=== relaunch after encode argparse fix 11/07/2026 16:02:50
+python D:\Shayan\imgsae\.venv\Scripts\python.exe  threads 4  Sat Nov  7 16:02:51 2026
+skip fetch
+skip tests
+skip units
+start encode: D:\Shayan\imgsae\.venv\Scripts\python.exe scripts/p1_encode.py D:\Shayan\imgsae\data\p1_dev_ids.txt --spacing 1.0
+done encode rc=0 590.7 min
+start assemble: D:\Shayan\imgsae\.venv\Scripts\python.exe scripts/p1_assemble.py
+done assemble rc=0 2.9 min
+start probe: D:\Shayan\imgsae\.venv\Scripts\python.exe scripts/p1_probe.py
+done probe rc=0 13.6 min
+start perturb_shift: D:\Shayan\imgsae\.venv\Scripts\python.exe scripts/p1_encode.py D:\Shayan\imgsae\data\p1\perturb_ids.txt --spacing 1.0 --perturb shift --out D:\Shayan\imgsae\data\p1\perturb\shift
+done perturb_shift rc=0 94.3 min
+start perturb_noise: D:\Shayan\imgsae\.venv\Scripts\python.exe scripts/p1_encode.py D:\Shayan\imgsae\data\p1\perturb_ids.txt --spacing 1.0 --perturb noise --out D:\Shayan\imgsae\data\p1\perturb\noise
+done perturb_noise rc=0 94.3 min
+start perturb_huoff: D:\Shayan\imgsae\.venv\Scripts\python.exe scripts/p1_encode.py D:\Shayan\imgsae\data\p1\perturb_ids.txt --spacing 1.0 --perturb huoff --out D:\Shayan\imgsae\data\p1\perturb\huoff
+done perturb_huoff rc=0 93.8 min
+start fit: D:\Shayan\imgsae\.venv\Scripts\python.exe scripts/p1_fit.py
+done fit rc=0 150.9 min
+start decide: D:\Shayan\imgsae\.venv\Scripts\python.exe scripts/p1_decide.py
+done decide rc=0 0.1 min
+PHASE1 DONE

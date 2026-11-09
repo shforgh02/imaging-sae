@@ -1,0 +1,80 @@
+{
+ "verdict": "NO-GO",
+ "gate_E": true,
+ "gate_E_time_waived": false,
+ "spacing": 1.0,
+ "encode_hours": 9.841666666666667,
+ "gate_S": false,
+ "n_gated": 32,
+ "n_beyond_hu": 0,
+ "strongest_baseline": "soft_kmeans",
+ "baseline_area": {
+  "sparse_varimax": 0.0023148148148148147,
+  "soft_kmeans": 0.045717592592592594,
+  "raw_sparse": 0.003472222222222222,
+  "hu_sae_cons": 0.0
+ },
+ "sae_vs_strongest": {
+  "sae_cons": {
+   "all_reps_above": false,
+   "mean_gain": -0.045717592592592594
+  },
+  "sae_single": {
+   "all_reps_above": false,
+   "mean_gain": -0.03819444444444445
+  }
+ },
+ "D1": false,
+ "R1_consensus": 0.5583175205566097,
+ "theta": {
+  "theta": 0.5035335689045937,
+  "n_pos": 2,
+  "n_neg": 2547,
+  "estimable": false,
+  "ci": [
+   0.24489795918367346,
+   0.7613814756671899
+  ],
+  "spearman_t_vs_validity": NaN
+ },
+ "D2": false,
+ "shortcut_share": 0.010416666666666666,
+ "D3": false,
+ "C07": {
+  "frozen_dec": 0.0,
+  "soft_kmeans": 1.0,
+  "sparse_varimax": 0.0,
+  "hu_sae_cons": 0.0,
+  "raw_sparse": 0.0,
+  "null_enc_cons": 0.0,
+  "sae_cons": 0.0,
+  "pca": 0.0,
+  "varimax": 0.0,
+  "sae_single": 0.0
+ },
+ "degenerate": true,
+ "areas": {
+  "frozen_dec": 0.0,
+  "hu_sae_cons": 0.0,
+  "null_enc_cons": 0.003472222222222222,
+  "pca": 0.0,
+  "raw_sparse": 0.003472222222222222,
+  "sae_cons": 0.0,
+  "sae_single": 0.007523148148148148,
+  "soft_kmeans": 0.045717592592592594,
+  "sparse_varimax": 0.0023148148148148147,
+  "varimax": 0.0
+ },
+ "R1": {
+  "frozen_dec": 0.0,
+  "hu_sae_cons": 0.6356470887363336,
+  "null_enc_cons": 0.8468439096373368,
+  "pca": 0.5123697916666666,
+  "raw_sparse": 0.9996735226901731,
+  "sae_cons": 0.5583175205566097,
+  "sae_single": 0.05336662967073622,
+  "soft_kmeans": 0.3192156862745098,
+  "sparse_varimax": 0.9899300349825086,
+  "varimax": 1.0
+ }
+}

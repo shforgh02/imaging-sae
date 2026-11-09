@@ -1,0 +1,3 @@
+device cuda
+soft_kmeans: area run 0.042 orig 0.042 neutral 0.273 | chimeric 0.79 -> 0.05 | trigger 'other' 0.98 | C07 [0, 1] -> [6, 7]
+DONE

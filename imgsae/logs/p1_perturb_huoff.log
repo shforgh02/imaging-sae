@@ -1,0 +1,23 @@
+device cuda (NVIDIA GeForce RTX 3050 Ti Laptop GPU)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+1/20 s0006 tokens 4049 table 16s encode 106s
+2/20 s0058 tokens 11673 table 50s encode 317s
+3/20 s0190 tokens 4328 table 25s encode 186s
+4/20 s0213 tokens 4036 table 21s encode 127s
+5/20 s0327 tokens 6896 table 28s encode 147s
+6/20 s0401 tokens 4581 table 28s encode 146s
+7/20 s0425 tokens 4845 table 19s encode 181s
+8/20 s0694 tokens 5742 table 24s encode 144s
+9/20 s0708 tokens 7055 table 38s encode 216s
+10/20 s0750 tokens 2287 table 10s encode 49s
+11/20 s0785 tokens 2901 table 14s encode 73s
+12/20 s0860 tokens 11211 table 62s encode 415s
+13/20 s1063 tokens 5512 table 51s encode 317s
+14/20 s1120 tokens 7539 table 47s encode 224s
+15/20 s1140 tokens 5120 table 27s encode 114s
+16/20 s1159 tokens 9178 table 92s encode 763s
+17/20 s1161 tokens 14266 table 96s encode 517s
+18/20 s1207 tokens 11728 table 57s encode 376s
+19/20 s1216 tokens 12214 table 55s encode 264s
+20/20 s1291 tokens 9386 table 28s encode 146s
+DONE 20/20

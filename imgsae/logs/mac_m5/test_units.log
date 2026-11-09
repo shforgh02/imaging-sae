@@ -1,0 +1,17 @@
+PASS  R1 identical codes = 1  1.000
+PASS  R1 random codes <= 0.05  0.000
+PASS  selectivity pure feature, K=60  0.893
+PASS  selectivity 5-organ feature, K=60  0.200
+PASS  selectivity with patient averaging (balanced)  0.893
+PASS  coverage_curve  [np.int64(2), np.int64(1), np.int64(1)] 0.333
+PASS  chimera adjacency rule  [False  True]
+PASS  theta recovers planted AUROC +-0.03  0.774 vs 0.760
+PASS  twin scores identical = 1  
+PASS  cluster bootstrap 95% coverage in [0.93, 0.97]  0.934
+PASS  corrected t variance (1/J + 1)  t=2.02
+PASS  holm  
+PASS  size_rule  
+PASS  init_fallback M > rows  
+PASS  sampled-threshold path L0 within 2% of k  L0=4.004
+PASS  MPS vs CPU L0 within 1%  cpu 4.000 mps 4.000
+16/16 passed

@@ -1,0 +1,163 @@
+{
+ "results": [
+  {
+   "tag": "s0006",
+   "shape": [
+    326,
+    324,
+    324
+   ],
+   "device": "cuda",
+   "device_name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+   "win": 192,
+   "margin": 48,
+   "gpu_seconds": 47.847519636154175,
+   "windows": 27,
+   "gpu_peak_gb": 2.63192576,
+   "grid": [
+    21,
+    21,
+    21
+   ],
+   "parity_cos_gpu16_vs_cpu32": 0.9999907928473926,
+   "seam_cos_tiling_vs_224": 0.994535397822625,
+   "gpu_peak_gb_incl_seam": 5.257560064,
+   "gpu_capacity_gb": 4.294443008,
+   "spill": true,
+   "spacing_native": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "spacing": 1.0
+  },
+  {
+   "tag": "s0015",
+   "shape": [
+    516,
+    440,
+    440
+   ],
+   "device": "cuda",
+   "device_name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+   "win": 192,
+   "margin": 48,
+   "gpu_seconds": 141.57079982757568,
+   "windows": 80,
+   "gpu_peak_gb": 3.378511872,
+   "grid": [
+    33,
+    28,
+    28
+   ],
+   "parity_cos_gpu16_vs_cpu32": 0.9999887671812004,
+   "seam_cos_tiling_vs_224": 0.9942137772321188,
+   "gpu_peak_gb_incl_seam": 4.240441344,
+   "gpu_capacity_gb": 4.294443008,
+   "spill": false,
+   "spacing_native": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "spacing": 1.0
+  },
+  {
+   "tag": "s0024",
+   "shape": [
+    729,
+    430,
+    430
+   ],
+   "device": "cuda",
+   "device_name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+   "win": 192,
+   "margin": 48,
+   "gpu_seconds": 198.2903974056244,
+   "windows": 112,
+   "gpu_peak_gb": 3.378511872,
+   "grid": [
+    46,
+    27,
+    27
+   ],
+   "parity_cos_gpu16_vs_cpu32": 0.9999884345515316,
+   "seam_cos_tiling_vs_224": 0.9909466391631798,
+   "gpu_peak_gb_incl_seam": 4.240441344,
+   "gpu_capacity_gb": 4.294443008,
+   "spill": false,
+   "spacing_native": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "spacing": 1.0
+  },
+  {
+   "tag": "s0038",
+   "shape": [
+    500,
+    360,
+    360
+   ],
+   "device": "cuda",
+   "device_name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+   "win": 192,
+   "margin": 48,
+   "gpu_seconds": 79.80378675460815,
+   "windows": 45,
+   "gpu_peak_gb": 3.378511872,
+   "grid": [
+    32,
+    23,
+    23
+   ],
+   "parity_cos_gpu16_vs_cpu32": 0.9999930645075736,
+   "seam_cos_tiling_vs_224": 0.995624133260176,
+   "gpu_peak_gb_incl_seam": 4.240441344,
+   "gpu_capacity_gb": 4.294443008,
+   "spill": false,
+   "spacing_native": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "spacing": 1.0
+  },
+  {
+   "tag": "s0040",
+   "shape": [
+    632,
+    436,
+    436
+   ],
+   "device": "cuda",
+   "device_name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+   "win": 192,
+   "margin": 48,
+   "gpu_seconds": 169.91708517074585,
+   "windows": 96,
+   "gpu_peak_gb": 3.378511872,
+   "grid": [
+    40,
+    28,
+    28
+   ],
+   "parity_cos_gpu16_vs_cpu32": 0.9999888022616206,
+   "seam_cos_tiling_vs_224": 0.9938177487363751,
+   "gpu_peak_gb_incl_seam": 4.240441344,
+   "gpu_capacity_gb": 4.294443008,
+   "spill": false,
+   "spacing_native": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "spacing": 1.0
+  }
+ ],
+ "gate_E_partial": true,
+ "spacing": 1.0,
+ "device": "cuda",
+ "mean_seconds": 127.48591775894165
+}

@@ -1,0 +1,9 @@
+{
+ "spacing": 1.0,
+ "projected_hours": 13.810974423885346,
+ "rule": "run_phase1 spacing rule: 1.0 mm if gate_E_partial and 150x2xmean_seconds x1.3 <= 16 h",
+ "n_scans_profiled": 5,
+ "win": 192,
+ "margin": 48,
+ "gate_E_time_waived": false
+}

@@ -1,0 +1,5 @@
+device cuda (NVIDIA GeForce RTX 3050 Ti Laptop GPU)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+{"tag": "s0006", "shape": [326, 324, 324], "device": "cuda", "device_name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU", "gpu_seconds": 85.2721962928772, "windows": 64, "gpu_peak_gb": 1.681915904, "grid": [21, 21, 21], "parity_cos_gpu16_vs_cpu32": 0.9999904706716876, "seam_cos_tiling160_vs_224": 0.9812872851303402, "gpu_peak_gb_incl_seam": 5.257560064, "gpu_capacity_gb": 4.294443008, "spill": true}
+{"tag": "s0015", "shape": [516, 440, 440], "device": "cuda", "device_name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU", "gpu_seconds": 335.1346571445465, "windows": 252, "gpu_peak_gb": 1.526726656, "grid": [33, 28, 28], "parity_cos_gpu16_vs_cpu32": 0.9999889191939645, "seam_cos_tiling160_vs_224": 0.977399722797432, "gpu_peak_gb_incl_seam": 5.272240128, "gpu_capacity_gb": 4.294443008, "spill": true}
+GATE_E_PARTIAL False DONE

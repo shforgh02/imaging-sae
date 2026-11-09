@@ -1,0 +1,5 @@
+[   0.0 min] A3 part cpu device cpu
+[   0.1 min] input X_ctfm loaded: (1021303, 512)
+[   2.5 min] km_ctfm_L6_rep0: R1 0.32 L0 {'A': 6.0, 'B': 6.0} nfeat {'A': 425, 'B': 425} | area orig 0.042 neutral 0.273 | matched orig 0.042 neutral 0.273 | C07 n [6, 7] | 2.0 min
+[   4.6 min] km_ctfm_L27_rep0: R1 0.59 L0 {'A': 27.0, 'B': 27.0} nfeat {'A': 425, 'B': 425} | area orig 0.012 neutral 0.082 | matched orig 0.012 neutral 0.082 | C07 n [1, 1] | 1.8 min
+[   4.6 min] DONE

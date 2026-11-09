@@ -1,0 +1,29 @@
+# Large or local-only data. It stays on the project PC; see DATA.md for what it is and how to rebuild it.
+imgsae_data/
+_trash/
+imgsae/.venv/
+imgsae/data/p1/scans/
+imgsae/data/p1/perturb/
+imgsae/data/p1/rows.npz
+imgsae/exploratory/p1b_sanity/cloud/stage/
+imgsae/exploratory/p1b_sanity/results/a1_cache_full/
+imgsae/exploratory/p1b_sanity/results/a1_cache_quick/
+imgsae/logs/mac_m5/lz/
+*.npz
+*.npy
+*.pt
+*.pth
+*.safetensors
+*.nii
+*.nii.gz
+*.mha
+*.dcm
+*.zip
+*.whl
+
+# Run-time clutter
+*.pid
+__pycache__/
+*.pyc
+.DS_Store
+.ipynb_checkpoints/

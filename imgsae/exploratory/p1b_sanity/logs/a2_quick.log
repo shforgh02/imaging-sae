@@ -1,0 +1,5 @@
+[   0.0 min] A2 device cuda
+[   0.4 min] loaded; perturbation kinds ['shift', 'noise', 'huoff']
+[   3.4 min] run_M425_k27_s3000: fit 1.7 min | R1 0.09 | r2_other 0.586 | dead 0.00 | area orig 0.002 neutral 0.030 matched 0.030 | C07 [0, 0] | med sel 0.31
+[   5.7 min] M425_k6_s3000: fit 1.8 min | R1 0.03 | r2_other 0.566 | dead 0.00 | area orig 0.030 neutral 0.097 matched 0.097 | C07 [0, 0] | med sel 0.47
+[   7.3 min] seed check M425_k6_s3000: {'config': 'M425_k6_s3000', 'R1_within_halfA': 0.037825059101654845, 'R1_med_within_halfA': 0.39874275965756273}

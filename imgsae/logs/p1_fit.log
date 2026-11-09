@@ -1,0 +1,32 @@
+device cuda
+sae_cons_rep0 R1 0.56 area 0.000 beyondHU 0.000 theta nan shortcut 0.0
+sae_single_rep0 R1 0.04 area 0.007 beyondHU 0.000 theta nan shortcut 0.02857142857142857
+hu_sae_cons_rep0 R1 0.67 area 0.000 beyondHU 0.000 theta nan shortcut 0.0
+null_enc_cons_rep0 R1 0.81 area 0.003 beyondHU 0.000 theta nan shortcut 0.11214953271028037
+frozen_dec_rep0 R1 0.00 area 0.000 beyondHU 0.000 theta nan shortcut nan
+pca_rep0 R1 0.49 area 0.000 beyondHU 0.000 theta nan shortcut 0.158
+varimax_rep0 R1 1.00 area 0.000 beyondHU 0.000 theta nan shortcut 0.00830078125
+sparse_varimax_rep0 R1 1.00 area 0.000 beyondHU 0.000 theta nan shortcut 0.5178571428571429
+soft_kmeans_rep0 R1 0.32 area 0.042 beyondHU 0.000 theta 0.4391785150078989 shortcut 0.25650557620817843
+raw_sparse_rep0 R1 1.00 area 0.005 beyondHU 0.000 theta nan shortcut 0.6566944580676802
+sae_cons_rep1 R1 0.52 area 0.000 beyondHU 0.000 theta nan shortcut 0.03125
+sae_single_rep1 R1 0.05 area 0.007 beyondHU 0.000 theta 0.5011792452830188 shortcut 0.02040816326530612
+hu_sae_cons_rep1 R1 0.63 area 0.000 beyondHU 0.000 theta nan shortcut 0.0
+null_enc_cons_rep1 R1 0.86 area 0.003 beyondHU 0.000 theta nan shortcut 0.12903225806451613
+frozen_dec_rep1 R1 0.00 area 0.000 beyondHU 0.000 theta nan shortcut nan
+pca_rep1 R1 0.51 area 0.000 beyondHU 0.000 theta nan shortcut 0.17754318618042225
+varimax_rep1 R1 1.00 area 0.000 beyondHU 0.000 theta nan shortcut 0.00830078125
+sparse_varimax_rep1 R1 0.97 area 0.005 beyondHU 0.000 theta nan shortcut 0.5102040816326531
+soft_kmeans_rep1 R1 0.33 area 0.045 beyondHU 0.000 theta 0.26385358413828164 shortcut 0.28321678321678323
+raw_sparse_rep1 R1 1.00 area 0.002 beyondHU 0.000 theta nan shortcut 0.6666666666666666
+sae_cons_rep2 R1 0.60 area 0.000 beyondHU 0.000 theta nan shortcut 0.0
+sae_single_rep2 R1 0.07 area 0.009 beyondHU 0.000 theta nan shortcut 0.016666666666666666
+hu_sae_cons_rep2 R1 0.61 area 0.000 beyondHU 0.000 theta nan shortcut 0.0
+null_enc_cons_rep2 R1 0.87 area 0.003 beyondHU 0.000 theta nan shortcut 0.125
+frozen_dec_rep2 R1 0.00 area 0.000 beyondHU 0.000 theta nan shortcut nan
+pca_rep2 R1 0.53 area 0.000 beyondHU 0.000 theta nan shortcut 0.16833484986351227
+varimax_rep2 R1 1.00 area 0.000 beyondHU 0.000 theta nan shortcut 0.00634765625
+sparse_varimax_rep2 R1 1.00 area 0.002 beyondHU 0.000 theta nan shortcut 0.5180995475113123
+soft_kmeans_rep2 R1 0.32 area 0.050 beyondHU 0.000 theta 0.37945368171021376 shortcut 0.26394052044609667
+raw_sparse_rep2 R1 1.00 area 0.003 beyondHU 0.000 theta nan shortcut 0.6637254901960784
+DONE

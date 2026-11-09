@@ -1,0 +1,11 @@
+PASS  fit + encode (matryoshka=True)  
+PASS  fit + encode (matryoshka=False)  
+PASS  fit legacy default M/k  
+PASS  fits_codes / consensus_codes_cl / anchor  
+PASS  consensus_groups_cl + encode_groups == consensus_codes_cl  
+PASS  control_codes(pca) + split_signed  
+PASS  control_codes(varimax) + split_signed  
+PASS  control_codes(ica) + split_signed  
+PASS  topk_rows / alive / act_match  
+PASS  ladder.selectivity == saegt lineage_selectivity at K = 7  
+10/10 passed

@@ -1,0 +1,19 @@
+2026-11-09T11:39:25 stage rows.npz subset
+2026-11-09T11:39:28 staged 1.99 GB
+2026-11-09T11:39:31 Created Volume 'imgsae-p1b' in environment ''. 
+
+Code example:
+
+                                                                               
+@app.function(volumes={"/my_vol": modal.Volume.from_name("imgsae-p1b")})       
+def some_func():                                                               
+    os.listdir("/my_vol")
+2026-11-09T11:39:39 small files done; perturb (0.8 GB)
+2026-11-09T11:40:21 perturb done 0.7 min
+2026-11-09T11:41:49 rows.npz done 1.5 min
+2026-11-09T11:41:51 p1/perturb
+p1/rows.npz
+p1/gates.json
+p1/concepts.json
+
+2026-11-09T11:41:51 UPLOAD DONE

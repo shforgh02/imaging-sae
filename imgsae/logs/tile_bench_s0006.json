@@ -1,0 +1,28 @@
+[
+ {
+  "win": 160,
+  "margin": 48,
+  "seconds": 68.30021691322327,
+  "windows": 64,
+  "peak_gb": 1.681915904,
+  "spill": false
+ },
+ {
+  "win": 192,
+  "margin": 48,
+  "seconds": 47.70277643203735,
+  "windows": 27,
+  "peak_gb": 3.378511872,
+  "spill": false,
+  "cos_vs_160": 0.9904342774069193
+ },
+ {
+  "win": 208,
+  "margin": 48,
+  "seconds": 61.7816002368927,
+  "windows": 27,
+  "peak_gb": 4.242538496,
+  "spill": false,
+  "cos_vs_160": 0.9864829086989513
+ }
+]

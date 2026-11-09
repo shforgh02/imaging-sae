@@ -1,0 +1,28 @@
+Collecting nibabel
+  Using cached nibabel-5.4.2-py3-none-any.whl.metadata (8.9 kB)
+Collecting SimpleITK
+  Using cached simpleitk-2.5.7-cp311-abi3-macosx_11_0_arm64.whl.metadata (7.2 kB)
+Collecting monai
+  Using cached monai-1.6.1-py3-none-any.whl.metadata (15 kB)
+Collecting importlib-resources>=5.12 (from nibabel)
+  Using cached importlib_resources-7.1.0-py3-none-any.whl.metadata (4.0 kB)
+Requirement already satisfied: numpy>=1.25 in /Users/crocodilus/miniforge3/lib/python3.11/site-packages (from nibabel) (2.4.6)
+Requirement already satisfied: packaging>=20 in /Users/crocodilus/miniforge3/lib/python3.11/site-packages (from nibabel) (26.3)
+Requirement already satisfied: typing-extensions>=4.6 in /Users/crocodilus/miniforge3/lib/python3.11/site-packages (from nibabel) (4.16.0)
+Requirement already satisfied: torch>=2.8.0 in /Users/crocodilus/miniforge3/lib/python3.11/site-packages (from monai) (2.10.0)
+Requirement already satisfied: filelock in /Users/crocodilus/miniforge3/lib/python3.11/site-packages (from torch>=2.8.0->monai) (3.29.4)
+Requirement already satisfied: sympy>=1.13.3 in /Users/crocodilus/miniforge3/lib/python3.11/site-packages (from torch>=2.8.0->monai) (1.14.0)
+Requirement already satisfied: networkx>=2.5.1 in /Users/crocodilus/miniforge3/lib/python3.11/site-packages (from torch>=2.8.0->monai) (3.6.1)
+Requirement already satisfied: jinja2 in /Users/crocodilus/miniforge3/lib/python3.11/site-packages (from torch>=2.8.0->monai) (3.1.6)
+Requirement already satisfied: fsspec>=0.8.5 in /Users/crocodilus/miniforge3/lib/python3.11/site-packages (from torch>=2.8.0->monai) (2026.7.0)
+Requirement already satisfied: mpmath<1.5,>=1.1.0 in /Users/crocodilus/miniforge3/lib/python3.11/site-packages (from sympy>=1.13.3->torch>=2.8.0->monai) (1.4.1)
+Requirement already satisfied: MarkupSafe>=2.0 in /Users/crocodilus/miniforge3/lib/python3.11/site-packages (from jinja2->torch>=2.8.0->monai) (3.0.3)
+Using cached nibabel-5.4.2-py3-none-any.whl (3.3 MB)
+Using cached simpleitk-2.5.7-cp311-abi3-macosx_11_0_arm64.whl (38.2 MB)
+Using cached monai-1.6.1-py3-none-any.whl (1.7 MB)
+Using cached importlib_resources-7.1.0-py3-none-any.whl (37 kB)
+Installing collected packages: SimpleITK, importlib-resources, nibabel, monai
+Successfully installed SimpleITK-2.5.7 importlib-resources-7.1.0 monai-1.6.1 nibabel-5.4.2
+
+[notice] A new release of pip is available: 24.0 -> 26.3
+[notice] To update, run: python -m pip install --upgrade pip
