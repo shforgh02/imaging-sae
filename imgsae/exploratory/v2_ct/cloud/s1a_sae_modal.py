@@ -4,8 +4,10 @@ untrained CT-FM, physics R3), reps 0-2. Results -> results/s1a_sae.json and resu
 Budget: p1b_sanity/cloud/budget.py checks task, project and month before launch (user rule: $29 per Modal account per month; this task's
 budget is in the ledger). Each job's Modal timeout is the hard bound for the worst case.
 usage (from v2_ct/, miniconda modal client):
-  $env:S1A_TIMEOUT_MIN = "15"; $env:S1A_MAXC = "1"; C:\\Users\\Arman\\miniconda3\\Scripts\\modal.exe run cloud/s1a_sae_modal.py --jobs sae_M1024_k6_s12000:0
+  $env:S1A_TIMEOUT_MIN = "15"; $env:S1A_MAXC = "1"; C:\\Users\\Arman\\miniconda3\\Scripts\\modal.exe run --detach cloud/s1a_sae_modal.py --jobs sae_M1024_k6_s12000:0
   ... --jobs singles | cons      (singles = single SAE + both nulls, reps 0-2; cons = consensus, reps 0-2)
+Each job also writes its result to the volume (/s1a_out/<name>_rep<r>.json). With --detach the cloud jobs keep running if the local client
+dies; then cloud/s1a_collect.ps1 fetches and merges the results, and the ledger run is closed by hand from Modal billing.
 """
 import json
 import os
@@ -50,18 +52,40 @@ def run_one(name, rep):
     R = L.cm.load_rows(L.ROWS_KEYS); C = L.cm.concepts(); Gt = L.cm.gates(); tasks = L.load_tasks()
     X, pert_in = L.load_input(spec["inp"], R, C); t_load = (time.time() - t_start) / 60
     r, tables = L.run_job(name, spec, rep, R, C, Gt, X, pert_in, tasks, dev)
-    r["where"] = dict(host="modal", gpu=torch.cuda.get_device_name(0), torch=torch.__version__, load_min=t_load, container_min=(time.time() - t_start) / 60)
+    r["where"] = dict(host="modal", gpu=str(torch.cuda.get_device_name(0)), torch=str(torch.__version__), load_min=t_load, container_min=(time.time() - t_start) / 60)
     print(f"{name} rep {rep}: R1 {r['R1']:.3f} matched neutral {r['area_matched_neutral']:.3f} | fit {r['fit_min']:.1f} min, total {r['where']['container_min']:.1f} min", flush=True)
     tab = {h: {k: (v.tolist() if hasattr(v, "tolist") else list(v)) for k, v in T.items()} for h, T in tables.items()}
-    return r, json.loads(json.dumps(tab, default=lambda o: bool(o) if type(o).__name__ == "bool_" else float(o)))
+    out = (r, json.loads(json.dumps(tab, default=lambda o: bool(o) if type(o).__name__ == "bool_" else float(o))))
+    # also keep the result on the volume, so it survives a lost local client (collect with s1a_collect.ps1)
+    os.makedirs("/vol/s1a_out", exist_ok=True); json.dump(dict(result=out[0], tables=out[1]), open(f"/vol/s1a_out/{name}_rep{rep}.json", "w")); vol.commit()
+    return out
+
+
+def gpu_methods():
+    """the GPU method specs from s1a_lib.methods(), run in the project venv (the modal client's python has no numpy)."""
+    import subprocess
+    code = "import json, s1a_lib as L; print('@@' + json.dumps({n: s for n, s in L.methods().items() if s.get('gpu')}))"
+    out = subprocess.run([str(ROOT / ".venv" / "Scripts" / "python.exe"), "-c", code], cwd=V2, capture_output=True, text=True, check=True)
+    return json.loads(out.stdout.split("@@")[-1])
+
+
+def save_tables_csv(name, rep, tab):
+    """per-feature tables as results/tables/<name>_rep<rep>_<half>.csv.gz, the format of s1a_lib.save_tables (stdlib only)."""
+    import csv
+    import gzip
+    import math
+    fmt = lambda x: x if isinstance(x, (str, bool)) else ("" if x is None or (isinstance(x, float) and math.isnan(x)) else f"{x:.5g}")  # noqa: E731
+    for h, T in tab.items():
+        keys = list(T)
+        with gzip.open(V2 / "results" / "tables" / f"{name}_rep{rep}_{h}.csv.gz", "wt", newline="") as f:
+            w = csv.writer(f); w.writerow(keys)
+            for i in range(len(T[keys[0]])): w.writerow([fmt(T[k][i]) for k in keys])
 
 
 @app.local_entrypoint()
 def main(jobs: str = "singles"):
-    sys.path.insert(0, str(SAN / "cloud")); sys.path.insert(0, str(V2)); import budget as B
-    import numpy as np
-    import s1a_lib as L
-    allm = {n: s for n, s in L.methods().items() if s.get("gpu")}; path = V2 / "results" / "s1a_sae.json"; res = json.load(open(path)) if path.exists() else {}
+    sys.path.insert(0, str(SAN / "cloud")); import budget as B
+    allm = gpu_methods(); path = V2 / "results" / "s1a_sae.json"; res = json.load(open(path)) if path.exists() else {}
     if jobs == "singles": want = [(n, r) for n in allm if allm[n]["meth"] == "sae_single" for r in (0, 1, 2)]
     elif jobs == "cons": want = [(n, r) for n in allm if allm[n]["meth"] == "sae_cons" for r in (0, 1, 2)]
     else: want = [(j.split(":")[0], int(j.split(":")[1])) for j in jobs.split(",")]
@@ -78,7 +102,7 @@ def main(jobs: str = "singles"):
         for out in run_one.starmap(todo, order_outputs=False, return_exceptions=True):
             if isinstance(out, BaseException): n_fail += 1; measured += (TIMEOUT_MIN + B.START_MIN) / 60 * rate; print("JOB FAILED:", repr(out)[:800]); continue
             r, tab = out; key = f"{r['method']}_rep{r['rep']}"
-            L.save_tables(r["method"], r["rep"], {h: {k: np.asarray(v) for k, v in T.items()} for h, T in tab.items()})
+            save_tables_csv(r["method"], r["rep"], tab)
             res = json.load(open(path)) if path.exists() else {}; res[key] = r; json.dump(res, open(path, "w"), indent=1)
             n_ok += 1; measured += (r["where"]["container_min"] + B.START_MIN) / 60 * rate
             print(f"saved {key} ({n_ok + n_fail}/{len(todo)}): matched neutral {r['area_matched_neutral']:.3f}; measured so far ${measured:.2f}")

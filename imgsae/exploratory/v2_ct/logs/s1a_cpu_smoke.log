@@ -1,0 +1,4 @@
+[   0.0 min] Stage 1a step cpu
+[   0.2 min] input X_ctfm (1021303, 512); jobs ['raw_L6'] x reps [0]
+[   0.8 min] raw_L6_rep0: R1 1.00 L0 6.0 nfeat {'A': 1024, 'B': 1024} | area orig 0.005 neutral 0.217 | matched 0.003 / 0.146 | C07 [1, 1] | prec 0.001 | k1 vert 0.592 lobe 0.542 | fit 0.1 eval 0.4 k1 0.1 min | sanity vs A3 exact
+[   0.8 min] STEP CPU DONE

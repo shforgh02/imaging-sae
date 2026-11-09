@@ -79,6 +79,91 @@
    "closed": "2026-11-09T13:11:42",
    "measured_usd": 0.8634,
    "note": "ok 6, failed 0, unfinished 0"
+  },
+  {
+   "id": "v2s1a_sae-004",
+   "task": "v2s1a_sae",
+   "opened": "2026-11-09T18:35:54",
+   "worst_usd": 0.4352,
+   "info": {
+    "app": "imgsae-v2-s1a",
+    "jobs": [
+     "sae_M1024_k6_s12000:0"
+    ],
+    "timeout_min": 15,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T18:42:47",
+   "measured_usd": 0.4352,
+   "note": "ok 0, failed 1, unfinished 0"
+  },
+  {
+   "id": "v2s1a_sae-005",
+   "task": "v2s1a_sae",
+   "opened": "2026-11-09T18:43:28",
+   "worst_usd": 0.4352,
+   "info": {
+    "app": "imgsae-v2-s1a",
+    "jobs": [
+     "sae_M1024_k6_s12000:0"
+    ],
+    "timeout_min": 15,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T19:06:05",
+   "measured_usd": 0.235,
+   "note": "ok 1, failed 0, unfinished 0"
+  },
+  {
+   "id": "v2s1a_sae-006",
+   "task": "v2s1a_sae",
+   "opened": "2026-11-09T19:07:07",
+   "worst_usd": 2.7813,
+   "info": {
+    "app": "imgsae-v2-s1a",
+    "jobs": [
+     "sae_M1024_k6_s12000:1",
+     "sae_M1024_k6_s12000:2",
+     "nullsae_M1024_k6_s12000:0",
+     "nullsae_M1024_k6_s12000:1",
+     "nullsae_M1024_k6_s12000:2",
+     "physsae_M1024_k6_s12000:0",
+     "physsae_M1024_k6_s12000:1",
+     "physsae_M1024_k6_s12000:2"
+    ],
+    "timeout_min": 15,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T19:42:28",
+   "measured_usd": 1.0787,
+   "note": "ok 8, failed 0, unfinished 0"
+  },
+  {
+   "id": "v2s1a_sae-007",
+   "task": "v2s1a_sae",
+   "opened": "2026-11-09T19:43:06",
+   "worst_usd": 2.2227,
+   "info": {
+    "app": "imgsae-v2-s1a",
+    "jobs": [
+     "cons_M1024_k6_s12000:0",
+     "cons_M1024_k6_s12000:1",
+     "cons_M1024_k6_s12000:2"
+    ],
+    "timeout_min": 35,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T20:29:08",
+   "measured_usd": 2.2227,
+   "note": "local client killed by Claude Code memory guard ~20:0x; orphaned app stopped 20:29; no results collected; booked at worst case, reconcile with billing"
   }
  ],
  "checks": [
@@ -111,6 +196,42 @@
    "month_used_usd": 0.7305,
    "open_worst_usd": 0,
    "project_committed_usd": 1.6803
+  },
+  {
+   "time": "2026-11-09T18:34:25",
+   "month_used_usd": 0.7405,
+   "open_worst_usd": 0,
+   "project_committed_usd": 1.6803
+  },
+  {
+   "time": "2026-11-09T18:35:54",
+   "month_used_usd": 0.7405,
+   "open_worst_usd": 0,
+   "project_committed_usd": 1.6803
+  },
+  {
+   "time": "2026-11-09T18:43:28",
+   "month_used_usd": 0.8205,
+   "open_worst_usd": 0,
+   "project_committed_usd": 2.1155
+  },
+  {
+   "time": "2026-11-09T19:07:07",
+   "month_used_usd": 0.9605,
+   "open_worst_usd": 0,
+   "project_committed_usd": 2.3505
+  },
+  {
+   "time": "2026-11-09T19:43:06",
+   "month_used_usd": 1.6305,
+   "open_worst_usd": 0,
+   "project_committed_usd": 3.4292
+  },
+  {
+   "time": "2026-11-09T20:29:11",
+   "month_used_usd": 1.6305,
+   "open_worst_usd": 0,
+   "project_committed_usd": 5.6519
   }
  ]
 }

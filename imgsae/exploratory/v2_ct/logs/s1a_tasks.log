@@ -1,0 +1,5 @@
+[   0.0 min] Stage 1a step tasks
+[   0.0 min] task T1b: 59294 tokens, 150 patients, 33 scored classes (= A1)
+[   0.0 min] task T3_vert: 11145 tokens, 149 patients, 24 scored classes (= A1)
+[   0.0 min] task T3_lobe: 10000 tokens, 142 patients, 5 scored classes (= A1)
+[   0.0 min] tasks written

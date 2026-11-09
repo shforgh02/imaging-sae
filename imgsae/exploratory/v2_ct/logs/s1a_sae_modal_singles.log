@@ -1,0 +1,68 @@
+✓ Initialized. View run at 
+https://modal.com/apps/shforghani2002/main/ap-1j6fu28OtsyUNwpYhaRXuq
+✓ Created objects.
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\v2_ct\cloud\s1a_sae_modal.py
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\v2_ct\results\s1a_tasks.npz
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\v2_ct\s1a_lib.py
+├── 🔨 Created mount 
+│   D:\Shayan\imgsae\exploratory\p1b_sanity\results\cache_refpos.npz
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\p1b_sanity\common.py
+├── 🔨 Created mount 
+│   D:\Shayan\imgsae\exploratory\p1_checks\c1b_chimera_other.py
+├── 🔨 Created mount D:\Shayan\imgsae\scripts\p1_assemble.py
+├── 🔨 Created mount D:\Shayan\imgsae\scripts\p1_probe.py
+├── 🔨 Created mount D:\Shayan\imgsae\scripts\p1_fit.py
+├── 🔨 Created mount D:\Shayan\imgsae\imgsae
+└── 🔨 Created function run_one.
+to run [('sae_M1024_k6_s12000', 1), ('sae_M1024_k6_s12000', 2), ('nullsae_M1024_k6_s12000', 0), ('nullsae_M1024_k6_s12000', 1), ('nullsae_M1024_k6_s12000', 2), ('physsae_M1024_k6_s12000', 0), ('physsae_M1024_k6_s12000', 1), ('physsae_M1024_k6_s12000', 2)]; timeout 15 min, max containers 4, L4
+{
+ "status": {
+  "time": "2026-11-09T19:07:07",
+  "month_used_usd": 0.9605,
+  "open_worst_usd": 0,
+  "project_committed_usd": 2.3505,
+  "per_task_usd": {
+   "a3_sae": 1.6803,
+   "stageC_encode": 0.0,
+   "stageC_fit": 0.0,
+   "stageD_dinov3": 0.0,
+   "reserve": 0.0,
+   "v2s1a_sae": 0.6702
+  },
+  "cap_usd": 29.0
+ },
+ "tests": {
+  "task v2s1a_sae: 0.67 + 2.78 <= 5.00": true,
+  "project: 2.35 + 2.78 <= 29.00": true,
+  "month (Modal billing): 0.96 + open 0.00 + 2.78 <= 29.00": true
+ }
+}
+launch v2s1a_sae-006: 8 jobs, worst case $2.78
+sae_M1024_k6_s12000 rep 1: device cuda NVIDIA L4
+sae_M1024_k6_s12000 rep 1: R1 0.210 matched neutral 0.403 | fit 3.0 min, total 3.9 min
+sae_M1024_k6_s12000 rep 2: device cuda NVIDIA L4
+saved sae_M1024_k6_s12000_rep1 (1/8): matched neutral 0.403; measured so far $0.23
+sae_M1024_k6_s12000 rep 2: R1 0.206 matched neutral 0.392 | fit 3.0 min, total 3.8 min
+nullsae_M1024_k6_s12000 rep 0: device cuda NVIDIA L4
+saved sae_M1024_k6_s12000_rep2 (2/8): matched neutral 0.392; measured so far $0.35
+nullsae_M1024_k6_s12000 rep 0: R1 0.231 matched neutral 0.090 | fit 3.4 min, total 4.3 min
+nullsae_M1024_k6_s12000 rep 1: device cuda NVIDIA L4
+saved nullsae_M1024_k6_s12000_rep0 (3/8): matched neutral 0.090; measured so far $0.49
+nullsae_M1024_k6_s12000 rep 2: device cuda NVIDIA L4
+nullsae_M1024_k6_s12000 rep 1: R1 0.213 matched neutral 0.108 | fit 3.2 min, total 4.0 min
+physsae_M1024_k6_s12000 rep 0: device cuda NVIDIA L4
+saved nullsae_M1024_k6_s12000_rep1 (4/8): matched neutral 0.108; measured so far $0.62
+nullsae_M1024_k6_s12000 rep 2: R1 0.253 matched neutral 0.102 | fit 3.4 min, total 4.3 min
+physsae_M1024_k6_s12000 rep 1: device cuda NVIDIA L4
+saved nullsae_M1024_k6_s12000_rep2 (5/8): matched neutral 0.102; measured so far $0.76
+physsae_M1024_k6_s12000 rep 0: R1 0.542 matched neutral 0.342 | fit 1.9 min, total 2.7 min
+physsae_M1024_k6_s12000 rep 2: device cuda NVIDIA L4
+saved physsae_M1024_k6_s12000_rep0 (6/8): matched neutral 0.342; measured so far $0.86
+physsae_M1024_k6_s12000 rep 1: R1 0.551 matched neutral 0.357 | fit 2.1 min, total 2.9 min
+saved physsae_M1024_k6_s12000_rep1 (7/8): matched neutral 0.357; measured so far $0.97
+physsae_M1024_k6_s12000 rep 2: R1 0.496 matched neutral 0.364 | fit 2.0 min, total 2.7 min
+saved physsae_M1024_k6_s12000_rep2 (8/8): matched neutral 0.364; measured so far $1.08
+closed v2s1a_sae-006: ok 8 failed 0 unfinished 0, cost estimate $1.08
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/shforghani2002/main/ap-1j6fu28OtsyUNwpYhaRXuq

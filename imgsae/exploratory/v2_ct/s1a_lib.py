@@ -217,21 +217,30 @@ def _auc_cols(Rk, y):
     """one-vs-rest AUROC of every column from column ranks Rk (ties averaged) and a boolean label."""
     n1 = int(y.sum()); n0 = len(y) - n1
     if n1 == 0 or n0 == 0: return np.full(Rk.shape[1], np.nan)
-    return (Rk[y].sum(0) - n1 * (n1 + 1) / 2) / (n1 * n0)
+    return (Rk[y].sum(0, dtype=np.float64) - n1 * (n1 + 1) / 2) / (n1 * n0)
+
+
+def _ranks(Z, chunk=256):
+    """column ranks (ties averaged) as float32, computed in column chunks to limit memory; ranks are multiples of 0.5 below 2**24,
+    so float32 holds them exactly and the AUROCs equal the float64 ones."""
+    from scipy.stats import rankdata
+    R = np.empty(Z.shape, np.float32)
+    for j in range(0, Z.shape[1], chunk): R[:, j:j + chunk] = rankdata(Z[:, j:j + chunk], axis=0)
+    return R
 
 
 def k1_probe(mods, X, ctx, tasks, n_match=425, n_draw=20):
     """per task and class: the single feature with the highest AUROC (positive direction) on the fit half's task tokens, tested on the other
     half's task tokens with the same model; averaged over the two directions (A->B, B->A). 'matched': the same, choosing among n_match
     random features (n_draw draws), so dictionaries of different size compete with the same number of candidates."""
-    from scipy.stats import rankdata
     scan = ctx.R["scan"]; rng = np.random.default_rng(100 + ctx.rep); out = {}
     for tn, t in tasks.items():
         rows, y, classes, scored = t["rows"], t["y"], t["classes"], t["scored"]; inA = ctx.hA[scan[rows]]
         per = {c: [] for c in scored}; per_m = {c: [] for c in scored}; feat = {c: [] for c in scored}
         for h in "AB":
             fm = inA if h == "A" else ~inA
-            Zs, Zt = mods[h].encode(X[rows[fm]]), mods[h].encode(X[rows[~fm]]); Rs, Rt = rankdata(Zs, axis=0), rankdata(Zt, axis=0); del Zs, Zt
+            Zs = mods[h].encode(X[rows[fm]]); Rs = _ranks(Zs); del Zs
+            Zt = mods[h].encode(X[rows[~fm]]); Rt = _ranks(Zt); del Zt
             Fn = Rs.shape[1]; draws = [rng.choice(Fn, n_match, replace=False) for _ in range(n_draw)] if Fn > n_match else None
             for c in scored:
                 ci = classes.index(c); a_s, a_t = _auc_cols(Rs, y[fm] == ci), _auc_cols(Rt, y[~fm] == ci)

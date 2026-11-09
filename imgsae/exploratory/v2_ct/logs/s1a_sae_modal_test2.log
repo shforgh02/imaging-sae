@@ -1,0 +1,47 @@
+✓ Initialized. View run at 
+https://modal.com/apps/shforghani2002/main/ap-tJGCwEUEE1J3YjrDJFh1nr
+✓ Created objects.
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\v2_ct\cloud\s1a_sae_modal.py
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\v2_ct\results\s1a_tasks.npz
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\v2_ct\s1a_lib.py
+├── 🔨 Created mount 
+│   D:\Shayan\imgsae\exploratory\p1b_sanity\results\cache_refpos.npz
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\p1b_sanity\common.py
+├── 🔨 Created mount 
+│   D:\Shayan\imgsae\exploratory\p1_checks\c1b_chimera_other.py
+├── 🔨 Created mount D:\Shayan\imgsae\scripts\p1_assemble.py
+├── 🔨 Created mount D:\Shayan\imgsae\scripts\p1_probe.py
+├── 🔨 Created mount D:\Shayan\imgsae\scripts\p1_fit.py
+├── 🔨 Created mount D:\Shayan\imgsae\imgsae
+└── 🔨 Created function run_one.
+to run [('sae_M1024_k6_s12000', 0)]; timeout 15 min, max containers 1, L4
+{
+ "status": {
+  "time": "2026-11-09T18:43:28",
+  "month_used_usd": 0.8205,
+  "open_worst_usd": 0,
+  "project_committed_usd": 2.1155,
+  "per_task_usd": {
+   "a3_sae": 1.6803,
+   "stageC_encode": 0.0,
+   "stageC_fit": 0.0,
+   "stageD_dinov3": 0.0,
+   "reserve": 0.0,
+   "v2s1a_sae": 0.4352
+  },
+  "cap_usd": 29.0
+ },
+ "tests": {
+  "task v2s1a_sae: 0.44 + 0.44 <= 5.00": true,
+  "project: 2.12 + 0.44 <= 29.00": true,
+  "month (Modal billing): 0.82 + open 0.00 + 0.44 <= 29.00": true
+ }
+}
+launch v2s1a_sae-005: 1 jobs, worst case $0.44
+sae_M1024_k6_s12000 rep 0: device cuda NVIDIA L4
+sae_M1024_k6_s12000 rep 0: R1 0.193 matched neutral 0.400 | fit 3.3 min, total 4.2 min
+saved sae_M1024_k6_s12000_rep0 (1/1): matched neutral 0.400; measured so far $0.23
+closed v2s1a_sae-005: ok 1 failed 0 unfinished 0, cost estimate $0.23
+Stopping app - local entrypoint completed.
+✓ App completed. View run at 
+https://modal.com/apps/shforghani2002/main/ap-tJGCwEUEE1J3YjrDJFh1nr

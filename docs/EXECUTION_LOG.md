@@ -238,3 +238,21 @@ Progress (2026-11-09):
 - Open for the user: Q1, whether FM-vs-physics is out of the gates (it was in v1's gate S); Q2, the review's fail branch is a methods note.
 - Modal: task budget `v2s1a_sae` $5 (account shforghani2002). Superseded Stage C/D budgets set to 0. Ledger rule updated to the user's
   2 accounts x $29/month.
+- Stage 1a run notes:
+  - Sanity stop: svx_L6 rep 0 'neutral' area was 0.0035 off A3 (R1 and 'orig' areas exact), in a fresh process too. Cause: BLAS thread
+    count. Stage A ran with OMP/MKL_NUM_THREADS = 4, and the first Stage 1a run with the default 16. With 4 threads the row is exact.
+    run_s1a_cpu.ps1 now sets 4 threads. The 11 rows computed with 16 threads were dropped and rerun, so all rows share one environment.
+  - Modal: test job sae_M1024_k6_s12000 rep 0 equals the A3 L4 row bit for bit (R1 and all four areas; $0.23). An earlier attempt failed
+    on return because torch.__version__ is a torch type; fixed with str(). Booked at its worst case, $0.44. The 8 remaining single-SAE jobs
+    (tuned SAE reps 1-2, null SAEs reps 0-2) launched; L4 capacity was queued at times (no cost while queued).
+  - 2026-11-09 about 20:00: Claude Code's memory guard stopped both background jobs, the local CPU runner and the local Modal client of the 3
+    consensus jobs. Per the guard's rule they were not restarted; waiting for the user.
+    - CPU rows saved, rep 0 (4 threads): k-means 9/9, ICA 2/2, raw 2/2, sparse varimax 2/2, DL 1/3. All sanity rows exact.
+      Not done: DL A2048 k6 and A1024 k27, oracle, selection, reps 1-2, dense references.
+    - Modal SAE rows saved: tuned single SAE reps 0-2 (reps 0-2 = A3 L4 rows), null SAE (untrained) reps 0-2, physics SAE reps 0-2.
+    - Consensus: the cloud app kept running with no client. It was stopped at 20:29 (no results collected), and run v2s1a_sae-007 was booked
+      at its worst case, $2.22. Task v2s1a_sae committed $3.97 of $5, conservatively (Modal billing at 20:29: $1.63 for the month, lagging).
+    - Code changes, no maths changed:
+      - cloud jobs also write their result to the volume (/s1a_out);
+      - launches use `modal run --detach`, with cloud/s1a_collect.ps1 + s1a_merge.py to recover;
+      - k = 1 probing ranks are chunked float32 (identical AUROCs, checked).
