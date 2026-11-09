@@ -3,10 +3,11 @@
 **Updated:** 2026-11-08 20:00 · **Phase:** 1 (7-day feasibility, `docs/IMAGING_SAE_LEAN_v1.md`) · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
 **State in one line:** Phase 1 DONE (verdict **NO-GO**, memo `docs/DECISION_MEMO_P1.md`). Exploratory checks done (`imgsae/exploratory/p1_checks/README.md`): NO-GO stands.
-**Now:** Phase 1b sanity-check pivot, Stage A **DONE** 2026-11-09 14:00 (exploratory, dev data; `imgsae/exploratory/p1b_sanity/RESULTS.md`).
-- Rules: R-sat false (CT-FM ≈ physics on organs, but untrained 0.960 < 0.97); R-fm true (vertebra level, few labels); R-sae does not hold (trained SAE beats clustering).
-- **Waiting for the user's framing decision** before Stage B.
-- Modal GPU in use under a $29 hard budget: `p1b_sanity/cloud/README.md`, ledger `cloud/ledger.json`.
+**Now (2026-11-09 evening):** **Stage 1a** running. It is the colleague review of plan v2, adopted with amendments: `docs/STAGE1A_PROTOCOL.md`, with gate G1 fixed before running.
+- The question: does the tuned SAE beat equally tuned k-means, ICA, dictionary learning, raw channels and sparse varimax on CT-FM (dev data, reps 0–2)? The ladder is calibrated with a supervised reference.
+- Code `imgsae/exploratory/v2_ct/`. CPU parts run locally; SAE parts run on Modal L4 (task budget $5).
+- After G1: stop for the user's decision. Open questions Q1 and Q2 are in the protocol §1.
+- Earlier: Phase 1b Stage A DONE (`imgsae/exploratory/p1b_sanity/RESULTS.md`); plan v2 review packet `docs/SAE_v2_REVIEW_PACKET.md` (PR #1).
 
 ## Check progress
 ```

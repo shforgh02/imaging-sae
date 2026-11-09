@@ -1,12 +1,17 @@
 {
  "cap_usd": 29.0,
- "rule": "User, 2026-11-09: Modal free credit is $30/month; stop at $29 for the whole project; every task has its own budget and must not exceed it. Check usage before every launch. Using 'reserve' or moving money between tasks needs the user's OK.",
+ "rule": "User, 2026-11-09: Modal free credit is $30/month; stop at $29; every task has its own budget and must not exceed it. Check usage before every launch. Using 'reserve' or moving money between tasks needs the user's OK. Updated by the user later on 2026-11-09: 2 Modal accounts, $29/month each. This ledger tracks account shforghani2002; cap_usd is its monthly cap and the project check stays as an extra limit.",
  "budgets": {
   "a3_sae": 3.0,
-  "stageC_encode": 10.0,
-  "stageC_fit": 4.0,
-  "stageD_dinov3": 6.0,
-  "reserve": 6.0
+  "stageC_encode": 0.0,
+  "stageC_fit": 0.0,
+  "stageD_dinov3": 0.0,
+  "reserve": 6.0,
+  "v2s1a_sae": 5.0
+ },
+ "budget_notes": {
+  "stageC_encode, stageC_fit, stageD_dinov3": "Phase 1b Stage C/D superseded by plan v2 and Stage 1a (2026-11-09); never used; set to 0",
+  "v2s1a_sae": "Stage 1a SAE rows (docs/STAGE1A_PROTOCOL.md section 7): 9 single jobs + 3 consensus jobs on L4, expected about $2.5"
  },
  "runs": [
   {

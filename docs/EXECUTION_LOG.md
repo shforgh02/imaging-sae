@@ -220,3 +220,21 @@ Progress (2026-11-09):
   Caveats: SAE tuned over 8 configs on rep 0, k-means at M 425 only; no SAE on untrained CT-FM or R3 at the best config yet (needed to tell
   'the FM helps' from 'the SAE method helps' on this ladder); 'neutral' rule post hoc; all on dev scans seen many times.
   Stopped for the user's framing decision (plan).
+
+## 2026-11-09 evening: colleague review of plan v2 adopted as Stage 1a (exploratory, dev data)
+- Review received via the user: `docs/REVIEW_AND_PROPOSAL_v2.md` (desk review; nothing re-run). Every number was checked against
+  `p1b_sanity/results/{a2_sae_audit,a3_cpu,a3_sae}.json`; all are correct except one. The as-run area at 425 features is 0.18-0.19, not 0.26-0.28
+  (that is the 1,024-feature area). Missing from the review: the SAE has the lowest per-feature twin score of all methods (0.47 vs k-means 0.63,
+  sparse varimax 0.93, raw 0.96).
+- Adopted with amendments. The protocol, gate G1 included, is fixed before running: `docs/STAGE1A_PROTOCOL.md`.
+  - One SAE representative, chosen on rep 0 by the same rule as the baselines; this gives the consensus at M1024 k6 12k.
+  - Equal tuning counts.
+  - Nulls run (T9).
+  - T6 details.
+  - G1-cal measure.
+- Deviation M5: dictionary learning uses OMP + MOD (k-sparse, the TopK SAE's objective) instead of sklearn lasso-LARS, which took more than 5 min for 1 pass over 20k
+  tokens at 1,024 atoms (timing test only). OMP + MOD: about 2.7 min per fit at 1,024 atoms, k 6 (reconstruction R2 0.775 on the fit rows; no validity numbers seen).
+  FastICA: about 10 min per fit (100k rows, 512 components).
+- Open for the user: Q1, whether FM-vs-physics is out of the gates (it was in v1's gate S); Q2, the review's fail branch is a methods note.
+- Modal: task budget `v2s1a_sae` $5 (account shforghani2002). Superseded Stage C/D budgets set to 0. Ledger rule updated to the user's
+  2 accounts x $29/month.
