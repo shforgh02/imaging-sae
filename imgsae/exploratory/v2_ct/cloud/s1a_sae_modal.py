@@ -57,7 +57,12 @@ def run_one(name, rep):
     tab = {h: {k: (v.tolist() if hasattr(v, "tolist") else list(v)) for k, v in T.items()} for h, T in tables.items()}
     out = (r, json.loads(json.dumps(tab, default=lambda o: bool(o) if type(o).__name__ == "bool_" else float(o))))
     # also keep the result on the volume, so it survives a lost local client (collect with s1a_collect.ps1)
-    os.makedirs("/vol/s1a_out", exist_ok=True); json.dump(dict(result=out[0], tables=out[1]), open(f"/vol/s1a_out/{name}_rep{rep}.json", "w")); vol.commit()
+    try:
+        os.makedirs("/vol/s1a_out", exist_ok=True)
+        with open(f"/vol/s1a_out/{name}_rep{rep}.json", "w") as f: json.dump(dict(result=out[0], tables=out[1]), f)
+        vol.commit(); print(f"{name} rep {rep}: saved to volume /s1a_out", flush=True)
+    except Exception as e:  # never lose the returned result because of the backup copy
+        print(f"{name} rep {rep}: volume save FAILED {e!r}", flush=True)
     return out
 
 

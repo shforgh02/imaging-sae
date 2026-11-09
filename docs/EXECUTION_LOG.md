@@ -256,3 +256,14 @@ Progress (2026-11-09):
       - cloud jobs also write their result to the volume (/s1a_out);
       - launches use `modal run --detach`, with cloud/s1a_collect.ps1 + s1a_merge.py to recover;
       - k = 1 probing ranks are chunked float32 (identical AUROCs, checked).
+  - 2026-11-09 evening, restart (user: "go ... always put save"): task budget raised $5 -> $7 with the user's OK; CPU runner restarted
+    (4 threads, resumes from saved rows); consensus relaunched detached (run v2s1a_sae-008, ok 3/3, $1.25; results also on the volume).
+  - Consensus rep 0 on L4 = 0.526 vs 0.562 for the A2 consensus on the local RTX 3050 Ti (abs diff 0.04). The single SAE is bit-identical
+    on L4 across runs, so the 5-fit consensus is the GPU-sensitive step. Selection used A2's rep-0 value, as written in M1 before running;
+    G1 uses the L4 rows for all 3 reps.
+  - refs step failed at start on an unused import (`sklearn.utils.parallel_backend`, removed in this sklearn); the line was deleted and
+    only that step was rerun. No result changed.
+  - G1 read-out (`v2_ct/RESULTS_S1A.md`, `results/s1a_g1.json`): G1-cal PASS (oracle C(0.7) mean 21.7 of 32 over 6 half-models);
+    G1-main PASS (gains +0.216 / +0.304 / +0.243, mean +0.254; strongest baseline k-means, k-means, ICA). Branch: pass.
+    Descriptive flags for the user: physics (R3) SAE 0.34-0.36 vs single CT-FM SAE 0.39-0.40; k = 1 vertebral-level probing shows no SAE
+    advantage over k-means / ICA / sparse varimax; DL rows implausibly weak (R1 0.00-0.01), implementation to be checked before any claim.

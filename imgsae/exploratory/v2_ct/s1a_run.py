@@ -76,8 +76,7 @@ def step_select():
 
 
 def step_refs(a):
-    from sklearn.utils import parallel_backend  # noqa: F401  (threads only)
-    reps = [int(r) for r in a.reps.split(",")]; path = RES / "s1a_refs.json"; res = json.load(open(path)) if path.exists() else {}
+    reps =[int(r) for r in a.reps.split(",")]; path = RES / "s1a_refs.json"; res = json.load(open(path)) if path.exists() else {}
     R = cm.load_rows(L.ROWS_KEYS); C = cm.concepts(); Gt = cm.gates(); tasks = L.load_tasks(); rows = np.unique(np.concatenate([t["rows"] for t in tasks.values()]))
     ref, pos = cm.refpos(C); R4 = A_prep_rows(cm.raw_ref_sets(ref, pos, cm.zrel(R["gidx"], R["scan"]))["R4"], rows); del ref, pos
     Xs = dict(ctfm=L.load_array("X_ctfm"), R4=R4, null=L.load_array("X_null"))

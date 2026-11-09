@@ -1,0 +1,41 @@
+{
+ "representatives": {
+  "kmeans": "km_M1024_L6",
+  "ica": "ica_L6",
+  "raw": "raw_L6",
+  "svx": "svx_L6",
+  "dl": "dl_A1024_k6",
+  "sae": "cons_M1024_k6_s12000"
+ },
+ "G1": {
+  "complete": true,
+  "gains": [
+   0.21614583333333343,
+   0.3041666666666666,
+   0.2426215277777778
+  ],
+  "mean_gain": 0.2543113425925926,
+  "strongest_baseline": [
+   "kmeans",
+   "kmeans",
+   "ica"
+  ],
+  "G1_main": true,
+  "oracle_C07_halves": [
+   21,
+   19,
+   25,
+   22,
+   23,
+   20
+  ],
+  "oracle_C07_mean": 21.666666666666668,
+  "G1_cal": true,
+  "branch": "pass",
+  "pct_of_oracle": [
+   0.8632478632478634,
+   0.9387186629526463,
+   0.8927536231884059
+  ]
+ }
+}

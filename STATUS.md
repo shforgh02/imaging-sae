@@ -3,10 +3,11 @@
 **Updated:** 2026-11-08 20:00 · **Phase:** 1 (7-day feasibility, `docs/IMAGING_SAE_LEAN_v1.md`) · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
 **State in one line:** Phase 1 DONE (verdict **NO-GO**, memo `docs/DECISION_MEMO_P1.md`). Exploratory checks done (`imgsae/exploratory/p1_checks/README.md`): NO-GO stands.
-**Now (2026-11-09 evening):** **Stage 1a** running. It is the colleague review of plan v2, adopted with amendments: `docs/STAGE1A_PROTOCOL.md`, with gate G1 fixed before running.
-- The question: does the tuned SAE beat equally tuned k-means, ICA, dictionary learning, raw channels and sparse varimax on CT-FM (dev data, reps 0–2)? The ladder is calibrated with a supervised reference.
-- Code `imgsae/exploratory/v2_ct/`. CPU parts run locally; SAE parts run on Modal L4 (task budget $5).
-- After G1: stop for the user's decision. Open questions Q1 and Q2 are in the protocol §1.
+**Now (2026-11-09 late):** **Stage 1a DONE, gate G1 PASSED; waiting for the user's decision.** Protocol `docs/STAGE1A_PROTOCOL.md` (colleague review of plan v2, adopted with amendments; G1 fixed before running). Results `imgsae/exploratory/v2_ct/RESULTS_S1A.md`.
+- G1-cal pass: the supervised reference (oracle) covers 21.7 of 32 concepts at C(0.7).
+- G1-main pass: SAE consensus beats the best equally tuned baseline (k-means / ICA) by +0.22 / +0.30 / +0.24 (mean +0.25); it reaches 86–94% of the oracle.
+- Flags: the physics-feature SAE comes close on organ concepts; no SAE advantage on vertebral level at k = 1; the DL baseline needs checking.
+- Open questions Q1 and Q2 (protocol §1). Code `imgsae/exploratory/v2_ct/`; Modal task budget $7.
 - Earlier: Phase 1b Stage A DONE (`imgsae/exploratory/p1b_sanity/RESULTS.md`); plan v2 review packet `docs/SAE_v2_REVIEW_PACKET.md` (PR #1).
 
 ## Check progress
