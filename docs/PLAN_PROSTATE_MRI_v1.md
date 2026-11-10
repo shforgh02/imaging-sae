@@ -1,6 +1,11 @@
-# Plan: clinically meaningful SAE features in prostate MRI (PI-CAI), v1, revision 3
+# Plan: clinically meaningful SAE features in prostate MRI (PI-CAI), v1, revision 4
 
-**Status:** DRAFT, revision 3 (2026-11-10), for the lead's review. Nothing has been run. No images have been downloaded; only the PI-CAI clinical sheet (metadata) was read, to check the review's numbers.
+**Status:** DRAFT, revision 4 (2026-11-10), for the lead's review. Nothing has been run. No images have been downloaded; only the PI-CAI clinical sheet and the label file names (metadata) were read.
+
+**Revision 4 adopts the third review,** `docs/REVIEW3_PLAN_PROSTATE_MRI_v1.md` (T1–T3), with refinements; the reply is in `docs/RESPONSE_REVIEW3_PLAN_PROSTATE_MRI_v1.md`.
+- **T1. Rule S prefers an unexposed encoder.** ProFound is chosen only if it beats the best unexposed arm (MRI-CORE or SAM) by ≥ 0.02 token AUROC, with lower CI > 0. If it is chosen, C3 reads "within PI-CAI; the encoder saw the images", unless M0 finds an external cohort with PSA, prostate volume and PI-RADS. Neither known candidate has them.
+- **T2. One intensity rule.** A fixed ADC window, and per-study percentiles for T2W and HBV, with the same constants on every slice of a study. Per-slice min–max is a sensitivity analysis only. ProFound uses its native normalisation, recorded exactly.
+- **T3. Nested cross-validation for the M1 gate.** The arm is chosen inside each outer fold, so the selection does not inflate the gate. This replaces the 3/2 fold split the review proposed, which would leave about 85 positive studies for the gate.
 
 **Revision 3 changes the encoders.** Two things prompted it: the lead asked why a natural-image model was the main encoder, and Meta rejected the DINOv3 access request on 2026-11-10.
 - **DINOv3 is removed.**
@@ -45,7 +50,7 @@ The 555 scans stay sealed.
 | ID | Question | Recommendation / status |
 |---|---|---|
 | P1 | Data source | **Decided: a fresh download from the original sources.** The Modal volume `picai-dataset-vol` (another project) is not used: it holds processed images (`t2_norm`, `adc_norm`, no HBV), an `ai_heatmap` from another model, and undocumented steps |
-| P2 | Encoders to try in M1 | **Decided (revision 3, the lead's OK):** ProFound and MRI-CORE are the main candidates; SAM ViT-B is the natural-image comparison; plus the untrained null and the intensity reference R (§3.1). DINOv3 is removed (access rejected by Meta). Triad is the fallback if ProFound cannot be used |
+| P2 | Encoders to try in M1 | **Decided (revision 3, the lead's OK):** ProFound and MRI-CORE are the main candidates; SAM ViT-B is the natural-image comparison; plus the untrained null and the intensity reference R (§3.1). **Rule S (revision 4)** prefers an unexposed arm unless ProFound is clearly better (§4). DINOv3 is removed (access rejected by Meta). Triad is the fallback if ProFound cannot be used |
 | P3 | Radiologists | Later (M4): 2 readers, about 1.5 h each |
 | P4 | Modal budgets for M0–M1 (§6) | Approve: caps $6.60, expected about $4 |
 | P5 | Licences | PI-CAI: CC BY-NC 4.0 (research use). MRI-CORE and SAM: Apache 2.0, covering code and models. ProFound: the code is Apache 2.0, but **no licence is stated for its weights**. Before any publication with ProFound, we ask its authors to confirm research use, and we record the reply |
@@ -140,10 +145,15 @@ M1 and M3 results are reported for each.
 
 **Our own preprocessing.** It is documented, version-controlled, and the same for every method:
 1. Read the `.mha` files (SimpleITK). Resample ADC, HBV and any labels not on the T2W grid to the axial T2W grid: linear for images, nearest for masks.
-2. Prepare intensities:
-   - ADC keeps its physical units for the reference features;
-   - for model input, fixed ADC windows and per-scan percentile scaling for T2W and HBV.
-   - These are fixed in M0, before any probe runs.
+2. **Prepare intensities: one rule** (third review, T2).
+   - **Reference features R:** ADC keeps its physical units.
+   - **Model input for MRI-CORE, SAM and the untrained network:** each channel is mapped linearly to [0, 1], with clipping.
+     - ADC: a fixed physical window, by default 0–3,000 × 10⁻⁶ mm²/s. The units are confirmed in M0 from the value range, without labels.
+     - T2W and HBV: the 0.5th and 99.5th percentiles of that study's crop.
+     - The same constants apply to every slice of a study. So absolute ADC survives, and slices of one study stay comparable.
+   - **ProFound:** its own native normalisation from its code, with the exact transform recorded.
+   - **Sensitivity only:** per-slice min–max scaling for MRI-CORE and SAM, which is how MRI-CORE was pretrained. It shows whether the input shift matters, but it never changes a gate or a selection.
+   - All constants are fixed in M0, before any probe runs.
 3. Crop a prostate-centred box of fixed physical size, taken from the gland mask.
 4. Define tokens:
    - **Labels:** lesion (expert-mask occupancy ≥ 0.5, with its ISUP grade); normal prostate (inside the gland, occupancy 0); outside the prostate.
@@ -165,7 +175,7 @@ M1 and M3 results are reported for each.
 | Encoder | What it is | Input | PI-CAI exposure | Weights, licence |
 |---|---|---|---|---|
 | **ProFound** (Wang et al. 2026, "ProFound-alpha") | Prostate MRI model; 3D; self-supervised masked autoencoding (no labels in pretraining, as described); ViT-B-based. Pretrained on about 5,000 patients: PI-CAI (1,500), TCIA (863; collections not named), ReIMAGINE (491), a private multi-institute set (2,146) | 3D, T2W + HBV + ADC as 3 channels, 1 mm isotropic, aligned and intensity-normalised as the paper describes. The patch size and embedding size are read from the released code in M0 | **Images yes (all 1,500, including our sealed half); labels no** | University OneDrive link from the GitHub README. Code Apache 2.0; weights licence not stated (P5). Feature-extraction code is not yet released ("ongoing"): we load the encoder from the released code and checkpoint |
-| **MRI-CORE** (Dong et al. 2025) | General MRI model: SAM ViT-B image encoder trained further with DINOv2 self-supervision on Duke-110K (116,806 Duke volumes; brain, face and neck excluded). Whether prostate MRI was included is not stated | 2D slices, 3 × 1024 × 1024, scaled to [0, 1] per slice. Mode A: each sequence alone (grey copied to 3 channels), tokens joined (3 × 256). Mode B: T2W, ADC and HBV as the 3 channels (256). Features from `model.image_encoder`; for SAM ViT-B this is 256 × 64 × 64 per slice (confirmed in M0) | **None** (Duke data only) | Google Drive (`MRI_CORE_vitb.pth`); Apache 2.0 |
+| **MRI-CORE** (Dong et al. 2025) | General MRI model: SAM ViT-B image encoder trained further with DINOv2 self-supervision on Duke-110K (116,806 Duke volumes; brain, face and neck excluded). Whether prostate MRI was included is not stated | 2D slices, 3 × 1024 × 1024, scaled to [0, 1] by the §2 rule (fixed ADC window; per-study percentiles for T2W and HBV; per-slice min–max only as a sensitivity analysis). Mode A: each sequence alone (grey copied to 3 channels), tokens joined (3 × 256). Mode B: T2W, ADC and HBV as the 3 channels (256). Features from `model.image_encoder`; for SAM ViT-B this is 256 × 64 × 64 per slice (confirmed in M0) | **None** (Duke data only) | Google Drive (`MRI_CORE_vitb.pth`); Apache 2.0 |
 | **SAM ViT-B** (Meta) | Natural images; MRI-CORE's starting point. MRI-CORE against SAM shows exactly what MRI training adds | As MRI-CORE | None | Public file server (`sam_vit_b_01ec64.pth`); Apache 2.0 |
 | Untrained network | Null (architecture without training) | As MRI-CORE (random-initialised ViT-B) | None | — |
 | Intensity reference R | Per-token T2W, ADC and HBV histograms, mean ADC, 3 × 3 context, position within the gland, **zone (PZ / TZ / uncertain)** | Our own features | None | Label-free "physics" comparator. Zone is included because normal T2 and ADC differ between zones; without it, a feature that only separates PZ from TZ could look like a lesion feature |
@@ -180,6 +190,10 @@ M1 and M3 results are reported for each.
    - the exposure is stated in every report;
    - any confirmatory claim from that encoder must also be tested on an external cohort it never saw (M5);
    - if no such cohort is available, the claim is reported as "within PI-CAI, encoder saw the images".
+   - For C3, the external cohort must also have PSA, prostate volume and PI-RADS. The two known candidates do not:
+     - Prostate158 (139 public cases) lists no clinical variables;
+     - QIN-Prostate-Repeatability has 15 patients and is a TCIA collection, so it may overlap with ProFound's unnamed TCIA cases. It serves only test–retest stability, and only for unexposed encoders unless the overlap is ruled out.
+   - So if ProFound is chosen, C3 will read "within PI-CAI; the encoder saw the images", unless M0 finds a suitable cohort (third review, T1). This is why rule S (§4) prefers an unexposed encoder.
 
 This distinction matters because the sealed half is "unseen" for the labels, but not for an encoder that saw the images.
 
@@ -212,7 +226,7 @@ Each stage gets a short protocol, with its gate fixed before it runs. The defaul
 | Stage | What | Gate (default) | If it fails |
 |---|---|---|---|
 | **M0. Setup** | Fetch, labels, split, PSAD, dev-half preprocessing, QC, token size, outline sources, encoders, external cohorts. Details are in "M0 in detail", below the table | 1,500 studies read; label counts as in §2 (including outline sources by centre); split balanced; QC rule applied; lesion recall reported per source; outline materiality decided; every encoder loads with its documented output shape | Fix (metric-blind) and repeat. If ProFound's weights cannot be downloaded, or its checkpoint fails leak rule 1, it is dropped (Triad becomes the fallback) and logged |
-| **M1. Does the model know cancer?** (dev half; 5-fold cross-validation) | Token probes on the common grid: lesion vs normal prostate, for each encoder and mode, against R and the untrained network. MRI-CORE vs SAM is reported (what MRI training adds). Descriptive: a patient-level probe in the biopsy cohort against R; a clean-normal sensitivity (normal tokens only from studies with no ISUP-1 lesion and PI-RADS ≤ 2; R3b) | The best encoder beats R by **≥ 0.03 AUROC with lower CI > 0**, and the untrained network by ≥ 0.05. This must hold **both on all studies and on verified studies**. It also picks the encoder and mode | **Stop and report.** An SAE could then only rediscover ADC and T2 signs. The lead decides |
+| **M1. Does the model know cancer?** (dev half; nested 5-fold cross-validation) | Token probes on the common grid: lesion vs normal prostate. 5 candidate arms (MRI-CORE A and B, SAM A and B, ProFound), against R and the untrained network. MRI-CORE vs SAM is reported (what MRI training adds). Descriptive: a patient-level probe in the biopsy cohort against R; a clean-normal sensitivity (normal tokens only from studies with no ISUP-1 lesion and PI-RADS ≤ 2; R3b); the per-slice min–max sensitivity (T2). Details are in "M1 in detail", below the table | The arm chosen by **rule S** beats R by **≥ 0.03 AUROC with lower CI > 0**, and the untrained network by ≥ 0.05, on nested cross-validation. This must hold **both on all studies and on verified studies** | **Stop and report.** An SAE could then only rediscover ADC and T2 signs. The lead decides |
 | **M2. Find features** (dev half; J = 3 patient halves) | All decompositions with equal tuning. Per feature: k = 1 lesion AUROC (chosen on the fit half among 425 random candidates, tested on the other half), selectivity, twin score t, stability r_pert (half-token shift with the centred smoothing control from CT; extra noise; T2W and HBV intensity scaling; a smooth bias field), and a shortcut audit (centre, scanner, b-value) | **Valid lesion feature,** the same rule for all methods: held-out lesion AUROC ≥ 0.80, r_pert ≥ 0.70, t ≥ 0.70, shortcut AUROC < 0.80, and token-level ΔAUROC over R ≥ 0.02. Gate: ≥ 1 valid feature in each of the 3 replicates. **Wording rule:** "SAE features" only if the SAE's best matched held-out lesion AUROC beats the best baseline's with CI > 0 (paired over replicates and patients); otherwise "foundation-model features" | Stop and report |
 | **M3. Clinical value** (dev half, biopsy cohort) | Base model: PSAD + age + volume + PI-RADS. Increment of each patient score (§3.3) over the base, cross-fitted. Secondary: all verified studies; all studies; the base without PI-RADS; within-centre and leave-one-centre-out; biopsies avoided at 95% csPCa sensitivity; decision curve; PI-RADS 3 subgroup; studies with systematic biopsy or prostatectomy | (i) The feature score's increment over the base has lower CI > 0. (ii) Its increment minus R's, and minus texture's, has lower CI > −0.03 (non-inferior; v1's H4 margin. With dev precision (SE about 0.015), a margin of 0.02 would fail even for truly equal scores). If (i) and (ii) pass **and** the difference to R is ≥ +0.02, M5 also tests C3b (superiority over R) | Report; the lead decides |
 | **M4. Readers** (when available) | 2 radiologists look at the top lesion features plus controls: intruder test plus naming (as v1 V4) | Descriptive, or a pre-set pass rule | Reported as is |
@@ -235,7 +249,24 @@ Each stage gets a short protocol, with its gate fixed before it runs. The defaul
    - confirm that the ProFound checkpoint is the self-supervised encoder (leak rule 1);
    - confirm MRI-CORE's output shape;
    - a 10-study encode benchmark per encoder (time and memory) sets the encode launches.
-6. **External cohorts:** Prostate158 (Charité; 139 public cases with histology-verified lesion masks) and QIN-Prostate-Repeatability (test–retest). We check their licence and their overlap with ProFound's pretraining. ProFound's paper does not name its TCIA collections or its private set, so we check the paper and, if needed, ask the authors.
+6. **External cohorts:**
+   - **Prostate158** (Charité): 139 public cases plus 19 hidden test cases, with zones and histology-verified lesion masks. The repo licence is MIT; the data licence is to be checked on Zenodo. **No clinical variables are listed.**
+   - **QIN-Prostate-Repeatability** (TCIA): 15 patients with test–retest scans, for stability only.
+   - For each: licence, available clinical variables, and overlap with ProFound's pretraining. ProFound's paper does not name its TCIA collections or its private set, so we check the paper and, if needed, ask the authors.
+   - We also search for any public cohort, outside PI-CAI and ProstateX, that has PSA, volume and PI-RADS. Its result decides the C3 wording if ProFound is chosen (§3.1).
+
+**M1 in detail** (third review, T1 and T3):
+1. **Arms:** MRI-CORE mode A, MRI-CORE mode B, SAM mode A, SAM mode B, and ProFound (its native input). The untrained network and R are comparators, not candidates.
+2. **Contrast per arm:** Δ = patient-weighted token AUROC (lesion vs normal prostate) of the arm, minus that of R.
+3. **Rule S:**
+   - Let U be the unexposed arm (MRI-CORE or SAM) with the highest Δ.
+   - ProFound is chosen only if Δ(ProFound) − Δ(U) ≥ 0.02 **and** the lower bound of its 95% patient-cluster bootstrap CI is > 0. Otherwise U is chosen.
+4. **Nested cross-validation:**
+   - 5 outer folds, grouped by patient and stratified by centre × outcome group.
+   - In each outer fold, rule S is applied using cross-validation on the other 4 folds only. The chosen arm, R and the untrained network are refit on those 4 folds and scored on the held-out fold.
+   - The gate is computed on the pooled held-out scores, with patient-cluster bootstrap CIs.
+   - So the selection never sees the data it is judged on, and every dev patient counts in the gate. A fixed 3/2 split would leave about 85 positive studies for the gate.
+5. **The arm used from M2 on** is chosen by rule S on the full dev cross-validation. If the outer folds chose different arms, this is reported; the gate then refers to the selection procedure, not to one arm.
 
 **Power for M5.** The sealed biopsy cohort has about 440 studies (about 210 positive). There, the SE of a single AUROC is about 0.023, and of a paired difference about 0.013–0.017. So a difference in added value is confirmable (one-sided α 0.025, 80% power) only if it is about **0.035–0.045 AUROC** or larger. Smaller real effects would be missed.
 
@@ -277,6 +308,9 @@ These are rough figures. A small benchmark measures each step first.
 | AI gland or zone masks are wrong | Label-blind QC from the agreement of two AI masks for every case; a visual check below the Dice thresholds (no lesion masks shown) |
 | Outline source tied to centre (Q1) | Within-RUMC comparison; per-source token-size rule; results by source; the materiality rule moves the claim to patient level if needed |
 | Zone mimics lesion (PZ vs TZ) | Zone in R; within-zone AUROCs |
+| Choosing the best of 5 arms inflates the M1 gate (T3) | Nested cross-validation with rule S inside each outer fold |
+| ProFound wins but its clinical claim cannot be tested outside PI-CAI (T1) | Rule S prefers an unexposed encoder; otherwise C3 is worded "within PI-CAI; the encoder saw the images" |
+| MRI-CORE was pretrained on per-slice min–max slices, but we feed fixed-window input (T2) | Per-slice sensitivity analysis; reported, never used to switch a gate |
 | Small lesions lost in large tokens | The token-size rule (≥ 90% lesion recall) |
 | ISUP-1 cancer inside "normal" tissue | Clean-normal sensitivity analysis (R3b) |
 | Too little power for small clinical differences | The ≥ 0.04 AUROC limit is stated in advance; no claim from a non-significant difference |
@@ -288,7 +322,7 @@ These are rough figures. A small benchmark measures each step first.
 | The benchmark shows encodes slower than estimated | Launch sizes are set from the benchmark, inside the task cap; stop and ask if the cap would be exceeded |
 
 ## 8. Next steps (need the lead's OK)
-1. Approve revision 3, including P6 (biopsy cohort primary), and the M0–M1 budgets ($6.60 in caps).
+1. Approve revision 4, including P6 (biopsy cohort primary), and the M0–M1 budgets ($6.60 in caps).
 2. **No Hugging Face token is needed.** The three encoders download without one: Google Drive, Meta's public file server, and the ProFound OneDrive link. If the ProFound link needs a login, you will be asked to download one file in a browser.
 3. Then I write the M0–M1 protocol, with fixed numbers, and the code. M0 runs first, then I stop and show you the QC before M1.
 

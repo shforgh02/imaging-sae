@@ -395,3 +395,16 @@ Progress (2026-11-09):
   - Both adopted in revision 3, with refinements (gates are contrasts; RUMC sources still differ by year and biopsy type; zone from
     agreement of the two models; visual QC without lesion masks).
   - Reply: `docs/RESPONSE_REVIEW2_PLAN_PROSTATE_MRI_v1.md`.
+
+## 2026-11-10: third review of the MRI plan; plan revision 4
+- Review `docs/REVIEW3_PLAN_PROSTATE_MRI_v1.md` (T1-T3, a desk review of revision 3) pushed by the colleague.
+- Checked at the sources:
+  - Prostate158: 139 public + 19 hidden cases, zones and lesion masks, no clinical variables listed; repo MIT, data licence to check.
+  - QIN-Prostate-Repeatability: TCIA, 15 patients, 30 studies.
+  - So T1's concern holds.
+- Revision 4:
+  - T1 adopted as rule S, plus an M0 search for an external cohort with PSA, volume and PI-RADS;
+  - T2 adopted: one intensity rule, plus a caveat on MRI-CORE's min-max pretraining (sensitivity only, never switches a gate);
+  - T3: the concern is adopted, but the fix is nested cross-validation instead of a 3/2 fold split (the split would leave about 85
+    positive studies for the gate).
+- Reply: `docs/RESPONSE_REVIEW3_PLAN_PROSTATE_MRI_v1.md`. Nothing run.

@@ -16,6 +16,12 @@
       - Q1: the outline source (Pooch25 / resampled) is tied to centre, so the sources are compared within RUMC, with a per-source
         token-size rule and a materiality rule;
       - Q2: zone enters R; gland and zone QC uses the agreement of two AI masks, label-blind.
+  - **Revision 4 (2026-11-10)** adopts the third review (`docs/REVIEW3_PLAN_PROSTATE_MRI_v1.md`; reply
+    `docs/RESPONSE_REVIEW3_PLAN_PROSTATE_MRI_v1.md`):
+    - T1: rule S prefers an unexposed encoder (ProFound only if ≥ 0.02 better with CI > 0);
+    - T2: one intensity rule (fixed ADC window; per-study percentiles for T2W and HBV; per-slice min–max as sensitivity only);
+    - T3: nested cross-validation for the M1 gate.
+    - Still waiting for the user's OK and the M0–M1 budget ($6.60).
   - Waiting for the user's OK on revision 3 and the M0–M1 budget.
 - **Plan:** `docs/PLAN_PROSTATE_MRI_v1.md` (DRAFT; branch `prostate-mri-plan`). Stages:
   - M0 setup: fresh PI-CAI download, split, QC;
