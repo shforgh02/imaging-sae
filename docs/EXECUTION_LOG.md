@@ -342,3 +342,25 @@ Progress (2026-11-09):
   - Encoders: ProFound (pretrained on PI-CAI) and Triad (PI-CAI + ProstateX) are excluded as leaks. DINOv3 ViT-L/16 is leak-free
     (gated licence). MRI-CORE is a candidate pending a leak and weights check.
 - Plan written: `docs/PLAN_PROSTATE_MRI_v1.md` (DRAFT). Nothing run, nothing downloaded. Budgets asked for M0-M1: $4.10 in caps.
+- Briefing for reviewers `docs/BRIEFING_FOR_REVIEWERS.md`; README and DATA updated; plan v2 review packet copied onto the branch.
+
+## 2026-11-10: colleague review of the MRI plan; plan revision 2
+- Review `docs/REVIEW_PLAN_PROSTATE_MRI_v1.md` (R1-R6) pushed to branch prostate-mri-plan.
+- Checked independently from the PI-CAI clinical sheet only (metadata; no images): `picai_labels` commit
+  ce4a4723d7c46d882a6cbaacb40ed6c4be86282f (2026-07-13), `marksheet.csv` SHA256 23EAB23790886258440B4AF2842733332003F2C59F0A007B1E7B6B44572CF0AE
+  (kept in the session scratchpad, not in git).
+  - All review facts reproduced: 468 unverified negatives (PI-RADS <= 2); 1,032 verified; centres; 282 ISUP-1 studies; PSAD 30.1% missing.
+  - Found in addition:
+    - PSAD is missing for 99% of PCNN;
+    - reported PSAD is rounded (73% within 5% of PSA/volume);
+    - PI-RADS is complete;
+    - biopsy cohort (verified, PI-RADS >= 3): 884 studies, 417 positive.
+- Plan revision 2:
+  - all six changes adopted;
+  - R1 extended: the biopsy cohort is the primary clinical population (needs the lead's OK, P6);
+  - R2 extended: equal-capacity patient scores (<= 5 features each), C3a non-inferior with margin 0.03, C3b superiority only if dev
+    shows >= +0.02;
+  - R6 changed: PSAD recomputed for every study;
+  - R3c made into a token-size rule;
+  - a power statement for M5 (about 0.04 AUROC detectable).
+- Reply: `docs/RESPONSE_REVIEW_PLAN_PROSTATE_MRI_v1.md`. Briefing wording fixed (ICA reproducibility).

@@ -23,7 +23,7 @@
 
 **The consensus** (5 SAE fits) keeps the coverage (+0.019 at all features) with about 39% of the features, and it is more reproducible (R1 0.51 vs 0.20).
 
-**Where the SAE wins:** mainly stability. Its features survive a half-token shift.
+**Where the SAE wins:** mainly stability, because its features survive a half-token shift. Against ICA it is also reproducibility: median twin score 0.55 vs 0.19 (wording corrected after the review of the MRI plan).
 - Area using selectivity and stability only: 0.79, against 0.52 for k-means and 0.54 for ICA.
 - On selectivity alone it is only a bit ahead: 0.89 vs 0.83 and 0.81.
 
@@ -70,7 +70,7 @@
 | M0 | Download, split, preprocessing, visual check of 20 cases | Counts and quality match |
 | M1 | Does the model know cancer? Token-level probes against simple T2, ADC and HBV intensity features | The model must beat them by ≥ 0.03 AUROC, otherwise stop early |
 | M2 | SAE + fair baselines; lesion features | ≥ 1 valid lesion feature: held-out AUROC ≥ 0.80, stable, reproducible, not a shortcut, and adds over the intensity features |
-| M3 | Clinical value | Increment over PSA density + age + volume, lower CI > 0; then over PI-RADS |
+| M3 | Clinical value in the **biopsy cohort** (PI-RADS ≥ 3, biopsied: 884 studies, 53% without csPCa) | Increment over PSA density + age + volume + PI-RADS, lower CI > 0, and non-inferior to same-capacity intensity and texture scores (plan revision 2) |
 | M4 | Radiologists name the features | When readers are available |
 | M5 | Registered confirmation on the sealed half, run once | Holm over the claims |
 

@@ -3,7 +3,13 @@
 **Updated:** 2026-11-10 · **Phase:** clinical leg, prostate MRI (PI-CAI): plan drafted, nothing run · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
 **Now (2026-11-10):** **CT confirmation STOPPED by the user's decision (goal = a clinical finding, not a methods result). Next: prostate MRI.**
-- **Plan:** `docs/PLAN_PROSTATE_MRI_v1.md` (DRAFT, waiting for the user's and the colleague's review; branch `prostate-mri-plan`). Stages:
+- **Plan revision 2 (2026-11-10)**, after the colleague review (`docs/REVIEW_PLAN_PROSTATE_MRI_v1.md`, R1–R6, all facts recomputed:
+  `docs/RESPONSE_REVIEW_PLAN_PROSTATE_MRI_v1.md`).
+  - Primary clinical population is now the biopsy cohort (verified, PI-RADS ≥ 3: 884 studies, 467 without csPCa).
+  - Equal-capacity scores against intensity and texture controls; PSAD recomputed for every study; token size by a lesion-recall rule;
+    within-centre results.
+  - Waiting for the user's OK, then the token.
+- **Plan:** `docs/PLAN_PROSTATE_MRI_v1.md` (DRAFT; branch `prostate-mri-plan`). Stages:
   - M0 setup: fresh PI-CAI download, split, QC;
   - M1 "does the model know cancer?" gate;
   - M2 features; M3 clinical value; M4 readers; M5 sealed confirmation.
