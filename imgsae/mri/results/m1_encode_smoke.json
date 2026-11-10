@@ -1,0 +1,9 @@
+{
+ "shard": 0,
+ "n_keys": 2,
+ "n_done": 2,
+ "errors": {},
+ "sec_per_study_median": 13.787801504135132,
+ "profound_outside_median": 0.0,
+ "container_min": 0.7039555271466573
+}

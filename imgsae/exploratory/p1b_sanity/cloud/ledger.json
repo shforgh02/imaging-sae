@@ -329,6 +329,47 @@
    "closed": "2026-11-10T15:40:57",
    "measured_usd": 0.1974,
    "note": "collected; container 2.2 min"
+  },
+  {
+   "id": "mri_m1_encode-016",
+   "task": "mri_m1_encode",
+   "opened": "2026-11-10T16:12:51",
+   "worst_usd": 0.3421,
+   "info": {
+    "app": "imgsae-mri-m1-encode",
+    "jobs": [
+     "m1_encode_smoke"
+    ],
+    "timeout_min": 10,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-10T16:13:41",
+   "measured_usd": 0.169,
+   "note": "collected; 1 call(s), container 0.7 min"
+  },
+  {
+   "id": "mri_m1_encode-017",
+   "task": "mri_m1_encode",
+   "opened": "2026-11-10T16:15:03",
+   "worst_usd": 4.3454,
+   "info": {
+    "app": "imgsae-mri-m1-encode",
+    "jobs": [
+     "m1_encode(0,)",
+     "m1_encode(1,)",
+     "m1_encode(2,)",
+     "m1_encode(3,)"
+    ],
+    "timeout_min": 54,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": null
   }
  ],
  "checks": [
@@ -469,6 +510,18 @@
    "month_used_usd": 3.555,
    "open_worst_usd": 0,
    "project_committed_usd": 8.6407
+  },
+  {
+   "time": "2026-11-10T16:12:51",
+   "month_used_usd": 3.6153,
+   "open_worst_usd": 0,
+   "project_committed_usd": 8.8381
+  },
+  {
+   "time": "2026-11-10T16:15:03",
+   "month_used_usd": 3.6553,
+   "open_worst_usd": 0,
+   "project_committed_usd": 9.0071
   }
  ]
 }

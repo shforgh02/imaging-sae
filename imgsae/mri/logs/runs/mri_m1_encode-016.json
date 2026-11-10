@@ -1,0 +1,12 @@
+{
+ "rid": "mri_m1_encode-016",
+ "task": "mri_m1_encode",
+ "app": "imgsae-mri-m1-encode",
+ "job": "m1_encode_smoke",
+ "call_id": "fc-01M72QQ20VRV7P03E13H0VSDF2",
+ "rate_h": 1.1172,
+ "timeout_min": 10,
+ "worst_usd": 0.34206000000000003,
+ "launched": "2026-11-10T16:12:51",
+ "result_name": "m1_encode_smoke"
+}

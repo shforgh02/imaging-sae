@@ -201,6 +201,16 @@ The encode launches for M1 are then sized from the measured times, inside the $5
 
 **If the gate fails:** stop and report; the lead decides.
 
+**Implementation notes and deviations** (2026-11-10, written before any M1 result was seen):
+- **Storage:** features are stored for cells with gland occupancy > 0 or lesion occupancy > 0, without the one-cell dilation, to limit storage (about 9 GB). M2 re-encodes the chosen arm on the dilated set.
+- **Side-check arms:** the two MRI-CORE sensitivity arms (per-slice min–max input; [0, 1] input without ImageNet normalisation) are encoded for the probe-sample cells only.
+- **SAM per-slice min–max sensitivity is not run.** It would double SAM's encode cost inside the $5.00 cap, and SAM was trained on natural images.
+- **Verified analysis:** it restricts the **evaluation** to lesion tokens plus normal tokens from studies with histopathology. The probes themselves are fitted on all training tokens.
+- **Scores:** the probe score is the logistic decision function, which gives the same AUROC as the probability.
+- **Bootstrap draws:** rule S's ProFound CI and the gate CIs use 2,000 cluster-bootstrap draws; descriptive CIs use 500.
+- **Patient-level probe** (descriptive): per study, the highest probe score over all its gland cells (gland occupancy ≥ 0.5), from the probe fitted on the other folds' sample tokens. AUROC vs csPCa in the biopsy cohort and in all studies, chosen arm vs R, study-level patient-cluster bootstrap.
+- **Code:** `imgsae/mri/cloud/m1_encode_modal.py`, `imgsae/mri/m1_lib.py`, `imgsae/mri/encoders_lib.py`, `imgsae/mri/m1_analysis.py`. Unit tests (synthetic, known answers): `tests/test_m1_lib.py` 4/4, `tests/test_m1_analysis.py` 6/6.
+
 **Arm for M2:** chosen by rule S on the full dev 5-fold cross-validation.
 
 **Descriptive outputs:**

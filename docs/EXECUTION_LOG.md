@@ -486,3 +486,18 @@ Progress (2026-11-09):
   - Seconds per study: MRI-CORE A/B 0.32/0.10, SAM A/B 6.12/2.04, untrained 2.04, ProFound 0.03.
   - Weights SHA256 recorded in `RESULTS_M0.md`.
 - **M0 DONE.** MRI Modal spend $1.10 (fetch 0.37, prep 0.30, encode 0.43). Stopped for the user's review before M1.
+
+## 2026-11-10: MRI M1 started (user: "yes!" to M1 after the M0 review)
+- M1 implementation notes and deviations written into the protocol (section 6) before any result:
+  - storage without dilation;
+  - MRI-CORE sensitivity arms on the probe sample only;
+  - SAM per-slice min-max sensitivity not run (budget);
+  - verified analysis restricts the evaluation;
+  - descriptive bootstraps use 500 draws;
+  - patient-level probe defined.
+- Code: `encoders_lib.py` (the M0-verified loaders, one shared module), `m1_lib.py` (4 mm grid, labels, R = 66, sample), `cloud/m1_encode_modal.py`
+  (SHA256 of the weights checked against M0; fail-fast if the first studies all fail), `m1_analysis.py`; `launch.py` gains `launch_many`.
+  Unit tests 4/4 and 6/6.
+- **Smoke mri_m1_encode-016** (2 studies, $0.17): ok, 13.8 s per study. One feature file inspected: 873 kept cells, 200 sampled,
+  R 66 columns, all arms finite with no constant columns.
+- **Full encode mri_m1_encode-017:** 4 shards in parallel, timeout 54 min, worst case $4.35 (task: 0.60 + 4.35 <= 5.00).

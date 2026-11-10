@@ -16,19 +16,21 @@ import launch as LN  # noqa: E402
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("rid"); ap.add_argument("--wait", type=float, default=5.0); a = ap.parse_args()
-    rec = json.loads((LN.RUNS / f"{a.rid}.json").read_text()); call = modal.FunctionCall.from_id(rec["call_id"])
-    try:
-        out = call.get(timeout=a.wait)
-    except TimeoutError:
-        print(f"{a.rid}: still running"); sys.exit(3)
-    except (ConnectionError, OSError) as e:   # laptop network trouble (or a remote OSError): retry; the caller loop is bounded
-        print(f"{a.rid}: transient error, will retry: {e!r}"[:800]); sys.exit(5)
-    except Exception as e:
-        print(f"{a.rid}: CALL FAILED: {e!r}"[:1500]); sys.exit(4)
+    rec = json.loads((LN.RUNS / f"{a.rid}.json").read_text()); ids = rec.get("call_ids") or [rec["call_id"]]; outs = []
+    for cid in ids:
+        try:
+            outs.append(modal.FunctionCall.from_id(cid).get(timeout=a.wait))
+        except TimeoutError:
+            print(f"{a.rid}: call {cid} still running"); sys.exit(3)
+        except (ConnectionError, OSError) as e:   # laptop network trouble (or a remote OSError): retry; the caller loop is bounded
+            print(f"{a.rid}: transient error, will retry: {e!r}"[:800]); sys.exit(5)
+        except Exception as e:
+            print(f"{a.rid}: CALL {cid} FAILED: {e!r}"[:1500]); sys.exit(4)
+    out = outs[0] if len(outs) == 1 else dict(calls=outs, container_min=sum(float(o["container_min"]) for o in outs))
     name = rec.get("result_name") or rec["job"]; (MRI / "results").mkdir(exist_ok=True)
     (MRI / "results" / f"{name}.json").write_text(json.dumps(out, indent=1, default=str))
-    measured = (float(out["container_min"]) + LN.B.START_MIN) / 60 * rec["rate_h"] + LN.IMAGE_USD
-    LN.B.close_run(a.rid, measured, f"collected; container {out['container_min']:.1f} min")
+    measured = (float(out["container_min"]) + LN.B.START_MIN * len(ids)) / 60 * rec["rate_h"] + LN.IMAGE_USD
+    LN.B.close_run(a.rid, measured, f"collected; {len(ids)} call(s), container {out['container_min']:.1f} min")
     print(f"{a.rid}: collected -> results/{name}.json; closed at ${measured:.2f}")
 
 
