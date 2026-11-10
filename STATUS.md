@@ -12,11 +12,14 @@
   - Nonnegative DL (deviation M7): 0.063 / 0.046 / 0.038, still far below k-means / ICA; G1-main unchanged. A label-free check shows the
     two halves' dictionaries agree but the OMP codes don't: the instability is in the coding step.
 - Open: Q1 (keep "beyond physics" in the gates / headline?) and the freeze decision. Code `imgsae/exploratory/v2_ct/`; Modal task v2s1a_sae $6.06 of $7.
-- **Step 2 (review order) drafted 2026-11-10, waiting for the user's review:** `docs/SAE_PROTOCOL_v2.md` (DRAFT, not registered, nothing run).
-  Freezes the user's chosen methods (SAE consensus M1024 k6 12k; km_M1024_L6, ica_L6, dl_nn_A1024_k6, raw_L6, svx_L6; oracle as reference),
-  hypotheses H2, H3, H1, H2b, H5, J = 10, Holm. Open decisions in its §0: D1 = Q1 (H2b keep, recommended), D2 (H5 descriptive, recommended),
-  D3 (CPU baselines on the laptop), D4 (20 perturbed scans), D5 (Modal budgets: 4 tasks, caps $23.60, expected ~$17; the ledger's all-time
-  $29 check leaves ~$4 headroom), D6 (null SAE), D7 (Zenodo). Then: engineering E1–E5 and dev checks C1–C5, freeze, register, run once (step 3).
+- **Step 2 (review order): protocol revision 2 written 2026-11-10, waiting for the user's review** (branch `protocol-v2-review`):
+  `docs/SAE_PROTOCOL_v2.md` (DRAFT, not registered, nothing run). It adopts the colleague's review `docs/REVIEW_PROTOCOL_v2.md` with
+  refinements; the reply is `docs/RESPONSE_REVIEW_PROTOCOL_v2.md`.
+  - Family {H2, H3, H1}, m = 3: H2 single SAE vs best single baseline (dev +0.104); H3 consensus non-inferior at all features + R1;
+    H1 0.5 < theta < 0.75. H2b and H5 descriptive (D1, D2 decided).
+  - Open in its §0: D3 (CPU baselines on the laptop), D4 (20 perturbed scans), D5 (Modal budgets: caps $22.00, expected ~$15.7; the
+    ledger's all-time $29 check leaves ~$5.5), D6 (null SAE), D7 (Zenodo), D8 (dev-only consensus check for k-means and ICA).
+  - Then: engineering E1–E6, dev checks C1–C6, freeze, register, run once (step 3).
 - Earlier: Phase 1b Stage A DONE (`imgsae/exploratory/p1b_sanity/RESULTS.md`); plan v2 review packet `docs/SAE_v2_REVIEW_PACKET.md` (PR #1).
 
 ## Check progress

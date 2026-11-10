@@ -303,3 +303,24 @@ Progress (2026-11-09):
   CPU baselines run, perturbation subset, Modal budgets, null SAE, registration).
 - Found while drafting (to fix before any confirmation run): dev paths are hard-coded in `p1b_sanity/common.refpos` (cache) and in
   `v2_ct/s1a_lib` (results, tables, tasks), and the Modal job prints metric values. Both are covered by E4 in the draft.
+
+## 2026-11-10: colleague review of the draft protocol; protocol revision 2
+- Review pushed by the colleague to branch protocol-v2-review: `docs/REVIEW_PROTOCOL_v2.md` (desk analysis of the committed tables).
+  Recomputed independently from s1a_*.json and the per-feature tables (read-only scripts, nothing refitted).
+  - Main finding confirmed (F1): the consensus (396-414 features) escapes the 425-feature subsampling that the 1,024-feature methods get.
+    Like-for-like, the SAE's gain is about +0.10, not +0.25: single SAE - best baseline +0.104 at 425 features, +0.104 at all features,
+    +0.104 with each method's top 425 features by twin score. Consensus - single at all features: +0.019.
+  - Differences explained: the review counted a missing twin score as 0, while production v (np.fmin) skips it. With the review's rule its
+    ICA and physics-SAE link values (0.454, 0.475, 0.473) reproduce exactly. Single SAE - physics single is therefore +0.044 at 425
+    features (review +0.064) and +0.035 at all features (review +0.057).
+- Lead's decision (2026-11-10, "yes do"): adopt the review with the refinements in `docs/RESPONSE_REVIEW_PROTOCOL_v2.md`. Protocol
+  `docs/SAE_PROTOCOL_v2.md` revision 2:
+  - H2 = single SAE vs best single-fit baseline, at 425 features; all arms have 1,024 features. Dev +0.104 (6.4 SDs). The single SAE is
+    also the best of A2's 8 single configs on rep 0; with it, G1-main would also have passed (+0.090 / +0.122 / +0.100).
+  - H3 = consensus non-inferior to the single fit at all features (margin 0.05) and superior on R1; H3c (coverage superiority) dropped.
+  - H1 = 0.5 < theta < 0.75, as one intersection-union test.
+  - H2b (D1) and H5 (D2) descriptive; family {H2, H3, H1}, m = 3.
+  - New key secondaries K1-K6, with wording rules W1-W2 fixed before any K3 value is computed. New sensitivity analysis S5: missing
+    twin score counted as 0. K3 adds a centred smoothing control (1/8, 3/4, 1/8), because the review's 2 x 2 control is half a token off centre.
+  - Physics consensus dropped from the confirmation; the physics single SAE runs (descriptive). Modal estimate about $15.7, caps $22.00.
+- Nothing run on Modal; the sealed scans were not touched. Open for the lead: D3-D8 and the budgets.
