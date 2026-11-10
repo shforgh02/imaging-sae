@@ -246,6 +246,66 @@
     "mem_gib": 8,
     "launch": "spawn"
    },
+   "closed": "2026-11-10T14:42:57",
+   "measured_usd": 0.1546,
+   "note": "collected; container 9.9 min"
+  },
+  {
+   "id": "mri_prep-012",
+   "task": "mri_prep",
+   "opened": "2026-11-10T14:43:40",
+   "worst_usd": 0.2519,
+   "info": {
+    "app": "imgsae-mri-m0-prep",
+    "jobs": [
+     "prep_smoke"
+    ],
+    "timeout_min": 15,
+    "gpu": null,
+    "cpu": 8,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-10T14:44:03",
+   "measured_usd": 0.1269,
+   "note": "collected; container 0.2 min"
+  },
+  {
+   "id": "mri_prep-013",
+   "task": "mri_prep",
+   "opened": "2026-11-10T14:44:42",
+   "worst_usd": 0.6317,
+   "info": {
+    "app": "imgsae-mri-m0-prep",
+    "jobs": [
+     "prep_full"
+    ],
+    "timeout_min": 60,
+    "gpu": null,
+    "cpu": 8,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-10T14:51:11",
+   "measured_usd": 0.1764,
+   "note": "collected; container 6.1 min"
+  },
+  {
+   "id": "mri_m1_encode-014",
+   "task": "mri_m1_encode",
+   "opened": "2026-11-10T15:00:20",
+   "worst_usd": 0.7145,
+   "info": {
+    "app": "imgsae-mri-m0-encoders",
+    "jobs": [
+     "m0_encoder_check"
+    ],
+    "timeout_min": 30,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
    "closed": null
   }
  ],
@@ -363,6 +423,24 @@
    "month_used_usd": 3.3134,
    "open_worst_usd": 0,
    "project_committed_usd": 7.9493
+  },
+  {
+   "time": "2026-11-10T14:43:40",
+   "month_used_usd": 3.3644,
+   "open_worst_usd": 0,
+   "project_committed_usd": 8.1039
+  },
+  {
+   "time": "2026-11-10T14:44:42",
+   "month_used_usd": 3.3744,
+   "open_worst_usd": 0,
+   "project_committed_usd": 8.2308
+  },
+  {
+   "time": "2026-11-10T15:00:20",
+   "month_used_usd": 3.4346,
+   "open_worst_usd": 0,
+   "project_committed_usd": 8.4072
   }
  ]
 }

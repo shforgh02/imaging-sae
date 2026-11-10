@@ -1,0 +1,6 @@
+}
+SPAWNED mri_prep-013: call fc-01M72JNNC88EYMPGT7T66A0PE6, worst case $0.63. Collect with: python imgsae/mri/cloud/collect.py mri_prep-013
+dev studies 754; to do 749; missing in index 0
+[modal-client] 2026-11-10T14:44:53+0330 Timed out waiting for final app logs.
+✓ App completed. View run at 
+https://modal.com/apps/shforghani2002/main/ap-TWD8H2mlqetD1VbUMbsU2i

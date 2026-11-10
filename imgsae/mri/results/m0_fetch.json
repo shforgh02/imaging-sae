@@ -1,0 +1,63 @@
+{
+ "status": {
+  "picai_public_images_fold2.zip": "ok",
+  "picai_public_images_fold3.zip": "ok",
+  "picai_public_images_fold0.zip": "ok",
+  "picai_public_images_fold4.zip": "ok",
+  "picai_public_images_fold1.zip": "ok",
+  "LICENSE": "ok",
+  "README.md": "ok"
+ },
+ "n_studies_indexed": 1500,
+ "n_complete_t2w_adc_hbv": 1500,
+ "labels_zip_sha256": "f122ebeb5884fbb70679211477246d8234aa68d11e6a9f7f84667e52a4c1f312",
+ "labels_root": "/vol/raw/labels/picai_labels-ce4a4723d7c46d882a6cbaacb40ed6c4be86282f",
+ "marksheet_sha256_ok": true,
+ "record": {
+  "record": "6624726",
+  "title": "The PI-CAI Challenge: Public Training and Development Dataset",
+  "version": "v2.0",
+  "license": {
+   "id": "cc-by-nc-4.0"
+  },
+  "doi": "10.5281/zenodo.6624726",
+  "files": [
+   {
+    "key": "picai_public_images_fold2.zip",
+    "size": 5270275720,
+    "md5": "5ac0caf27cfe94dfc04bb408a971b351"
+   },
+   {
+    "key": "picai_public_images_fold3.zip",
+    "size": 5502916242,
+    "md5": "6602bce3d0882d7b9c2153d880c97e96"
+   },
+   {
+    "key": "picai_public_images_fold0.zip",
+    "size": 5368893021,
+    "md5": "b0cdd8f5fb7733ca585dca3541586a34"
+   },
+   {
+    "key": "picai_public_images_fold4.zip",
+    "size": 5562839222,
+    "md5": "8941720d8a8ee66571691cfb10dbee66"
+   },
+   {
+    "key": "picai_public_images_fold1.zip",
+    "size": 5164062415,
+    "md5": "d7c8cd0efc0e7f264df8d5acf860662f"
+   },
+   {
+    "key": "LICENSE",
+    "size": 19917,
+    "md5": "bd06674082883348303979bec15d9c2c"
+   },
+   {
+    "key": "README.md",
+    "size": 4349,
+    "md5": "3ef8691b42259a6b908c85b68d00e114"
+   }
+  ]
+ },
+ "container_min": 9.937929753462473
+}

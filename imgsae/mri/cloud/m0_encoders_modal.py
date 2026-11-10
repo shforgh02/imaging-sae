@@ -26,7 +26,8 @@ LOCAL = modal.is_local()
 MRI = Path(__file__).resolve().parents[1] if LOCAL else Path("/root/mri")
 
 image = (modal.Image.debian_slim(python_version="3.11").apt_install("git")
-         .pip_install("torch==2.10.0", "torchvision==0.25.0", "numpy==2.4.6", "scipy==1.17.1", "monai==1.5.0", "timm==1.0.16", "einops==0.8.1",
+         # torch 2.6.0 / torchvision 0.21.0: ProFound's documented environment; monai 1.5.0 (ProFound, MRI-CORE) needs torch < 2.7
+         .pip_install("torch==2.6.0", "torchvision==0.21.0", "numpy==2.4.6", "scipy==1.17.1", "monai==1.5.0", "timm==1.0.16", "einops==0.8.1",
                       "scikit-image==0.25.2", "requests==2.32.3", "gdown==5.2.0", "nibabel==5.3.2", f"git+https://github.com/facebookresearch/segment-anything.git@{SAM_COMMIT}")
          .run_commands(f"git clone https://github.com/mazurowski-lab/mri_foundation.git /opt/mri_foundation && cd /opt/mri_foundation && git checkout {MRICORE_COMMIT}",
                        f"git clone https://github.com/pipiwang/ProFound.git /opt/ProFound && cd /opt/ProFound && git checkout {PROFOUND_COMMIT}")

@@ -1,0 +1,244 @@
+{
+ "counts": {
+  "n_dev": 754,
+  "n_processed": 754,
+  "excluded_by_qc": [
+   "11050_1001070"
+  ],
+  "n_used": 753,
+  "errors": {},
+  "n_dev_positive": 212,
+  "positives_by_source": {
+   "Pooch25": 107,
+   "resampled": 105
+  },
+  "positives_by_centre_source": {
+   "PCNN": {
+    "Pooch25": 0,
+    "resampled": 54
+   },
+   "RUMC": {
+    "Pooch25": 67,
+    "resampled": 51
+   },
+   "ZGT": {
+    "Pooch25": 40,
+    "resampled": 0
+   }
+  },
+  "positives_with_empty_mask": []
+ },
+ "adc_units": {
+  "median_gland_p50": 1409.84375,
+  "ok_1e6_mm2_s": true,
+  "window": [
+   0,
+   3000
+  ]
+ },
+ "token_size": {
+  "chosen_mm": 4,
+  "per_source_mm": {
+   "Pooch25": 4,
+   "resampled": 6
+  },
+  "recall": {
+   "Pooch25": {
+    "8": {
+     "n_lesions": 119,
+     "n_captured": 82,
+     "n_small": 0,
+     "n_studies": 107,
+     "recall": 0.6890756302521008
+    },
+    "6": {
+     "n_lesions": 119,
+     "n_captured": 104,
+     "n_small": 0,
+     "n_studies": 107,
+     "recall": 0.8739495798319328
+    },
+    "4": {
+     "n_lesions": 119,
+     "n_captured": 119,
+     "n_small": 0,
+     "n_studies": 107,
+     "recall": 1.0
+    }
+   },
+   "resampled": {
+    "8": {
+     "n_lesions": 113,
+     "n_captured": 95,
+     "n_small": 0,
+     "n_studies": 105,
+     "recall": 0.8407079646017699
+    },
+    "6": {
+     "n_lesions": 113,
+     "n_captured": 108,
+     "n_small": 0,
+     "n_studies": 105,
+     "recall": 0.9557522123893806
+    },
+    "4": {
+     "n_lesions": 113,
+     "n_captured": 113,
+     "n_small": 0,
+     "n_studies": 105,
+     "recall": 1.0
+    }
+   }
+  },
+  "rule": "per source largest size with recall >= 0.90; the smaller wins; 4 mm if none"
+ },
+ "materiality": {
+  "per_grade": [
+   {
+    "isup": 2,
+    "n_pooch": 35,
+    "n_resampled": 27,
+    "median_pooch": 0.6869999915917789,
+    "median_resampled": 1.625249993095172,
+    "used": true
+   },
+   {
+    "isup": 3,
+    "n_pooch": 17,
+    "n_resampled": 11,
+    "median_pooch": 0.7928999825096018,
+    "median_resampled": 1.9769999950490469,
+    "used": true
+   },
+   {
+    "isup": 4,
+    "n_pooch": 8,
+    "n_resampled": 6,
+    "median_pooch": 2.4308999864521494,
+    "median_resampled": 0.6663750035914144,
+    "used": true
+   },
+   {
+    "isup": 5,
+    "n_pooch": 7,
+    "n_resampled": 7,
+    "median_pooch": 2.2248000280010687,
+    "median_resampled": 2.398500027319654,
+    "used": true
+   }
+  ],
+  "ratio": 0.5999011756513584,
+  "ci95": [
+   0.34952051826802333,
+   0.9296757810034054
+  ],
+  "material": true,
+  "rule": "material if outside 0.8-1.25"
+ },
+ "qc": {
+  "n_flagged": 3,
+  "flagged": [
+   "10017_1000017",
+   "11076_1001098",
+   "11106_1001129"
+  ],
+  "gland_dice_median": 0.985692804192791,
+  "gland_dice_p05": 0.9454174153367767,
+  "zone_dice_median": 0.909303281456842,
+  "zone_dice_p05": 0.8499904875854103,
+  "random_qc": [
+   "10003_1000003",
+   "10038_1000038",
+   "10070_1000070",
+   "10094_1000094",
+   "10104_1000104",
+   "10140_1000142",
+   "10158_1000161",
+   "10219_1000223",
+   "10318_1000324",
+   "10364_1000370",
+   "10548_1000560",
+   "10629_1000643",
+   "10653_1000669",
+   "10763_1000779",
+   "10900_1000916",
+   "11011_1001031",
+   "11216_1001239",
+   "11254_1001277",
+   "11261_1001284",
+   "11376_1001399"
+  ]
+ },
+ "masks": {
+  "gland_b": {
+   "values": [
+    0,
+    1
+   ],
+   "n": 753,
+   "not_on_t2w_grid": 0
+  },
+  "gland_g": {
+   "values": [
+    0,
+    1
+   ],
+   "n": 753,
+   "not_on_t2w_grid": 0
+  },
+  "lesion|Pooch25": {
+   "values": [
+    0,
+    1
+   ],
+   "n": 107,
+   "not_on_t2w_grid": 2
+  },
+  "lesion|resampled": {
+   "values": [
+    0,
+    2,
+    3,
+    4,
+    5
+   ],
+   "n": 646,
+   "not_on_t2w_grid": 4
+  },
+  "zone_h": {
+   "values": [
+    0,
+    1,
+    2
+   ],
+   "n": 753,
+   "not_on_t2w_grid": 182
+  },
+  "zone_y": {
+   "values": [
+    0,
+    1,
+    2
+   ],
+   "n": 753,
+   "not_on_t2w_grid": 0
+  }
+ },
+ "t2w_geometry": {
+  "inplane_mm_median": 0.5,
+  "inplane_mm_range": [
+   0.234375,
+   0.78125
+  ],
+  "slice_mm_median": 3.0000000391227477,
+  "slice_mm_range": [
+   2.999999706561423,
+   3.960000048226685
+  ],
+  "crop_slices_median": 17.0,
+  "crop_slices_range": [
+   10,
+   29
+  ]
+ }
+}

@@ -1,0 +1,25 @@
+{
+ "rule": "docs/MRI_M0M1_PROTOCOL.md section 4: for each flagged study (label-blind image (b), no lesion outlines) decide keep Bosma22b / use Guerbet23 / exclude",
+ "decided_by": "Claude (agent), 2026-11-10, on label-blind images; for the lead's review",
+ "decisions": {
+  "10017_1000017": {"trigger": "zone Dice 0.64 (gland Dice 0.97)", "decision": "keep Bosma22b",
+                    "reason": "both gland masks agree and outline the prostate at apex, mid and base; only the two zone models disagree (HeviAI23 vs Yuan23), which the protocol already handles: cells where the models disagree are 'zone uncertain'"},
+  "11076_1001098": {"trigger": "zone Dice 0.55 (gland Dice 0.97)", "decision": "keep Bosma22b",
+                    "reason": "gland masks agree at apex and mid-gland, small difference at the base; zone models disagree (Yuan23 PZ extends outside the gland), handled as 'zone uncertain'"},
+  "11106_1001129": {"trigger": "gland Dice 0.84, zone Dice 0.54", "decision": "keep Bosma22b",
+                    "reason": "mid-gland agrees; Bosma22b is a little wider at the apex and Guerbet23 covers more of a median-lobe protrusion at the base; Bosma22b (primary) is acceptable"},
+  "11050_1001070": {"trigger": "named as a faulty AI segmentation in the picai_labels README (known before M0); also surfaced by the M0 count of positives with an empty lesion crop",
+                    "decision": "exclude",
+                    "reason": "label-blind wide-field view (T2W + Bosma22b outline only, 256 mm field): the gland mask lies on anterior pelvic tissue, not on the prostate, and is fragmented in the sagittal view; Guerbet23 agrees with it (gland Dice 0.87), so neither AI gland mask is usable",
+                    "image": "scratchpad render, reproducible with imgsae/mri/m0_render_pf_qc.py"}
+ },
+ "extra_screen": {
+  "rule": "added after M0 ran (deviation, label-blind): AI gland volume (Bosma22b) / reported prostate_volume outside 0.5-2.0 -> label-blind visual check. Reason: agreement of two AI masks cannot catch a case where both are wrong (11050_1001070).",
+  "result": "754 studies, 739 with a reported volume; ratio median 0.93 (1st-99th pct 0.56-1.64); 2 outside 0.5-2.0; 11050_1001070 has ratio 1.80, so this screen would not have caught it",
+  "decisions": {
+   "10541_1000552": {"ratio": 2.29, "ai_ml": 22.9, "reported_ml": 10.0, "decision": "keep Bosma22b", "reason": "mask on the prostate at apex, mid, base, sagittal and coronal; the reported volume looks too small"},
+   "11051_1001071": {"ratio": 6.15, "ai_ml": 24.6, "reported_ml": 4.0, "decision": "keep Bosma22b", "reason": "mask on the prostate in all views; reported 4 ml is implausible (likely a clinical-sheet error). Note for M3: PSAD = PSA / reported volume would be inflated for this study"}
+  }
+ },
+ "excluded": ["11050_1001070"]
+}

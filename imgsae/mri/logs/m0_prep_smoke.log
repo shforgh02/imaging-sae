@@ -1,0 +1,8 @@
+  "month (Modal billing): 3.36 + open 0.00 + 0.25 <= 29.00": true
+ }
+}
+SPAWNED mri_prep-012: call fc-01M72JKRVHWP5YTEM05387CKN6, worst case $0.25. Collect with: python imgsae/mri/cloud/collect.py mri_prep-012
+dev studies 754; to do 5; missing in index 0
+[modal-client] 2026-11-10T14:43:51+0330 Timed out waiting for final app logs.
+✓ App completed. View run at 
+https://modal.com/apps/shforghani2002/main/ap-Frhd3pMo4piI87c1S390P1

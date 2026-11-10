@@ -1,0 +1,10 @@
+mri_fetch-011: still running
+14:33:18 collect exit 3
+mri_fetch-011: still running
+14:35:50 collect exit 3
+mri_fetch-011: still running
+14:38:22 collect exit 3
+mri_fetch-011: still running
+14:40:54 collect exit 3
+mri_fetch-011: collected -> results/m0_fetch.json; closed at $0.15
+14:42:57 collect exit 0

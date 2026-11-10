@@ -420,3 +420,45 @@ Progress (2026-11-09):
   - 738 dev / 738 sealed patients; 754 dev / 746 sealed studies; strata balanced (difference <= 1);
   - 438 dev biopsy-cohort studies;
   - `split.json` SHA256 4211975b...; committed before any image download.
+- M0.2 fetch:
+  - **First attempt mri_fetch-010 was cancelled.** At 14:27 the laptop's network dropped (DNS error `getaddrinfo failed`). The local Modal
+    client raised, and Modal cancelled the running call even though it was launched with `--detach`.
+    - 12.1 GiB of partial downloads were kept.
+    - Ledger reconciled from the $0.62 worst case to $0.21 (23.2 container minutes).
+  - **Fix:**
+    - spawn-based launch (`imgsae/mri/cloud/launch.py`; the client returns at once; collect with `collect.py` / `wait_collect.ps1`);
+    - resumable downloads (HTTP Range, MD5 over the whole file, commit about every GB);
+    - all 7 files in parallel; timeout 90 min.
+    - Memory `always-save-work` updated.
+  - **Relaunch mri_fetch-011: done** in 9.9 container minutes ($0.15).
+    - All 7 files MD5 ok (26.87 GB; folds 0-4, LICENSE, README); Zenodo licence cc-by-nc-4.0.
+    - Index: 1,500 studies, all with t2w/adc/hbv.
+    - picai_labels zip SHA256 f122ebeb...; marksheet SHA256 matches.
+- M0.3 prep smoke mri_prep-012 (5 studies, all negatives): no errors, about 10 s per study, $0.13.
+  - Gland Dice 0.98, zone Dice 0.90-0.93; gland ADC p50 1,101-1,437; one zone mask (HeviAI23) not on the T2W grid, resampled.
+  - T2W in-plane 0.28-0.5 mm, slices 3.0-3.6 mm; ADC/HBV 1.75-2.0 mm in-plane.
+  - The lesion-mask path was not exercised (no positives among the first 5). It is checked in the full run's outputs, because a second
+    smoke run would not fit the $0.80 cap together with the full run.
+- Full prep launched: mri_prep-013 (749 studies). **Done:** 754/754 dev studies, 0 errors, 6.1 container minutes. `imgsae/mri/RESULTS_M0.md`.
+- **M0 decisions** (rules of the protocol, section 4):
+  - **ADC units:** 10^-6 mm2/s (gland p50 median 1,410).
+  - **Token size 4 mm:** lesion recall Pooch25 0.689 / 0.874 / 1.000 and resampled 0.841 / 0.956 / 1.000 at 8 / 6 / 4 mm.
+  - **Outline materiality:** RUMC, ISUP-matched ratio of median lesion volume, Pooch25 / resampled = 0.60 (CI 0.35-0.93), so
+    **material**. Cross-centre token-level results are labelled annotation-dependent, and the clinical claim rests on patient-level M3.
+  - **Masks:** Pooch25 lesion masks are binary (0/1); resampled masks carry ISUP 2-5. Some masks were not on the T2W grid and were
+    resampled (lesion 6, HeviAI23 zones 183).
+- **QC** (gland Dice median 0.986, zone Dice median 0.909): 3 flagged (zone disagreement). Label-blind check: keep Bosma22b for all three.
+- **Exclusion: 11050_1001070.**
+  - The picai_labels README names it as a faulty AI segmentation; M0 also surfaced it as the one positive with an empty lesion crop.
+  - The label-blind wide-field render (T2W + gland outline only) shows the gland mask on anterior pelvic tissue, not the prostate.
+    Guerbet23 agrees with it (Dice 0.87), so both AI masks are unusable.
+  - Decision taken on the label-blind image. 753 dev studies used, 212 positive (PCNN 54, RUMC 118, ZGT 40).
+- **Deviation (label-blind, added after M0 ran):** an extra QC screen, AI gland volume / reported prostate_volume outside 0.5-2.0.
+  - Reason: agreement of two AI masks cannot catch a case where both are wrong.
+  - Result: 2 studies (10541_1000552 ratio 2.29; 11051_1001071 ratio 6.15, reported 4 ml); both masks are correct on the label-blind
+    render, so they are kept. 11050_1001070 has ratio 1.80, so this screen would not have caught it.
+  - For M3: the reported volume of 11051_1001071 looks wrong, which affects its PSAD.
+  - Decisions: `imgsae/mri/results/m0_qc_decisions.json`; render script `imgsae/mri/m0_render_pf_qc.py`.
+- QC images (random 20 with lesion outlines): the outlines sit on low ADC / high HBV, and ADC/HBV are aligned with T2W after resampling.
+- **Encoder check** (M0.5): the first build failed on a dependency conflict (monai 1.5.0 needs torch < 2.7; no cost, the build failed
+  before launch). Changed to torch 2.6.0 / torchvision 0.21.0, ProFound's documented environment. Launched mri_m1_encode-014.

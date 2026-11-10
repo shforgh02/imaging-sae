@@ -1,0 +1,12 @@
+{
+ "rid": "mri_prep-012",
+ "task": "mri_prep",
+ "app": "imgsae-mri-m0-prep",
+ "job": "prep_smoke",
+ "call_id": "fc-01M72JKRVHWP5YTEM05387CKN6",
+ "rate_h": 0.5064,
+ "timeout_min": 15,
+ "worst_usd": 0.25192,
+ "launched": "2026-11-10T14:43:40",
+ "result_name": "m0_prep_smoke"
+}

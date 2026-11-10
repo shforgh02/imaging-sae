@@ -1,0 +1,12 @@
+{
+ "rid": "mri_prep-013",
+ "task": "mri_prep",
+ "app": "imgsae-mri-m0-prep",
+ "job": "prep_full",
+ "call_id": "fc-01M72JNNC88EYMPGT7T66A0PE6",
+ "rate_h": 0.5064,
+ "timeout_min": 60,
+ "worst_usd": 0.63172,
+ "launched": "2026-11-10T14:44:42",
+ "result_name": "m0_prep_summary"
+}

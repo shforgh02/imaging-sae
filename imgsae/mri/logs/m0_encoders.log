@@ -1,0 +1,8 @@
+
+  "month_used_usd": 3.4346,
+ "tests": {
+  "task mri_m1_encode: 0.00 + 0.71 <= 5.00": true,
+  "project: 8.41 + 0.71 <= 29.00": true,
+  "month (Modal billing): 3.43 + open 0.00 + 0.71 <= 29.00": true
+SPAWNED mri_m1_encode-014: call fc-01M72KJ9AXK0G93E3W87NBYD99, worst case $0.71. Collect with: python imgsae/mri/cloud/collect.py mri_m1_encode-014
+
