@@ -549,3 +549,20 @@ Progress (2026-11-09):
   - Training folds 0.78-0.81, so there is little case-level memorisation.
 - **Leak constraint:** only fold 4 is label-clean. 454 of our 746 sealed studies are in its training folds, so this exact checkpoint cannot be confirmed on our sealed half.
 - **Next (pending the user):** get the training code; retrain the same recipe on our split so the sealed half stays clean; new protocol and budget first.
+
+## 2026-11-11: added value of the user's model over the clinical baseline (test fold 4, biopsy cohort; post hoc, descriptive)
+- **Data:** 180 studies, 88 csPCa (verified, PI-RADS ≥ 3). PSAD from the marksheet (9 missing, median-imputed); 11051_1001071 is not in this set.
+- **Within-PI-RADS AUROC** (ranking inside each PI-RADS category): model 0.689, PSAD 0.618, age 0.544.
+- **Added value** (logistic regression, no penalty), base = PI-RADS (one-hot) + log PSAD + age:
+
+| Model | In-sample AUROC | Optimism-corrected AUROC (Harrell, 1,000 bootstraps) |
+|---|---|---|
+| Base | 0.747 | 0.730 |
+| Base + model score (rank) | 0.803 | 0.785 |
+
+  - Corrected gain **+0.055** (bootstrap interval of the gain +0.014 to +0.098); likelihood-ratio χ² 14.7, p = 0.0001.
+- **Method note:** a first pass used pooled 5-fold CV AUROC. It gave PI-RADS alone 0.579 against 0.707 direct, the known downward bias of pooled CV AUROC for coarse predictors, so the likelihood-ratio and bootstrap method was used instead. The CV gain was similar (+0.053).
+- **Caveats:**
+  - one fold, post hoc;
+  - which checkpoint produced the isotropic table, and whether anything was tuned on fold 4, must be confirmed from the user's code.
+- **Context:** the user shared a review of Gemini's suggestions; the assessment was given in chat (no protocol change).
