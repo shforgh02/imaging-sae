@@ -525,3 +525,27 @@ Progress (2026-11-09):
 - **Stopped per the protocol** ("if the gate fails: stop and report; the lead decides"). Report in `imgsae/mri/RESULTS_M1.md`.
   Recommendation: no M2; the optional next step is a laptop feasibility check of csPCa within PI-RADS ≥ 3, under a new protocol.
   MRI Modal spend $5.12.
+
+## 2026-11-10: check of the user's earlier PI-CAI cancer model (user asked: "can't we simply use that? check it")
+- **Inputs:** read-only from `picai-dataset-vol`; nothing written there.
+  - Checkpoints:
+    - `picai_3d_unet_fold012.pth`: MONAI UNet, 4.8 M params;
+    - `picai_segresnet_best_{dice,loss}.pth`: MONAI SegResNet, 18.8 M params;
+    - `picai_training_checkpoint.pth`: epoch 120, best validation Dice 0.43.
+  - Both networks take **2 input channels** (most likely T2W + ADC, no high-b DWI).
+  - The folds are PI-CAI's public folds 0-4; train 0-2, validation 3, test 4.
+- **Missing:** the training code is not on this computer (needed for the input channels, the preprocessing, and which checkpoint made the scores).
+- **Scores:** per study, the highest blob probability from `Phase2_Blob_Candidates_Isotropic.csv`. The non-isotropic table is about 0.53 everywhere and is ignored.
+- **Labels:** the official marksheet (SHA checked); the user's labels agree 100%.
+- **Test fold 4** (296 studies, 90 csPCa):
+
+| Population | Model | PI-RADS |
+|---|---|---|
+| All studies | 0.779 (matches the user's figure) | 0.857 |
+| Biopsy cohort (180 studies, 88 csPCa) | 0.729 | 0.707 |
+
+  - Within PI-RADS 3 / 4 / 5: model AUROC 0.81 / 0.64 / 0.72 (n 31 / 71 / 78).
+  - **Pooled within-PI-RADS AUROC 0.689 [0.598, 0.775]** (patient bootstrap, 2,000 draws): the model ranks csPCa beyond PI-RADS on unseen cases.
+  - Training folds 0.78-0.81, so there is little case-level memorisation.
+- **Leak constraint:** only fold 4 is label-clean. 454 of our 746 sealed studies are in its training folds, so this exact checkpoint cannot be confirmed on our sealed half.
+- **Next (pending the user):** get the training code; retrain the same recipe on our split so the sealed half stays clean; new protocol and budget first.
