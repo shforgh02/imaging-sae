@@ -293,3 +293,13 @@ Progress (2026-11-09):
       0.003 / 0.005 / 0.001). On the same dictionaries, top-k thresholding of ReLU(D(x - b)) gives twin share 0.17 / 0.13 / 0.32 (about the
       SAE's R1 0.20; it does not reconstruct, so it is a probe, not a method). Reading: greedy OMP on correlated atoms turns small
       dictionary differences into different supports; the DL's instability is in the coding step, not in the dictionary. Exploratory.
+
+## 2026-11-10: confirmation protocol drafted (review order step 2; writing only)
+- User decisions: frozen methods = SAE consensus M1024 k6 12k (L4); baselines km_M1024_L6, ica_L6, dl_nn_A1024_k6, raw_L6, svx_L6;
+  oracle as reference only. Primary metric = 425-matched 'neutral' area, 'orig' as sensitivity. Hypotheses H2, H3, H1, H2b (margin 0.05),
+  H5; J = 10 halves on the 555 sealed scans, Holm.
+- Draft `docs/SAE_PROTOCOL_v2.md` written; not registered. No Modal run; the 555 scans were not downloaded or opened (only the ID list and
+  its hash were read). Left open for the user in its §0: D1 = Q1 (H2b keep / drop), D2 (H5 descriptive / confirmatory), D3–D7 (where the
+  CPU baselines run, perturbation subset, Modal budgets, null SAE, registration).
+- Found while drafting (to fix before any confirmation run): dev paths are hard-coded in `p1b_sanity/common.refpos` (cache) and in
+  `v2_ct/s1a_lib` (results, tables, tasks), and the Modal job prints metric values. Both are covered by E4 in the draft.

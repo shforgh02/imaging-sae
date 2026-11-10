@@ -12,10 +12,11 @@
   - Nonnegative DL (deviation M7): 0.063 / 0.046 / 0.038, still far below k-means / ICA; G1-main unchanged. A label-free check shows the
     two halves' dictionaries agree but the OMP codes don't: the instability is in the coding step.
 - Open: Q1 (keep "beyond physics" in the gates / headline?) and the freeze decision. Code `imgsae/exploratory/v2_ct/`; Modal task v2s1a_sae $6.06 of $7.
-- **Next (review order, `docs/REVIEW_AND_PROPOSAL_v2.md` §4 "Order", step 2):** freeze the SAE and baseline configs, write the confirmation
-  protocol `docs/SAE_PROTOCOL_v2.md` (H1 θ, H2 SAE vs best baseline, H3 consensus vs single, H5 k = 1 probing; J = 10 halves on the 555 sealed
-  scans, Holm), then the user decides on registration (Zenodo). Only after registration: encode the 555 sealed scans and run once (step 3).
-  Needs the user's decisions first: Q1, whether H5 stays confirmatory (dev data: no SAE advantage at k = 1), and the confirmation compute budget.
+- **Step 2 (review order) drafted 2026-11-10, waiting for the user's review:** `docs/SAE_PROTOCOL_v2.md` (DRAFT, not registered, nothing run).
+  Freezes the user's chosen methods (SAE consensus M1024 k6 12k; km_M1024_L6, ica_L6, dl_nn_A1024_k6, raw_L6, svx_L6; oracle as reference),
+  hypotheses H2, H3, H1, H2b, H5, J = 10, Holm. Open decisions in its §0: D1 = Q1 (H2b keep, recommended), D2 (H5 descriptive, recommended),
+  D3 (CPU baselines on the laptop), D4 (20 perturbed scans), D5 (Modal budgets: 4 tasks, caps $23.60, expected ~$17; the ledger's all-time
+  $29 check leaves ~$4 headroom), D6 (null SAE), D7 (Zenodo). Then: engineering E1–E5 and dev checks C1–C5, freeze, register, run once (step 3).
 - Earlier: Phase 1b Stage A DONE (`imgsae/exploratory/p1b_sanity/RESULTS.md`); plan v2 review packet `docs/SAE_v2_REVIEW_PACKET.md` (PR #1).
 
 ## Check progress
