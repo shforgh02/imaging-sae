@@ -57,6 +57,7 @@ Each study is processed on its own and saved at once to `/prep/dev/<patient>_<st
    - Slices run from the first to the last gland slice, plus one slice on each side (clipped to the volume).
    - Pixels outside the image are set to 0 and marked in a validity mask.
    - If Bosma22b is empty, Guerbet23 is used. If both are empty, the study is excluded and logged.
+   - **5b. ProFound input** (added 2026-11-10 before any run, because ProFound needs a larger, isotropic field of view): a 1 mm isotropic grid of 64 × 256 × 256 mm (z × y × x), in the T2W direction, centred on the physical centre of the gland mask. T2W, HBV and ADC (in that channel order) are resampled onto it in one step from the originals (linear), and the gland mask by nearest neighbour. It is stored as float16 in `<key>_pf.npz`. Both crops' physical origins are recorded, so features can be mapped onto the common grid in physical coordinates.
 6. **Intensity statistics** (label-blind):
    - ADC percentiles 1, 50 and 99 inside the gland;
    - T2W and HBV percentiles 0.5 and 99.5 inside the crop's valid pixels.
@@ -100,22 +101,33 @@ Each study is processed on its own and saved at once to `/prep/dev/<patient>_<st
 - every encoder loads with its documented output shape (§5).
 
 ## 5. Encoders (M0.5, Modal L4, task `mri_m1_encode`)
-**Weights**, with SHA256 recorded:
-- **MRI-CORE:** `MRI_CORE_vitb.pth` from the README's Google Drive link; code from `mazurowski-lab/mri_foundation` at a pinned commit.
-- **SAM ViT-B:** `sam_vit_b_01ec64.pth` from `dl.fbaipublicfiles.com`. It is loaded into the same ViT-B image-encoder code, so SAM and MRI-CORE differ only in weights.
-- **Untrained network:** the same architecture with random weights (`torch.manual_seed(0)`).
-- **ProFound:** code from `pipiwang/ProFound` at a pinned commit; weights from its README link.
-  - We identify the self-supervised encoder checkpoint (leak rule 1), its patch size, its embedding size and its preprocessing from the code.
-  - If the link needs a login, the lead downloads the file. If ProFound is unusable, it is logged, and the fallback (Triad) needs a new decision.
+**Weights**, with SHA256 recorded. Code details were read from the repositories before any encoder ran, and are corrected here (2026-11-10):
+- **MRI-CORE:** code `mazurowski-lab/mri_foundation`, commit `0f4f452`.
+  - Weights: `MRI_CORE_vitb.pth` from the README's Google Drive link.
+  - Built with its own `build_sam_vit_b(args, checkpoint=…)`: ViT-B, 16-pixel patches, 768-d, a 256-channel neck, window 14, global attention at blocks 2, 5, 8 and 11, and `use_rel_pos=False`.
+  - Features = `model.image_encoder(x)`, with x in [0, 1] (its README).
+  - Its loader uses `strict=False`, so the load message is recorded. **Every image-encoder key must load** (no missing encoder keys); otherwise the arm is unusable.
+  - The licence is stated as Apache 2.0 in the README; the repository has no LICENSE file. This is recorded.
+- **SAM ViT-B:** `sam_vit_b_01ec64.pth`, loaded with **Meta's official `segment_anything` code** (`sam_model_registry["vit_b"]`), not MRI-CORE's builder.
+  - Reason: MRI-CORE's builder sets `use_rel_pos=False` and loads with `strict=False`, so SAM's relative position embeddings would be silently dropped.
+  - Input: SAM's own preprocessing, (255·x − pixel mean) / pixel std, with SAM's constants.
+  - So SAM and MRI-CORE differ in weights and in this architectural detail, and the comparison is reported as MRI-CORE vs SAM as each was trained.
+- **Untrained network:** the official SAM ViT-B architecture with random weights (`torch.manual_seed(0)`), with the same input as SAM.
+- **ProFound:** code `pipiwang/ProFound`, branch `demo`, commit `6c37140`. The `main` branch has only a README.
+  - **ViT variant** (`mae_vit_base_patch16`): input 64 × 256 × 256 (D × H × W), **patch 16 × 32 × 32**, 768-d. At 1 mm isotropic, a token is about **16 × 32 × 32 mm**.
+  - Features = `forward_encoder` with mask ratio 0, CLS token dropped. They are mapped onto the common grid by linear interpolation (coarser than the grid).
+  - **Preprocessing** (its `dataset.py`): channels in the order T2W, high-b (HBV), ADC; z-score per channel over non-zero voxels; no co-registration. Its pretraining code does not resample, while the paper states 1 mm isotropic, so we resample to 1 mm isotropic. The input is a 64 × 256 × 256 mm crop centred on the gland.
+  - **Conv variant** (`convnextv2_tiny`, used in its downstream code): if the released ProFound-alpha weights include it, we use the stage feature map whose stride is closest to the common-grid size without being coarser. Both ProFound variants are then ProFound arms, and rule S compares the best ProFound arm with the best unexposed arm.
+  - **Weights:** ProFound-alpha, pretrained, from the README's SharePoint folder (`rmapyhu…`). The demo weights folder contains fine-tuned checkpoints and is **not used** (leak rule 1). If the link cannot be downloaded without a login, the lead downloads the file in a browser. If ProFound is unusable, it is logged, and the fallback (Triad) needs a new decision.
 
 **Input for MRI-CORE, SAM and the untrained network:**
 - **Scaling:** ADC: `clip(ADC / 3000, 0, 1)`. T2W and HBV: `clip((x − p0.5) / (p99.5 − p0.5), 0, 1)`, with that study's percentiles (§3.6).
 - **Size:** each 240 × 240 crop slice is resized to 1024 × 1024 (bilinear), so one native feature cell is 1.875 mm.
 - **Mode A:** each sequence alone, copied to 3 channels; features joined (T2W, ADC, HBV).
 - **Mode B:** (T2W, ADC, HBV) as the 3 channels.
-- **Normalisation:** each encoder then gets its own documented input normalisation, recorded in M0. SAM's ViT-B expects SAM's pixel mean and standard deviation; MRI-CORE documents [0, 1] input.
+- **Normalisation:** each encoder then gets its own documented input normalisation: [0, 1] direct for MRI-CORE, SAM's pixel mean and standard deviation for SAM and the untrained network.
 
-**ProFound:** its native preprocessing (1 mm isotropic, 3 channels, its normalisation), recorded exactly.
+**ProFound:** its native preprocessing, as above.
 
 **Common grid:** every feature map is mapped onto the s × s mm cells:
 - **Exact area-weighted averaging** where its cells are finer: the overlap fractions per axis give the weights.

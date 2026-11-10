@@ -36,6 +36,25 @@ def inplane_grid(img, mm=INPLANE_MM):
     return ref
 
 
+PF_SIZE_XYZ = (256, 256, 64)      # ProFound input (x, y, z) in voxels at 1 mm isotropic (its pretraining size, D x H x W = 64 x 256 x 256)
+
+
+def iso_grid_centered(direction, centre_phys, size_xyz=PF_SIZE_XYZ, mm=1.0):
+    """a 1 mm isotropic reference grid with the given direction, `size_xyz` voxels, whose centre is `centre_phys` (physical, mm)."""
+    import SimpleITK as sitk
+    Dm = np.array(direction, float).reshape(3, 3); half = (np.array(size_xyz, float) - 1) / 2 * mm
+    origin = np.asarray(centre_phys, float) - Dm @ half
+    ref = sitk.Image([int(s) for s in size_xyz], sitk.sitkUInt8); ref.SetSpacing((mm, mm, mm)); ref.SetDirection(tuple(Dm.ravel())); ref.SetOrigin(tuple(origin))
+    return ref
+
+
+def gland_centre_phys(gland_arr, ref):
+    """physical centre (mm) of a (z, y, x) gland mask on the grid `ref` (mean voxel index -> physical point)."""
+    zz, yy, xx = np.nonzero(gland_arr)
+    if len(zz) == 0: raise ValueError("empty gland mask")
+    return np.array(ref.TransformContinuousIndexToPhysicalPoint((float(xx.mean()), float(yy.mean()), float(zz.mean()))))
+
+
 # ------------------------------------------------------------------ crop
 def crop_box(gland, size=CROP_PX):
     """in-plane box of `size` pixels centred on the in-plane centroid of the gland (all slices); z from the first to the last gland

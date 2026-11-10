@@ -53,6 +53,17 @@ def test_resampling_preserves_box():
     assert L.same_grid(img, img) and not L.same_grid(img, ref)
 
 
+def test_iso_grid_centered():
+    import SimpleITK as sitk
+    a = np.zeros((20, 200, 200), np.uint8); a[8:12, 90:110, 60:80] = 1          # gland block; voxel centre (z 9.5, y 99.5, x 69.5)
+    img = sitk.GetImageFromArray(a); img.SetSpacing((0.5, 0.5, 3.0)); img.SetOrigin((-50.0, 20.0, 5.0))
+    c = L.gland_centre_phys(a, img); assert np.allclose(c, (-50 + 69.5 * 0.5, 20 + 99.5 * 0.5, 5 + 9.5 * 3.0))
+    ref = L.iso_grid_centered(img.GetDirection(), c, size_xyz=(64, 64, 32))
+    mid = ref.TransformContinuousIndexToPhysicalPoint((31.5, 31.5, 15.5)); assert np.allclose(mid, c)   # grid centre == gland centre
+    out = sitk.GetArrayFromImage(L.to_grid(img, ref, nearest=True)); assert out.shape == (32, 64, 64)
+    zz, yy, xx = np.nonzero(out); assert abs(xx.mean() - 31.5) < 0.6 and abs(yy.mean() - 31.5) < 0.6 and abs(zz.mean() - 15.5) < 1.1
+
+
 def test_study_metrics_smoke():
     rng = np.random.default_rng(0); Z = 6
     t2, adc, hb = rng.random((Z, 240, 240)), 1000 + 500 * rng.random((Z, 240, 240)), rng.random((Z, 240, 240))

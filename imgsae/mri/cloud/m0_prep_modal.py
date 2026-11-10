@@ -67,11 +67,20 @@ def _process(key, idx_entry, lroot, qc_kind):
         C = {s: L.crop(a, box)[0] for s, a in arr.items()}; valid = L.crop(arr["t2w"], box)[1]
         M = {k: L.crop(a, box)[0] for k, a in marr.items()}
         dz = float(t2.GetSpacing()[2])
+        crop_origin = list(ref.TransformIndexToPhysicalPoint((int(box[3]), int(box[2]), int(box[0]))))  # physical point of crop pixel (z0, y0, x0)
+        # ProFound input (protocol 3.5b): 1 mm isotropic, 64 x 256 x 256 mm, centred on the gland, resampled in ONE step from the originals
+        centre = L.gland_centre_phys(gb if gb.any() else gg, ref); pref = L.iso_grid_centered(t2.GetDirection(), centre)
+        pf = np.stack([sitk.GetArrayFromImage(L.to_grid(imgs[s], pref)) for s in ("t2w", "hbv", "adc")]).astype(np.float16)
+        pf_gland = sitk.GetArrayFromImage(L.to_grid(masks["gland_b"] if gb.any() else masks["gland_g"], pref, nearest=True)).astype(np.uint8)
         met = L.study_metrics(C["t2w"], C["adc"], C["hbv"], valid, M["lesion"] >= 1, M["gland_b"] > 0, M["gland_g"] > 0, M["zone_h"], M["zone_y"], dz)
-        info = dict(key=key, source=src, crop_from=crop_from, box=list(map(int, box)), geometry=geo, masks=minfo, **met)
+        info = dict(key=key, source=src, crop_from=crop_from, box=list(map(int, box)), geometry=geo, masks=minfo,
+                    crop_grid=dict(origin_phys=crop_origin, spacing=list(ref.GetSpacing()), direction=list(ref.GetDirection())),
+                    profound_grid=dict(origin_phys=list(pref.GetOrigin()), spacing=list(pref.GetSpacing()), size_xyz=list(pref.GetSize()),
+                                       centre_phys=[float(c) for c in centre], channels=["t2w", "hbv", "adc"]), **met)
         os.makedirs("/vol/prep/dev", exist_ok=True)
         np.savez_compressed(f"/vol/prep/dev/{key}.npz", t2w=C["t2w"], adc=C["adc"], hbv=C["hbv"], valid=valid,
                             lesion=M["lesion"], gland_b=M["gland_b"], gland_g=M["gland_g"], zone_h=M["zone_h"], zone_y=M["zone_y"])
+        np.savez_compressed(f"/vol/prep/dev/{key}_pf.npz", image=pf, gland=pf_gland)
         flagged = (np.isfinite(met["dice_gland"]) and met["dice_gland"] < GLAND_DICE_MIN) or (np.isfinite(met["dice_zone"]) and met["dice_zone"] < ZONE_DICE_MIN) \
             or not np.isfinite(met["dice_gland"])
         info["flagged"] = bool(flagged)
