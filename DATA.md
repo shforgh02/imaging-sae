@@ -18,7 +18,13 @@ Git holds all code, docs, logs and result tables (JSON / CSV / MD). The items be
 - `imgsae/data/p1/fit/` (per-feature tables and `summary.json`);
 - the subject lists and SHA-256 sums in `imgsae/data/`.
 
-**Sealed data.** The 555 confirmation scans (`imgsae/data/p2_conf_ids.txt`) have never been downloaded or used. They stay sealed until the v2 protocol is registered.
+**Sealed data.** The 555 confirmation scans (`imgsae/data/p2_conf_ids.txt`) have never been downloaded or used. The CT confirmation was stopped on 2026-11-10, before registration, so they stay sealed and unused.
+
+**Prostate MRI (planned, `docs/PLAN_PROSTATE_MRI_v1.md`).** PI-CAI will be downloaded fresh from the original sources, version-locked and checksummed:
+- images: Zenodo 10.5281/zenodo.6624726, about 30 GB;
+- labels: `github.com/DIAGNijmegen/picai_labels`, at a pinned commit.
+
+The download goes to a new Modal volume, `imgsae-picai`, and is not kept in git. A preprocessed PI-CAI copy from another project (Modal volume `picai-dataset-vol`) is not used.
 
 **Cloud copy.** The Modal volume `imgsae-p1b` holds the same `X_ctfm` rows, the perturbation files, `concepts.json` and `gates.json`. Spending is tracked in `imgsae/exploratory/p1b_sanity/cloud/ledger.json`.
 

@@ -2,6 +2,8 @@
 
 **Status:** DRAFT for the lead's and the colleague's review, 2026-11-10. Nothing has been run, and nothing has been downloaded.
 
+**Reviewers:** the background (what the CT work showed and why it stops) is in `docs/BRIEFING_FOR_REVIEWERS.md`.
+
 ## Why this plan
 **The lead's decision (2026-11-10):** the goal is a clinical finding, not a methods result, so the CT confirmation is stopped. The reasons:
 - TotalSegmentator has no tumour masks. It has only a yes/no "tumor" tag per scan: 136 of the 555 sealed scans, at many different sites.
