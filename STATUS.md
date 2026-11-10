@@ -1,6 +1,6 @@
 # Imaging SAE — status and handover
 
-**Updated:** 2026-11-08 20:00 · **Phase:** 1 (7-day feasibility, `docs/IMAGING_SAE_LEAN_v1.md`) · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
+**Updated:** 2026-11-10 04:00 · **Phase:** v2, Stage 1a done (exploratory); earlier Phase 1 (7-day feasibility, `docs/IMAGING_SAE_LEAN_v1.md`) · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
 **State in one line:** Phase 1 DONE (verdict **NO-GO**, memo `docs/DECISION_MEMO_P1.md`). Exploratory checks done (`imgsae/exploratory/p1_checks/README.md`): NO-GO stands.
 **Now (2026-11-10):** **Stage 1a DONE, gate G1 PASSED, both post-G1 fixes done; waiting for the user's decision.** Protocol `docs/STAGE1A_PROTOCOL.md` (colleague review of plan v2, adopted with amendments; G1 fixed before running). Results `imgsae/exploratory/v2_ct/RESULTS_S1A.md`.
@@ -12,6 +12,10 @@
   - Nonnegative DL (deviation M7): 0.063 / 0.046 / 0.038, still far below k-means / ICA; G1-main unchanged. A label-free check shows the
     two halves' dictionaries agree but the OMP codes don't: the instability is in the coding step.
 - Open: Q1 (keep "beyond physics" in the gates / headline?) and the freeze decision. Code `imgsae/exploratory/v2_ct/`; Modal task v2s1a_sae $6.06 of $7.
+- **Next (review order, `docs/REVIEW_AND_PROPOSAL_v2.md` §4 "Order", step 2):** freeze the SAE and baseline configs, write the confirmation
+  protocol `docs/SAE_PROTOCOL_v2.md` (H1 θ, H2 SAE vs best baseline, H3 consensus vs single, H5 k = 1 probing; J = 10 halves on the 555 sealed
+  scans, Holm), then the user decides on registration (Zenodo). Only after registration: encode the 555 sealed scans and run once (step 3).
+  Needs the user's decisions first: Q1, whether H5 stays confirmatory (dev data: no SAE advantage at k = 1), and the confirmation compute budget.
 - Earlier: Phase 1b Stage A DONE (`imgsae/exploratory/p1b_sanity/RESULTS.md`); plan v2 review packet `docs/SAE_v2_REVIEW_PACKET.md` (PR #1).
 
 ## Check progress
