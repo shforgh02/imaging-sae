@@ -12,6 +12,10 @@
     - ProFound (prostate MRI; saw PI-CAI images, no labels; disclosure + external test) and MRI-CORE (Duke MRI only) are the main
       candidates; SAM ViT-B is the comparison.
     - Two-level leak rule; common token grid; gland-only storage. No Hugging Face token needed.
+    - Also adopts the colleague's second review (`docs/REVIEW2_PLAN_PROSTATE_MRI_v1.md`; reply `docs/RESPONSE_REVIEW2_PLAN_PROSTATE_MRI_v1.md`):
+      - Q1: the outline source (Pooch25 / resampled) is tied to centre, so the sources are compared within RUMC, with a per-source
+        token-size rule and a materiality rule;
+      - Q2: zone enters R; gland and zone QC uses the agreement of two AI masks, label-blind.
   - Waiting for the user's OK on revision 3 and the M0–M1 budget.
 - **Plan:** `docs/PLAN_PROSTATE_MRI_v1.md` (DRAFT; branch `prostate-mri-plan`). Stages:
   - M0 setup: fresh PI-CAI download, split, QC;

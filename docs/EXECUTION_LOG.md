@@ -385,3 +385,13 @@ Progress (2026-11-09):
   - probe samples are capped at 200 normal tokens per study;
   - encode budget raised to $5.00 (about 135k slice images), with a 10-study benchmark first.
 - No Hugging Face token needed. Nothing run, nothing downloaded.
+- While revision 3 was being written, the colleague pushed a second review (`docs/REVIEW2_PLAN_PROSTATE_MRI_v1.md`, against revision 2).
+  The push was refused as non-fast-forward. I rebased onto it (no conflict; nothing overwritten).
+- Second review checked from the `picai_labels` git tree at ce4a472 (10,325 files) and the marksheet; no images.
+  - Q1 reproduced exactly: outline source by centre PCNN 0/109, RUMC 125/111, ZGT 80/0 (Pooch25/resampled); SysBx+MRBx 109/1;
+    years as stated.
+  - Added: ISUP 5 is 17% of Pooch25 vs 8% of resampled.
+  - Q2 masks present: HeviAI23, Yuan23, Guerbet23.
+  - Both adopted in revision 3, with refinements (gates are contrasts; RUMC sources still differ by year and biopsy type; zone from
+    agreement of the two models; visual QC without lesion masks).
+  - Reply: `docs/RESPONSE_REVIEW2_PLAN_PROSTATE_MRI_v1.md`.

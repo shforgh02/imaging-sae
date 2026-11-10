@@ -12,6 +12,10 @@
 - **All encoders are compared on one common token grid,** and only tokens in and around the gland are stored.
 - **No Hugging Face token is needed.**
 
+**Revision 3 also adopts the second review,** `docs/REVIEW2_PLAN_PROSTATE_MRI_v1.md`, with refinements; the reply is in `docs/RESPONSE_REVIEW2_PLAN_PROSTATE_MRI_v1.md`.
+- **Q1. The lesion-outline source is tied to the centre.** The two sources are compared within RUMC, the token-size rule is applied per source, results are reported by source, and a materiality rule is fixed.
+- **Q2. Zones and the second gland mask are used.** Prostate zone (PZ / TZ) enters the intensity reference and the reporting, and the gland and zone QC is label-blind, using the agreement between the two AI masks.
+
 **Revision 2** adopts the colleague review `docs/REVIEW_PLAN_PROSTATE_MRI_v1.md` (R1–R6) with refinements. The point-by-point reply, with an independent recomputation, is in `docs/RESPONSE_REVIEW_PLAN_PROSTATE_MRI_v1.md`.
 
 Changes from revision 1:
@@ -83,8 +87,22 @@ Sizes and checksums are recorded when the fetch runs on Modal; Zenodo did not an
 
 **Labels.** `github.com/DIAGNijmegen/picai_labels`, pinned to commit `ce4a4723d7c46d882a6cbaacb40ed6c4be86282f` (2026-07-13). The clinical sheet `marksheet.csv` has SHA256 `23EAB237…72CF0AE`.
 - **csPCa delineations:** `human_expert/resampled` (1,295 cases, 220 positive) plus `human_expert/Pooch25` (205 positives). Together they give expert labels for all 425 positives. Citing Pooch et al. 2025 is required.
-- **Whole-gland masks:** AI-made (Bosma22b). Some are wrong, so they get a visual check.
+- **Anatomy masks (all AI-made, all 1,500 studies):**
+  - whole gland: `Bosma22b` (primary) and `Guerbet23`;
+  - zones (PZ / TZ): `HeviAI23` and `Yuan23`.
+
+  Some masks are wrong, so they get the label-blind QC in M0.
 - **ISUP-1 lesions are not masked.** 282 studies have an ISUP-1 lesion (228 of them csPCa-negative), so ISUP-1 cancer sits inside "normal" tissue.
+- **Two lesion-outline sources, tied to centre (second review, Q1).** Checked from the file names and the clinical sheet:
+
+  | | Pooch25 (205) | resampled (220) |
+  |---|---|---|
+  | PCNN / RUMC / ZGT | 0 / 125 / 80 | 109 / 111 / 0 |
+  | Systematic + targeted biopsy | 109 | 1 |
+  | MRI years | 2014–2021 (2014–2015 Pooch25 only) | 2011–2020 (2011–2013 resampled only) |
+  | Grade ISUP 2 / 3 / 4 / 5 | 103 / 48 / 20 / 34 (17% ISUP 5) | 131 / 51 / 20 / 18 (8% ISUP 5) |
+
+  Annotators differ in how tight their outlines are. That changes token occupancy, lesion recall and token-level AUROCs, centre by centre. Patient-level csPCa comes from the clinical sheet and is not affected.
 
 **The clinical sheet**, checked independently on 2026-11-10:
 
@@ -130,7 +148,8 @@ M1 and M3 results are reported for each.
 4. Define tokens:
    - **Labels:** lesion (expert-mask occupancy ≥ 0.5, with its ISUP grade); normal prostate (inside the gland, occupancy 0); outside the prostate.
    - **Excluded:** tokens with 0 < lesion occupancy < 0.5 are counted as neither lesion nor normal (R3a).
-   - **Token size (R3c):** the candidates are 8, 6 and 4 mm in-plane, one T2W slice deep. The largest size is used at which ≥ 90% of dev csPCa lesions (connected parts of the expert mask) have at least one token with occupancy ≥ 0.5. If none reaches 90%, 4 mm is used and the recall is reported.
+   - **Zone** (second review, Q2): PZ or TZ where both AI zone masks agree on the token's majority zone; otherwise "zone uncertain". It is label-free, so it is used in R and in the reporting, never as a lesion label.
+   - **Token size (R3c, per source):** the candidates are 8, 6 and 4 mm in-plane, one T2W slice deep. For each outline source separately (Pooch25, resampled), we find the largest size at which ≥ 90% of dev csPCa lesions (connected parts of the expert mask) have at least one token with occupancy ≥ 0.5. The **smaller** of the two sizes is used, which is the stricter result. If no size reaches 90% for a source, 4 mm is used and the recall is reported.
    - This choice uses the dev masks only, before any model is run.
 5. **One common token grid for all encoders.** Encoders produce feature maps of different sizes: MRI-CORE and SAM give 64 × 64 per 2D slice; ProFound's 3D patch size is read from its code in M0. So every encoder's feature map is mapped onto the common grid, with area-weighted averaging where its features are finer and linear interpolation where they are coarser. R and the labels are computed on the same grid.
    - Each encoder's crop field of view is set in M0 so that its native features are as fine as the common grid, or finer, where its input format allows.
@@ -149,7 +168,7 @@ M1 and M3 results are reported for each.
 | **MRI-CORE** (Dong et al. 2025) | General MRI model: SAM ViT-B image encoder trained further with DINOv2 self-supervision on Duke-110K (116,806 Duke volumes; brain, face and neck excluded). Whether prostate MRI was included is not stated | 2D slices, 3 × 1024 × 1024, scaled to [0, 1] per slice. Mode A: each sequence alone (grey copied to 3 channels), tokens joined (3 × 256). Mode B: T2W, ADC and HBV as the 3 channels (256). Features from `model.image_encoder`; for SAM ViT-B this is 256 × 64 × 64 per slice (confirmed in M0) | **None** (Duke data only) | Google Drive (`MRI_CORE_vitb.pth`); Apache 2.0 |
 | **SAM ViT-B** (Meta) | Natural images; MRI-CORE's starting point. MRI-CORE against SAM shows exactly what MRI training adds | As MRI-CORE | None | Public file server (`sam_vit_b_01ec64.pth`); Apache 2.0 |
 | Untrained network | Null (architecture without training) | As MRI-CORE (random-initialised ViT-B) | None | — |
-| Intensity reference R | Per-token T2W, ADC and HBV histograms, mean ADC, 3 × 3 context, position within the gland | Our own features | None | Label-free "physics" comparator |
+| Intensity reference R | Per-token T2W, ADC and HBV histograms, mean ADC, 3 × 3 context, position within the gland, **zone (PZ / TZ / uncertain)** | Our own features | None | Label-free "physics" comparator. Zone is included because normal T2 and ADC differ between zones; without it, a feature that only separates PZ from TZ could look like a lesion feature |
 
 **Removed:**
 - **DINOv3:** access rejected by Meta (2026-11-10).
@@ -184,15 +203,39 @@ Each stage gets a short protocol, with its gate fixed before it runs. The defaul
 - Token AUROCs give each patient equal weight per class, with patient-cluster bootstrap CIs (2,000 draws).
 - Folds are grouped by patient and stratified by centre × outcome group.
 - Within-centre AUROCs and leave-one-centre-out results are reported. They are descriptive and do not gate.
+- **Leave-one-centre-out caveat** (Q1): testing on ZGT uses only Pooch25 outlines, and testing on PCNN only resampled outlines. This is stated next to those results.
+- **Also reported** (descriptive):
+  - token AUROCs within each zone (PZ, TZ);
+  - token AUROCs by outline source within RUMC.
+- **Why the gates stay valid under Q1:** they are contrasts (an encoder minus R, or minus the untrained network) on the same tokens and labels, so an outline-source effect moves both arms together. Absolute token AUROCs are annotation-dependent and are reported as such.
 
 | Stage | What | Gate (default) | If it fails |
 |---|---|---|---|
-| **M0. Setup** | Fetch on Modal (checksums); labels pinned; split; PSAD recomputed; dev-half preprocessing; visual QC of 20 dev cases; token size by the lesion-recall rule. **Encoders:** download the weights and record their checksums; read ProFound's code for patch size, embedding size and expected preprocessing; confirm that the ProFound checkpoint is the self-supervised encoder (leak rule 1); confirm MRI-CORE's output shape; a 10-study encode benchmark per encoder (time and memory) sets the encode launches. **External cohorts:** Prostate158 (Charité; 139 public cases with histology-verified lesion masks) and QIN-Prostate-Repeatability (test–retest): licence, and overlap with ProFound's pretraining (TCIA collections and the private set are not named, so we check the paper and, if needed, ask the authors) | 1,500 studies read. Label counts as in §2. Split balanced. QC passes. A gland-mask rule (fix or exclude) is fixed from the QC alone. Lesion recall reported. Every encoder loads, and its sanity output matches its documented shape | Fix (metric-blind) and repeat. If ProFound's weights cannot be downloaded, or its checkpoint fails leak rule 1, it is dropped and logged |
+| **M0. Setup** | Fetch, labels, split, PSAD, dev-half preprocessing, QC, token size, outline sources, encoders, external cohorts. Details are in "M0 in detail", below the table | 1,500 studies read; label counts as in §2 (including outline sources by centre); split balanced; QC rule applied; lesion recall reported per source; outline materiality decided; every encoder loads with its documented output shape | Fix (metric-blind) and repeat. If ProFound's weights cannot be downloaded, or its checkpoint fails leak rule 1, it is dropped (Triad becomes the fallback) and logged |
 | **M1. Does the model know cancer?** (dev half; 5-fold cross-validation) | Token probes on the common grid: lesion vs normal prostate, for each encoder and mode, against R and the untrained network. MRI-CORE vs SAM is reported (what MRI training adds). Descriptive: a patient-level probe in the biopsy cohort against R; a clean-normal sensitivity (normal tokens only from studies with no ISUP-1 lesion and PI-RADS ≤ 2; R3b) | The best encoder beats R by **≥ 0.03 AUROC with lower CI > 0**, and the untrained network by ≥ 0.05. This must hold **both on all studies and on verified studies**. It also picks the encoder and mode | **Stop and report.** An SAE could then only rediscover ADC and T2 signs. The lead decides |
 | **M2. Find features** (dev half; J = 3 patient halves) | All decompositions with equal tuning. Per feature: k = 1 lesion AUROC (chosen on the fit half among 425 random candidates, tested on the other half), selectivity, twin score t, stability r_pert (half-token shift with the centred smoothing control from CT; extra noise; T2W and HBV intensity scaling; a smooth bias field), and a shortcut audit (centre, scanner, b-value) | **Valid lesion feature,** the same rule for all methods: held-out lesion AUROC ≥ 0.80, r_pert ≥ 0.70, t ≥ 0.70, shortcut AUROC < 0.80, and token-level ΔAUROC over R ≥ 0.02. Gate: ≥ 1 valid feature in each of the 3 replicates. **Wording rule:** "SAE features" only if the SAE's best matched held-out lesion AUROC beats the best baseline's with CI > 0 (paired over replicates and patients); otherwise "foundation-model features" | Stop and report |
 | **M3. Clinical value** (dev half, biopsy cohort) | Base model: PSAD + age + volume + PI-RADS. Increment of each patient score (§3.3) over the base, cross-fitted. Secondary: all verified studies; all studies; the base without PI-RADS; within-centre and leave-one-centre-out; biopsies avoided at 95% csPCa sensitivity; decision curve; PI-RADS 3 subgroup; studies with systematic biopsy or prostatectomy | (i) The feature score's increment over the base has lower CI > 0. (ii) Its increment minus R's, and minus texture's, has lower CI > −0.03 (non-inferior; v1's H4 margin. With dev precision (SE about 0.015), a margin of 0.02 would fail even for truly equal scores). If (i) and (ii) pass **and** the difference to R is ≥ +0.02, M5 also tests C3b (superiority over R) | Report; the lead decides |
 | **M4. Readers** (when available) | 2 radiologists look at the top lesion features plus controls: intruder test plus naming (as v1 V4) | Descriptive, or a pre-set pass rule | Reported as is |
 | **M5. Confirmation** (sealed half) | A registered protocol, run once: C1–C3 (and C4 if readers). If the chosen encoder saw PI-CAI images (ProFound), the frozen scores are also tested on an external cohort it never saw (leak rule 2) | Holm over the claims. J = 5 patient halves for feature-level claims; patient bootstrap for fixed models | No claim |
+
+**M0 in detail:**
+1. **Data:** fetch on Modal with checksums; labels pinned; split; PSAD recomputed; dev-half preprocessing; visual QC of 20 random dev cases.
+2. **Token size:** chosen by the per-source lesion-recall rule (§2).
+3. **Outline sources (second review, Q1):**
+   - The source of each positive is recorded.
+   - Within RUMC (dev half), Pooch25 is compared with resampled on lesion volume per ISUP grade, token occupancy, and lesion recall at each candidate size.
+   - **Materiality rule:** if the median lesion-volume ratio (Pooch25 / resampled, within RUMC, ISUP-grade-matched) is outside 0.8–1.25, all cross-centre token-level results are labelled annotation-dependent, and the clinical claim rests on patient-level M3.
+4. **Gland and zone QC (second review, Q2; label-blind):**
+   - For every dev case, Dice of Bosma22b vs Guerbet23 (gland) and of HeviAI23 vs Yuan23 (mean of PZ and TZ).
+   - Cases with gland Dice < 0.8 or zone Dice < 0.7 get a visual check. The check shows T2W with the gland and zone outlines only, never lesion masks.
+   - The check decides: keep Bosma22b, use Guerbet23, or exclude the case.
+5. **Encoders:**
+   - download the weights and record their checksums;
+   - read ProFound's code for patch size, embedding size and expected preprocessing;
+   - confirm that the ProFound checkpoint is the self-supervised encoder (leak rule 1);
+   - confirm MRI-CORE's output shape;
+   - a 10-study encode benchmark per encoder (time and memory) sets the encode launches.
+6. **External cohorts:** Prostate158 (Charité; 139 public cases with histology-verified lesion masks) and QIN-Prostate-Repeatability (test–retest). We check their licence and their overlap with ProFound's pretraining. ProFound's paper does not name its TCIA collections or its private set, so we check the paper and, if needed, ask the authors.
 
 **Power for M5.** The sealed biopsy cohort has about 440 studies (about 210 positive). There, the SE of a single AUROC is about 0.023, and of a paired difference about 0.013–0.017. So a difference in added value is confirmable (one-sided α 0.025, 80% power) only if it is about **0.035–0.045 AUROC** or larger. Smaller real effects would be missed.
 
@@ -231,7 +274,9 @@ These are rough figures. A small benchmark measures each step first.
 | Verification bias (PI-RADS defined 468 negatives) | The biopsy cohort is primary; other populations are reported |
 | Targeted-only biopsies (580) can miss cancer elsewhere in the gland | Sensitivity analysis on systematic biopsy or prostatectomy; stated as a limitation |
 | Centre confounding (verification and prevalence differ) | Within-centre and leave-one-centre-out results; shortcut audit |
-| AI gland masks are wrong | Visual QC; a fix-or-exclude rule fixed from the gland check alone |
+| AI gland or zone masks are wrong | Label-blind QC from the agreement of two AI masks for every case; a visual check below the Dice thresholds (no lesion masks shown) |
+| Outline source tied to centre (Q1) | Within-RUMC comparison; per-source token-size rule; results by source; the materiality rule moves the claim to patient level if needed |
+| Zone mimics lesion (PZ vs TZ) | Zone in R; within-zone AUROCs |
 | Small lesions lost in large tokens | The token-size rule (≥ 90% lesion recall) |
 | ISUP-1 cancer inside "normal" tissue | Clean-normal sensitivity analysis (R3b) |
 | Too little power for small clinical differences | The ≥ 0.04 AUROC limit is stated in advance; no claim from a non-significant difference |
