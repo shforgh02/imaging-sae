@@ -173,18 +173,6 @@ def _run(limit):
 
 @app.local_entrypoint()
 def main(smoke: bool = False):
-    root = MRI.parents[1]; sys.path.insert(0, str(root / "imgsae" / "exploratory" / "p1b_sanity" / "cloud")); import budget as B
-    tmin = SMOKE_TIMEOUT_MIN if smoke else TIMEOUT_MIN
-    worst = B.worst_case(1, tmin, None, CPU, MEM_GIB) + IMAGE_USD; rate = B.rate_h(None, CPU, MEM_GIB)
-    ok, rep = B.check(TASK, worst); print(json.dumps(rep, indent=1))
-    if not ok: raise SystemExit(f"BUDGET CHECK FAILED - not launching (worst case ${worst:.2f})")
-    rid = B.open_run(TASK, worst, dict(app=APP, jobs=["prep_smoke" if smoke else "prep_full"], timeout_min=tmin, gpu=None, cpu=CPU, mem_gib=MEM_GIB))
-    print(f"launch {rid}: worst case ${worst:.2f}"); measured, note = IMAGE_USD, "unfinished"
-    try:
-        out = (prep_smoke if smoke else prep_full).remote(); measured += (out["container_min"] + B.START_MIN) / 60 * rate
-        note = f"done {out['n_done']}/{out['n_dev']}, errors {len(out['errors'])}"
-        (MRI / "results").mkdir(exist_ok=True); json.dump(out, open(MRI / "results" / "m0_prep_summary.json", "w"), indent=1, default=float)
-    except BaseException as e:
-        measured += (tmin + B.START_MIN) / 60 * rate; note = f"failed or client lost: {e!r}"[:300]; raise
-    finally:
-        B.close_run(rid, measured, note); print(f"closed {rid}: ${measured:.2f} ({note})")
+    sys.path.insert(0, str(Path(__file__).resolve().parent)); import launch as LN
+    if smoke: LN.launch(prep_smoke, TASK, APP, "prep_smoke", SMOKE_TIMEOUT_MIN, None, CPU, MEM_GIB, result_name="m0_prep_smoke")
+    else: LN.launch(prep_full, TASK, APP, "prep_full", TIMEOUT_MIN, None, CPU, MEM_GIB, result_name="m0_prep_summary")

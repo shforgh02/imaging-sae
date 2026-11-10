@@ -223,17 +223,5 @@ def check():
 
 @app.local_entrypoint()
 def main():
-    root = MRI.parents[1]; sys.path.insert(0, str(root / "imgsae" / "exploratory" / "p1b_sanity" / "cloud")); import budget as B
-    worst = B.worst_case(1, TIMEOUT_MIN, GPU, CPU, MEM_GIB) + IMAGE_USD; rate = B.rate_h(GPU, CPU, MEM_GIB)
-    ok, rep = B.check(TASK, worst); print(json.dumps(rep, indent=1))
-    if not ok: raise SystemExit(f"BUDGET CHECK FAILED - not launching (worst case ${worst:.2f})")
-    rid = B.open_run(TASK, worst, dict(app=APP, jobs=["m0_encoder_check"], timeout_min=TIMEOUT_MIN, gpu=GPU, cpu=CPU, mem_gib=MEM_GIB))
-    print(f"launch {rid}: worst case ${worst:.2f}"); measured, note = IMAGE_USD, "unfinished"
-    try:
-        out = check.remote(); measured += (out["container_min"] + B.START_MIN) / 60 * rate
-        note = f"mricore usable {out.get('mricore_check', {}).get('usable')}, sam {out.get('sam_check', {}).get('usable')}, profound {out.get('profound_check', {}).get('usable')}"
-        json.dump(out, open(MRI / "results" / "m0_encoders.json", "w"), indent=1, default=str)
-    except BaseException as e:
-        measured += (TIMEOUT_MIN + B.START_MIN) / 60 * rate; note = f"failed or client lost: {e!r}"[:300]; raise
-    finally:
-        B.close_run(rid, measured, note); print(f"closed {rid}: ${measured:.2f} ({note})")
+    sys.path.insert(0, str(Path(__file__).resolve().parent)); import launch as LN
+    LN.launch(check, TASK, APP, "m0_encoder_check", TIMEOUT_MIN, GPU, CPU, MEM_GIB, result_name="m0_encoders")

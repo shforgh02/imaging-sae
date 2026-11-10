@@ -13,7 +13,7 @@ from pathlib import Path
 import modal
 
 TASK, APP, VOL = "mri_fetch", "imgsae-mri-m0-fetch", "imgsae-picai"
-CPU, MEM_GIB, TIMEOUT_MIN, IMAGE_USD = 4, 8, 120, 0.10
+CPU, MEM_GIB, TIMEOUT_MIN, IMAGE_USD = 4, 8, 90, 0.10   # 90 min: relaunch after mri_fetch-010 (cancelled), fits the $0.80 cap
 RECORD = "6624726"
 COMMIT = "ce4a4723d7c46d882a6cbaacb40ed6c4be86282f"
 MARKSHEET_SHA = "23eab23790886258440b4af2842733332003f2c59f0a007b1e7b6b44572cf0ae"
@@ -51,27 +51,42 @@ def fetch():
         return h.hexdigest()
 
     def get(f):
-        dst = f"{zdir}/{f['key']}"
+        """resumable download: continue a .part file with an HTTP Range request (restart from 0 if the server ignores it); the volume is
+        committed about every GB so progress survives a killed container; the MD5 is computed over the whole file at the end."""
+        dst = f"{zdir}/{f['key']}"; part = dst + ".part"
         if f["key"] in man and man[f["key"]]["md5"] == f["md5"] and os.path.exists(dst) and os.path.getsize(dst) == f["size"]:
             return f["key"], "skipped"
-        for attempt in range(3):
+        for attempt in range(4):
             try:
-                h = hashlib.md5(); n = 0; t = time.time()
-                with requests.get(f["url"], headers=H, stream=True, timeout=300) as r, open(dst + ".part", "wb") as out:
-                    r.raise_for_status()
-                    for b in r.iter_content(1 << 22):
-                        out.write(b); h.update(b); n += len(b)
-                if h.hexdigest() != f["md5"] or n != f["size"]: raise IOError(f"checksum/size mismatch {h.hexdigest()} {n}")
-                os.replace(dst + ".part", dst)
+                start = os.path.getsize(part) if os.path.exists(part) else 0
+                if start > f["size"]: os.remove(part); start = 0
+                hdr = dict(H, **({"Range": f"bytes={start}-"} if 0 < start < f["size"] else {})); t = time.time(); got = 0; since = 0
+                if start < f["size"]:
+                    with requests.get(f["url"], headers=hdr, stream=True, timeout=300) as r:
+                        r.raise_for_status()
+                        if start and r.status_code != 206: start = 0   # server ignored the range: restart
+                        with open(part, "ab" if start else "wb") as out:
+                            for b in r.iter_content(1 << 22):
+                                out.write(b); got += len(b); since += len(b)
+                                if since >= 1 << 30:
+                                    out.flush(); since = 0
+                                    with lock: vol.commit()
+                n = os.path.getsize(part)
+                if n != f["size"]: raise IOError(f"size {n} != {f['size']} (resumed from {start})")
+                md5 = md5_of(part)
+                if md5 != f["md5"]: os.remove(part); raise IOError(f"MD5 mismatch {md5} (file removed, restarting from 0)")
+                os.replace(part, dst)
                 with lock:
-                    man[f["key"]] = dict(md5=f["md5"], size=n, seconds=round(time.time() - t, 1))
+                    man[f["key"]] = dict(md5=md5, size=n, resumed_from=start, seconds=round(time.time() - t, 1))
                     json.dump(man, open(mpath, "w"), indent=1); vol.commit()
-                print(f"  {f['key']}: {n / 1e9:.2f} GB in {time.time() - t:.0f} s, MD5 ok", flush=True); return f["key"], "ok"
-            except Exception as e:  # retry from scratch; the .part file is overwritten
+                print(f"  {f['key']}: {n / 1e9:.2f} GB (resumed from {start / 1e9:.2f}), {got / max(time.time() - t, 1) / 1e6:.1f} MB/s, MD5 ok", flush=True)
+                return f["key"], "ok"
+            except Exception as e:
                 print(f"  {f['key']}: attempt {attempt + 1} failed: {e!r}", flush=True)
+                with lock: vol.commit()
         return f["key"], "FAILED"
 
-    with ThreadPoolExecutor(3) as ex: status = dict(ex.map(get, files))
+    with ThreadPoolExecutor(len(files)) as ex: status = dict(ex.map(get, files))
     json.dump(meta, open(f"{zdir}/record.json", "w"), indent=1)
 
     # labels at the pinned commit
@@ -107,18 +122,5 @@ def fetch():
 
 @app.local_entrypoint()
 def main():
-    sys.path.insert(0, str(ROOT / "imgsae" / "exploratory" / "p1b_sanity" / "cloud")); import budget as B
-    worst = B.worst_case(1, TIMEOUT_MIN, None, CPU, MEM_GIB) + IMAGE_USD; rate = B.rate_h(None, CPU, MEM_GIB)
-    ok, rep = B.check(TASK, worst); print(json.dumps(rep, indent=1))
-    if not ok: raise SystemExit(f"BUDGET CHECK FAILED - not launching (worst case ${worst:.2f})")
-    rid = B.open_run(TASK, worst, dict(app=APP, jobs=["fetch"], timeout_min=TIMEOUT_MIN, gpu=None, cpu=CPU, mem_gib=MEM_GIB))
-    print(f"launch {rid}: worst case ${worst:.2f}"); measured, note = IMAGE_USD, "unfinished"
-    try:
-        out = fetch.remote(); measured += (out["container_min"] + B.START_MIN) / 60 * rate
-        note = f"status {out['status']}; indexed {out['n_studies_indexed']}, complete {out['n_complete_t2w_adc_hbv']}; marksheet ok {out['marksheet_sha256_ok']}"
-        (ROOT / "imgsae" / "mri" / "results").mkdir(parents=True, exist_ok=True)
-        json.dump(out, open(ROOT / "imgsae" / "mri" / "results" / "m0_fetch.json", "w"), indent=1)
-    except BaseException as e:
-        measured += (TIMEOUT_MIN + B.START_MIN) / 60 * rate; note = f"failed or client lost: {e!r}"[:300]; raise
-    finally:
-        B.close_run(rid, measured, note); print(f"closed {rid}: ${measured:.2f} ({note})")
+    sys.path.insert(0, str(Path(__file__).resolve().parent)); import launch as LN
+    LN.launch(fetch, TASK, APP, "fetch", TIMEOUT_MIN, None, CPU, MEM_GIB, result_name="m0_fetch")

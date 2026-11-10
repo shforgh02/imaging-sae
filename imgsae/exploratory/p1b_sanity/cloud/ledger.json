@@ -210,6 +210,43 @@
    "closed": "2026-11-10T00:52:26",
    "measured_usd": 0.8353,
    "note": "ok 3, failed 0, unfinished 0"
+  },
+  {
+   "id": "mri_fetch-010",
+   "task": "mri_fetch",
+   "opened": "2026-11-10T14:05:01",
+   "worst_usd": 0.6191,
+   "info": {
+    "app": "imgsae-mri-m0-fetch",
+    "jobs": [
+     "fetch"
+    ],
+    "timeout_min": 120,
+    "gpu": null,
+    "cpu": 4,
+    "mem_gib": 8
+   },
+   "closed": "2026-11-10T14:26:58",
+   "measured_usd": 0.2106,
+   "note": "cancelled at 14:27:36 (Modal cancelled the call when the local client raised a DNS error); container ran about 23.2 min (14:04:55-14:28:06, incl. the 30 s kill wait); measured from container minutes + 3 min start + $0.10 image; booked at worst case $0.62 first, reconciled 2026-11-10; check against Modal billing. Partial downloads kept (.part, 12.1 GiB)."
+  },
+  {
+   "id": "mri_fetch-011",
+   "task": "mri_fetch",
+   "opened": "2026-11-10T14:31:52",
+   "worst_usd": 0.4925,
+   "info": {
+    "app": "imgsae-mri-m0-fetch",
+    "jobs": [
+     "fetch"
+    ],
+    "timeout_min": 90,
+    "gpu": null,
+    "cpu": 4,
+    "mem_gib": 8,
+    "launch": "spawn"
+   },
+   "closed": null
   }
  ],
  "checks": [
@@ -314,6 +351,18 @@
    "month_used_usd": 3.2005,
    "open_worst_usd": 0,
    "project_committed_usd": 7.7387
+  },
+  {
+   "time": "2026-11-10T14:05:01",
+   "month_used_usd": 3.2005,
+   "open_worst_usd": 0,
+   "project_committed_usd": 7.7387
+  },
+  {
+   "time": "2026-11-10T14:31:52",
+   "month_used_usd": 3.3134,
+   "open_worst_usd": 0,
+   "project_committed_usd": 7.9493
   }
  ]
 }

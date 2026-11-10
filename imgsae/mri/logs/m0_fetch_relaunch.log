@@ -1,0 +1,12 @@
+ },
+ "tests": {
+  "task mri_fetch: 0.21 + 0.49 <= 0.80": true,
+  "project: 7.95 + 0.49 <= 29.00": true,
+  "month (Modal billing): 3.31 + open 0.00 + 0.49 <= 29.00": true
+ }
+}
+SPAWNED mri_fetch-011: call fc-01M72HY5PFY39ZEP3RE0N8R4XC, worst case $0.49. Collect with: python imgsae/mri/cloud/collect.py mri_fetch-011
+record 6624726 vv2.0: 7 files, 26.87 GB; already done: []
+[modal-client] 2026-11-10T14:32:03+0330 Timed out waiting for final app logs.
+✓ App completed. View run at 
+https://modal.com/apps/shforghani2002/main/ap-LuJuzPfQ64yMtE8bwLVunn

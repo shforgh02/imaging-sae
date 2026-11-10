@@ -1,0 +1,12 @@
+{
+ "rid": "mri_fetch-011",
+ "task": "mri_fetch",
+ "app": "imgsae-mri-m0-fetch",
+ "job": "fetch",
+ "call_id": "fc-01M72HY5PFY39ZEP3RE0N8R4XC",
+ "rate_h": 0.2532,
+ "timeout_min": 90,
+ "worst_usd": 0.49246,
+ "launched": "2026-11-10T14:31:53",
+ "result_name": "m0_fetch"
+}
