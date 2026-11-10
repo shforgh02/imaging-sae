@@ -1,0 +1,16 @@
+mri_m1_encode-014: still running
+15:01:07 collect exit 3
+mri_m1_encode-014: still running
+15:02:39 collect exit 3
+mri_m1_encode-014: still running
+15:04:10 collect exit 3
+mri_m1_encode-014: still running
+15:05:42 collect exit 3
+mri_m1_encode-014: still running
+15:07:13 collect exit 3
+mri_m1_encode-014: still running
+15:08:45 collect exit 3
+mri_m1_encode-014: still running
+15:10:16 collect exit 3
+mri_m1_encode-014: collected -> results/m0_encoders.json; closed at $0.23
+15:11:20 collect exit 0

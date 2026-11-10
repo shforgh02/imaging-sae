@@ -306,7 +306,9 @@
     "mem_gib": 16,
     "launch": "spawn"
    },
-   "closed": null
+   "closed": "2026-11-10T15:11:20",
+   "measured_usd": 0.2335,
+   "note": "collected; container 4.2 min"
   }
  ],
  "checks": [

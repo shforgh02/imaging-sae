@@ -74,27 +74,61 @@ def _weights():
     return out
 
 
-def _mricore(path):
-    """MRI-CORE with its own builder (adapters off); checks every image-encoder tensor against the checkpoint (their key renaming)."""
+MRICORE_PX = 480          # 480 px on the 120 mm crop -> 30 x 30 patch tokens of exactly 4 mm (protocol 5, revised before M1)
+IMNET_MEAN, IMNET_STD = (0.485, 0.456, 0.406), (0.229, 0.224, 0.225)   # DINOv2's default input normalisation
+
+
+def _safe_load(path):
+    """torch's safe loader (weights_only=True); argparse.Namespace allow-listed for ProFound's 'args'."""
+    import argparse
+
     import torch
-    sys.path.insert(0, "/opt/mri_foundation"); import cfg; from models.sam import sam_model_registry as reg
-    argv = sys.argv; sys.argv = ["cfg"]; args = cfg.parse_args(); sys.argv = argv
-    for k, v in dict(if_encoder_adapter=False, if_mask_decoder_adapter=False, if_encoder_lora_layer=False, if_decoder_lora_layer=False,
-                     encoder_adapter_depths=[], finetune_type="vanilla").items(): setattr(args, k, v)
-    model = reg["vit_b"](args, checkpoint=path, num_classes=1, image_size=1024, pretrained_sam=False)
-    raw = torch.load(path, map_location="cpu", weights_only=False); top = sorted(raw.keys())[:8] if isinstance(raw, dict) else str(type(raw))
-    sd = raw
-    for key in ("teacher", "model", "state_dict"):
-        if isinstance(sd, dict) and key in sd and isinstance(sd[key], dict): sd = sd[key]
-    ren = {}
+    torch.serialization.add_safe_globals([argparse.Namespace])
+    return torch.load(path, map_location="cpu", weights_only=True)
+
+
+def _mricore(path):
+    """MRI-CORE's trained backbone run AS TRAINED: the checkpoint is a DINOv2 teacher ViT-B/16 (cls token, 14 x 14 pos embed at 224 px,
+    final norm, chunked blocks, no layer scale, no SAM neck). Its repo's SAM-shaped loader would add a randomly initialised neck and drop
+    the trained position embedding (key-name bug), so we build a standard timm ViT-B/16 (global attention), load the 150 backbone tensors
+    (chunk index removed; pos embed resampled bicubically 14x14 -> 30x30) strictly, and check every tensor equals the checkpoint."""
+    from functools import partial
+
+    import timm
+    import torch
+    from timm.layers import resample_abs_pos_embed
+    raw = _safe_load(path); sd = raw["teacher"]
+    bb = {}
     for k, v in sd.items():
-        if "decoder" in k or not hasattr(v, "shape"): continue
-        ren[k.replace("fc", "lin").replace("backbone.", "")] = v
-    enc = model.image_encoder.state_dict(); missing = [k for k in enc if k not in ren]
-    bad = [k for k in enc if k in ren and k != "pos_embed" and (ren[k].shape != enc[k].shape or not torch.equal(ren[k].float(), enc[k].float().cpu()))]
-    chk = dict(checkpoint_top_keys=top, n_encoder_tensors=len(enc), missing_in_checkpoint=missing[:20], n_missing=len(missing), n_not_equal=len(bad),
-               not_equal=bad[:20], usable=(len(missing) == 0 and len(bad) == 0))
-    return model.image_encoder.eval().cuda(), chk
+        if not k.startswith("backbone.") or k == "backbone.mask_token": continue
+        p = k[len("backbone."):].split(".")
+        if p[0] == "blocks" and len(p) > 2 and p[1].isdigit() and p[2].isdigit(): p = [p[0]] + p[2:]   # blocks.<chunk>.<i> -> blocks.<i>
+        bb[".".join(p)] = v
+    g = MRICORE_PX // 16
+    m = timm.models.vision_transformer.VisionTransformer(img_size=MRICORE_PX, patch_size=16, embed_dim=768, depth=12, num_heads=12, mlp_ratio=4,
+                                                          qkv_bias=True, class_token=True, global_pool="", num_classes=0, init_values=None,
+                                                          norm_layer=partial(torch.nn.LayerNorm, eps=1e-6))
+    bb["pos_embed"] = resample_abs_pos_embed(bb["pos_embed"], new_size=(g, g), old_size=(14, 14), num_prefix_tokens=1, interpolation="bicubic")
+    msg = m.load_state_dict(bb, strict=True)
+    st = m.state_dict(); bad = [k for k in bb if k != "pos_embed" and not torch.equal(st[k], bb[k])]
+    chk = dict(checkpoint="DINOv2 teacher ViT-B/16", n_backbone_tensors=len(bb), n_model_tensors=len(st), strict_load=str(msg), n_not_equal=len(bad),
+               dropped=sorted(k for k in sd if not k.startswith("backbone.") or k == "backbone.mask_token")[:10],
+               input=f"{MRICORE_PX} px, ImageNet mean/std (DINOv2 default)", usable=len(bad) == 0 and len(bb) == len(st))
+    return m.eval().cuda(), chk
+
+
+def _enc_vit(m, x, mode, bs=16):
+    """MRI-CORE features: normalised patch tokens (B, 768, 30, 30); mode A joins the 3 single-sequence passes (2304-d)."""
+    import torch
+    mean = torch.tensor(IMNET_MEAN, device=x.device).view(1, 3, 1, 1); std = torch.tensor(IMNET_STD, device=x.device).view(1, 3, 1, 1); outs = []
+    with torch.no_grad(), torch.autocast("cuda", dtype=torch.float16):
+        for xi in ([x[:, c:c + 1].repeat(1, 3, 1, 1) for c in range(3)] if mode == "A" else [x]):
+            f = []
+            for i in range(0, len(xi), bs):
+                t = m.forward_features((xi[i:i + bs] - mean) / std).float()[:, 1:]; g = int(round(t.shape[1] ** 0.5))
+                f.append(t.transpose(1, 2).reshape(t.shape[0], t.shape[2], g, g))
+            outs.append(torch.cat(f))
+    return torch.cat(outs, 1)
 
 
 def _sam(path=None, seed=0):
@@ -106,32 +140,30 @@ def _sam(path=None, seed=0):
 
 
 def _profound(path):
-    import torch
+    """ProFound-alpha = FCMAE ConvNeXtV2-tiny 3D encoder (args.model 'convnext', input 64 x 224 x 224, epoch 799, no labels). Built with its
+    own convnextv2_tiny and remap_checkpoint_keys (sparse kernels -> dense convs); only the final pooled-output norm may be missing."""
+    import copy
     sys.path.insert(0, "/opt/ProFound")
-    ck = torch.load(path, map_location="cpu", weights_only=False); keys = sorted(ck.keys()) if isinstance(ck, dict) else []
-    a = ck.get("args"); args = {k: str(v) for k, v in vars(a).items()} if a is not None and hasattr(a, "__dict__") else (str(a) if a is not None else None)
-    sd = ck.get("model", ck) if isinstance(ck, dict) else ck
-    info = dict(checkpoint_keys=keys, epoch=ck.get("epoch") if isinstance(ck, dict) else None, args=args, n_tensors=len(sd),
-                patch_embed=[list(v.shape) for k, v in sd.items() if "patch_embed" in k and k.endswith("weight")][:2])
-    is_vit = any(k.startswith("blocks.") for k in sd)
-    info["variant"] = "vit" if is_vit else "conv_or_other"
-    if not is_vit: info["usable"] = False; info["note"] = "not the ViT variant: the Conv code path is written only after inspecting this checkpoint"; return None, info
-    from models import mae
-    m = mae.mae_vit_base_patch16(norm_pix_loss=False); msg = m.load_state_dict(sd, strict=False)
-    info.update(missing=list(msg.missing_keys)[:20], unexpected=list(msg.unexpected_keys)[:20], n_missing=len(msg.missing_keys), n_unexpected=len(msg.unexpected_keys))
-    info["usable"] = len([k for k in msg.missing_keys if not k.startswith("decoder") and k != "mask_token"]) == 0
+    from models.convnextv2 import convnextv2_tiny, remap_checkpoint_keys
+    ck = _safe_load(path); a = ck.get("args")
+    info = dict(checkpoint_keys=sorted(ck.keys()), epoch=ck.get("epoch"), model=getattr(a, "model", None), input_size=str(getattr(a, "input_size", None)),
+                mask_ratio=getattr(a, "mask_ratio", None))
+    m = convnextv2_tiny(in_chans=3); sd = remap_checkpoint_keys(copy.deepcopy(ck)); msg = m.load_state_dict(sd, strict=False)
+    info.update(missing=list(msg.missing_keys), unexpected=list(msg.unexpected_keys)[:20], n_unexpected=len(msg.unexpected_keys))
+    info["usable"] = set(msg.missing_keys) <= {"norm.weight", "norm.bias"} and not msg.unexpected_keys and info["model"] == "convnext"
     return m.eval().cuda(), info
 
 
-def _slices(z, key_json):
-    """protocol 5: scaled (T2W, ADC, HBV) slices in [0, 1], resized 240 -> 1024. Returns (Z, 3, 1024, 1024) float32 on the GPU."""
+def _slices(z, key_json, size=1024):
+    """protocol 5: scaled (T2W, ADC, HBV) slices in [0, 1] (fixed ADC window, per-study percentiles), resized 240 -> size (bilinear).
+    Returns (Z, 3, size, size) float32 on the GPU. size 1024 for SAM / untrained, 480 for MRI-CORE (4 mm tokens)."""
     import numpy as np
     import torch
     import torch.nn.functional as Fn
     t2lo, t2hi = key_json["t2w_p05_p995"]; hblo, hbhi = key_json["hbv_p05_p995"]
     t2 = np.clip((z["t2w"] - t2lo) / max(t2hi - t2lo, 1e-6), 0, 1); adc = np.clip(z["adc"] / 3000.0, 0, 1); hb = np.clip((z["hbv"] - hblo) / max(hbhi - hblo, 1e-6), 0, 1)
     x = torch.from_numpy(np.stack([t2, adc, hb], 1).astype(np.float32)).cuda()
-    return Fn.interpolate(x, size=(1024, 1024), mode="bilinear", align_corners=False)
+    return Fn.interpolate(x, size=(size, size), mode="bilinear", align_corners=False)
 
 
 def _enc2d(enc, x, mode, norm=None, bs=8):
@@ -149,25 +181,27 @@ def _enc2d(enc, x, mode, norm=None, bs=8):
     return torch.cat(outs, 1)  # (Z, 256 or 768, 64, 64)
 
 
+PF_HW = 224   # ProFound-alpha was pretrained on 64 x 224 x 224 crops: the centre 224 x 224 of our 256 x 256 (1 mm) grid, no resampling
+
+
 def _pf_input(zp):
-    """ProFound input: (1, 3, 64, 256, 256), z-score per channel over non-zero voxels (its dataset.py)."""
+    """ProFound input: (1, 3, 64, 224, 224) = centre crop of the 1 mm grid; z-score per channel over non-zero voxels (its dataset.py)."""
     import numpy as np
     import torch
-    x = zp["image"].astype(np.float32)
+    o = (zp["image"].shape[-1] - PF_HW) // 2
+    x = zp["image"][:, :, o:o + PF_HW, o:o + PF_HW].astype(np.float32)
     for c in range(3):
         m = x[c] != 0
         if m.any(): v = x[c][m]; x[c][m] = (v - v.mean()) / max(v.std(), 1e-6)
     return torch.from_numpy(x[None]).cuda()
 
 
-def _pf_tokens(m, x, seed):
-    """ProFound encoder tokens in spatial order: forward_encoder(mask_ratio=0) shuffles tokens; ids_restore puts them back."""
+def _pf_stages(m, x):
+    """ProFound ConvNeXtV2 stage feature maps (strides 4, 8, 16, 16 voxels = mm). Deterministic (no masking)."""
     import torch
-    torch.manual_seed(seed)
-    with torch.no_grad():
-        lat, mask, ids = m.forward_encoder(x, 0.0)
-        t = torch.gather(lat[:, 1:], 1, ids.unsqueeze(-1).repeat(1, 1, lat.shape[-1]))
-    return t  # (1, 256, 768): (d, h, w) = (4, 8, 8)
+    with torch.no_grad(), torch.autocast("cuda", dtype=torch.float16):
+        _, hid = m(x, ret_hids=True)
+    return [h.float() for h in hid]
 
 
 @app.function(gpu=GPU, cpu=CPU, memory=MEM_GIB * 1024, timeout=TIMEOUT_MIN * 60, retries=0, volumes={"/vol": vol})
@@ -195,25 +229,23 @@ def check():
         pf, info = _profound(W["profound"]["path"]); res["profound_check"] = info
     except Exception as e: res["profound_check"] = dict(error=f"{type(e).__name__}: {e}"[:600], usable=False)
     bench = {a: dict(seconds=[], shape=None, finite=True, const_channels=0) for a in ("mricore_A", "mricore_B", "sam_A", "sam_B", "untrained_B", "profound")}
-    diff = []
+    def note(name, f, sec):
+        b = bench[name]; b["seconds"].append(sec); b["shape"] = list(f.shape); b["finite"] &= bool(torch.isfinite(f).all())
+        b["const_channels"] = max(b["const_channels"], int((f.transpose(0, 1).reshape(f.shape[1], -1).std(1) == 0).sum()))
     for key in keys:
-        z = np.load(f"/vol/prep/dev/{key}.npz"); x = _slices(z, summ["studies"][key]); feats = {}
+        z = np.load(f"/vol/prep/dev/{key}.npz"); x1024 = _slices(z, summ["studies"][key], 1024); x480 = _slices(z, summ["studies"][key], MRICORE_PX)
         for arm, (enc, norm) in arms.items():
             for mode in (("B",) if arm == "untrained" else ("A", "B")):
-                torch.cuda.synchronize(); t = time.time(); f = _enc2d(enc, x, mode, norm); torch.cuda.synchronize()
-                b = bench[f"{arm}_{mode}"]; b["seconds"].append(time.time() - t); b["shape"] = list(f.shape); b["finite"] &= bool(torch.isfinite(f).all())
-                b["const_channels"] = max(b["const_channels"], int((f.permute(1, 0, 2, 3).reshape(f.shape[1], -1).std(1) == 0).sum()))
-                feats[f"{arm}_{mode}"] = f
-        if "mricore_B" in feats and "sam_B" in feats:
-            a, s = feats["mricore_B"].flatten(), feats["sam_B"].flatten()
-            diff.append(dict(key=key, mean_abs_diff=float((a - s).abs().mean()), corr=float(torch.corrcoef(torch.stack([a, s]))[0, 1])))
+                torch.cuda.synchronize(); t = time.time()
+                f = _enc_vit(enc, x480, mode) if arm == "mricore" else _enc2d(enc, x1024, mode, norm)
+                torch.cuda.synchronize(); note(f"{arm}_{mode}", f, time.time() - t); del f
         if pf is not None:
             zp = np.load(f"/vol/prep/dev/{key}_pf.npz"); xp = _pf_input(zp); torch.cuda.synchronize(); t = time.time()
-            t1 = _pf_tokens(pf, xp, seed=1); torch.cuda.synchronize(); bench["profound"]["seconds"].append(time.time() - t)
-            t2 = _pf_tokens(pf, xp, seed=2); bench["profound"]["shape"] = list(t1.shape)
-            bench["profound"]["finite"] &= bool(torch.isfinite(t1).all()); bench["profound"].setdefault("order_restored_max_diff", 0.0)
-            bench["profound"]["order_restored_max_diff"] = max(bench["profound"]["order_restored_max_diff"], float((t1 - t2).abs().max()))
-        del feats; torch.cuda.empty_cache(); print(f"bench {key} done {(time.time() - t0) / 60:.1f} min", flush=True)
+            hs = _pf_stages(pf, xp); torch.cuda.synchronize(); note("profound", hs[0], time.time() - t)
+            bench["profound"]["stage_shapes"] = [list(h.shape) for h in hs]
+            hs2 = _pf_stages(pf, xp); bench["profound"]["repeat_max_diff"] = max(bench["profound"].get("repeat_max_diff", 0.0), float((hs[0] - hs2[0]).abs().max()))
+        torch.cuda.empty_cache(); print(f"bench {key} done {(time.time() - t0) / 60:.1f} min", flush=True)
+    diff = []
     for b in bench.values():
         s = b.pop("seconds"); b["sec_per_study_median"] = float(np.median(s)) if s else None; b["n"] = len(s)
     res.update(bench=bench, mricore_vs_sam=diff, peak_gpu_gb=torch.cuda.max_memory_allocated() / 1e9, container_min=(time.time() - t0) / 60)

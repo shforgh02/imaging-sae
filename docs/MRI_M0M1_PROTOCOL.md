@@ -120,6 +120,19 @@ Each study is processed on its own and saved at once to `/prep/dev/<patient>_<st
   - **Conv variant** (`convnextv2_tiny`, used in its downstream code): if the released ProFound-alpha weights include it, we use the stage feature map whose stride is closest to the common-grid size without being coarser. Both ProFound variants are then ProFound arms, and rule S compares the best ProFound arm with the best unexposed arm.
   - **Weights:** ProFound-alpha, pretrained, from the README's SharePoint folder (`rmapyhu…`). The demo weights folder contains fine-tuned checkpoints and is **not used** (leak rule 1). If the link cannot be downloaded without a login, the lead downloads the file in a browser. If ProFound is unusable, it is logged, and the fallback (Triad) needs a new decision.
 
+**Correction after the first encoder check** (mri_m1_encode-014, 2026-11-10, before M1). The checkpoints were inspected with torch's safe loader; see `docs/EXECUTION_LOG.md`.
+- **MRI-CORE runs as trained.**
+  - Its checkpoint is a DINOv2 **teacher ViT-B/16**: class token, a 14 × 14 position embedding (trained at 224 px), final norm, chunked blocks, no layer scale, **no SAM neck**.
+  - The repository's SAM-shaped loader would put the features through a **randomly initialised neck** and **drop the trained position embedding** (its loader saves it under the wrong key, and `strict=False` hides this). That path does not represent the trained model.
+  - We therefore build a standard timm ViT-B/16 (global attention) and load the 150 backbone tensors strictly (chunk index removed). Every tensor is checked equal to the checkpoint, and the position embedding is resampled bicubically from 14 × 14 to 30 × 30.
+  - **Input:** 480 × 480 px for the 120 mm crop, so the 30 × 30 patch tokens are exactly the 4 mm common grid. Normalisation: ImageNet mean and standard deviation, DINOv2's default. The training configuration is not released.
+  - **Features:** the final-norm patch tokens, 768-d in mode B and 3 × 768 = 2,304-d in mode A.
+  - **Sensitivity (descriptive):** [0, 1] input without ImageNet normalisation, as in the repository README.
+- **ProFound-alpha is the ConvNeXt V2-tiny variant,** not the ViT. Its checkpoint `args` say `model = convnext`, `input_size = (64, 224, 224)`, epoch 799, mask ratio 0.6, no labels.
+  - Built with its own `convnextv2_tiny` and `remap_checkpoint_keys`. Only the final pooled-output norm may be missing.
+  - **Input:** the centre 64 × 224 × 224 of our 64 × 256 × 256 mm grid at 1 mm (an exact sub-crop, no resampling), with its z-score normalisation.
+  - **Features (the rule above):** stage 0, stride 4 mm, 96-d, mapped onto the common grid by linear interpolation (same cell size). Stages 1–3 (8, 16 and 16 mm) are recorded and may be reported descriptively; they are not candidate arms.
+
 **Input for MRI-CORE, SAM and the untrained network:**
 - **Scaling:** ADC: `clip(ADC / 3000, 0, 1)`. T2W and HBV: `clip((x − p0.5) / (p99.5 − p0.5), 0, 1)`, with that study's percentiles (§3.6).
 - **Size:** each 240 × 240 crop slice is resized to 1024 × 1024 (bilinear), so one native feature cell is 1.875 mm.
@@ -152,8 +165,8 @@ The encode launches for M1 are then sized from the measured times, inside the $5
 **Samples:** all lesion tokens, and up to 200 normal tokens per study, drawn with `default_rng(int(study_id))`.
 
 **Arms** (5 candidates):
-- MRI-CORE A (768-d), MRI-CORE B (256-d), SAM A, SAM B;
-- ProFound (its native dimension), if usable.
+- MRI-CORE A (2,304-d), MRI-CORE B (768-d), SAM A (768-d), SAM B (256-d);
+- ProFound stage 0 (96-d), if usable.
 
 **Comparators:** the untrained network (mode B) and R.
 

@@ -1,0 +1,241 @@
+{
+ "gpu": "NVIDIA L4",
+ "torch": "2.6.0+cu124",
+ "commits": {
+  "mricore": "0f4f452614013873f8bb58a1fd613dbe36b58aba",
+  "profound": "6c371406ab86ad53c545444f9adb25014fc1352a",
+  "sam": "dca509fe793f601edb92606367a655c15ac00fdf"
+ },
+ "weights": {
+  "mricore": {
+   "path": "/vol/weights/MRI_CORE_vitb.pth",
+   "bytes": 435830190,
+   "sha256": "0ca90aeba09568f2e10a2e9851d2f2e22b21796067f5dfc7d65548e1a3078276"
+  },
+  "sam": {
+   "path": "/vol/weights/sam_vit_b_01ec64.pth",
+   "bytes": 375042383,
+   "sha256": "ec2df62732614e57411cdcf32a23ffdf28910380d03139ee0f4fcbe91eb8c912"
+  },
+  "profound": {
+   "path": "/vol/weights/profound_alpha_checkpoint-799.pth",
+   "bytes": 459734986,
+   "sha256": "c4ff630d052fdae1d8a549ea319a3c9b9a26501a376f79f3b0f8fa6f02612d01"
+  }
+ },
+ "bench_keys": [
+  "10003_1000003",
+  "10038_1000038",
+  "10070_1000070",
+  "10094_1000094",
+  "10104_1000104",
+  "10140_1000142",
+  "10158_1000161",
+  "10219_1000223",
+  "10318_1000324",
+  "10364_1000370"
+ ],
+ "mricore_check": {
+  "checkpoint_top_keys": [
+   "teacher"
+  ],
+  "n_encoder_tensors": 153,
+  "missing_in_checkpoint": [
+   "blocks.0.norm1.weight",
+   "blocks.0.norm1.bias",
+   "blocks.0.attn.qkv.weight",
+   "blocks.0.attn.qkv.bias",
+   "blocks.0.attn.proj.weight",
+   "blocks.0.attn.proj.bias",
+   "blocks.0.norm2.weight",
+   "blocks.0.norm2.bias",
+   "blocks.0.mlp.lin1.weight",
+   "blocks.0.mlp.lin1.bias",
+   "blocks.0.mlp.lin2.weight",
+   "blocks.0.mlp.lin2.bias",
+   "blocks.1.norm1.weight",
+   "blocks.1.norm1.bias",
+   "blocks.1.attn.qkv.weight",
+   "blocks.1.attn.qkv.bias",
+   "blocks.1.attn.proj.weight",
+   "blocks.1.attn.proj.bias",
+   "blocks.1.norm2.weight",
+   "blocks.1.norm2.bias"
+  ],
+  "n_missing": 150,
+  "n_not_equal": 0,
+  "not_equal": [],
+  "usable": false
+ },
+ "sam_check": {
+  "loaded": "official strict loader",
+  "usable": true
+ },
+ "profound_check": {
+  "checkpoint_keys": [
+   "args",
+   "epoch",
+   "model",
+   "optimizer",
+   "scaler"
+  ],
+  "epoch": 799,
+  "args": {
+   "batch_size": "4",
+   "epochs": "800",
+   "accum_iter": "1",
+   "root": "/SAN/medic/foundation/mae_train_data",
+   "model": "convnext",
+   "input_size": "(64, 224, 224)",
+   "mask_ratio": "0.6",
+   "norm_pix_loss": "True",
+   "crop_spatial_size": "(64, 224, 224)",
+   "weight_decay": "0.05",
+   "lr": "0.001",
+   "blr": "0.001",
+   "min_lr": "0.0",
+   "warmup_epochs": "40",
+   "output_dir": "output_mae_b16/out_mae_b2/convnext_1e3",
+   "log_dir": "output_mae_b16/out_mae_b2/convnext_1e3",
+   "dataset_csv": "./spilt/pretrain/pre-train.csv",
+   "device": "cuda",
+   "seed": "0",
+   "resume": "/SAN/medic/prostate_segmentation/mae/output_mae_b16/out_mae_b2/convnext_1e3/checkpoint-80.pth",
+   "start_epoch": "81",
+   "num_workers": "8",
+   "pin_mem": "True",
+   "world_size": "1",
+   "local_rank": "-1",
+   "dist_on_itp": "False",
+   "dist_url": "env://"
+  },
+  "n_tensors": 211,
+  "patch_embed": [],
+  "variant": "conv_or_other",
+  "usable": false,
+  "note": "not the ViT variant: the Conv code path is written only after inspecting this checkpoint"
+ },
+ "bench": {
+  "mricore_A": {
+   "shape": [
+    15,
+    768,
+    64,
+    64
+   ],
+   "finite": true,
+   "const_channels": 0,
+   "sec_per_study_median": 4.236134886741638,
+   "n": 10
+  },
+  "mricore_B": {
+   "shape": [
+    15,
+    256,
+    64,
+    64
+   ],
+   "finite": true,
+   "const_channels": 0,
+   "sec_per_study_median": 1.417405128479004,
+   "n": 10
+  },
+  "sam_A": {
+   "shape": [
+    15,
+    768,
+    64,
+    64
+   ],
+   "finite": true,
+   "const_channels": 0,
+   "sec_per_study_median": 5.792429804801941,
+   "n": 10
+  },
+  "sam_B": {
+   "shape": [
+    15,
+    256,
+    64,
+    64
+   ],
+   "finite": true,
+   "const_channels": 0,
+   "sec_per_study_median": 1.9307936429977417,
+   "n": 10
+  },
+  "untrained_B": {
+   "shape": [
+    15,
+    256,
+    64,
+    64
+   ],
+   "finite": true,
+   "const_channels": 0,
+   "sec_per_study_median": 1.9297021627426147,
+   "n": 10
+  },
+  "profound": {
+   "shape": null,
+   "finite": true,
+   "const_channels": 0,
+   "sec_per_study_median": null,
+   "n": 0
+  }
+ },
+ "mricore_vs_sam": [
+  {
+   "key": "10003_1000003",
+   "mean_abs_diff": 0.8154308795928955,
+   "corr": -0.019844071939587593
+  },
+  {
+   "key": "10038_1000038",
+   "mean_abs_diff": 0.8156571984291077,
+   "corr": -0.021843580529093742
+  },
+  {
+   "key": "10070_1000070",
+   "mean_abs_diff": 0.8196653127670288,
+   "corr": -0.019313091412186623
+  },
+  {
+   "key": "10094_1000094",
+   "mean_abs_diff": 0.8202812075614929,
+   "corr": -0.02008477970957756
+  },
+  {
+   "key": "10104_1000104",
+   "mean_abs_diff": 0.8194085955619812,
+   "corr": -0.022604219615459442
+  },
+  {
+   "key": "10140_1000142",
+   "mean_abs_diff": 0.8199617266654968,
+   "corr": -0.02184671349823475
+  },
+  {
+   "key": "10158_1000161",
+   "mean_abs_diff": 0.8146899342536926,
+   "corr": -0.017221085727214813
+  },
+  {
+   "key": "10219_1000223",
+   "mean_abs_diff": 0.816411018371582,
+   "corr": -0.024223214015364647
+  },
+  {
+   "key": "10318_1000324",
+   "mean_abs_diff": 0.8210536241531372,
+   "corr": -0.020100001245737076
+  },
+  {
+   "key": "10364_1000370",
+   "mean_abs_diff": 0.8210086822509766,
+   "corr": -0.018671689555048943
+  }
+ ],
+ "peak_gpu_gb": 13.344446976,
+ "container_min": 4.16828453540802
+}
