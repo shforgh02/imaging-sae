@@ -1,0 +1,238 @@
+tokens 164116 (lesion 13516, normal 150600); studies 753; patients 737
+  fit nest0_mricore_A_f0: 2304-d, 104698 train, 241 iter, 20 s
+  fit nest0_mricore_A_f1: 2304-d, 105030 train, 245 iter, 20 s
+  fit nest0_mricore_A_f2: 2304-d, 107079 train, 215 iter, 19 s
+  fit nest0_mricore_A_f3: 2304-d, 106231 train, 244 iter, 20 s
+  fit nest0_mricore_A_f4: 2304-d, 105386 train, 237 iter, 20 s
+  fit nest0_mricore_B_f0: 768-d, 104698 train, 183 iter, 6 s
+  fit nest0_mricore_B_f1: 768-d, 105030 train, 179 iter, 5 s
+  fit nest0_mricore_B_f2: 768-d, 107079 train, 151 iter, 5 s
+  fit nest0_mricore_B_f3: 768-d, 106231 train, 189 iter, 6 s
+  fit nest0_mricore_B_f4: 768-d, 105386 train, 158 iter, 5 s
+  fit nest0_sam_A_f0: 768-d, 104698 train, 581 iter, 16 s
+  fit nest0_sam_A_f1: 768-d, 105030 train, 538 iter, 15 s
+  fit nest0_sam_A_f2: 768-d, 107079 train, 587 iter, 17 s
+  fit nest0_sam_A_f3: 768-d, 106231 train, 594 iter, 16 s
+  fit nest0_sam_A_f4: 768-d, 105386 train, 555 iter, 15 s
+  fit nest0_sam_B_f0: 256-d, 104698 train, 497 iter, 7 s
+  fit nest0_sam_B_f1: 256-d, 105030 train, 491 iter, 7 s
+  fit nest0_sam_B_f2: 256-d, 107079 train, 456 iter, 7 s
+  fit nest0_sam_B_f3: 256-d, 106231 train, 456 iter, 6 s
+  fit nest0_sam_B_f4: 256-d, 105386 train, 461 iter, 6 s
+  fit nest0_profound_f0: 96-d, 104698 train, 67 iter, 1 s
+  fit nest0_profound_f1: 96-d, 105030 train, 67 iter, 1 s
+  fit nest0_profound_f2: 96-d, 107079 train, 64 iter, 1 s
+  fit nest0_profound_f3: 96-d, 106231 train, 65 iter, 1 s
+  fit nest0_profound_f4: 96-d, 105386 train, 61 iter, 1 s
+  fit nest0_R_f0: 66-d, 104698 train, 26 iter, 0 s
+  fit nest0_R_f1: 66-d, 105030 train, 30 iter, 0 s
+  fit nest0_R_f2: 66-d, 107079 train, 27 iter, 0 s
+  fit nest0_R_f3: 66-d, 106231 train, 27 iter, 0 s
+  fit nest0_R_f4: 66-d, 105386 train, 59 iter, 1 s
+outer fold 0: rule S -> mricore_B {'mricore_A': -0.0003344316921485291, 'mricore_B': 0.0023429944112995926, 'sam_A': -0.013556913175009067, 'sam_B': -0.03685688964348599, 'profound': -0.02667371405143837}
+  fit full_mricore_B_f0: 768-d, 132106 train, 176 iter, 7 s
+  fit full_R_f0: 66-d, 132106 train, 27 iter, 0 s
+  fit full_untrained_B_f0: 256-d, 132106 train, 296 iter, 5 s
+  fit nest1_mricore_A_f0: 2304-d, 105541 train, 246 iter, 20 s
+  fit nest1_mricore_A_f1: 2304-d, 105158 train, 239 iter, 19 s
+  fit nest1_mricore_A_f2: 2304-d, 103462 train, 237 iter, 19 s
+  fit nest1_mricore_A_f3: 2304-d, 104731 train, 232 iter, 19 s
+  fit nest1_mricore_A_f4: 2304-d, 104400 train, 245 iter, 20 s
+  fit nest1_mricore_B_f0: 768-d, 105541 train, 166 iter, 6 s
+  fit nest1_mricore_B_f1: 768-d, 105158 train, 155 iter, 5 s
+  fit nest1_mricore_B_f2: 768-d, 103462 train, 147 iter, 5 s
+  fit nest1_mricore_B_f3: 768-d, 104731 train, 156 iter, 5 s
+  fit nest1_mricore_B_f4: 768-d, 104400 train, 153 iter, 5 s
+  fit nest1_sam_A_f0: 768-d, 105541 train, 560 iter, 15 s
+  fit nest1_sam_A_f1: 768-d, 105158 train, 594 iter, 16 s
+  fit nest1_sam_A_f2: 768-d, 103462 train, 541 iter, 15 s
+  fit nest1_sam_A_f3: 768-d, 104731 train, 590 iter, 16 s
+  fit nest1_sam_A_f4: 768-d, 104400 train, 576 iter, 15 s
+  fit nest1_sam_B_f0: 256-d, 105541 train, 492 iter, 7 s
+  fit nest1_sam_B_f1: 256-d, 105158 train, 517 iter, 7 s
+  fit nest1_sam_B_f2: 256-d, 103462 train, 479 iter, 6 s
+  fit nest1_sam_B_f3: 256-d, 104731 train, 495 iter, 7 s
+  fit nest1_sam_B_f4: 256-d, 104400 train, 501 iter, 7 s
+  fit nest1_profound_f0: 96-d, 105541 train, 66 iter, 1 s
+  fit nest1_profound_f1: 96-d, 105158 train, 64 iter, 1 s
+  fit nest1_profound_f2: 96-d, 103462 train, 69 iter, 1 s
+  fit nest1_profound_f3: 96-d, 104731 train, 70 iter, 1 s
+  fit nest1_profound_f4: 96-d, 104400 train, 69 iter, 1 s
+  fit nest1_R_f0: 66-d, 105541 train, 29 iter, 0 s
+  fit nest1_R_f1: 66-d, 105158 train, 28 iter, 0 s
+  fit nest1_R_f2: 66-d, 103462 train, 67 iter, 1 s
+  fit nest1_R_f3: 66-d, 104731 train, 27 iter, 0 s
+  fit nest1_R_f4: 66-d, 104400 train, 62 iter, 1 s
+outer fold 1: rule S -> mricore_A {'mricore_A': -0.0064001748415173365, 'mricore_B': -0.008191421673365284, 'sam_A': -0.019187291659439665, 'sam_B': -0.033236636143719966, 'profound': -0.038149553794388225}
+  fit full_mricore_A_f1: 2304-d, 130823 train, 234 iter, 24 s
+  fit full_R_f1: 66-d, 130823 train, 27 iter, 0 s
+  fit full_untrained_B_f1: 256-d, 130823 train, 301 iter, 5 s
+  fit nest2_mricore_A_f0: 2304-d, 105578 train, 241 iter, 20 s
+  fit nest2_mricore_A_f1: 2304-d, 105599 train, 250 iter, 20 s
+  fit nest2_mricore_A_f2: 2304-d, 106758 train, 237 iter, 19 s
+  fit nest2_mricore_A_f3: 2304-d, 106703 train, 240 iter, 20 s
+  fit nest2_mricore_A_f4: 2304-d, 106110 train, 233 iter, 19 s
+  fit nest2_mricore_B_f0: 768-d, 105578 train, 175 iter, 5 s
+  fit nest2_mricore_B_f1: 768-d, 105599 train, 171 iter, 5 s
+  fit nest2_mricore_B_f2: 768-d, 106758 train, 177 iter, 6 s
+  fit nest2_mricore_B_f3: 768-d, 106703 train, 163 iter, 5 s
+  fit nest2_mricore_B_f4: 768-d, 106110 train, 151 iter, 5 s
+  fit nest2_sam_A_f0: 768-d, 105578 train, 554 iter, 15 s
+  fit nest2_sam_A_f1: 768-d, 105599 train, 502 iter, 14 s
+  fit nest2_sam_A_f2: 768-d, 106758 train, 538 iter, 15 s
+  fit nest2_sam_A_f3: 768-d, 106703 train, 585 iter, 16 s
+  fit nest2_sam_A_f4: 768-d, 106110 train, 569 iter, 15 s
+  fit nest2_sam_B_f0: 256-d, 105578 train, 485 iter, 7 s
+  fit nest2_sam_B_f1: 256-d, 105599 train, 447 iter, 6 s
+  fit nest2_sam_B_f2: 256-d, 106758 train, 500 iter, 7 s
+  fit nest2_sam_B_f3: 256-d, 106703 train, 482 iter, 7 s
+  fit nest2_sam_B_f4: 256-d, 106110 train, 500 iter, 7 s
+  fit nest2_profound_f0: 96-d, 105578 train, 65 iter, 1 s
+  fit nest2_profound_f1: 96-d, 105599 train, 68 iter, 1 s
+  fit nest2_profound_f2: 96-d, 106758 train, 64 iter, 1 s
+  fit nest2_profound_f3: 96-d, 106703 train, 65 iter, 1 s
+  fit nest2_profound_f4: 96-d, 106110 train, 62 iter, 1 s
+  fit nest2_R_f0: 66-d, 105578 train, 30 iter, 0 s
+  fit nest2_R_f1: 66-d, 105599 train, 60 iter, 1 s
+  fit nest2_R_f2: 66-d, 106758 train, 25 iter, 0 s
+  fit nest2_R_f3: 66-d, 106703 train, 36 iter, 0 s
+  fit nest2_R_f4: 66-d, 106110 train, 66 iter, 1 s
+outer fold 2: rule S -> mricore_B {'mricore_A': -0.004878123861304151, 'mricore_B': 0.006765531710667183, 'sam_A': -0.01438243873401257, 'sam_B': -0.028691068394765873, 'profound': -0.024885838599364662}
+  fit full_mricore_B_f2: 768-d, 132687 train, 178 iter, 7 s
+  fit full_R_f2: 66-d, 132687 train, 28 iter, 0 s
+  fit full_untrained_B_f2: 256-d, 132687 train, 288 iter, 5 s
+  fit nest3_mricore_A_f0: 2304-d, 102920 train, 245 iter, 20 s
+  fit nest3_mricore_A_f1: 2304-d, 103379 train, 252 iter, 20 s
+  fit nest3_mricore_A_f2: 2304-d, 104554 train, 259 iter, 20 s
+  fit nest3_mricore_A_f3: 2304-d, 104571 train, 262 iter, 21 s
+  fit nest3_mricore_A_f4: 2304-d, 104272 train, 252 iter, 20 s
+  fit nest3_mricore_B_f0: 768-d, 102920 train, 140 iter, 4 s
+  fit nest3_mricore_B_f1: 768-d, 103379 train, 144 iter, 5 s
+  fit nest3_mricore_B_f2: 768-d, 104554 train, 169 iter, 5 s
+  fit nest3_mricore_B_f3: 768-d, 104571 train, 165 iter, 5 s
+  fit nest3_mricore_B_f4: 768-d, 104272 train, 150 iter, 5 s
+  fit nest3_sam_A_f0: 768-d, 102920 train, 562 iter, 15 s
+  fit nest3_sam_A_f1: 768-d, 103379 train, 592 iter, 16 s
+  fit nest3_sam_A_f2: 768-d, 104554 train, 621 iter, 17 s
+  fit nest3_sam_A_f3: 768-d, 104571 train, 609 iter, 16 s
+  fit nest3_sam_A_f4: 768-d, 104272 train, 598 iter, 16 s
+  fit nest3_sam_B_f0: 256-d, 102920 train, 429 iter, 6 s
+  fit nest3_sam_B_f1: 256-d, 103379 train, 502 iter, 7 s
+  fit nest3_sam_B_f2: 256-d, 104554 train, 539 iter, 7 s
+  fit nest3_sam_B_f3: 256-d, 104571 train, 551 iter, 7 s
+  fit nest3_sam_B_f4: 256-d, 104272 train, 492 iter, 7 s
+  fit nest3_profound_f0: 96-d, 102920 train, 66 iter, 1 s
+  fit nest3_profound_f1: 96-d, 103379 train, 71 iter, 1 s
+  fit nest3_profound_f2: 96-d, 104554 train, 47 iter, 0 s
+  fit nest3_profound_f3: 96-d, 104571 train, 66 iter, 1 s
+  fit nest3_profound_f4: 96-d, 104272 train, 54 iter, 1 s
+  fit nest3_R_f0: 66-d, 102920 train, 96 iter, 1 s
+  fit nest3_R_f1: 66-d, 103379 train, 66 iter, 1 s
+  fit nest3_R_f2: 66-d, 104554 train, 69 iter, 1 s
+  fit nest3_R_f3: 66-d, 104571 train, 62 iter, 1 s
+  fit nest3_R_f4: 66-d, 104272 train, 67 iter, 1 s
+outer fold 3: rule S -> mricore_B {'mricore_A': -0.02115648076644061, 'mricore_B': -0.011695457533979603, 'sam_A': -0.023554582090471343, 'sam_B': -0.0348742019313143, 'profound': -0.029674079589588898}
+  fit full_mricore_B_f3: 768-d, 129924 train, 161 iter, 6 s
+  fit full_R_f3: 66-d, 129924 train, 66 iter, 1 s
+  fit full_untrained_B_f3: 256-d, 129924 train, 287 iter, 5 s
+  fit nest4_mricore_A_f0: 2304-d, 105030 train, 226 iter, 19 s
+  fit nest4_mricore_A_f1: 2304-d, 105328 train, 251 iter, 20 s
+  fit nest4_mricore_A_f2: 2304-d, 104723 train, 248 iter, 20 s
+  fit nest4_mricore_A_f3: 2304-d, 104308 train, 252 iter, 21 s
+  fit nest4_mricore_A_f4: 2304-d, 104307 train, 229 iter, 18 s
+  fit nest4_mricore_B_f0: 768-d, 105030 train, 169 iter, 5 s
+  fit nest4_mricore_B_f1: 768-d, 105328 train, 166 iter, 5 s
+  fit nest4_mricore_B_f2: 768-d, 104723 train, 160 iter, 5 s
+  fit nest4_mricore_B_f3: 768-d, 104308 train, 148 iter, 5 s
+  fit nest4_mricore_B_f4: 768-d, 104307 train, 144 iter, 5 s
+  fit nest4_sam_A_f0: 768-d, 105030 train, 584 iter, 17 s
+  fit nest4_sam_A_f1: 768-d, 105328 train, 524 iter, 14 s
+  fit nest4_sam_A_f2: 768-d, 104723 train, 519 iter, 14 s
+  fit nest4_sam_A_f3: 768-d, 104308 train, 572 iter, 15 s
+  fit nest4_sam_A_f4: 768-d, 104307 train, 531 iter, 15 s
+  fit nest4_sam_B_f0: 256-d, 105030 train, 445 iter, 6 s
+  fit nest4_sam_B_f1: 256-d, 105328 train, 449 iter, 6 s
+  fit nest4_sam_B_f2: 256-d, 104723 train, 460 iter, 6 s
+  fit nest4_sam_B_f3: 256-d, 104308 train, 450 iter, 6 s
+  fit nest4_sam_B_f4: 256-d, 104307 train, 492 iter, 7 s
+  fit nest4_profound_f0: 96-d, 105030 train, 70 iter, 1 s
+  fit nest4_profound_f1: 96-d, 105328 train, 70 iter, 1 s
+  fit nest4_profound_f2: 96-d, 104723 train, 62 iter, 1 s
+  fit nest4_profound_f3: 96-d, 104308 train, 67 iter, 1 s
+  fit nest4_profound_f4: 96-d, 104307 train, 67 iter, 1 s
+  fit nest4_R_f0: 66-d, 105030 train, 30 iter, 0 s
+  fit nest4_R_f1: 66-d, 105328 train, 30 iter, 0 s
+  fit nest4_R_f2: 66-d, 104723 train, 31 iter, 0 s
+  fit nest4_R_f3: 66-d, 104308 train, 38 iter, 0 s
+  fit nest4_R_f4: 66-d, 104307 train, 66 iter, 1 s
+outer fold 4: rule S -> sam_A {'mricore_A': -0.03672342552124108, 'mricore_B': -0.014303099135034358, 'sam_A': -0.0101689812692769, 'sam_B': -0.0338407049386753, 'profound': -0.0342732646997258}
+  fit full_sam_A_f4: 768-d, 130924 train, 584 iter, 20 s
+  fit full_R_f4: 66-d, 130924 train, 29 iter, 0 s
+  fit full_untrained_B_f4: 256-d, 130924 train, 296 iter, 5 s
+GATE {"all": {"delta_R": [-0.02241981840522944, -0.0383273688112042, -0.0069576138225979816], "delta_null": [-0.005006738312073655, -0.02034009744551498, 0.010061427867403244], "pass_": false}, "verified": {"delta_R": [-0.022896651820064617, -0.03919765607684761, -0.007015547296626948], "delta_null": [-0.003858786370360301, -0.019357647974149357, 0.010740958119945524], "pass_": false}, "PASS": false}
+  fit full_mricore_A_f0: 2304-d, 132106 train, 230 iter, 23 s
+  fit full_mricore_A_f2: 2304-d, 132687 train, 246 iter, 25 s
+  fit full_mricore_A_f3: 2304-d, 129924 train, 253 iter, 24 s
+  fit full_mricore_A_f4: 2304-d, 130924 train, 235 iter, 24 s
+  fit full_mricore_B_f1: 768-d, 130823 train, 159 iter, 6 s
+  fit full_mricore_B_f4: 768-d, 130924 train, 160 iter, 6 s
+  fit full_sam_A_f0: 768-d, 132106 train, 575 iter, 20 s
+  fit full_sam_A_f1: 768-d, 130823 train, 583 iter, 19 s
+  fit full_sam_A_f2: 768-d, 132687 train, 564 iter, 19 s
+  fit full_sam_A_f3: 768-d, 129924 train, 620 iter, 21 s
+  fit full_sam_B_f0: 256-d, 132106 train, 468 iter, 8 s
+  fit full_sam_B_f1: 256-d, 130823 train, 465 iter, 8 s
+  fit full_sam_B_f2: 256-d, 132687 train, 462 iter, 8 s
+  fit full_sam_B_f3: 256-d, 129924 train, 559 iter, 9 s
+  fit full_sam_B_f4: 256-d, 130924 train, 449 iter, 8 s
+  fit full_profound_f0: 96-d, 132106 train, 65 iter, 1 s
+  fit full_profound_f1: 96-d, 130823 train, 64 iter, 1 s
+  fit full_profound_f2: 96-d, 132687 train, 67 iter, 1 s
+  fit full_profound_f3: 96-d, 129924 train, 63 iter, 1 s
+  fit full_profound_f4: 96-d, 130924 train, 61 iter, 1 s
+  fit full_mricore_B_minmax_f0: 768-d, 132106 train, 133 iter, 5 s
+  fit full_mricore_B_minmax_f1: 768-d, 130823 train, 144 iter, 6 s
+  fit full_mricore_B_minmax_f2: 768-d, 132687 train, 166 iter, 6 s
+  fit full_mricore_B_minmax_f3: 768-d, 129924 train, 141 iter, 6 s
+  fit full_mricore_B_minmax_f4: 768-d, 130924 train, 143 iter, 6 s
+  fit full_mricore_B_noimagenet_f0: 768-d, 132106 train, 149 iter, 6 s
+  fit full_mricore_B_noimagenet_f1: 768-d, 130823 train, 162 iter, 7 s
+  fit full_mricore_B_noimagenet_f2: 768-d, 132687 train, 159 iter, 6 s
+  fit full_mricore_B_noimagenet_f3: 768-d, 129924 train, 152 iter, 6 s
+  fit full_mricore_B_noimagenet_f4: 768-d, 130924 train, 158 iter, 6 s
+  fit loco_PCNN_mricore_B: 768-d, 125313 train, 187 iter, 7 s
+  fit loco_PCNN_R: 66-d, 125313 train, 42 iter, 1 s
+  fit loco_RUMC_mricore_B: 768-d, 78450 train, 148 iter, 4 s
+  fit loco_RUMC_R: 66-d, 78450 train, 60 iter, 0 s
+  fit loco_ZGT_mricore_B: 768-d, 124469 train, 165 iter, 6 s
+  fit loco_ZGT_R: 66-d, 124469 train, 30 iter, 0 s
+{
+ "all": {
+  "delta_R": [
+   -0.02241981840522944,
+   -0.0383273688112042,
+   -0.0069576138225979816
+  ],
+  "delta_null": [
+   -0.005006738312073655,
+   -0.02034009744551498,
+   0.010061427867403244
+  ],
+  "pass_": false
+ },
+ "verified": {
+  "delta_R": [
+   -0.022896651820064617,
+   -0.03919765607684761,
+   -0.007015547296626948
+  ],
+  "delta_null": [
+   -0.003858786370360301,
+   -0.019357647974149357,
+   0.010740958119945524
+  ],
+  "pass_": false
+ },
+ "PASS": false
+}
+M1 ANALYSIS DONE

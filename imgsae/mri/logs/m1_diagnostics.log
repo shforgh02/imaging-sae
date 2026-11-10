@@ -1,0 +1,168 @@
+D:\Shayan\imgsae\.venv\Lib\site-packages\sklearn\linear_model\_ridge.py:227: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 3.895835121170421e-08.
+  return linalg.solve(A, Xy, assume_a="pos", overwrite_a=True).T
+D:\Shayan\imgsae\.venv\Lib\site-packages\sklearn\linear_model\_ridge.py:227: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.509062279112186e-08.
+  return linalg.solve(A, Xy, assume_a="pos", overwrite_a=True).T
+D:\Shayan\imgsae\.venv\Lib\site-packages\sklearn\linear_model\_ridge.py:227: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.42438263803524e-08.
+  return linalg.solve(A, Xy, assume_a="pos", overwrite_a=True).T
+D:\Shayan\imgsae\.venv\Lib\site-packages\sklearn\linear_model\_ridge.py:227: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.381685769772048e-08.
+  return linalg.solve(A, Xy, assume_a="pos", overwrite_a=True).T
+D:\Shayan\imgsae\.venv\Lib\site-packages\sklearn\linear_model\_ridge.py:227: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.259690555841189e-08.
+  return linalg.solve(A, Xy, assume_a="pos", overwrite_a=True).T
+D:\Shayan\imgsae\.venv\Lib\site-packages\sklearn\linear_model\_ridge.py:227: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.752865478963031e-08.
+  return linalg.solve(A, Xy, assume_a="pos", overwrite_a=True).T
+D:\Shayan\imgsae\.venv\Lib\site-packages\sklearn\linear_model\_ridge.py:227: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.280083132357504e-08.
+  return linalg.solve(A, Xy, assume_a="pos", overwrite_a=True).T
+D:\Shayan\imgsae\.venv\Lib\site-packages\sklearn\linear_model\_ridge.py:227: LinAlgWarning: An ill-conditioned matrix detected: slice 0 has rcond = 4.2902758679019826e-08.
+  return linalg.solve(A, Xy, assume_a="pos", overwrite_a=True).T
+D1 mricore_A: best shift dz0_dy0_dx0; dz0_dy0_dx0 0.968, dz0_dy1_dx0 0.864, dz0_dy-1_dx0 0.881, dz0_dy0_dx1 0.885, dz0_dy0_dx-1 0.881, dz0_dy1_dx1 0.788, dz1_dy0_dx0 0.716, dz-1_dy0_dx0 0.722
+D1 mricore_B: best shift dz0_dy0_dx0; dz0_dy0_dx0 0.959, dz0_dy1_dx0 0.820, dz0_dy-1_dx0 0.829, dz0_dy0_dx1 0.839, dz0_dy0_dx-1 0.832, dz0_dy1_dx1 0.697, dz1_dy0_dx0 0.703, dz-1_dy0_dx0 0.711
+D1 sam_A: best shift dz0_dy0_dx0; dz0_dy0_dx0 0.816, dz0_dy1_dx0 0.725, dz0_dy-1_dx0 0.723, dz0_dy0_dx1 0.723, dz0_dy0_dx-1 0.716, dz0_dy1_dx1 0.622, dz1_dy0_dx0 0.585, dz-1_dy0_dx0 0.586
+D1 sam_B: best shift dz0_dy0_dx0; dz0_dy0_dx0 0.701, dz0_dy1_dx0 0.553, dz0_dy-1_dx0 0.553, dz0_dy0_dx1 0.568, dz0_dy0_dx-1 0.541, dz0_dy1_dx1 0.466, dz1_dy0_dx0 0.484, dz-1_dy0_dx0 0.499
+D1 profound: best shift dz0_dy0_dx0; dz0_dy0_dx0 0.792, dz0_dy1_dx0 0.666, dz0_dy-1_dx0 0.659, dz0_dy0_dx1 0.677, dz0_dy0_dx-1 0.647, dz0_dy1_dx1 0.564, dz1_dy0_dx0 0.776, dz-1_dy0_dx0 0.782
+D1 untrained_B: best shift dz0_dy0_dx0; dz0_dy0_dx0 0.989, dz0_dy1_dx0 0.939, dz0_dy-1_dx0 0.942, dz0_dy0_dx1 0.940, dz0_dy0_dx-1 0.943, dz0_dy1_dx1 0.858, dz1_dy0_dx0 0.718, dz-1_dy0_dx0 0.727
+  fit diag_R_C0.001_f0: 66-d, C 0.001, 23 iter, 0 s
+  fit diag_R_C0.001_f1: 66-d, C 0.001, 22 iter, 0 s
+  fit diag_R_C0.001_f2: 66-d, C 0.001, 21 iter, 0 s
+  fit diag_R_C0.001_f3: 66-d, C 0.001, 23 iter, 0 s
+  fit diag_R_C0.001_f4: 66-d, C 0.001, 22 iter, 0 s
+  fit diag_R_C0.01_f0: 66-d, C 0.01, 26 iter, 0 s
+  fit diag_R_C0.01_f1: 66-d, C 0.01, 27 iter, 0 s
+  fit diag_R_C0.01_f2: 66-d, C 0.01, 27 iter, 0 s
+  fit diag_R_C0.01_f3: 66-d, C 0.01, 35 iter, 0 s
+  fit diag_R_C0.01_f4: 66-d, C 0.01, 27 iter, 0 s
+  fit diag_R_C0.1_f0: 66-d, C 0.1, 27 iter, 0 s
+  fit diag_R_C0.1_f1: 66-d, C 0.1, 28 iter, 0 s
+  fit diag_R_C0.1_f2: 66-d, C 0.1, 28 iter, 0 s
+  fit diag_R_C0.1_f3: 66-d, C 0.1, 57 iter, 1 s
+  fit diag_R_C0.1_f4: 66-d, C 0.1, 29 iter, 0 s
+D2 R: C0.001 0.9146, C0.01 0.9123, C0.1 0.9118, C1.0 0.9118
+  fit diag_mricore_A_C0.001_f0: 2304-d, C 0.001, 77 iter, 10 s
+  fit diag_mricore_A_C0.001_f1: 2304-d, C 0.001, 80 iter, 11 s
+  fit diag_mricore_A_C0.001_f2: 2304-d, C 0.001, 82 iter, 11 s
+  fit diag_mricore_A_C0.001_f3: 2304-d, C 0.001, 83 iter, 11 s
+  fit diag_mricore_A_C0.001_f4: 2304-d, C 0.001, 73 iter, 10 s
+  fit diag_mricore_A_C0.01_f0: 2304-d, C 0.01, 136 iter, 15 s
+  fit diag_mricore_A_C0.01_f1: 2304-d, C 0.01, 139 iter, 16 s
+  fit diag_mricore_A_C0.01_f2: 2304-d, C 0.01, 138 iter, 15 s
+  fit diag_mricore_A_C0.01_f3: 2304-d, C 0.01, 135 iter, 15 s
+  fit diag_mricore_A_C0.01_f4: 2304-d, C 0.01, 139 iter, 15 s
+  fit diag_mricore_A_C0.1_f0: 2304-d, C 0.1, 208 iter, 22 s
+  fit diag_mricore_A_C0.1_f1: 2304-d, C 0.1, 202 iter, 21 s
+  fit diag_mricore_A_C0.1_f2: 2304-d, C 0.1, 209 iter, 22 s
+  fit diag_mricore_A_C0.1_f3: 2304-d, C 0.1, 217 iter, 22 s
+  fit diag_mricore_A_C0.1_f4: 2304-d, C 0.1, 218 iter, 22 s
+D2 mricore_A: C0.001 0.9282, C0.01 0.9170, C0.1 0.9069, C1.0 0.9034
+  fit diag_mricore_B_C0.001_f0: 768-d, C 0.001, 60 iter, 3 s
+  fit diag_mricore_B_C0.001_f1: 768-d, C 0.001, 58 iter, 3 s
+  fit diag_mricore_B_C0.001_f2: 768-d, C 0.001, 56 iter, 3 s
+  fit diag_mricore_B_C0.001_f3: 768-d, C 0.001, 59 iter, 3 s
+  fit diag_mricore_B_C0.001_f4: 768-d, C 0.001, 61 iter, 3 s
+  fit diag_mricore_B_C0.01_f0: 768-d, C 0.01, 113 iter, 5 s
+  fit diag_mricore_B_C0.01_f1: 768-d, C 0.01, 104 iter, 5 s
+  fit diag_mricore_B_C0.01_f2: 768-d, C 0.01, 117 iter, 5 s
+  fit diag_mricore_B_C0.01_f3: 768-d, C 0.01, 105 iter, 5 s
+  fit diag_mricore_B_C0.01_f4: 768-d, C 0.01, 108 iter, 5 s
+  fit diag_mricore_B_C0.1_f0: 768-d, C 0.1, 160 iter, 6 s
+  fit diag_mricore_B_C0.1_f1: 768-d, C 0.1, 159 iter, 7 s
+  fit diag_mricore_B_C0.1_f2: 768-d, C 0.1, 160 iter, 6 s
+  fit diag_mricore_B_C0.1_f3: 768-d, C 0.1, 144 iter, 6 s
+  fit diag_mricore_B_C0.1_f4: 768-d, C 0.1, 143 iter, 6 s
+D2 mricore_B: C0.001 0.9164, C0.01 0.9119, C0.1 0.9091, C1.0 0.9087
+  fit diag_sam_A_C0.001_f0: 768-d, C 0.001, 78 iter, 4 s
+  fit diag_sam_A_C0.001_f1: 768-d, C 0.001, 82 iter, 4 s
+  fit diag_sam_A_C0.001_f2: 768-d, C 0.001, 82 iter, 4 s
+  fit diag_sam_A_C0.001_f3: 768-d, C 0.001, 82 iter, 4 s
+  fit diag_sam_A_C0.001_f4: 768-d, C 0.001, 77 iter, 4 s
+  fit diag_sam_A_C0.01_f0: 768-d, C 0.01, 176 iter, 7 s
+  fit diag_sam_A_C0.01_f1: 768-d, C 0.01, 183 iter, 8 s
+  fit diag_sam_A_C0.01_f2: 768-d, C 0.01, 182 iter, 7 s
+  fit diag_sam_A_C0.01_f3: 768-d, C 0.01, 175 iter, 7 s
+  fit diag_sam_A_C0.01_f4: 768-d, C 0.01, 180 iter, 7 s
+  fit diag_sam_A_C0.1_f0: 768-d, C 0.1, 387 iter, 14 s
+  fit diag_sam_A_C0.1_f1: 768-d, C 0.1, 382 iter, 13 s
+  fit diag_sam_A_C0.1_f2: 768-d, C 0.1, 392 iter, 15 s
+  fit diag_sam_A_C0.1_f3: 768-d, C 0.1, 393 iter, 13 s
+  fit diag_sam_A_C0.1_f4: 768-d, C 0.1, 364 iter, 13 s
+D2 sam_A: C0.001 0.8915, C0.01 0.8947, C0.1 0.8946, C1.0 0.8940
+  fit diag_sam_B_C0.001_f0: 256-d, C 0.001, 72 iter, 2 s
+  fit diag_sam_B_C0.001_f1: 256-d, C 0.001, 74 iter, 2 s
+  fit diag_sam_B_C0.001_f2: 256-d, C 0.001, 71 iter, 2 s
+  fit diag_sam_B_C0.001_f3: 256-d, C 0.001, 69 iter, 2 s
+  fit diag_sam_B_C0.001_f4: 256-d, C 0.001, 70 iter, 2 s
+  fit diag_sam_B_C0.01_f0: 256-d, C 0.01, 166 iter, 3 s
+  fit diag_sam_B_C0.01_f1: 256-d, C 0.01, 169 iter, 3 s
+  fit diag_sam_B_C0.01_f2: 256-d, C 0.01, 163 iter, 3 s
+  fit diag_sam_B_C0.01_f3: 256-d, C 0.01, 170 iter, 3 s
+  fit diag_sam_B_C0.01_f4: 256-d, C 0.01, 168 iter, 3 s
+  fit diag_sam_B_C0.1_f0: 256-d, C 0.1, 307 iter, 5 s
+  fit diag_sam_B_C0.1_f1: 256-d, C 0.1, 348 iter, 6 s
+  fit diag_sam_B_C0.1_f2: 256-d, C 0.1, 339 iter, 6 s
+  fit diag_sam_B_C0.1_f3: 256-d, C 0.1, 328 iter, 6 s
+  fit diag_sam_B_C0.1_f4: 256-d, C 0.1, 328 iter, 6 s
+D2 sam_B: C0.001 0.8694, C0.01 0.8761, C0.1 0.8784, C1.0 0.8793
+  fit diag_profound_C0.001_f0: 96-d, C 0.001, 31 iter, 0 s
+  fit diag_profound_C0.001_f1: 96-d, C 0.001, 35 iter, 0 s
+  fit diag_profound_C0.001_f2: 96-d, C 0.001, 33 iter, 0 s
+  fit diag_profound_C0.001_f3: 96-d, C 0.001, 28 iter, 0 s
+  fit diag_profound_C0.001_f4: 96-d, C 0.001, 33 iter, 0 s
+  fit diag_profound_C0.01_f0: 96-d, C 0.01, 53 iter, 1 s
+  fit diag_profound_C0.01_f1: 96-d, C 0.01, 53 iter, 1 s
+  fit diag_profound_C0.01_f2: 96-d, C 0.01, 53 iter, 1 s
+  fit diag_profound_C0.01_f3: 96-d, C 0.01, 52 iter, 1 s
+  fit diag_profound_C0.01_f4: 96-d, C 0.01, 57 iter, 1 s
+  fit diag_profound_C0.1_f0: 96-d, C 0.1, 63 iter, 1 s
+  fit diag_profound_C0.1_f1: 96-d, C 0.1, 68 iter, 1 s
+  fit diag_profound_C0.1_f2: 96-d, C 0.1, 63 iter, 1 s
+  fit diag_profound_C0.1_f3: 96-d, C 0.1, 64 iter, 1 s
+  fit diag_profound_C0.1_f4: 96-d, C 0.1, 64 iter, 1 s
+D2 profound: C0.001 0.8835, C0.01 0.8822, C0.1 0.8815, C1.0 0.8815
+  fit diag_untrained_B_C0.001_f0: 256-d, C 0.001, 63 iter, 1 s
+  fit diag_untrained_B_C0.001_f1: 256-d, C 0.001, 68 iter, 2 s
+  fit diag_untrained_B_C0.001_f2: 256-d, C 0.001, 62 iter, 2 s
+  fit diag_untrained_B_C0.001_f3: 256-d, C 0.001, 70 iter, 2 s
+  fit diag_untrained_B_C0.001_f4: 256-d, C 0.001, 64 iter, 2 s
+  fit diag_untrained_B_C0.01_f0: 256-d, C 0.01, 143 iter, 3 s
+  fit diag_untrained_B_C0.01_f1: 256-d, C 0.01, 147 iter, 3 s
+  fit diag_untrained_B_C0.01_f2: 256-d, C 0.01, 156 iter, 3 s
+  fit diag_untrained_B_C0.01_f3: 256-d, C 0.01, 147 iter, 3 s
+  fit diag_untrained_B_C0.01_f4: 256-d, C 0.01, 143 iter, 3 s
+  fit diag_untrained_B_C0.1_f0: 256-d, C 0.1, 237 iter, 4 s
+  fit diag_untrained_B_C0.1_f1: 256-d, C 0.1, 256 iter, 5 s
+  fit diag_untrained_B_C0.1_f2: 256-d, C 0.1, 263 iter, 5 s
+  fit diag_untrained_B_C0.1_f3: 256-d, C 0.1, 248 iter, 5 s
+  fit diag_untrained_B_C0.1_f4: 256-d, C 0.1, 263 iter, 5 s
+D2 untrained_B: C0.001 0.8950, C0.01 0.8981, C0.1 0.8958, C1.0 0.8944
+  fit diag_comb_R+mricore_B_C0.01_f0: 834-d, C 0.01, 110 iter, 5 s
+  fit diag_comb_R+mricore_B_C0.01_f1: 834-d, C 0.01, 103 iter, 5 s
+  fit diag_comb_R+mricore_B_C0.01_f2: 834-d, C 0.01, 102 iter, 5 s
+  fit diag_comb_R+mricore_B_C0.01_f3: 834-d, C 0.01, 105 iter, 5 s
+  fit diag_comb_R+mricore_B_C0.01_f4: 834-d, C 0.01, 100 iter, 5 s
+  fit diag_comb_R+untrained_B_C0.01_f0: 322-d, C 0.01, 156 iter, 4 s
+  fit diag_comb_R+untrained_B_C0.01_f1: 322-d, C 0.01, 150 iter, 4 s
+  fit diag_comb_R+untrained_B_C0.01_f2: 322-d, C 0.01, 157 iter, 4 s
+  fit diag_comb_R+untrained_B_C0.01_f3: 322-d, C 0.01, 138 iter, 3 s
+  fit diag_comb_R+untrained_B_C0.01_f4: 322-d, C 0.01, 141 iter, 4 s
+D3 C0.01: {"auroc": {"R+mricore_B": 0.9273512569482362, "R+untrained_B": 0.9141756378230941}, "mricore_added_vs_R": [0.015094541652505677, 0.005071357103377073, 0.025501634219057667], "untrained_added_vs_R": [0.0019189225273635868, -0.004559537066405861, 0.008921066397235371], "mricore_added_vs_untrained_added": [0.01317561912514209, 0.0029279966233458693, 0.021895681298618012]}
+  fit diag_comb_R+mricore_B_C0.1_f0: 834-d, C 0.1, 137 iter, 6 s
+  fit diag_comb_R+mricore_B_C0.1_f1: 834-d, C 0.1, 143 iter, 6 s
+  fit diag_comb_R+mricore_B_C0.1_f2: 834-d, C 0.1, 134 iter, 6 s
+  fit diag_comb_R+mricore_B_C0.1_f3: 834-d, C 0.1, 122 iter, 6 s
+  fit diag_comb_R+mricore_B_C0.1_f4: 834-d, C 0.1, 138 iter, 6 s
+  fit diag_comb_R+untrained_B_C0.1_f0: 322-d, C 0.1, 264 iter, 6 s
+  fit diag_comb_R+untrained_B_C0.1_f1: 322-d, C 0.1, 271 iter, 6 s
+  fit diag_comb_R+untrained_B_C0.1_f2: 322-d, C 0.1, 268 iter, 6 s
+  fit diag_comb_R+untrained_B_C0.1_f3: 322-d, C 0.1, 264 iter, 6 s
+  fit diag_comb_R+untrained_B_C0.1_f4: 322-d, C 0.1, 267 iter, 6 s
+D3 C0.1: {"auroc": {"R+mricore_B": 0.9238947951637931, "R+untrained_B": 0.9111994221592585}, "mricore_added_vs_R": [0.01208439183512855, 0.0015510223228968835, 0.02273217199027042], "untrained_added_vs_R": [-0.0006109811694060552, -0.007738452623612141, 0.007305287206282017], "mricore_added_vs_untrained_added": [0.012695373004534605, 0.002477644940213969, 0.02095388498895082]}
+  fit diag_comb_R+mricore_B_C1.0_f0: 834-d, C 1.0, 139 iter, 6 s
+  fit diag_comb_R+mricore_B_C1.0_f1: 834-d, C 1.0, 160 iter, 7 s
+  fit diag_comb_R+mricore_B_C1.0_f2: 834-d, C 1.0, 145 iter, 7 s
+  fit diag_comb_R+mricore_B_C1.0_f3: 834-d, C 1.0, 138 iter, 6 s
+  fit diag_comb_R+mricore_B_C1.0_f4: 834-d, C 1.0, 148 iter, 7 s
+  fit diag_comb_R+untrained_B_C1.0_f0: 322-d, C 1.0, 338 iter, 8 s
+  fit diag_comb_R+untrained_B_C1.0_f1: 322-d, C 1.0, 363 iter, 8 s
+  fit diag_comb_R+untrained_B_C1.0_f2: 322-d, C 1.0, 317 iter, 7 s
+  fit diag_comb_R+untrained_B_C1.0_f3: 322-d, C 1.0, 534 iter, 12 s
+  fit diag_comb_R+untrained_B_C1.0_f4: 322-d, C 1.0, 349 iter, 8 s
+D3 C1.0: {"auroc": {"R+mricore_B": 0.9232598515389919, "R+untrained_B": 0.9100600500510196}, "mricore_added_vs_R": [0.01143581390911308, 0.0008560373465546196, 0.0220927839328274], "untrained_added_vs_R": [-0.0017639875788592052, -0.009008309437035705, 0.006329445040418146], "mricore_added_vs_untrained_added": [0.013199801487972285, 0.0030528026571822356, 0.021614910439055786]}
+M1 DIAGNOSTICS DONE

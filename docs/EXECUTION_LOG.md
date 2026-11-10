@@ -505,3 +505,23 @@ Progress (2026-11-09):
   - One shard started late (L4 capacity queue), so the first watcher gave up after 75 min (exit 6, no harm); a second watcher collected.
   - Cost $3.85 (189.4 container min), so task mri_m1_encode is at $4.45 of $5.00. Features (about 9 GB) downloaded to the laptop
     (`results/prep_cache/m1_feats`, not in git).
+- **Analysis checks before the run** (committed bfa2699 before any result):
+  - marksheet SHA256 check;
+  - fast weighted AUROC for the bootstrap (equal to sklearn in the tests);
+  - outer-fold fits shared with the identical full-CV fits;
+  - computed outline-source counts.
+- **M1 analysis** (laptop): 164,116 tokens (13,516 lesion), 211 cached fits of about 20 s each (2,304-d).
+  - **Gate FAILED:** nested Δ vs R −0.022 [−0.038, −0.007] (all studies) and −0.023 [−0.039, −0.007] (verified); Δ vs untrained
+    −0.005 and −0.004.
+  - Rule S picked MRI-CORE B in folds 0, 2 and 3, MRI-CORE A in fold 1 and SAM A in fold 4; ProFound was below U in every fold.
+  - Full-CV AUROC: R 0.912, MRI-CORE B 0.909, MRI-CORE A 0.903, untrained 0.894, SAM A 0.894, ProFound 0.882, SAM B 0.879.
+  - Patient level, biopsy cohort (437 studies, 206 csPCa): MRI-CORE B 0.658, R 0.656; PI-RADS alone 0.718 (reference).
+- **Post hoc diagnostics** (`m1_diagnostics.py`, descriptive, the gate unchanged):
+  - D1 alignment: all arms best at zero shift (no mapping bug).
+  - D2: at C = 0.001, MRI-CORE A is +0.014 [+0.001, +0.026] over R's best C; other arms are not above R.
+  - D3: R + MRI-CORE B is +0.013 [+0.003, +0.022] over R + untrained.
+  - Per-fold mean of the gate Δ is −0.015 (pooled −0.022). Part of the pooled figure comes from pooling scores of different arms
+    across folds; the conclusion is unchanged.
+- **Stopped per the protocol** ("if the gate fails: stop and report; the lead decides"). Report in `imgsae/mri/RESULTS_M1.md`.
+  Recommendation: no M2; the optional next step is a laptop feasibility check of csPCa within PI-RADS ≥ 3, under a new protocol.
+  MRI Modal spend $5.12.

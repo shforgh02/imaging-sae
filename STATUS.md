@@ -1,8 +1,23 @@
 # Imaging SAE — status and handover
 
-**Updated:** 2026-11-10 · **Phase:** clinical leg, prostate MRI (PI-CAI): plan drafted, nothing run · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
+**Updated:** 2026-11-10 · **Phase:** clinical leg, prostate MRI (PI-CAI): M1 gate FAILED, waiting for the lead's decision · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
-**Now (2026-11-10):** **Prostate MRI M0 DONE, waiting for the user's review before M1.** Results `imgsae/mri/RESULTS_M0.md`.
+**Now (2026-11-10):** **Prostate MRI M1 gate FAILED; stopped per the protocol, waiting for the lead's decision.** Results in
+`imgsae/mri/RESULTS_M1.md`.
+- **Gate (nested CV):** Δ vs the intensity reference R = −0.022 [−0.038, −0.007] (needed ≥ +0.03); Δ vs the untrained network
+  −0.005 (needed ≥ +0.05). Same on verified studies.
+- **AUROC by arm:** R 0.912; MRI-CORE B 0.909; untrained 0.894; SAM 0.879–0.894; ProFound 0.882.
+- **Post hoc checks:**
+  - the mapping is correct (no bug);
+  - MRI-CORE A with strong regularisation is +0.014 over R;
+  - R + MRI-CORE is +0.013 over R + untrained.
+  - So MRI-CORE has a small extra signal (about 0.01), under half the margin.
+- **Patient level, biopsy cohort:** 0.66 for both MRI-CORE and R, below PI-RADS alone (0.72).
+- **Recommendation:** stop the frozen-encoder SAE line (no M2). Optional next step, a no-cost laptop feasibility check of the hard
+  clinical question (csPCa within PI-RADS ≥ 3); it needs a new protocol.
+- **MRI Modal spend:** $5.12 (fetch 0.37, prep 0.30, encode 4.45 of the 5.00 cap). No run is open.
+
+**Earlier: M0 DONE** (results `imgsae/mri/RESULTS_M0.md`).
 - **Data:** split 738/738 patients; fetch MD5-checked (26.9 GB); dev prep 754/754; 1 study excluded by the label-blind QC (11050_1001070,
   README-documented faulty gland mask); 753 dev studies used, 212 positive.
 - **Decisions:**
@@ -14,9 +29,7 @@
   - MRI-CORE runs as its trained DINOv2 ViT-B/16 (the repo loader would use a random neck and drop the position embedding);
   - ProFound-alpha is the ConvNeXt variant (stage 0, 4 mm);
   - SAM via the official loader; untrained null.
-- **MRI Modal spend:** $1.10 (fetch 0.37, prep 0.30, encode 0.43). M1 encodes are projected at about $3.0–3.5, inside the encode cap
-  ($4.57 left).
-- **Next:** the user reviews M0 (QC decisions, the materiality consequence, the encoder corrections), then says go for M1.
+- M0 spend $1.10; the user approved M1 after reviewing M0.
 
 **Earlier (2026-11-10):** CT confirmation STOPPED by the user's decision (goal = a clinical finding, not a methods result).
 - **Plan revision 2 (2026-11-10)**, after the colleague review (`docs/REVIEW_PLAN_PROSTATE_MRI_v1.md`, R1–R6, all facts recomputed:
