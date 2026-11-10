@@ -67,8 +67,52 @@ def main():
                f"- SAE as share of the oracle (descriptive): {', '.join(f'{x:.2f}' for x in g1['pct_of_oracle'])}"]
     else: md += ["", "## Gate G1", "", "Not read yet: some representative rows are missing."]
     out["G1"] = g1
+    # ---- post-G1 checks at the user's request (2026-11-10); G1 above stays as read
+    m7 = load("s1a_selection_m7.json"); dl2 = m7.get("representative", {}).get("dl")
+    if m7:
+        md += ["", "## Post-G1 check 1: nonnegative dictionary learning (deviation M7; sensitivity analysis, G1 above stays as read)", "",
+               "DL family extended after G1 with nonnegative k-sparse DL (nonnegative OMP + MOD; the TopK SAE's nonnegativity), same 3 configs; "
+               "the family is re-selected over all 6 candidates by the same rep-0 rule.", "",
+               "| Candidate (rep 0) | Features | L0 | R1 | Primary | Area neutral (all) | 425, orig | C(0.7) A/B | Median t / sel / r_pert (V0) | Fit R² |", "|---|---|---|---|---|---|---|---|---|---|"]
+        for n, v, _ in sorted(m7["candidates"]["dl"], key=lambda t: -t[1]):
+            r = cpu[f"{n}_rep0"]; star = " **(rep)**" if n == dl2 else ""; fi = r.get("fit_info", {}); r2 = [fi[h]["r2_fit"] for h in fi if isinstance(fi.get(h), dict) and "r2_fit" in fi[h]]
+            md.append(f"| {n}{star} | {r['n_feat']['A']} | {np.mean(list(r['L0'].values())):.1f} | {r['R1']:.2f} | {f3(r[P])} | {f3(r['area_neutral'])} | {f3(r['area_matched_orig'])} | {r['C07_neutral']}"
+                      f" | {r['median_t_v0']:.2f} / {r['median_sel_v0']:.2f} / {r['median_r_pert_v0']:.2f} | {f3(np.mean(r2) if r2 else None)} |")
+        rows2 = dict(rows); rows2["dl"] = [allr.get(f"{dl2}_rep{r}") for r in (0, 1, 2)]
+        md += ["", "| Method | Rep 0 | Rep 1 | Rep 2 | Mean | R1 (mean) |", "|---|---|---|---|---|---|", line(f"dl (M7 representative): {dl2}", rows2["dl"])]
+        if complete and all(rows2["dl"]):
+            gains2, strongest2 = [], []
+            for r in range(3):
+                b = {f: rows2[f][r][P] for f in fams}; fb = max(b, key=b.get); gains2.append(sae_rows[r][P] - b[fb]); strongest2.append(fb)
+            p2 = all(g > 0 for g in gains2) and float(np.mean(gains2)) >= .05; br2 = "pass" if p2 else ("sparse-coding branch" if strongest2.count("dl") >= 2 else "stop branch")
+            out["G1_main_m7"] = dict(dl_representative=dl2, gains=gains2, mean_gain=float(np.mean(gains2)), strongest_baseline=strongest2, G1_main=p2, branch=br2)
+            md += ["", f"- **G1-main re-read with the M7 DL representative:** gains {', '.join(f'{g:+.3f}' for g in gains2)}; mean {np.mean(gains2):+.3f}; strongest baseline per rep {strongest2} → **{'PASS' if p2 else 'FAIL'}** ({br2})"]
+        dg = load("s1a_dl_diag.json")
+        if dg:
+            md += ["", "Label-free coding diagnostic (`s1a_dl_diag.py`; rep 0, half-A vs half-B dictionaries, 20,000 random tokens; no labels). "
+                   "Same dictionaries, two encoders: nonnegative OMP (as in the DL rows) vs top-k of ReLU(D(x − b)) without refit (a TopK SAE's tied encoder; "
+                   "it does not reconstruct, so its R² is not meaningful and it is a reproducibility probe only).", "",
+                   "| Config | Atom match A→B: median max cos / share ≥ 0.7 | OMP: twin median / share ≥ 0.7 / noise stability / R² | Threshold: twin median / share ≥ 0.7 / noise stability |",
+                   "|---|---|---|---|"]
+            for c, d in dg.items():
+                o, t = d["omp"], d["threshold"]; am = d["atom_match"]
+                md.append(f"| {c} | {am['median']:.3f} / {am['share_ge_07']:.2f} | {o['twin_median']:.2f} / {o['twin_share_ge_07']:.3f} / {o['noise_stability_median']:.2f} / {o['r2_A']:.2f}"
+                          f" | {t['twin_median']:.2f} / {t['twin_share_ge_07']:.3f} / {t['noise_stability_median']:.2f} |")
+    pc = [gpu.get(f"physcons_M1024_k6_s12000_rep{r}") for r in (0, 1, 2)]
+    if any(pc):
+        md += ["", "## Post-G1 check 2: physics-feature SAE consensus (null at the SAE representative's config)", "",
+               "| Method | Rep 0 | Rep 1 | Rep 2 | Mean | R1 (mean) |", "|---|---|---|---|---|---|",
+               line("SAE consensus, CT-FM (representative)", sae_rows), line("SAE consensus, physics R3", pc),
+               line("SAE single, CT-FM", [gpu.get(f"sae_M1024_k6_s12000_rep{r}") for r in (0, 1, 2)]), line("SAE single, physics R3", [gpu.get(f"physsae_M1024_k6_s12000_rep{r}") for r in (0, 1, 2)])]
+        if all(pc) and all(sae_rows):
+            gaps = [sae_rows[r][P] - pc[r][P] for r in range(3)]; ok = all(g >= .05 for g in gaps)
+            gaps_o = [sae_rows[r]["area_matched_orig"] - pc[r]["area_matched_orig"] for r in range(3)]
+            out["physcons"] = dict(gaps=gaps, mean_gap=float(np.mean(gaps)), all_ge_005=ok, gaps_orig=gaps_o)
+            md += ["", f"- CT-FM consensus − physics consensus (primary): {', '.join(f'{g:+.3f}' for g in gaps)}; mean {np.mean(gaps):+.3f}; ≥ 0.05 in every rep: **{'yes' if ok else 'no'}** (plan v2's G1(c) criterion; descriptive in Stage 1a)"]
+            md.append(f"- Same under the 'orig' rule (425 features): {', '.join(f'{g:+.3f}' for g in gaps_o)}")
     # ---- descriptive
-    desc = [("SAE consensus", sae_rep), ("SAE single", "sae_M1024_k6_s12000")] + [(f, rep_of[f]) for f in fams] + [("oracle", "oracle"), ("null SAE (untrained)", "nullsae_M1024_k6_s12000"), ("physics SAE (R3)", "physsae_M1024_k6_s12000")]
+    desc = [("SAE consensus", sae_rep), ("SAE single", "sae_M1024_k6_s12000")] + [(f, rep_of[f]) for f in fams] + ([("dl (M7)", dl2)] if dl2 and dl2 != rep_of.get("dl") else []) \
+        + [("oracle", "oracle"), ("null SAE (untrained)", "nullsae_M1024_k6_s12000"), ("physics SAE (R3)", "physsae_M1024_k6_s12000"), ("physics SAE consensus (R3)", "physcons_M1024_k6_s12000")]
     md += ["", "## Descriptive (mean over available reps)", "", "### T4 precision, T8 shortcut, T5 θ", "",
            "| Method | Features | V0 | Share of V0 on 'other' | Precision neutral | Precision orig | Valid (v ≥ 0.7) neutral | Shortcut share | θ neutral (n+/n−) | θ orig (n+/n−) |", "|---|---|---|---|---|---|---|---|---|---|"]
     def mean_of(name, fn):

@@ -36,7 +36,9 @@ def step_tasks():
 def step_cpu(a):
     allm = L.methods(); cpu = {n: s for n, s in allm.items() if not s.get("gpu")}
     if a.names: names = a.names.split(",")
-    elif a.selected: sel = json.load(open(RES / "s1a_selection.json")); names = [sel["representative"][f] for f in sel["representative"] if f in ("kmeans", "ica", "dl", "raw", "svx")] + ["oracle"]
+    elif a.selected:
+        sel = json.load(open(RES / a.selfile)); fams = a.fams.split(",") if a.fams else ("kmeans", "ica", "dl", "raw", "svx")
+        names = [sel["representative"][f] for f in sel["representative"] if f in fams] + ([] if a.fams else ["oracle"])
     else: names = list(cpu)
     reps = [int(r) for r in a.reps.split(",")]; path = RES / "s1a_cpu.json"; res = json.load(open(path)) if path.exists() else {}
     a3 = json.load(open(SAN / "results" / "a3_cpu.json")); R = cm.load_rows(L.ROWS_KEYS); C = cm.concepts(); Gt = cm.gates(); tasks = L.load_tasks()
@@ -75,6 +77,19 @@ def step_select():
     for f, c in cand.items(): log(f"family {f}: " + ", ".join(f"{n} {v:.3f}" for n, v, _ in sorted(c, key=lambda t: -t[1])) + f" -> {rep_[f]}")
 
 
+def step_select_m7():
+    """deviation M7 (after G1, at the user's request): the DL family re-selected over all its candidates (signed + nonnegative) by the same
+    rule; the other families are unchanged. -> results/s1a_selection_m7.json. s1a_selection.json, the record behind G1, is not touched."""
+    sel = json.load(open(RES / "s1a_selection.json")); res = json.load(open(RES / "s1a_cpu.json"))
+    names = [n for n, s in L.methods().items() if s["family"] == "dl"]; miss = [n for n in names if f"{n}_rep0" not in res]
+    if miss: raise SystemExit(f"missing rep-0 rows {miss}")
+    cand = [(n, res[f"{n}_rep0"][PRIMARY], res[f"{n}_rep0"]["R1"]) for n in names]
+    sel["candidates"]["dl"] = cand; sel["representative"]["dl"] = max(cand, key=lambda t: (t[1], t[2]))[0]
+    sel["note"] = "deviation M7: DL family extended with nonnegative DL after G1; other families as in s1a_selection.json"
+    L.dump(sel, RES / "s1a_selection_m7.json")
+    log("family dl (M7): " + ", ".join(f"{n} {v:.3f}" for n, v, _ in sorted(cand, key=lambda t: -t[1])) + f" -> {sel['representative']['dl']}")
+
+
 def step_refs(a):
     reps =[int(r) for r in a.reps.split(",")]; path = RES / "s1a_refs.json"; res = json.load(open(path)) if path.exists() else {}
     R = cm.load_rows(L.ROWS_KEYS); C = cm.concepts(); Gt = cm.gates(); tasks = L.load_tasks(); rows = np.unique(np.concatenate([t["rows"] for t in tasks.values()]))
@@ -95,9 +110,10 @@ def A_prep_rows(raw, rows):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--step", required=True, choices=("tasks", "cpu", "select", "refs")); ap.add_argument("--reps", default="0")
-    ap.add_argument("--names", default=""); ap.add_argument("--selected", action="store_true"); a = ap.parse_args(); log(f"Stage 1a step {a.step}")
-    dict(tasks=step_tasks, cpu=lambda: step_cpu(a), select=step_select, refs=lambda: step_refs(a))[a.step]()
+    ap = argparse.ArgumentParser(); ap.add_argument("--step", required=True, choices=("tasks", "cpu", "select", "select_m7", "refs")); ap.add_argument("--reps", default="0")
+    ap.add_argument("--names", default=""); ap.add_argument("--selected", action="store_true")
+    ap.add_argument("--selfile", default="s1a_selection.json"); ap.add_argument("--fams", default=""); a = ap.parse_args(); log(f"Stage 1a step {a.step}")
+    dict(tasks=step_tasks, cpu=lambda: step_cpu(a), select=step_select, select_m7=step_select_m7, refs=lambda: step_refs(a))[a.step]()
 
 
 if __name__ == "__main__":

@@ -3,11 +3,15 @@
 **Updated:** 2026-11-08 20:00 · **Phase:** 1 (7-day feasibility, `docs/IMAGING_SAE_LEAN_v1.md`) · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
 **State in one line:** Phase 1 DONE (verdict **NO-GO**, memo `docs/DECISION_MEMO_P1.md`). Exploratory checks done (`imgsae/exploratory/p1_checks/README.md`): NO-GO stands.
-**Now (2026-11-09 late):** **Stage 1a DONE, gate G1 PASSED; waiting for the user's decision.** Protocol `docs/STAGE1A_PROTOCOL.md` (colleague review of plan v2, adopted with amendments; G1 fixed before running). Results `imgsae/exploratory/v2_ct/RESULTS_S1A.md`.
+**Now (2026-11-10):** **Stage 1a DONE, gate G1 PASSED, both post-G1 fixes done; waiting for the user's decision.** Protocol `docs/STAGE1A_PROTOCOL.md` (colleague review of plan v2, adopted with amendments; G1 fixed before running). Results `imgsae/exploratory/v2_ct/RESULTS_S1A.md`.
 - G1-cal pass: the supervised reference (oracle) covers 21.7 of 32 concepts at C(0.7).
 - G1-main pass: SAE consensus beats the best equally tuned baseline (k-means / ICA) by +0.22 / +0.30 / +0.24 (mean +0.25); it reaches 86–94% of the oracle.
-- Flags: the physics-feature SAE comes close on organ concepts; no SAE advantage on vertebral level at k = 1; the DL baseline needs checking.
-- Open questions Q1 and Q2 (protocol §1). Code `imgsae/exploratory/v2_ct/`; Modal task budget $7.
+- Flags: the physics-feature SAE comes close on organ concepts; no SAE advantage on vertebral level at k = 1.
+- **Post-G1 checks done (2026-11-10, user: "do the two fixes"; sensitivity only, G1 stands; RESULTS_S1A.md checks 1–2, EXECUTION_LOG):**
+  - Physics-feature SAE consensus 0.35 / 0.34 / 0.35; CT-FM consensus beats it by +0.18 / +0.25 / +0.19 (≥ 0.05 in every rep).
+  - Nonnegative DL (deviation M7): 0.063 / 0.046 / 0.038, still far below k-means / ICA; G1-main unchanged. A label-free check shows the
+    two halves' dictionaries agree but the OMP codes don't: the instability is in the coding step.
+- Open: Q1 (keep "beyond physics" in the gates / headline?) and the freeze decision. Code `imgsae/exploratory/v2_ct/`; Modal task v2s1a_sae $6.06 of $7.
 - Earlier: Phase 1b Stage A DONE (`imgsae/exploratory/p1b_sanity/RESULTS.md`); plan v2 review packet `docs/SAE_v2_REVIEW_PACKET.md` (PR #1).
 
 ## Check progress

@@ -1,0 +1,20 @@
+2026-11-10T00:03:27 start m7_rep0
+[   0.0 min] Stage 1a step cpu
+[   0.2 min] input X_ctfm (1021303, 512); jobs ['dl_nn_A1024_k6', 'dl_nn_A2048_k6', 'dl_nn_A1024_k27'] x reps [0]
+[  16.4 min] dl_nn_A1024_k6_rep0: R1 0.00 L0 6.0 nfeat {'A': 1024, 'B': 1024} | area orig 0.031 neutral 0.134 | matched 0.010 / 0.063 | C07 [1, 1] | prec 0.001 | k1 vert 0.658 lobe 0.554 | fit 13.9 eval 2.0 k1 0.4 min
+[  40.0 min] dl_nn_A2048_k6_rep0: R1 0.00 L0 6.0 nfeat {'A': 2048, 'B': 2048} | area orig 0.024 neutral 0.104 | matched 0.007 / 0.033 | C07 [0, 0] | prec 0.000 | k1 vert 0.630 lobe 0.537 | fit 19.8 eval 3.1 k1 0.7 min
+[ 178.9 min] dl_nn_A1024_k27_rep0: R1 0.00 L0 26.9 nfeat {'A': 1024, 'B': 1024} | area orig 0.000 neutral 0.005 | matched 0.000 / 0.002 | C07 [0, 0] | prec 0.000 | k1 vert 0.683 lobe 0.595 | fit 117.8 eval 18.0 k1 3.2 min
+[ 178.9 min] STEP CPU DONE
+2026-11-10T03:02:26 done m7_rep0
+2026-11-10T03:02:26 start m7_select
+[   0.0 min] Stage 1a step select_m7
+[   0.0 min] family dl (M7): dl_nn_A1024_k6 0.063, dl_A1024_k6 0.046, dl_nn_A2048_k6 0.033, dl_A2048_k6 0.019, dl_A1024_k27 0.014, dl_nn_A1024_k27 0.002 -> dl_nn_A1024_k6
+2026-11-10T03:02:30 done m7_select
+2026-11-10T03:02:30 start m7_reps12
+[   0.0 min] Stage 1a step cpu
+[   0.2 min] input X_ctfm (1021303, 512); jobs ['dl_nn_A1024_k6'] x reps [1, 2]
+[  15.4 min] dl_nn_A1024_k6_rep1: R1 0.00 L0 6.0 nfeat {'A': 1024, 'B': 1024} | area orig 0.016 neutral 0.099 | matched 0.008 / 0.046 | C07 [0, 1] | prec 0.000 | k1 vert 0.644 lobe 0.567 | fit 12.9 eval 2.0 k1 0.4 min
+[  30.5 min] dl_nn_A1024_k6_rep2: R1 0.00 L0 6.0 nfeat {'A': 1024, 'B': 1024} | area orig 0.021 neutral 0.078 | matched 0.011 / 0.038 | C07 [1, 0] | prec 0.000 | k1 vert 0.644 lobe 0.559 | fit 12.7 eval 1.9 k1 0.4 min
+[  30.5 min] STEP CPU DONE
+2026-11-10T03:33:02 done m7_reps12
+2026-11-10T03:33:02 S1A M7 DONE

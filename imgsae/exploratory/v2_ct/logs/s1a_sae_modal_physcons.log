@@ -1,0 +1,56 @@
+Note that running a local entrypoint in detached mode only keeps the last triggered Modal function alive after the parent process has been killed or disconnected.
+✓ Initialized. View run at 
+https://modal.com/apps/shforghani2002/main/ap-vxZgUYffySZ5aXhHNWvLI7
+✓ Created objects.
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\v2_ct\cloud\s1a_sae_modal.py
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\v2_ct\results\s1a_tasks.npz
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\v2_ct\s1a_lib.py
+├── 🔨 Created mount 
+│   D:\Shayan\imgsae\exploratory\p1b_sanity\results\cache_refpos.npz
+├── 🔨 Created mount D:\Shayan\imgsae\exploratory\p1b_sanity\common.py
+├── 🔨 Created mount 
+│   D:\Shayan\imgsae\exploratory\p1_checks\c1b_chimera_other.py
+├── 🔨 Created mount D:\Shayan\imgsae\scripts\p1_assemble.py
+├── 🔨 Created mount D:\Shayan\imgsae\scripts\p1_probe.py
+├── 🔨 Created mount D:\Shayan\imgsae\scripts\p1_fit.py
+├── 🔨 Created mount D:\Shayan\imgsae\imgsae
+└── 🔨 Created function run_one.
+to run [('physcons_M1024_k6_s12000', 0), ('physcons_M1024_k6_s12000', 1), ('physcons_M1024_k6_s12000', 2)]; timeout 25 min, max containers 3, L4
+{
+ "status": {
+  "time": "2026-11-09T23:59:51",
+  "month_used_usd": 2.6105,
+  "open_worst_usd": 0,
+  "project_committed_usd": 6.9034,
+  "per_task_usd": {
+   "a3_sae": 1.6803,
+   "stageC_encode": 0.0,
+   "stageC_fit": 0.0,
+   "stageD_dinov3": 0.0,
+   "reserve": 0.0,
+   "v2s1a_sae": 5.2231
+  },
+  "cap_usd": 29.0
+ },
+ "tests": {
+  "task v2s1a_sae: 5.22 + 1.66 <= 7.00": true,
+  "project: 6.90 + 1.66 <= 29.00": true,
+  "month (Modal billing): 2.61 + open 0.00 + 1.66 <= 29.00": true
+ }
+}
+launch v2s1a_sae-009: 3 jobs, worst case $1.66
+physcons_M1024_k6_s12000 rep 0: device cuda NVIDIA L4
+physcons_M1024_k6_s12000 rep 1: device cuda NVIDIA L4
+physcons_M1024_k6_s12000 rep 2: device cuda NVIDIA L4
+physcons_M1024_k6_s12000 rep 0: R1 0.724 matched neutral 0.350 | fit 10.6 min, total 12.3 min
+physcons_M1024_k6_s12000 rep 0: saved to volume /s1a_out
+saved physcons_M1024_k6_s12000_rep0 (1/3): matched neutral 0.350; measured so far $0.38
+physcons_M1024_k6_s12000 rep 1: R1 0.747 matched neutral 0.339 | fit 7.7 min, total 9.0 min
+physcons_M1024_k6_s12000 rep 1: saved to volume /s1a_out
+saved physcons_M1024_k6_s12000_rep1 (2/3): matched neutral 0.339; measured so far $0.61
+physcons_M1024_k6_s12000 rep 2: R1 0.698 matched neutral 0.349 | fit 7.8 min, total 9.2 min
+physcons_M1024_k6_s12000 rep 2: saved to volume /s1a_out
+saved physcons_M1024_k6_s12000_rep2 (3/3): matched neutral 0.349; measured so far $0.84
+closed v2s1a_sae-009: ok 3 failed 0 unfinished 0, cost estimate $0.84
+✓ App completed. View run at 
+https://modal.com/apps/shforghani2002/main/ap-vxZgUYffySZ5aXhHNWvLI7

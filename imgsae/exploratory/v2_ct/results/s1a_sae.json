@@ -5931,5 +5931,1487 @@
    "load_min": 0.2405893603960673,
    "container_min": 17.626330399513243
   }
+ },
+ "physcons_M1024_k6_s12000_rep0": {
+  "method": "physcons_M1024_k6_s12000",
+  "rep": 0,
+  "spec": {
+   "meth": "sae_cons",
+   "inp": "R3",
+   "cfg": {
+    "M": 1024,
+    "k": 6,
+    "steps": 12000
+   },
+   "family": "null",
+   "gpu": true
+  },
+  "fit_min": 10.565205717086792,
+  "eval_min": 1.140371827284495,
+  "k1_min": 0.2325269103050232,
+  "fit_info": {
+   "A": null,
+   "B": null
+  },
+  "R1": 0.7238095238095238,
+  "R1_med": 0.8254591755757605,
+  "n_feat": {
+   "A": 630,
+   "B": 663
+  },
+  "L0": {
+   "A": 7.3327027027027025,
+   "B": 7.93091931798207
+  },
+  "area_orig": 0.006944444444444444,
+  "area_neutral": 0.4131944444444444,
+  "area_matched_orig": 0.0038194444444444448,
+  "area_matched_neutral": 0.3502604166666667,
+  "C07_orig": [
+   0,
+   0
+  ],
+  "C07_neutral": [
+   10,
+   16
+  ],
+  "n_v0": [
+   630,
+   662
+  ],
+  "chim_share_orig": 0.7561919504643962,
+  "chim_share_neutral": 0.21826625386996903,
+  "median_t_v0": 0.8145292287499843,
+  "median_sel_v0": 0.5114852458228062,
+  "median_r_pert_v0": 0.9866108894348145,
+  "feat": {
+   "neutral": {
+    "precision07": 0.06424148606811146,
+    "n_valid07": 83,
+    "theta": {
+     "theta": 0.4972713885600439,
+     "n_pos": 118,
+     "n_neg": 1174,
+     "estimable": true,
+     "beta_t": 0.04870761671809618
+    }
+   },
+   "orig": {
+    "precision07": 0.0,
+    "n_valid07": 0,
+    "theta": {
+     "theta": NaN,
+     "n_pos": 0,
+     "n_neg": 1292,
+     "estimable": false
+    }
+   },
+   "n_feat": 1293,
+   "n_v0": 1292,
+   "share_other_v0": 0.23142414860681115,
+   "shortcut": {
+    "n_reproducible": 911,
+    "share": 0.0010976948408342481
+   }
+  },
+  "k1": {
+   "T1b": {
+    "auc": {
+     "aorta": 0.7653852705446517,
+     "autochthon": 0.7716414397820794,
+     "clavicula": 0.7646188151279399,
+     "colon": 0.5666183423096682,
+     "duodenum": 0.6653439554547569,
+     "esophagus": 0.5400001807267898,
+     "femur": 0.836108143017642,
+     "gallbladder": 0.918000973473518,
+     "gluteal": 0.8177913188583974,
+     "great_veins": 0.7024261305388957,
+     "heart": 0.7467848134772841,
+     "hip": 0.8281585108417149,
+     "humerus": 0.6553803838774447,
+     "iliac_vessels": 0.6020311252480137,
+     "iliopsoas": 0.8566191379087098,
+     "kidney": 0.7836572811129547,
+     "liver": 0.6902651310936321,
+     "lung_left": 0.9672898770137817,
+     "lung_right": 0.9703492884951238,
+     "pancreas": 0.698537389912423,
+     "prostate": 0.888128790683816,
+     "sacrum": 0.7277865006293441,
+     "scapula": 0.835057794224458,
+     "skull": 0.9326949191820619,
+     "small_bowel": 0.5747865217588399,
+     "spinal_cord": 0.9694594325167458,
+     "spine_lumbar": 0.893061039808931,
+     "spine_thoracic": 0.900111802097425,
+     "spleen": 0.744078836207327,
+     "sternum": 0.7754412629539122,
+     "stomach": 0.6501582479384569,
+     "trachea": 0.9679826715653987,
+     "urinary_bladder": 0.8886594608180147
+    },
+    "auc_matched": {
+     "aorta": 0.7116527965340766,
+     "autochthon": 0.6879473113701859,
+     "clavicula": 0.7255625940110708,
+     "colon": 0.5592110324637803,
+     "duodenum": 0.6599448191098494,
+     "esophagus": 0.5399256388015152,
+     "femur": 0.7750927888708141,
+     "gallbladder": 0.82406280189378,
+     "gluteal": 0.7374315400488307,
+     "great_veins": 0.7062407213714821,
+     "heart": 0.6929060747130347,
+     "hip": 0.7564278130791557,
+     "humerus": 0.6276893553057956,
+     "iliac_vessels": 0.5805175295654312,
+     "iliopsoas": 0.7818475134871768,
+     "kidney": 0.7207288857175376,
+     "liver": 0.6858107608902122,
+     "lung_left": 0.8450240351056868,
+     "lung_right": 0.8448024903714805,
+     "pancreas": 0.6730214046844712,
+     "prostate": 0.8703663738624914,
+     "sacrum": 0.6957010617071681,
+     "scapula": 0.7614297687022411,
+     "skull": 0.8572578784634037,
+     "small_bowel": 0.5635929927847301,
+     "spinal_cord": 0.869291711213948,
+     "spine_lumbar": 0.81993885183632,
+     "spine_thoracic": 0.8739930923628182,
+     "spleen": 0.7099029462821626,
+     "sternum": 0.748767128497539,
+     "stomach": 0.6086816660125882,
+     "trachea": 0.9007713352912694,
+     "urinary_bladder": 0.8021783492460154
+    },
+    "feature": {
+     "aorta": [
+      553,
+      438
+     ],
+     "autochthon": [
+      166,
+      633
+     ],
+     "clavicula": [
+      190,
+      540
+     ],
+     "colon": [
+      454,
+      223
+     ],
+     "duodenum": [
+      215,
+      394
+     ],
+     "esophagus": [
+      553,
+      334
+     ],
+     "femur": [
+      190,
+      540
+     ],
+     "gallbladder": [
+      64,
+      319
+     ],
+     "gluteal": [
+      166,
+      633
+     ],
+     "great_veins": [
+      57,
+      375
+     ],
+     "heart": [
+      402,
+      375
+     ],
+     "hip": [
+      190,
+      540
+     ],
+     "humerus": [
+      190,
+      540
+     ],
+     "iliac_vessels": [
+      483,
+      131
+     ],
+     "iliopsoas": [
+      166,
+      633
+     ],
+     "kidney": [
+      402,
+      375
+     ],
+     "liver": [
+      402,
+      138
+     ],
+     "lung_left": [
+      463,
+      257
+     ],
+     "lung_right": [
+      463,
+      257
+     ],
+     "pancreas": [
+      235,
+      138
+     ],
+     "prostate": [
+      166,
+      633
+     ],
+     "sacrum": [
+      190,
+      540
+     ],
+     "scapula": [
+      190,
+      540
+     ],
+     "skull": [
+      399,
+      183
+     ],
+     "small_bowel": [
+      483,
+      138
+     ],
+     "spinal_cord": [
+      553,
+      438
+     ],
+     "spine_lumbar": [
+      190,
+      540
+     ],
+     "spine_thoracic": [
+      553,
+      540
+     ],
+     "spleen": [
+      402,
+      375
+     ],
+     "sternum": [
+      190,
+      569
+     ],
+     "stomach": [
+      64,
+      319
+     ],
+     "trachea": [
+      454,
+      223
+     ],
+     "urinary_bladder": [
+      64,
+      319
+     ]
+    },
+    "median": 0.7754412629539122,
+    "median_matched": 0.7255625940110708
+   },
+   "T3_vert": {
+    "auc": {
+     "vertebrae_S1": 0.6050486989042594,
+     "vertebrae_L5": 0.5748939380230383,
+     "vertebrae_L4": 0.5746149963181448,
+     "vertebrae_L3": 0.5575411988245591,
+     "vertebrae_L2": 0.5641929333786855,
+     "vertebrae_L1": 0.5506414292477189,
+     "vertebrae_T12": 0.5787707559720021,
+     "vertebrae_T11": 0.5665735793190676,
+     "vertebrae_T10": 0.587660919377666,
+     "vertebrae_T9": 0.5959773907962118,
+     "vertebrae_T8": 0.6449128759816396,
+     "vertebrae_T7": 0.6591808017980615,
+     "vertebrae_T6": 0.6262537590712294,
+     "vertebrae_T5": 0.6832456929984969,
+     "vertebrae_T4": 0.6756368896831371,
+     "vertebrae_T3": 0.7049794922401218,
+     "vertebrae_T2": 0.7141835905849928,
+     "vertebrae_T1": 0.762866105927773,
+     "vertebrae_C7": 0.7123481921671663,
+     "vertebrae_C6": 0.7437943727292026,
+     "vertebrae_C5": 0.8315990605761343,
+     "vertebrae_C4": 0.6943094690735723,
+     "vertebrae_C3": 0.6691333796056589,
+     "vertebrae_C2": 0.7194242781183147
+    },
+    "auc_matched": {
+     "vertebrae_S1": 0.5812618981313092,
+     "vertebrae_L5": 0.5641241000158008,
+     "vertebrae_L4": 0.5689409730266832,
+     "vertebrae_L3": 0.55211526220616,
+     "vertebrae_L2": 0.5599478498512109,
+     "vertebrae_L1": 0.5551434285679574,
+     "vertebrae_T12": 0.567617586028859,
+     "vertebrae_T11": 0.5697817962484935,
+     "vertebrae_T10": 0.589764372056869,
+     "vertebrae_T9": 0.5942612080231435,
+     "vertebrae_T8": 0.6372151890914686,
+     "vertebrae_T7": 0.6531326672422317,
+     "vertebrae_T6": 0.623201985743346,
+     "vertebrae_T5": 0.6598754706008869,
+     "vertebrae_T4": 0.6593876570804695,
+     "vertebrae_T3": 0.6858905978900172,
+     "vertebrae_T2": 0.6949440582917742,
+     "vertebrae_T1": 0.7202625568483896,
+     "vertebrae_C7": 0.6761365505019328,
+     "vertebrae_C6": 0.6581144575480937,
+     "vertebrae_C5": 0.7239663614323444,
+     "vertebrae_C4": 0.6328514551932021,
+     "vertebrae_C3": 0.583417150896617,
+     "vertebrae_C2": 0.7156706092386966
+    },
+    "feature": {
+     "vertebrae_S1": [
+      190,
+      202
+     ],
+     "vertebrae_L5": [
+      385,
+      202
+     ],
+     "vertebrae_L4": [
+      385,
+      442
+     ],
+     "vertebrae_L3": [
+      385,
+      442
+     ],
+     "vertebrae_L2": [
+      625,
+      361
+     ],
+     "vertebrae_L1": [
+      402,
+      126
+     ],
+     "vertebrae_T12": [
+      252,
+      126
+     ],
+     "vertebrae_T11": [
+      218,
+      181
+     ],
+     "vertebrae_T10": [
+      218,
+      438
+     ],
+     "vertebrae_T9": [
+      218,
+      438
+     ],
+     "vertebrae_T8": [
+      553,
+      438
+     ],
+     "vertebrae_T7": [
+      553,
+      438
+     ],
+     "vertebrae_T6": [
+      218,
+      9
+     ],
+     "vertebrae_T5": [
+      553,
+      438
+     ],
+     "vertebrae_T4": [
+      553,
+      438
+     ],
+     "vertebrae_T3": [
+      553,
+      541
+     ],
+     "vertebrae_T2": [
+      553,
+      334
+     ],
+     "vertebrae_T1": [
+      376,
+      334
+     ],
+     "vertebrae_C7": [
+      381,
+      202
+     ],
+     "vertebrae_C6": [
+      399,
+      202
+     ],
+     "vertebrae_C5": [
+      468,
+      202
+     ],
+     "vertebrae_C4": [
+      399,
+      202
+     ],
+     "vertebrae_C3": [
+      399,
+      202
+     ],
+     "vertebrae_C2": [
+      399,
+      541
+     ]
+    },
+    "median": 0.6520468388898506,
+    "median_matched": 0.628026720468274
+   },
+   "T3_lobe": {
+    "auc": {
+     "lung_upper_lobe_left": 0.5411623287289458,
+     "lung_lower_lobe_left": 0.5627608485492916,
+     "lung_upper_lobe_right": 0.5484341212531574,
+     "lung_middle_lobe_right": 0.5667654484257906,
+     "lung_lower_lobe_right": 0.5514425651561246
+    },
+    "auc_matched": {
+     "lung_upper_lobe_left": 0.5427964536684455,
+     "lung_lower_lobe_left": 0.5597526325632445,
+     "lung_upper_lobe_right": 0.5470081871927803,
+     "lung_middle_lobe_right": 0.5590615303532449,
+     "lung_lower_lobe_right": 0.5523868462987107
+    },
+    "feature": {
+     "lung_upper_lobe_left": [
+      454,
+      308
+     ],
+     "lung_lower_lobe_left": [
+      262,
+      291
+     ],
+     "lung_upper_lobe_right": [
+      463,
+      367
+     ],
+     "lung_middle_lobe_right": [
+      454,
+      223
+     ],
+     "lung_lower_lobe_right": [
+      615,
+      179
+     ]
+    },
+    "median": 0.5514425651561246,
+    "median_matched": 0.5523868462987107
+   }
+  },
+  "where": {
+   "host": "modal",
+   "gpu": "NVIDIA L4",
+   "torch": "2.10.0+cu128",
+   "load_min": 0.3519896705945333,
+   "container_min": 12.291813031832378
+  }
+ },
+ "physcons_M1024_k6_s12000_rep1": {
+  "method": "physcons_M1024_k6_s12000",
+  "rep": 1,
+  "spec": {
+   "meth": "sae_cons",
+   "inp": "R3",
+   "cfg": {
+    "M": 1024,
+    "k": 6,
+    "steps": 12000
+   },
+   "family": "null",
+   "gpu": true
+  },
+  "fit_min": 7.729991392294566,
+  "eval_min": 0.8987314303716024,
+  "k1_min": 0.1657400091489156,
+  "fit_info": {
+   "A": null,
+   "B": null
+  },
+  "R1": 0.7470881863560732,
+  "R1_med": 0.8241554241931872,
+  "n_feat": {
+   "A": 601,
+   "B": 647
+  },
+  "L0": {
+   "A": 7.235105614731901,
+   "B": 7.667412280701754
+  },
+  "area_orig": 0.027777777777777776,
+  "area_neutral": 0.39236111111111116,
+  "area_matched_orig": 0.020833333333333332,
+  "area_matched_neutral": 0.33932291666666664,
+  "C07_orig": [
+   1,
+   0
+  ],
+  "C07_neutral": [
+   13,
+   11
+  ],
+  "n_v0": [
+   600,
+   647
+  ],
+  "chim_share_orig": 0.7409783480352847,
+  "chim_share_neutral": 0.1996792301523657,
+  "median_t_v0": 0.8130414072300388,
+  "median_sel_v0": 0.5047721080876817,
+  "median_r_pert_v0": 0.9883772730827332,
+  "feat": {
+   "neutral": {
+    "precision07": 0.06976744186046512,
+    "n_valid07": 87,
+    "theta": {
+     "theta": 0.4775357385976855,
+     "n_pos": 117,
+     "n_neg": 1130,
+     "estimable": true,
+     "beta_t": -0.019806532398545094
+    }
+   },
+   "orig": {
+    "precision07": 0.0008019246190858059,
+    "n_valid07": 1,
+    "theta": {
+     "theta": 0.2612540192926045,
+     "n_pos": 3,
+     "n_neg": 1244,
+     "estimable": false
+    }
+   },
+   "n_feat": 1248,
+   "n_v0": 1247,
+   "share_other_v0": 0.2413793103448276,
+   "shortcut": {
+    "n_reproducible": 897,
+    "share": 0.0
+   }
+  },
+  "k1": {
+   "T1b": {
+    "auc": {
+     "aorta": 0.760896899780408,
+     "autochthon": 0.7582738905041282,
+     "clavicula": 0.8871046462734168,
+     "colon": 0.5662763592552079,
+     "duodenum": 0.6061607623825201,
+     "esophagus": 0.5374988582581419,
+     "femur": 0.8393879926397618,
+     "gallbladder": 0.9070825609275925,
+     "gluteal": 0.8211426149958617,
+     "great_veins": 0.718992685051858,
+     "heart": 0.7348479458774109,
+     "hip": 0.8083705776878167,
+     "humerus": 0.6750106574439849,
+     "iliac_vessels": 0.5600480307775908,
+     "iliopsoas": 0.8718139224363288,
+     "kidney": 0.7704174758026047,
+     "liver": 0.7387674654524544,
+     "lung_left": 0.9655672726535982,
+     "lung_right": 0.9695949016869969,
+     "pancreas": 0.7176860697383605,
+     "prostate": 0.8921521653322395,
+     "sacrum": 0.7161677975285257,
+     "scapula": 0.8066525518559574,
+     "skull": 0.9396485091407731,
+     "small_bowel": 0.5623691324884785,
+     "spinal_cord": 0.9700713972368652,
+     "spine_lumbar": 0.8943027977008855,
+     "spine_thoracic": 0.8879750656811638,
+     "spleen": 0.7415962706903318,
+     "sternum": 0.8336790278651134,
+     "stomach": 0.6498116663245483,
+     "trachea": 0.9681239275255771,
+     "urinary_bladder": 0.9024012594962749
+    },
+    "auc_matched": {
+     "aorta": 0.7096873246225142,
+     "autochthon": 0.703289200971819,
+     "clavicula": 0.847997438899533,
+     "colon": 0.5546933467596797,
+     "duodenum": 0.6212896732362289,
+     "esophagus": 0.535713820047663,
+     "femur": 0.8093870030907042,
+     "gallbladder": 0.8225075834514419,
+     "gluteal": 0.7458159087857571,
+     "great_veins": 0.7145926030445273,
+     "heart": 0.676426708501507,
+     "hip": 0.7740747943291988,
+     "humerus": 0.668017017250585,
+     "iliac_vessels": 0.5618328317432187,
+     "iliopsoas": 0.8234285873395468,
+     "kidney": 0.7214335678378501,
+     "liver": 0.7172018310824639,
+     "lung_left": 0.8631662914845333,
+     "lung_right": 0.8634192436486459,
+     "pancreas": 0.6900156044791796,
+     "prostate": 0.8483981536307267,
+     "sacrum": 0.7081967924700812,
+     "scapula": 0.7806874875735148,
+     "skull": 0.8752234225541268,
+     "small_bowel": 0.5510945203865805,
+     "spinal_cord": 0.8822514772344514,
+     "spine_lumbar": 0.8549793502997771,
+     "spine_thoracic": 0.8829588216601614,
+     "spleen": 0.7264668774864156,
+     "sternum": 0.8096388208653986,
+     "stomach": 0.609889494374096,
+     "trachea": 0.872539527269911,
+     "urinary_bladder": 0.8043431746972576
+    },
+    "feature": {
+     "aorta": [
+      95,
+      132
+     ],
+     "autochthon": [
+      299,
+      207
+     ],
+     "clavicula": [
+      193,
+      282
+     ],
+     "colon": [
+      488,
+      168
+     ],
+     "duodenum": [
+      443,
+      56
+     ],
+     "esophagus": [
+      95,
+      475
+     ],
+     "femur": [
+      490,
+      282
+     ],
+     "gallbladder": [
+      125,
+      54
+     ],
+     "gluteal": [
+      299,
+      207
+     ],
+     "great_veins": [
+      171,
+      443
+     ],
+     "heart": [
+      383,
+      252
+     ],
+     "hip": [
+      490,
+      282
+     ],
+     "humerus": [
+      193,
+      282
+     ],
+     "iliac_vessels": [
+      383,
+      207
+     ],
+     "iliopsoas": [
+      299,
+      207
+     ],
+     "kidney": [
+      383,
+      252
+     ],
+     "liver": [
+      443,
+      104
+     ],
+     "lung_left": [
+      216,
+      325
+     ],
+     "lung_right": [
+      216,
+      325
+     ],
+     "pancreas": [
+      443,
+      104
+     ],
+     "prostate": [
+      299,
+      207
+     ],
+     "sacrum": [
+      490,
+      282
+     ],
+     "scapula": [
+      490,
+      282
+     ],
+     "skull": [
+      572,
+      539
+     ],
+     "small_bowel": [
+      443,
+      104
+     ],
+     "spinal_cord": [
+      95,
+      132
+     ],
+     "spine_lumbar": [
+      490,
+      282
+     ],
+     "spine_thoracic": [
+      490,
+      132
+     ],
+     "spleen": [
+      383,
+      252
+     ],
+     "sternum": [
+      193,
+      282
+     ],
+     "stomach": [
+      125,
+      54
+     ],
+     "trachea": [
+      488,
+      168
+     ],
+     "urinary_bladder": [
+      125,
+      54
+     ]
+    },
+    "median": 0.8066525518559574,
+    "median_matched": 0.7458159087857571
+   },
+   "T3_vert": {
+    "auc": {
+     "vertebrae_S1": 0.6178991548472993,
+     "vertebrae_L5": 0.544358123794256,
+     "vertebrae_L4": 0.5609515622577428,
+     "vertebrae_L3": 0.5535646417403439,
+     "vertebrae_L2": 0.5616562714973274,
+     "vertebrae_L1": 0.5547911884438257,
+     "vertebrae_T12": 0.5623759995236695,
+     "vertebrae_T11": 0.5830436308484528,
+     "vertebrae_T10": 0.6009743541669468,
+     "vertebrae_T9": 0.5867495353593699,
+     "vertebrae_T8": 0.6440802499477706,
+     "vertebrae_T7": 0.6601994773189244,
+     "vertebrae_T6": 0.6273388613364111,
+     "vertebrae_T5": 0.6850590863048578,
+     "vertebrae_T4": 0.6631451444014759,
+     "vertebrae_T3": 0.6707315588899289,
+     "vertebrae_T2": 0.6813023172577378,
+     "vertebrae_T1": 0.7020796172357053,
+     "vertebrae_C7": 0.7108851514478987,
+     "vertebrae_C6": 0.8104863884866111,
+     "vertebrae_C5": 0.7709160328919853,
+     "vertebrae_C4": 0.6098847899564274,
+     "vertebrae_C3": 0.4854056566717977,
+     "vertebrae_C2": 0.7591074476945427
+    },
+    "auc_matched": {
+     "vertebrae_S1": 0.5881639474527851,
+     "vertebrae_L5": 0.5497681712709956,
+     "vertebrae_L4": 0.5567848607977507,
+     "vertebrae_L3": 0.5480819718434522,
+     "vertebrae_L2": 0.5590882967693599,
+     "vertebrae_L1": 0.5551996807597241,
+     "vertebrae_T12": 0.5652859372114086,
+     "vertebrae_T11": 0.5795564605142931,
+     "vertebrae_T10": 0.5975355520513175,
+     "vertebrae_T9": 0.5913354780783564,
+     "vertebrae_T8": 0.6359240752003438,
+     "vertebrae_T7": 0.6500209027458189,
+     "vertebrae_T6": 0.6159242750870206,
+     "vertebrae_T5": 0.6583468794492753,
+     "vertebrae_T4": 0.6502239975198868,
+     "vertebrae_T3": 0.6436682383407666,
+     "vertebrae_T2": 0.6594801637519749,
+     "vertebrae_T1": 0.6924830248060844,
+     "vertebrae_C7": 0.6926401842454035,
+     "vertebrae_C6": 0.7826893400707313,
+     "vertebrae_C5": 0.7503521895411855,
+     "vertebrae_C4": 0.6033449577430352,
+     "vertebrae_C3": 0.4934122406425392,
+     "vertebrae_C2": 0.7062506030377891
+    },
+    "feature": {
+     "vertebrae_S1": [
+      536,
+      282
+     ],
+     "vertebrae_L5": [
+      44,
+      475
+     ],
+     "vertebrae_L4": [
+      202,
+      475
+     ],
+     "vertebrae_L3": [
+      243,
+      475
+     ],
+     "vertebrae_L2": [
+      154,
+      339
+     ],
+     "vertebrae_L1": [
+      312,
+      164
+     ],
+     "vertebrae_T12": [
+      481,
+      523
+     ],
+     "vertebrae_T11": [
+      95,
+      77
+     ],
+     "vertebrae_T10": [
+      95,
+      77
+     ],
+     "vertebrae_T9": [
+      423,
+      132
+     ],
+     "vertebrae_T8": [
+      95,
+      132
+     ],
+     "vertebrae_T7": [
+      95,
+      77
+     ],
+     "vertebrae_T6": [
+      95,
+      523
+     ],
+     "vertebrae_T5": [
+      95,
+      132
+     ],
+     "vertebrae_T4": [
+      95,
+      283
+     ],
+     "vertebrae_T3": [
+      95,
+      132
+     ],
+     "vertebrae_T2": [
+      95,
+      132
+     ],
+     "vertebrae_T1": [
+      132,
+      500
+     ],
+     "vertebrae_C7": [
+      193,
+      500
+     ],
+     "vertebrae_C6": [
+      193,
+      193
+     ],
+     "vertebrae_C5": [
+      193,
+      554
+     ],
+     "vertebrae_C4": [
+      572,
+      500
+     ],
+     "vertebrae_C3": [
+      470,
+      500
+     ],
+     "vertebrae_C2": [
+      572,
+      539
+     ]
+    },
+    "median": 0.6226190080918552,
+    "median_matched": 0.6096346164150279
+   },
+   "T3_lobe": {
+    "auc": {
+     "lung_upper_lobe_left": 0.542706729188337,
+     "lung_lower_lobe_left": 0.5803525398338985,
+     "lung_upper_lobe_right": 0.5473641944463319,
+     "lung_middle_lobe_right": 0.5485073076688737,
+     "lung_lower_lobe_right": 0.5598368832399934
+    },
+    "auc_matched": {
+     "lung_upper_lobe_left": 0.5416014812510586,
+     "lung_lower_lobe_left": 0.5736163521548381,
+     "lung_upper_lobe_right": 0.5404814152825739,
+     "lung_middle_lobe_right": 0.5492358481498585,
+     "lung_lower_lobe_right": 0.5583248596992783
+    },
+    "feature": {
+     "lung_upper_lobe_left": [
+      488,
+      55
+     ],
+     "lung_lower_lobe_left": [
+      393,
+      646
+     ],
+     "lung_upper_lobe_right": [
+      216,
+      312
+     ],
+     "lung_middle_lobe_right": [
+      105,
+      168
+     ],
+     "lung_lower_lobe_right": [
+      269,
+      257
+     ]
+    },
+    "median": 0.5485073076688737,
+    "median_matched": 0.5492358481498585
+   }
+  },
+  "where": {
+   "host": "modal",
+   "gpu": "NVIDIA L4",
+   "torch": "2.10.0+cu128",
+   "load_min": 0.22271596988042194,
+   "container_min": 9.018002474308014
+  }
+ },
+ "physcons_M1024_k6_s12000_rep2": {
+  "method": "physcons_M1024_k6_s12000",
+  "rep": 2,
+  "spec": {
+   "meth": "sae_cons",
+   "inp": "R3",
+   "cfg": {
+    "M": 1024,
+    "k": 6,
+    "steps": 12000
+   },
+   "family": "null",
+   "gpu": true
+  },
+  "fit_min": 7.827135543028514,
+  "eval_min": 0.9567331830660503,
+  "k1_min": 0.1710626482963562,
+  "fit_info": {
+   "A": null,
+   "B": null
+  },
+  "R1": 0.6976,
+  "R1_med": 0.8004696758227511,
+  "n_feat": {
+   "A": 625,
+   "B": 639
+  },
+  "L0": {
+   "A": 6.924083769633508,
+   "B": 7.33
+  },
+  "area_orig": 0.005208333333333333,
+  "area_neutral": 0.4027777777777778,
+  "area_matched_orig": 0.0033854166666666668,
+  "area_matched_neutral": 0.34887152777777775,
+  "C07_orig": [
+   0,
+   0
+  ],
+  "C07_neutral": [
+   15,
+   12
+  ],
+  "n_v0": [
+   625,
+   639
+  ],
+  "chim_share_orig": 0.7484177215189873,
+  "chim_share_neutral": 0.1962025316455696,
+  "median_t_v0": 0.8030423965490572,
+  "median_sel_v0": 0.5141025847220098,
+  "median_r_pert_v0": 0.988271951675415,
+  "feat": {
+   "neutral": {
+    "precision07": 0.06566455696202532,
+    "n_valid07": 83,
+    "theta": {
+     "theta": 0.4511509324009324,
+     "n_pos": 120,
+     "n_neg": 1144,
+     "estimable": true,
+     "beta_t": -0.04974070104729044
+    }
+   },
+   "orig": {
+    "precision07": 0.0,
+    "n_valid07": 0,
+    "theta": {
+     "theta": 0.12826603325415678,
+     "n_pos": 1,
+     "n_neg": 1263,
+     "estimable": false
+    }
+   },
+   "n_feat": 1264,
+   "n_v0": 1264,
+   "share_other_v0": 0.23417721518987342,
+   "shortcut": {
+    "n_reproducible": 884,
+    "share": 0.0022624434389140274
+   }
+  },
+  "k1": {
+   "T1b": {
+    "auc": {
+     "aorta": 0.6851452755682392,
+     "autochthon": 0.7608390223024166,
+     "clavicula": 0.6892596320600941,
+     "colon": 0.5621933011228979,
+     "duodenum": 0.6639892744828046,
+     "esophagus": 0.6128484697736254,
+     "femur": 0.809248713033395,
+     "gallbladder": 0.9119793266878613,
+     "gluteal": 0.8226840681597414,
+     "great_veins": 0.7696605814102025,
+     "heart": 0.7419982159030228,
+     "hip": 0.7927870283314591,
+     "humerus": 0.6425879020208494,
+     "iliac_vessels": 0.5794659873606848,
+     "iliopsoas": 0.825194801035722,
+     "kidney": 0.7835671505390357,
+     "liver": 0.727939605248777,
+     "lung_left": 0.8032113808613877,
+     "lung_right": 0.8163641393967211,
+     "pancreas": 0.7201767460629842,
+     "prostate": 0.8555647656498038,
+     "sacrum": 0.7093884256627576,
+     "scapula": 0.80207519825232,
+     "skull": 0.9428621161614525,
+     "small_bowel": 0.5758401293691884,
+     "spinal_cord": 0.9024928607178397,
+     "spine_lumbar": 0.8884766686392614,
+     "spine_thoracic": 0.8850531556477023,
+     "spleen": 0.7069620592359693,
+     "sternum": 0.7681665337675045,
+     "stomach": 0.645745033925668,
+     "trachea": 0.9665520572645576,
+     "urinary_bladder": 0.9150889672263431
+    },
+    "auc_matched": {
+     "aorta": 0.6714347320040167,
+     "autochthon": 0.7127318775320766,
+     "clavicula": 0.6671227928490322,
+     "colon": 0.5534724650723528,
+     "duodenum": 0.6672731287440329,
+     "esophagus": 0.6028263727661402,
+     "femur": 0.7522088801826385,
+     "gallbladder": 0.7982307223957416,
+     "gluteal": 0.7705946748948943,
+     "great_veins": 0.7550902115934399,
+     "heart": 0.6997874654903526,
+     "hip": 0.7346787958947132,
+     "humerus": 0.6309271756567638,
+     "iliac_vessels": 0.5915232258899603,
+     "iliopsoas": 0.7902474637623368,
+     "kidney": 0.735061579537893,
+     "liver": 0.7009857781677122,
+     "lung_left": 0.689784508240215,
+     "lung_right": 0.6949209749729512,
+     "pancreas": 0.7069525996022656,
+     "prostate": 0.8358796009530493,
+     "sacrum": 0.6826338825211549,
+     "scapula": 0.7480303769674017,
+     "skull": 0.8660022746649791,
+     "small_bowel": 0.5692448646562556,
+     "spinal_cord": 0.8494316056674569,
+     "spine_lumbar": 0.8221507506754768,
+     "spine_thoracic": 0.8640398424915408,
+     "spleen": 0.698408910649279,
+     "sternum": 0.7556610836826432,
+     "stomach": 0.6080772695375385,
+     "trachea": 0.9000191595756335,
+     "urinary_bladder": 0.8104638281175132
+    },
+    "feature": {
+     "aorta": [
+      545,
+      280
+     ],
+     "autochthon": [
+      248,
+      371
+     ],
+     "clavicula": [
+      545,
+      293
+     ],
+     "colon": [
+      27,
+      250
+     ],
+     "duodenum": [
+      344,
+      54
+     ],
+     "esophagus": [
+      378,
+      280
+     ],
+     "femur": [
+      545,
+      293
+     ],
+     "gallbladder": [
+      69,
+      80
+     ],
+     "gluteal": [
+      248,
+      371
+     ],
+     "great_veins": [
+      490,
+      540
+     ],
+     "heart": [
+      160,
+      328
+     ],
+     "hip": [
+      545,
+      293
+     ],
+     "humerus": [
+      545,
+      293
+     ],
+     "iliac_vessels": [
+      160,
+      145
+     ],
+     "iliopsoas": [
+      248,
+      371
+     ],
+     "kidney": [
+      160,
+      328
+     ],
+     "liver": [
+      522,
+      11
+     ],
+     "lung_left": [
+      27,
+      568
+     ],
+     "lung_right": [
+      27,
+      568
+     ],
+     "pancreas": [
+      522,
+      433
+     ],
+     "prostate": [
+      248,
+      371
+     ],
+     "sacrum": [
+      545,
+      293
+     ],
+     "scapula": [
+      545,
+      293
+     ],
+     "skull": [
+      411,
+      236
+     ],
+     "small_bowel": [
+      114,
+      433
+     ],
+     "spinal_cord": [
+      75,
+      280
+     ],
+     "spine_lumbar": [
+      545,
+      293
+     ],
+     "spine_thoracic": [
+      545,
+      293
+     ],
+     "spleen": [
+      522,
+      328
+     ],
+     "sternum": [
+      151,
+      391
+     ],
+     "stomach": [
+      69,
+      80
+     ],
+     "trachea": [
+      27,
+      250
+     ],
+     "urinary_bladder": [
+      69,
+      80
+     ]
+    },
+    "median": 0.7696605814102025,
+    "median_matched": 0.7127318775320766
+   },
+   "T3_vert": {
+    "auc": {
+     "vertebrae_S1": 0.6149288731733595,
+     "vertebrae_L5": 0.5349913836751091,
+     "vertebrae_L4": 0.5598187193244675,
+     "vertebrae_L3": 0.5489237277817066,
+     "vertebrae_L2": 0.554874823974276,
+     "vertebrae_L1": 0.571015708046685,
+     "vertebrae_T12": 0.5870325128689429,
+     "vertebrae_T11": 0.5862266075907032,
+     "vertebrae_T10": 0.579681512906768,
+     "vertebrae_T9": 0.5905862468254728,
+     "vertebrae_T8": 0.5973107132627149,
+     "vertebrae_T7": 0.6392464545325902,
+     "vertebrae_T6": 0.6354684018533232,
+     "vertebrae_T5": 0.6694156942118669,
+     "vertebrae_T4": 0.6650612004902103,
+     "vertebrae_T3": 0.7192164203257394,
+     "vertebrae_T2": 0.6958838115874777,
+     "vertebrae_T1": 0.7286238804376934,
+     "vertebrae_C7": 0.7283614747706475,
+     "vertebrae_C6": 0.7277171620861567,
+     "vertebrae_C5": 0.6927285539108203,
+     "vertebrae_C4": 0.6576343348121932,
+     "vertebrae_C3": 0.6424648473540309,
+     "vertebrae_C2": 0.7538855172899063
+    },
+    "auc_matched": {
+     "vertebrae_S1": 0.590167325293109,
+     "vertebrae_L5": 0.5360588764264282,
+     "vertebrae_L4": 0.5553190706828439,
+     "vertebrae_L3": 0.5434128928383848,
+     "vertebrae_L2": 0.5537238290620081,
+     "vertebrae_L1": 0.5620672709790353,
+     "vertebrae_T12": 0.5800777151381826,
+     "vertebrae_T11": 0.5826544412629393,
+     "vertebrae_T10": 0.5751911066101527,
+     "vertebrae_T9": 0.5895131171452432,
+     "vertebrae_T8": 0.5858033207044717,
+     "vertebrae_T7": 0.6260186122679348,
+     "vertebrae_T6": 0.6284106723915208,
+     "vertebrae_T5": 0.650608065376987,
+     "vertebrae_T4": 0.6397776353698641,
+     "vertebrae_T3": 0.6903405076465193,
+     "vertebrae_T2": 0.6955318635177921,
+     "vertebrae_T1": 0.707088281060163,
+     "vertebrae_C7": 0.7314951832451881,
+     "vertebrae_C6": 0.6678322593853123,
+     "vertebrae_C5": 0.6594353372503742,
+     "vertebrae_C4": 0.6240125301196082,
+     "vertebrae_C3": 0.6182672926408481,
+     "vertebrae_C2": 0.6906690147598811
+    },
+    "feature": {
+     "vertebrae_S1": [
+      545,
+      548
+     ],
+     "vertebrae_L5": [
+      232,
+      169
+     ],
+     "vertebrae_L4": [
+      586,
+      169
+     ],
+     "vertebrae_L3": [
+      434,
+      169
+     ],
+     "vertebrae_L2": [
+      71,
+      445
+     ],
+     "vertebrae_L1": [
+      71,
+      565
+     ],
+     "vertebrae_T12": [
+      75,
+      533
+     ],
+     "vertebrae_T11": [
+      75,
+      533
+     ],
+     "vertebrae_T10": [
+      446,
+      280
+     ],
+     "vertebrae_T9": [
+      446,
+      98
+     ],
+     "vertebrae_T8": [
+      552,
+      280
+     ],
+     "vertebrae_T7": [
+      346,
+      280
+     ],
+     "vertebrae_T6": [
+      346,
+      280
+     ],
+     "vertebrae_T5": [
+      346,
+      280
+     ],
+     "vertebrae_T4": [
+      346,
+      280
+     ],
+     "vertebrae_T3": [
+      586,
+      49
+     ],
+     "vertebrae_T2": [
+      586,
+      280
+     ],
+     "vertebrae_T1": [
+      232,
+      111
+     ],
+     "vertebrae_C7": [
+      357,
+      85
+     ],
+     "vertebrae_C6": [
+      302,
+      548
+     ],
+     "vertebrae_C5": [
+      357,
+      548
+     ],
+     "vertebrae_C4": [
+      378,
+      548
+     ],
+     "vertebrae_C3": [
+      378,
+      548
+     ],
+     "vertebrae_C2": [
+      411,
+      236
+     ]
+    },
+    "median": 0.6373574281929567,
+    "median_matched": 0.6211399113802282
+   },
+   "T3_lobe": {
+    "auc": {
+     "lung_upper_lobe_left": 0.548990653942679,
+     "lung_lower_lobe_left": 0.5660720886090577,
+     "lung_upper_lobe_right": 0.549200008506408,
+     "lung_middle_lobe_right": 0.5354371607664362,
+     "lung_lower_lobe_right": 0.5339276066007157
+    },
+    "auc_matched": {
+     "lung_upper_lobe_left": 0.5475151643473612,
+     "lung_lower_lobe_left": 0.5587909168724985,
+     "lung_upper_lobe_right": 0.5452571985208936,
+     "lung_middle_lobe_right": 0.536420874037868,
+     "lung_lower_lobe_right": 0.5396961447351915
+    },
+    "feature": {
+     "lung_upper_lobe_left": [
+      267,
+      613
+     ],
+     "lung_lower_lobe_left": [
+      444,
+      323
+     ],
+     "lung_upper_lobe_right": [
+      498,
+      568
+     ],
+     "lung_middle_lobe_right": [
+      259,
+      250
+     ],
+     "lung_lower_lobe_right": [
+      550,
+      568
+     ]
+    },
+    "median": 0.548990653942679,
+    "median_matched": 0.5452571985208936
+   }
+  },
+  "where": {
+   "host": "modal",
+   "gpu": "NVIDIA L4",
+   "torch": "2.10.0+cu128",
+   "load_min": 0.22583275238672892,
+   "container_min": 9.181566445032756
+  }
  }
 }

@@ -40,12 +40,16 @@ def methods():
         M[f"raw_L{L0}"] = dict(meth="raw_sparse", inp="X_ctfm", L0=L0, cfg=dict(M=425), family="raw")
         M[f"svx_L{L0}"] = dict(meth="sparse_varimax", inp="X_ctfm", L0=L0, cfg=dict(M=425), family="svx")
     for atoms, k in DL_CONFIGS: M[f"dl_A{atoms}_k{k}"] = dict(meth="dl", inp="X_ctfm", L0=k, cfg=dict(atoms=atoms, k=k, n_fit=100000), family="dl")
+    # added after G1 at the user's request (2026-11-10, deviation M7): nonnegative DL, same grid; same family, same selection rule
+    for atoms, k in DL_CONFIGS: M[f"dl_nn_A{atoms}_k{k}"] = dict(meth="dl", inp="X_ctfm", L0=k, cfg=dict(atoms=atoms, k=k, n_fit=100000, nonneg=True), family="dl")
     M["oracle"] = dict(meth="oracle", inp="X_ctfm", family="oracle")
     sae_cfg = dict(M=1024, k=6, steps=12000)  # A2's best single config
     M["sae_M1024_k6_s12000"] = dict(meth="sae_single", inp="X_ctfm", cfg=sae_cfg, family="sae", gpu=True)
     M["cons_M1024_k6_s12000"] = dict(meth="sae_cons", inp="X_ctfm", cfg=sae_cfg, family="sae", gpu=True)
     M["nullsae_M1024_k6_s12000"] = dict(meth="sae_single", inp="X_null", cfg=sae_cfg, family="null", gpu=True)
     M["physsae_M1024_k6_s12000"] = dict(meth="sae_single", inp="R3", cfg=sae_cfg, family="null", gpu=True)
+    # added after G1 at the user's request (2026-11-09): physics-feature consensus, so the null comparison is consensus vs consensus
+    M["physcons_M1024_k6_s12000"] = dict(meth="sae_cons", inp="R3", cfg=sae_cfg, family="null", gpu=True)
     return M
 
 
@@ -96,19 +100,38 @@ class ICA:
     def encode(self, X): return sae.topk_rows(sae.split_signed(self.ica.transform(np.asarray(X, np.float64))), self.L0)
 
 
-def omp(Xc, D, k, chunk=8192):
+def nnls_pg(G, q, c0=None, iters=100):
+    """batched nonnegative least squares on a small support: min_c 0.5 c'Gc - q'c subject to c >= 0 (G: m x s x s, q: m x s), by
+    accelerated projected gradient (FISTA) with step 1 / lambda_max(G), warm-started from c0."""
+    import torch
+    Lc = torch.linalg.eigvalsh(G)[:, -1:].clamp_min(1e-9)
+    c = (q / torch.diagonal(G, dim1=1, dim2=2)).clamp_min(0) if c0 is None else c0.clamp_min(0); y, t = c, 1.0
+    for _ in range(iters):
+        cn = (y - (torch.einsum("mst,mt->ms", G, y) - q) / Lc).clamp_min(0); tn = (1 + (1 + 4 * t * t) ** 0.5) / 2
+        y = cn + ((t - 1) / tn) * (cn - c); c, t = cn, tn
+    return c
+
+
+def omp(Xc, D, k, chunk=8192, nonneg=False):
     """batched orthogonal matching pursuit: for each row of Xc (centred, n x d) the k atoms of D (M x d, unit rows) chosen greedily by
-    |correlation with the residual|, with least-squares coefficients on the chosen atoms. Returns (idx n x k, coef n x k)."""
+    |correlation with the residual|, with least-squares coefficients on the chosen atoms. Returns (idx n x k, coef n x k).
+    nonneg=True: nonnegative OMP (Bruckstein, Elad & Zibulevsky 2008): the atom with the largest positive correlation with the residual,
+    and nonnegative least squares on the chosen atoms (nnls_pg). The signed path is unchanged."""
     import torch
     Xc = torch.as_tensor(np.asarray(Xc, np.float32)); D = torch.as_tensor(np.asarray(D, np.float32)); G = D @ D.T; I_out, C_out = [], []
     for i in range(0, len(Xc), chunk):
         x = Xc[i:i + chunk]; m = len(x); DX = x @ D.T; idx = torch.zeros(m, k, dtype=torch.long); r = x; coef = None
         for s in range(k):
-            c = (r @ D.T).abs()
-            if s: c.scatter_(1, idx[:, :s], -1.0)
+            if nonneg:
+                c = r @ D.T
+                if s: c.scatter_(1, idx[:, :s], -float("inf"))
+            else:
+                c = (r @ D.T).abs()
+                if s: c.scatter_(1, idx[:, :s], -1.0)
             idx[:, s] = c.argmax(1); I = idx[:, :s + 1]
             Gs = G[I[:, :, None], I[:, None, :]] + 1e-6 * torch.eye(s + 1)
-            coef = torch.linalg.solve(Gs, DX.gather(1, I).unsqueeze(-1)).squeeze(-1)
+            if nonneg: coef = nnls_pg(Gs, DX.gather(1, I), None if coef is None else torch.cat([coef, torch.zeros(m, 1)], 1))
+            else: coef = torch.linalg.solve(Gs, DX.gather(1, I).unsqueeze(-1)).squeeze(-1)
             r = x - torch.einsum("ms,msd->md", coef, D[I])
         I_out.append(idx); C_out.append(coef)
     return torch.cat(I_out).numpy(), torch.cat(C_out).numpy()
@@ -118,7 +141,9 @@ class DL:
     """k-sparse dictionary learning: OMP coding with k non-zeros + MOD dictionary update (Engan et al. 1999), on rows centred by the fit
     mean, from the SAE's own initialisation (sae._init: k-means++ seeds of the centred rows, unit atoms). Atoms no row uses are re-seeded on
     high-residual rows. Codes = OMP with k non-zeros on the learned dictionary, split-signed (2 x atoms features, L0 = k).
-    This is the L0-constrained objective of the TopK SAE solved per token, without the amortised encoder (protocol, amendment M5)."""
+    This is the L0-constrained objective of the TopK SAE solved per token, without the amortised encoder (protocol, amendment M5); the
+    signed version lacks the SAE's nonnegativity. cfg nonneg=True (added after G1, deviation M7): nonnegative codes (nonnegative OMP), as
+    the TopK SAE; codes are not split (atoms features). Learned dictionaries are kept in results/dl_dicts/ (not in git)."""
 
     def __init__(self, cfg, seed): self.cfg, self.seed, self.L0 = cfg, seed, cfg["k"]
 
@@ -126,27 +151,32 @@ class DL:
         import torch
         rng = np.random.default_rng(self.seed); sub = np.asarray(X[rng.choice(len(X), min(len(X), self.cfg["n_fit"]), replace=False)], np.float32)
         M, k = self.cfg["atoms"], self.cfg["k"]; b, D = sae._init(sub, M, self.seed); self.b = b.astype(np.float32); Xc = sub - self.b
-        Xt = torch.as_tensor(Xc); D = torch.as_tensor(D.astype(np.float32)); var = float((Xt ** 2).sum()); hist = []
+        Xt = torch.as_tensor(Xc); D = torch.as_tensor(D.astype(np.float32)); var = float((Xt ** 2).sum()); hist = []; nn = bool(self.cfg.get("nonneg"))
         for it in range(self.cfg.get("iters", DL_ITERS)):
-            idx, coef = omp(Xc, D.numpy(), k); idx, coef = torch.as_tensor(idx), torch.as_tensor(coef)
+            idx, coef = omp(Xc, D.numpy(), k, nonneg=nn); idx, coef = torch.as_tensor(idx), torch.as_tensor(coef)
             A_ = torch.zeros(M, M); B_ = torch.zeros(M, Xt.shape[1])
             for s in range(k):
                 B_.index_add_(0, idx[:, s], coef[:, s:s + 1] * Xt)
                 for t in range(k): A_.index_put_((idx[:, s], idx[:, t]), coef[:, s] * coef[:, t], accumulate=True)
             rec = torch.zeros_like(Xt)
             for s in range(k): rec += coef[:, s:s + 1] * D[idx[:, s]]
-            res = Xt - rec; r2 = 1 - float((res ** 2).sum()) / var; used = torch.bincount(idx.flatten(), minlength=M) > 0
+            res = Xt - rec; r2 = 1 - float((res ** 2).sum()) / var
+            used = (torch.bincount(idx[coef > 0], minlength=M) if nn else torch.bincount(idx.flatten(), minlength=M)) > 0
             Dn = torch.linalg.solve(A_ + 1e-4 * torch.eye(M), B_)
             dead = (~used) | (Dn.norm(dim=1) < 1e-8); nd = int(dead.sum())
             if nd and it < self.cfg.get("iters", DL_ITERS) - 1:
                 w = (res ** 2).sum(1); pick = torch.multinomial(w / w.sum(), nd, replacement=False, generator=torch.Generator().manual_seed(self.seed * 1000 + it))
                 Dn[dead] = res[pick]
             D = Dn / Dn.norm(dim=1, keepdim=True).clamp_min(1e-9); hist.append(dict(it=it, r2=round(r2, 5), reseeded=nd))
-        self.D = D.numpy(); self.info = dict(history=hist, r2_fit=hist[-1]["r2"]); return self
+        self.D = D.numpy(); self.info = dict(history=hist, r2_fit=hist[-1]["r2"])
+        if nn:
+            dd = RES / "dl_dicts"; dd.mkdir(exist_ok=True); np.savez(dd / f"dl_nn_A{M}_k{k}_seed{self.seed}.npz", D=self.D, b=self.b)
+        return self
 
     def encode(self, X):
-        idx, coef = omp(np.asarray(X, np.float32) - self.b, self.D, self.L0); Z = np.zeros((len(idx), len(self.D)), np.float32)
-        np.put_along_axis(Z, idx, coef, 1); return sae.split_signed(Z)
+        nn = bool(self.cfg.get("nonneg"))
+        idx, coef = omp(np.asarray(X, np.float32) - self.b, self.D, self.L0, nonneg=nn); Z = np.zeros((len(idx), len(self.D)), np.float32)
+        np.put_along_axis(Z, idx, coef, 1); return Z if nn else sae.split_signed(Z)
 
 
 DL_ITERS = 30

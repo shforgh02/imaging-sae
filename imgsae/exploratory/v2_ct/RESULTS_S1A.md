@@ -74,6 +74,45 @@ Protocol `docs/STAGE1A_PROTOCOL.md` (fixed before running). Primary metric: area
 - **G1-main** (SAE representative − best baseline representative, each rep > 0 and mean ≥ 0.05): gains +0.216, +0.304, +0.243; mean +0.254; strongest baseline per rep ['kmeans', 'kmeans', 'ica'] → **PASS** (pass)
 - SAE as share of the oracle (descriptive): 0.86, 0.94, 0.89
 
+## Post-G1 check 1: nonnegative dictionary learning (deviation M7; sensitivity analysis, G1 above stays as read)
+
+DL family extended after G1 with nonnegative k-sparse DL (nonnegative OMP + MOD; the TopK SAE's nonnegativity), same 3 configs; the family is re-selected over all 6 candidates by the same rep-0 rule.
+
+| Candidate (rep 0) | Features | L0 | R1 | Primary | Area neutral (all) | 425, orig | C(0.7) A/B | Median t / sel / r_pert (V0) | Fit R² |
+|---|---|---|---|---|---|---|---|---|---|
+| dl_nn_A1024_k6 **(rep)** | 1024 | 6.0 | 0.00 | 0.063 | 0.134 | 0.010 | [1, 1] | 0.26 / 0.48 / 0.37 | 0.771 |
+| dl_A1024_k6 | 2048 | 6.0 | 0.01 | 0.046 | 0.151 | 0.014 | [2, 1] | 0.13 / 0.50 / 0.19 | 0.776 |
+| dl_nn_A2048_k6 | 2048 | 6.0 | 0.00 | 0.033 | 0.104 | 0.007 | [0, 0] | 0.20 / 0.53 / 0.30 | 0.798 |
+| dl_A2048_k6 | 4096 | 6.0 | 0.00 | 0.019 | 0.120 | 0.006 | [0, 0] | 0.15 / 0.55 / 0.21 | 0.802 |
+| dl_A1024_k27 | 2048 | 27.0 | 0.00 | 0.014 | 0.052 | 0.002 | [0, 0] | 0.07 / 0.39 / 0.17 | 0.901 |
+| dl_nn_A1024_k27 | 1024 | 26.9 | 0.00 | 0.002 | 0.005 | 0.000 | [0, 0] | 0.18 / 0.38 / 0.33 | 0.891 |
+
+| Method | Rep 0 | Rep 1 | Rep 2 | Mean | R1 (mean) |
+|---|---|---|---|---|---|
+| dl (M7 representative): dl_nn_A1024_k6 | 0.063 | 0.046 | 0.038 | 0.049 | 0.005 |
+
+- **G1-main re-read with the M7 DL representative:** gains +0.216, +0.304, +0.243; mean +0.254; strongest baseline per rep ['kmeans', 'kmeans', 'ica'] → **PASS** (pass)
+
+Label-free coding diagnostic (`s1a_dl_diag.py`; rep 0, half-A vs half-B dictionaries, 20,000 random tokens; no labels). Same dictionaries, two encoders: nonnegative OMP (as in the DL rows) vs top-k of ReLU(D(x − b)) without refit (a TopK SAE's tied encoder; it does not reconstruct, so its R² is not meaningful and it is a reproducibility probe only).
+
+| Config | Atom match A→B: median max cos / share ≥ 0.7 | OMP: twin median / share ≥ 0.7 / noise stability / R² | Threshold: twin median / share ≥ 0.7 / noise stability |
+|---|---|---|---|
+| dl_nn_A1024_k6 | 0.841 / 0.82 | 0.29 / 0.003 / 0.93 / 0.76 | 0.54 / 0.168 / 0.98 |
+| dl_nn_A2048_k6 | 0.820 / 0.77 | 0.24 / 0.005 / 0.91 / 0.78 | 0.52 / 0.128 / 0.98 |
+| dl_nn_A1024_k27 | 0.750 / 0.59 | 0.21 / 0.001 / 0.74 / 0.89 | 0.61 / 0.324 / 0.98 |
+
+## Post-G1 check 2: physics-feature SAE consensus (null at the SAE representative's config)
+
+| Method | Rep 0 | Rep 1 | Rep 2 | Mean | R1 (mean) |
+|---|---|---|---|---|---|
+| SAE consensus, CT-FM (representative) | 0.526 | 0.585 | 0.535 | 0.549 | 0.506 |
+| SAE consensus, physics R3 | 0.350 | 0.339 | 0.349 | 0.346 | 0.723 |
+| SAE single, CT-FM | 0.400 | 0.403 | 0.392 | 0.398 | 0.203 |
+| SAE single, physics R3 | 0.342 | 0.357 | 0.364 | 0.354 | 0.530 |
+
+- CT-FM consensus − physics consensus (primary): +0.176, +0.246, +0.186; mean +0.202; ≥ 0.05 in every rep: **yes** (plan v2's G1(c) criterion; descriptive in Stage 1a)
+- Same under the 'orig' rule (425 features): +0.305, +0.311, +0.292
+
 ## Descriptive (mean over available reps)
 
 ### T4 precision, T8 shortcut, T5 θ
@@ -87,9 +126,11 @@ Protocol `docs/STAGE1A_PROTOCOL.md` (fixed before running). Primary metric: area
 | dl | 4096 | 3279 | 0.071 | 0.000 | 0.000 | 1 | 0.639 | 0.81 (37/3120) | 0.79 (12/3146) |
 | raw | 2048 | 2041 | 0.035 | 0.002 | 0.000 | 3 | 0.662 | 0.66 (3/2036) | nan (0/2040) |
 | svx | 2048 | 460 | 0.028 | 0.001 | 0.000 | 0 | 0.515 | 0.38 (0/448) | nan (0/448) |
+| dl (M7) | 2048 | 2026 | 0.083 | 0.001 | 0.000 | 1 | 0.520 | 0.76 (24/1992) | 0.76 (5/2012) |
 | oracle | 66 | 66 | 0.015 | 0.657 | 0.278 | 43 | 0.000 | 0.76 (52/13) | 0.89 (18/47) |
 | null SAE (untrained) | 2048 | 1837 | 0.194 | 0.006 | 0.000 | 11 | 0.681 | 0.63 (23/1800) | 0.51 (0/1822) |
 | physics SAE (R3) | 2048 | 1650 | 0.236 | 0.064 | 0.002 | 105 | 0.001 | 0.48 (194/1444) | 0.23 (14/1624) |
+| physics SAE consensus (R3) | 1268 | 1267 | 0.236 | 0.067 | 0.000 | 84 | 0.001 | 0.48 (118/1149) | 0.19 (1/1266) |
 
 ### T6 k = 1 sparse probing (median AUROC over classes; native / 425 candidates)
 
@@ -102,9 +143,11 @@ Protocol `docs/STAGE1A_PROTOCOL.md` (fixed before running). Primary metric: area
 | dl | 0.590 / 0.546 | 0.625 / 0.565 | 0.548 / 0.537 |
 | raw | 0.577 / 0.560 | 0.593 / 0.567 | 0.542 / 0.535 |
 | svx | 0.720 / 0.653 | 0.730 / 0.663 | 0.691 / 0.607 |
+| dl (M7) | 0.589 / 0.568 | 0.649 / 0.600 | 0.560 / 0.549 |
 | oracle | 0.999 / 0.999 | 0.830 / 0.830 | 0.796 / 0.796 |
 | null SAE (untrained) | 0.720 / 0.637 | 0.687 / 0.620 | 0.540 / 0.538 |
 | physics SAE (R3) | 0.748 / 0.658 | 0.613 / 0.589 | 0.573 / 0.552 |
+| physics SAE consensus (R3) | 0.784 / 0.728 | 0.637 / 0.620 | 0.550 / 0.549 |
 | (dense CT-FM probe) | 0.999 | 0.979 | 0.985 |
 | (dense physics R4 probe) | 0.996 | 0.919 | 0.967 |
 | (dense untrained CT-FM probe) | 0.956 | 0.888 | 0.833 |

@@ -267,3 +267,29 @@ Progress (2026-11-09):
     G1-main PASS (gains +0.216 / +0.304 / +0.243, mean +0.254; strongest baseline k-means, k-means, ICA). Branch: pass.
     Descriptive flags for the user: physics (R3) SAE 0.34-0.36 vs single CT-FM SAE 0.39-0.40; k = 1 vertebral-level probing shows no SAE
     advantage over k-means / ICA / sparse varimax; DL rows implausibly weak (R1 0.00-0.01), implementation to be checked before any claim.
+- 2026-11-10, after G1, at the user's request ("do the two fixes"). G1 stays as read; both are sensitivity checks, written here before results.
+  - Deviation M7, dictionary learning. Diagnosis (label-free, from the saved rows): the signed DL reconstructs better than the SAE (fit R2 0.775
+    vs held-out 0.707; no dead atoms; converged), but its features are unstable: median twin score 0.13 (SAE 0.48) and perturbation r 0.19
+    (SAE 0.79). Cause: the codes are signed. Least-squares coefficients on correlated atoms cancel and flip sign; the TopK SAE's codes are
+    nonnegative. M5 called the signed DL "the TopK SAE's objective"; that was wrong on nonnegativity.
+    Fix: nonnegative k-sparse DL (nonnegative OMP, Bruckstein et al. 2008: largest positive residual correlation, nonnegative least squares
+    on the support by FISTA; same MOD update, init, 100k fit rows, 30 iterations), the same 3 configs (dl_nn_*), codes not split. Unit
+    checks: NNLS = scipy nnls (objective gap <= 4e-6 at 27 atoms); the signed OMP path is bit-identical to before. The DL family is
+    re-selected over all 6 candidates by the same rep-0 rule (results/s1a_selection_m7.json; s1a_selection.json untouched); the new
+    representative runs reps 1-2; G1-main is re-read with it (RESULTS_S1A.md, check 1).
+  - Physics-feature SAE consensus (physcons_M1024_k6_s12000, R3 input, reps 0-2, Modal L4, run v2s1a_sae-009, timeout 25 min, worst
+    case $1.66, inside the $7 task budget), so the null comparison is consensus vs consensus (RESULTS_S1A.md, check 2).
+  - Results, 2026-11-10 03:35 (`v2_ct/RESULTS_S1A.md`, `results/s1a_g1.json` keys G1_main_m7 and physcons):
+    - Physics consensus (run v2s1a_sae-009, ok 3/3, closed at $0.84; task v2s1a_sae now $6.06 of $7): primary 0.350 / 0.339 / 0.349
+      (R1 0.72). CT-FM consensus minus physics consensus: +0.176 / +0.246 / +0.186 (mean +0.202), >= 0.05 in every rep ('orig' rule:
+      +0.31 / +0.31 / +0.29). Consensus adds nothing on physics features (single physics SAE 0.34-0.36); on CT-FM it adds 0.40 -> 0.55.
+    - Nonnegative DL, rep 0: dl_nn_A1024_k6 0.063, dl_nn_A2048_k6 0.033, dl_nn_A1024_k27 0.002 (signed: 0.046 / 0.019 / 0.014).
+      Re-selection: dl_nn_A1024_k6 -> reps 1-2: 0.063 / 0.046 / 0.038 (mean 0.049; signed rep 0.032), R1 0.00-0.01 in every row.
+      Nonnegativity raised median twin score and perturbation r (A1024 k6: t 0.13 -> 0.26, r_pert 0.19 -> 0.37) but not to SAE level.
+      G1-main re-read with the M7 DL representative: unchanged (DL is not the strongest baseline in any rep), PASS.
+    - Label-free coding diagnostic (`v2_ct/s1a_dl_diag.py`, results/s1a_dl_diag.json; rep 0 half-A vs half-B dictionaries, 20k tokens):
+      the two halves' dictionaries agree (median max cosine 0.84 / 0.82 / 0.75; share >= 0.7: 0.82 / 0.77 / 0.59), and OMP codes are
+      stable under small input noise for k 6 (median r 0.93 / 0.91), but OMP codes do not match between halves (twin share >= 0.7:
+      0.003 / 0.005 / 0.001). On the same dictionaries, top-k thresholding of ReLU(D(x - b)) gives twin share 0.17 / 0.13 / 0.32 (about the
+      SAE's R1 0.20; it does not reconstruct, so it is a probe, not a method). Reading: greedy OMP on correlated atoms turns small
+      dictionary differences into different supports; the DL's instability is in the coding step, not in the dictionary. Exploratory.
