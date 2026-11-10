@@ -566,3 +566,25 @@ Progress (2026-11-09):
   - one fold, post hoc;
   - which checkpoint produced the isotropic table, and whether anything was tuned on fold 4, must be confirmed from the user's code.
 - **Context:** the user shared a review of Gemini's suggestions; the assessment was given in chat (no protocol change).
+
+## 2026-11-11: the user's newer model (repo shforgh02/prostate-bpmri-cade; Modal account forghanishayan, read-only)
+- **The repo:**
+  - preprocessing: 1 mm isotropic; T2W z-scored in the prostate; ADC and DWI divided by their 99th percentile in the prostate;
+  - SegResNet design: 3 inputs, init 32, blocks (1, 2, 2, 4), dropout 0.2, instance norm;
+  - loss: 0.5 Dice + 0.5 Focal; folds 0-2 train, 3 validation, 4 test;
+  - the UCLA external pipeline.
+- **Missing from the repo:** the training loop and the PI-CAI scoring step.
+- **Found in `forghanishayan`, volume `picai-dataset-vol`:**
+  - `models/picai_*_new.pth`: 3 inputs, 18.8 M params, epoch 101, best validation Dice 0.504;
+  - `Phase2_Blob_Candidates_Isotropic_New.csv` (scores for folds 3 and 4 only).
+- **Recipe recovered from the checkpoint:**
+  - AdamW, weight decay 1e-4, final LR 5e-5;
+  - ReduceLROnPlateau on validation loss (factor 0.5, patience 10, min 1e-6);
+  - mixed precision; early stopping.
+  - Still unknown: starting LR, patch size, batch size, augmentation.
+- **Test fold 4:**
+  - All studies: AUROC 0.774 (the user's figure: 0.774); PI-RADS 0.857.
+  - Biopsy cohort (180 studies, 88 csPCa): 0.711 vs PI-RADS 0.707.
+  - Within-PI-RADS AUROC **0.695 [0.604, 0.780]** (PSAD 0.618).
+  - Over PI-RADS + PSAD + age: optimism-corrected 0.730 → 0.774, **+0.044** [bootstrap +0.010, +0.096]; likelihood-ratio p = 0.0001.
+  - The same finding as the older 2-input model (+0.055).
