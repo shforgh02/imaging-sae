@@ -501,3 +501,7 @@ Progress (2026-11-09):
 - **Smoke mri_m1_encode-016** (2 studies, $0.17): ok, 13.8 s per study. One feature file inspected: 873 kept cells, 200 sampled,
   R 66 columns, all arms finite with no constant columns.
 - **Full encode mri_m1_encode-017:** 4 shards in parallel, timeout 54 min, worst case $4.35 (task: 0.60 + 4.35 <= 5.00).
+  - **Done:** 753/753 dev studies, 0 errors; 14.0-14.7 s per study; ProFound cell centres all inside its field of view.
+  - One shard started late (L4 capacity queue), so the first watcher gave up after 75 min (exit 6, no harm); a second watcher collected.
+  - Cost $3.85 (189.4 container min), so task mri_m1_encode is at $4.45 of $5.00. Features (about 9 GB) downloaded to the laptop
+    (`results/prep_cache/m1_feats`, not in git).

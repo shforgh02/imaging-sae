@@ -23,6 +23,15 @@ def test_auc_weighted_equals_patient_level_mean():
     assert np.isclose(auc, 0.5), auc
 
 
+def test_fast_auc_equals_sklearn():
+    from sklearn.metrics import roc_auc_score
+    rng = np.random.default_rng(3)
+    for _ in range(20):
+        n = 500; y = rng.integers(0, 2, n); s = np.round(rng.normal(size=n) + y, 1); w = rng.random(n) * rng.integers(0, 3, n)  # ties and zero weights
+        if w[y == 1].sum() == 0 or w[y == 0].sum() == 0: continue
+        assert np.isclose(A.FastAUC(y, s)(w), roc_auc_score(y[w > 0], s[w > 0], sample_weight=w[w > 0]), atol=1e-12)
+
+
 def test_boot_delta_identical_scores_is_zero():
     rng = np.random.default_rng(0); y = rng.integers(0, 2, 400); s = rng.random(400) + y; p = np.repeat(np.arange(40), 10).astype(str)
     d, lo, hi = A.boot_delta(y, s, s, p, B=200); assert d == 0 and lo == 0 and hi == 0

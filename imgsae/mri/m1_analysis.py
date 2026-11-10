@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 
 HERE = Path(__file__).resolve().parent; RES = HERE / "results"; FEATS = RES / "prep_cache" / "m1_feats"; CACHE = RES / "m1_cache"
-COMMIT = "ce4a4723d7c46d882a6cbaacb40ed6c4be86282f"
+COMMIT = "ce4a4723d7c46d882a6cbaacb40ed6c4be86282f"; MARKSHEET_SHA = "23EAB23790886258440B4AF2842733332003F2C59F0A007B1E7B6B44572CF0AE"
 CAND = ["mricore_A", "mricore_B", "sam_A", "sam_B", "profound"]; UNEXPOSED = ["mricore_A", "mricore_B", "sam_A", "sam_B"]
 NULL = "untrained_B"; SENS = ["mricore_B_minmax", "mricore_B_noimagenet"]; B_BOOT = 2000
 GATE_R, GATE_NULL, TIE_PF = 0.03, 0.05, 0.02
@@ -28,7 +28,9 @@ def log(*a): print(*a, flush=True)
 # ------------------------------------------------------------------ data
 def marksheet():
     url = f"https://raw.githubusercontent.com/DIAGNijmegen/picai_labels/{COMMIT}/clinical_information/marksheet.csv"
-    M = pd.read_csv(io.BytesIO(urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "imgsae-m1"}), timeout=120).read()), dtype=str)
+    raw = urllib.request.urlopen(urllib.request.Request(url, headers={"User-Agent": "imgsae-m1"}), timeout=120).read()
+    if hashlib.sha256(raw).hexdigest().upper() != MARKSHEET_SHA: raise SystemExit("STOP: marksheet SHA256 differs from the pinned one")
+    M = pd.read_csv(io.BytesIO(raw), dtype=str)
     M["key"] = M.patient_id + "_" + M.study_id; return M.set_index("key")
 
 
@@ -72,10 +74,12 @@ def fit_predict(X, y, tr, te, tag):
     if p.exists(): return np.load(p)
     from sklearn.linear_model import LogisticRegression
     from sklearn.preprocessing import StandardScaler
-    Xtr = X[tr].astype(np.float32); sc = StandardScaler().fit(Xtr)
+    import time
+    t0 = time.time(); Xtr = X[tr].astype(np.float32); sc = StandardScaler().fit(Xtr)
     with warnings.catch_warnings():
         warnings.simplefilter("ignore"); m = LogisticRegression(C=1.0, class_weight="balanced", max_iter=1000).fit(sc.transform(Xtr), y[tr])
-    s = m.decision_function(sc.transform(X[te].astype(np.float32))).astype(np.float32); CACHE.mkdir(parents=True, exist_ok=True); np.save(p, s); return s
+    s = m.decision_function(sc.transform(X[te].astype(np.float32))).astype(np.float32); CACHE.mkdir(parents=True, exist_ok=True); np.save(p, s)
+    log(f"  fit {tag}: {X.shape[1]}-d, {len(tr)} train, {m.n_iter_[0]} iter, {time.time() - t0:.0f} s"); return s
 
 
 def fit_model(X, y, tr, tag):
@@ -129,14 +133,26 @@ def auc_w(y, s, w):
     return float(roc_auc_score(y, s, sample_weight=w))
 
 
+class FastAUC:
+    """weighted AUROC of a FIXED score vector under changing weights (the bootstrap only changes weights): scores ranked once,
+    ties count one half (same definition as sklearn's roc_auc_score with sample_weight; checked in the tests)."""
+    def __init__(self, y, s):
+        u, inv = np.unique(s, return_inverse=True); y = np.asarray(y).astype(bool); self.n = len(u); self.ip, self.ineg, self.y = inv[y], inv[~y], y
+
+    def __call__(self, w):
+        wp = np.bincount(self.ip, weights=w[self.y], minlength=self.n); wn = np.bincount(self.ineg, weights=w[~self.y], minlength=self.n)
+        return float((wp * (np.cumsum(wn) - 0.5 * wn)).sum() / (wp.sum() * wn.sum()))
+
+
 def boot_delta(y, sa, sb, patient, B=B_BOOT, seed=0):
     """patient-cluster bootstrap of AUROC(a) - AUROC(b) with patient weights; returns (delta, lo, hi)."""
-    w = pw_weights(patient, y); d0 = auc_w(y, sa, w) - auc_w(y, sb, w)
+    if not (np.isfinite(sa).all() and np.isfinite(sb).all()): raise ValueError("boot_delta: scores contain nan")
+    w = pw_weights(patient, y); d0 = auc_w(y, sa, w) - auc_w(y, sb, w); fa, fb = FastAUC(y, sa), FastAUC(y, sb); yb = np.asarray(y).astype(bool)
     pats, inv = np.unique(patient, return_inverse=True); rng = np.random.default_rng(seed); ds = []
     for _ in range(B):
-        cnt = np.bincount(rng.integers(0, len(pats), len(pats)), minlength=len(pats))[inv].astype(float); ww = w * cnt; m = ww > 0
-        if len(np.unique(y[m])) < 2: continue
-        ds.append(auc_w(y[m], sa[m], ww[m]) - auc_w(y[m], sb[m], ww[m]))
+        ww = w * np.bincount(rng.integers(0, len(pats), len(pats)), minlength=len(pats))[inv]
+        if ww[yb].sum() == 0 or ww[~yb].sum() == 0: continue
+        ds.append(fa(ww) - fb(ww))
     return d0, float(np.quantile(ds, .025)), float(np.quantile(ds, .975))
 
 
@@ -180,8 +196,9 @@ def main():
         sc = {a: cv_scores(X[a], y, T, inner, trp, f"nest{f}_{a}") for a in CAND + ["R"]}
         m = T.patient.isin(trp).to_numpy(); rs = rule_s(sc, y, patient, m); per_fold.append(dict(fold=f, **rs)); log(f"outer fold {f}: rule S -> {rs['chosen']} {rs['delta']}")
         tr = np.flatnonzero(T.patient.isin(trp)); te = np.flatnonzero(T.patient.isin(tep))
-        nested["chosen"][te] = fit_predict(X[rs["chosen"]], y, tr, te, f"outer{f}_{rs['chosen']}")
-        nested["R"][te] = fit_predict(X["R"], y, tr, te, f"outer{f}_R"); nested["null"][te] = fit_predict(X[NULL], y, tr, te, f"outer{f}_{NULL}")
+        # outer fold f trains on exactly the tokens of full-CV fold f (same patients, same order): the fits are shared by tag
+        nested["chosen"][te] = fit_predict(X[rs["chosen"]], y, tr, te, f"full_{rs['chosen']}_f{f}")
+        nested["R"][te] = fit_predict(X["R"], y, tr, te, f"full_R_f{f}"); nested["null"][te] = fit_predict(X[NULL], y, tr, te, f"full_{NULL}_f{f}")
     res["nested_folds"] = per_fold; gate = {}
     for name, m in (("all", np.ones(len(y), bool)), ("verified", (y == 1) | T.verified.to_numpy())):
         dR = boot_delta(y[m], nested["chosen"][m], nested["R"][m], patient[m]); dN = boot_delta(y[m], nested["chosen"][m], nested["null"][m], patient[m])
@@ -192,6 +209,8 @@ def main():
     w = pw_weights(patient, y); res["auroc_all_arms"] = {a: auc_w(y, s, w) for a, s in full.items()}
     res["selection_for_M2"] = rule_s(full, y, patient, np.ones(len(y), bool))
     res["mricore_vs_sam"] = dict(A=boot_delta(y, full["mricore_A"], full["sam_A"], patient), B=boot_delta(y, full["mricore_B"], full["sam_B"], patient))
+    res["mricore_input_sensitivity"] = {a: boot_delta(y, full[a], full["mricore_B"], patient, B=500) for a in SENS}   # side arm minus mricore_B
+    pos = T[T.y == 1].drop_duplicates("key"); res["lesion_outline_source_by_centre"] = {c: g.source.value_counts().to_dict() for c, g in pos.groupby("centre")}
     arm = res["selection_for_M2"]["chosen"]; desc = {}
     for name, m in (("zone_PZ", (T.zone == 0).to_numpy()), ("zone_TZ", (T.zone == 1).to_numpy()),
                     ("clean_normal", (y == 1) | T.clean.to_numpy()), ("verified", (y == 1) | T.verified.to_numpy()),
@@ -205,7 +224,7 @@ def main():
     for c in ("PCNN", "RUMC", "ZGT"):
         tr = np.flatnonzero((T.centre != c).to_numpy()); te = np.flatnonzero((T.centre == c).to_numpy())
         sa = fit_predict(X[arm], y, tr, te, f"loco_{c}_{arm}"); sr = fit_predict(X["R"], y, tr, te, f"loco_{c}_R")
-        loco[c] = dict(delta_chosen_vs_R=boot_delta(y[te], sa, sr, patient[te], B=500), note="ZGT positives are Pooch25 outlines only, PCNN resampled only")
+        loco[c] = dict(delta_chosen_vs_R=boot_delta(y[te], sa, sr, patient[te], B=500), lesion_outline_sources=res["lesion_outline_source_by_centre"].get(c, {}))
     res["loco"] = loco
     json.dump(res, open(RES / "m1_results.json", "w"), indent=1, default=float)          # saved before the slower patient-level step
     res["patient_level"] = patient_level([arm, "R"], X, y, T, outer, M, keys)

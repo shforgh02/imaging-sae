@@ -1,0 +1,41 @@
+{
+ "calls": [
+  {
+   "shard": 0,
+   "n_keys": 189,
+   "n_done": 189,
+   "errors": {},
+   "sec_per_study_median": 14.462424755096436,
+   "profound_outside_median": 0.0,
+   "container_min": 47.01237094799678
+  },
+  {
+   "shard": 1,
+   "n_keys": 188,
+   "n_done": 188,
+   "errors": {},
+   "sec_per_study_median": 14.138730525970459,
+   "profound_outside_median": 0.0,
+   "container_min": 46.8911535859108
+  },
+  {
+   "shard": 2,
+   "n_keys": 188,
+   "n_done": 188,
+   "errors": {},
+   "sec_per_study_median": 14.032939434051514,
+   "profound_outside_median": 0.0,
+   "container_min": 46.41318382422129
+  },
+  {
+   "shard": 3,
+   "n_keys": 188,
+   "n_done": 188,
+   "errors": {},
+   "sec_per_study_median": 14.70553433895111,
+   "profound_outside_median": 0.0,
+   "container_min": 49.05422742764155
+  }
+ ],
+ "container_min": 189.37093578577043
+}
