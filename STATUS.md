@@ -8,12 +8,16 @@
   - Primary clinical population is now the biopsy cohort (verified, PI-RADS ≥ 3: 884 studies, 467 without csPCa).
   - Equal-capacity scores against intensity and texture controls; PSAD recomputed for every study; token size by a lesion-recall rule;
     within-centre results.
-  - Waiting for the user's OK, then the token.
+  - **Revision 3 (2026-11-10): encoders changed.** The user asked why a natural-image model, and Meta rejected the DINOv3 request.
+    - ProFound (prostate MRI; saw PI-CAI images, no labels; disclosure + external test) and MRI-CORE (Duke MRI only) are the main
+      candidates; SAM ViT-B is the comparison.
+    - Two-level leak rule; common token grid; gland-only storage. No Hugging Face token needed.
+  - Waiting for the user's OK on revision 3 and the M0–M1 budget.
 - **Plan:** `docs/PLAN_PROSTATE_MRI_v1.md` (DRAFT; branch `prostate-mri-plan`). Stages:
   - M0 setup: fresh PI-CAI download, split, QC;
   - M1 "does the model know cancer?" gate;
   - M2 features; M3 clinical value; M4 readers; M5 sealed confirmation.
-- Budgets asked for M0–M1: $4.10 in caps (expected about $2). The user must accept the DINOv3 licence on Hugging Face.
+- Budgets asked for M0–M1: $6.60 in caps (expected about $4): mri_fetch $0.80, mri_prep $0.80, mri_m1_encode $5.00.
 - **PI-CAI data:** fresh download from Zenodo + `picai_labels` (user's rule: any doubt → fresh). The Modal volume `picai-dataset-vol` (another
   project) is NOT used: it holds processed images (t2_norm, adc_norm, no HBV, ai_heatmap). It was inspected read-only, by file names only.
 - **CT:** the 555 TotalSegmentator scans stay sealed. They have no tumour masks, only a scan-level "tumor" tag (136 of 555, mixed sites).

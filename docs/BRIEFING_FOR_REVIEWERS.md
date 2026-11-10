@@ -59,9 +59,11 @@
 - Split 50/50 by patient; one half is sealed.
 
 **Models:**
-- DINOv3 ViT-L/16, which is leak-free;
-- possibly MRI-CORE.
-- ProFound and Triad are excluded, because they were trained on PI-CAI or ProstateX. PI-CAI contains 328 ProstateX cases.
+- **ProFound,** a 3D prostate MRI model. It saw the PI-CAI images during self-supervised pretraining, but no labels. That is allowed with disclosure, but needs an external test cohort.
+- **MRI-CORE,** a general MRI model trained on Duke data only. It never saw PI-CAI.
+- **SAM ViT-B,** MRI-CORE's natural-image starting point. It is the comparison that shows what MRI training adds.
+- **DINOv3** was dropped: Meta rejected the access request. **Triad** is the fallback if ProFound cannot be used.
+- See plan revision 3, §3.1 (two-level leak rule).
 
 **Stages.** Each has a gate fixed before it runs:
 
@@ -76,13 +78,13 @@
 
 **Not claimed:** AI benchmark accuracy. The PI-CAI organisers note that the public set is convenience-sampled.
 
-**Cost:** about $2 for M0–M1 (caps $4.10). The whole plan takes about 3–5 weeks.
+**Cost:** about $4 for M0–M1 (caps $6.60). The whole plan takes about 3–5 weeks.
 
 ## 5. What we would like you to review
 1. **The M1 gate.** Is "beat the intensity reference by ≥ 0.03 AUROC at token level" the right go/no-go? Is the reference fair: T2W, ADC and HBV histograms, mean ADC, 3 × 3 context, position in the gland?
 2. **The M2 validity rule for a lesion feature:** held-out AUROC ≥ 0.80, r_pert ≥ 0.70, twin score ≥ 0.70, shortcut AUROC < 0.80, and ≥ 0.02 over the reference. Too strict, or too loose?
 3. **M3 clinical models:** the endpoint (csPCa, ISUP ≥ 2), the baselines (PSAD + age + volume; then + PI-RADS), and the rule for missing PI-RADS.
-4. **Encoders:** any other leak-free MRI foundation model we should test in M1?
+4. **Encoders:** is the two-level leak rule right (label exposure excludes; image exposure is disclosed and needs an external test)? Is there any other MRI foundation model we should test in M1?
 5. **Preprocessing:** token size, crop size, intensity scaling, and the MRI perturbations used for stability.
 6. **External validation later:** which cohort, given that ProstateX overlaps PI-CAI?
 7. **Anything we missed,** especially any comparison that is not like for like (§2 shows why we now check this).

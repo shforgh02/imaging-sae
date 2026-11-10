@@ -364,3 +364,24 @@ Progress (2026-11-09):
   - R3c made into a token-size rule;
   - a power statement for M5 (about 0.04 AUROC detectable).
 - Reply: `docs/RESPONSE_REVIEW_PLAN_PROSTATE_MRI_v1.md`. Briefing wording fixed (ICA reproducibility).
+
+## 2026-11-10: MRI plan revision 3 (encoders)
+- The user questioned DINOv3 (a natural-image model) as the main encoder. The user's Hugging Face request for DINOv3 was rejected by
+  Meta (status "rejected", 2026-11-10). DINOv3 is removed; no attempt is made to obtain it another way.
+- My error, corrected: revision 1/2 applied the v1 rule "the encoder must never have seen PI-CAI" without separating label exposure from
+  self-supervised image exposure. That excluded the prostate-MRI models.
+  - New two-level rule: label exposure excludes. Image exposure (self-supervised, no labels) is allowed with disclosure plus an external
+    test on a cohort the encoder never saw.
+- Checked at the sources (web):
+  - ProFound: 3D MAE, no labels in pretraining as described; PI-CAI 1,500 + TCIA 863 + ReIMAGINE 491 + private 2,146; T2W/HBV/ADC
+    3-channel, 1 mm isotropic. Code Apache 2.0, weights on a UCL OneDrive link with no stated licence; feature-extraction code "ongoing".
+  - MRI-CORE: SAM ViT-B + DINOv2 on Duke-110K (Duke only; prostate coverage not stated); Apache 2.0; Google Drive weights;
+    `model.image_encoder` on 3 x 1024 x 1024 in [0, 1].
+  - SAM ViT-B: Apache 2.0, public checkpoint. It is the natural-image comparison (MRI-CORE's initialisation).
+  - Prostate158: 139 public cases, Charité; licence to check in M0.
+- Design fixes found while revising:
+  - all encoders are compared on one common token grid (feature maps differ: 64 x 64 per slice vs 3D patches);
+  - features are stored for gland tokens only (full slices would need hundreds of GB);
+  - probe samples are capped at 200 normal tokens per study;
+  - encode budget raised to $5.00 (about 135k slice images), with a 10-study benchmark first.
+- No Hugging Face token needed. Nothing run, nothing downloaded.
