@@ -408,3 +408,15 @@ Progress (2026-11-09):
   - T3: the concern is adopted, but the fix is nested cross-validation instead of a 3/2 fold split (the split would leave about 85
     positive studies for the gate).
 - Reply: `docs/RESPONSE_REVIEW3_PLAN_PROSTATE_MRI_v1.md`. Nothing run.
+
+## 2026-11-10: MRI M0 started (user: "OK" to revision 4 and the M0-M1 budgets)
+- Ledger: new tasks mri_fetch $0.80, mri_prep $0.80, mri_m1_encode $5.00 (account shforghani2002; $7.74 committed before, month
+  billing $3.20).
+- Protocol `docs/MRI_M0M1_PROTOCOL.md`, fixed before running. Two engineering refinements made before any run, no change in rules:
+  - one-step resampling onto the final grid (avoids interpolating ADC/HBV twice);
+  - the prep job is split into a 5-study smoke run (15 min) and a full run (60 min), so both fit the $0.80 cap.
+- Code `imgsae/mri/`; unit tests on synthetic data 7/7 pass.
+- Split (M0.1) from the marksheet only (SHA256 checked):
+  - 738 dev / 738 sealed patients; 754 dev / 746 sealed studies; strata balanced (difference <= 1);
+  - 438 dev biopsy-cohort studies;
+  - `split.json` SHA256 4211975b...; committed before any image download.

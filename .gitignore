@@ -9,6 +9,8 @@ imgsae/exploratory/p1b_sanity/cloud/stage/
 imgsae/exploratory/p1b_sanity/results/a1_cache_full/
 imgsae/exploratory/p1b_sanity/results/a1_cache_quick/
 imgsae/logs/mac_m5/lz/
+imgsae/mri/results/qc/
+imgsae/mri/results/prep_cache/
 *.npz
 *.npy
 *.pt

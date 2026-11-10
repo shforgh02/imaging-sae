@@ -7,11 +7,15 @@
   "stageC_fit": 0.0,
   "stageD_dinov3": 0.0,
   "reserve": 6.0,
-  "v2s1a_sae": 7.0
+  "v2s1a_sae": 7.0,
+  "mri_fetch": 0.8,
+  "mri_prep": 0.8,
+  "mri_m1_encode": 5.0
  },
  "budget_notes": {
   "stageC_encode, stageC_fit, stageD_dinov3": "Phase 1b Stage C/D superseded by plan v2 and Stage 1a (2026-11-09); never used; set to 0",
-  "v2s1a_sae": "Stage 1a SAE rows (docs/STAGE1A_PROTOCOL.md section 7): 9 single jobs + 3 consensus jobs on L4, expected about $2.5. Raised $5 -> $7 with the user's OK (2026-11-09 evening) to rerun the 3 consensus jobs lost when the local client was stopped"
+  "v2s1a_sae": "Stage 1a SAE rows (docs/STAGE1A_PROTOCOL.md section 7): 9 single jobs + 3 consensus jobs on L4, expected about $2.5. Raised $5 -> $7 with the user's OK (2026-11-09 evening) to rerun the 3 consensus jobs lost when the local client was stopped",
+  "mri_fetch, mri_prep, mri_m1_encode": "Prostate MRI plan revision 4 (docs/PLAN_PROSTATE_MRI_v1.md section 6), approved by the user 2026-11-10 ('OK'): PI-CAI fetch $0.80, dev-half preprocessing $0.80, M0 encoder checks + M1 encodes $5.00 (M0-M1 caps $6.60)"
  },
  "runs": [
   {
@@ -301,6 +305,12 @@
   },
   {
    "time": "2026-11-10T03:35:45",
+   "month_used_usd": 3.2005,
+   "open_worst_usd": 0,
+   "project_committed_usd": 7.7387
+  },
+  {
+   "time": "2026-11-10T13:57:00",
    "month_used_usd": 3.2005,
    "open_worst_usd": 0,
    "project_committed_usd": 7.7387

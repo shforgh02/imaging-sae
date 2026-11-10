@@ -2,7 +2,13 @@
 
 **Updated:** 2026-11-10 · **Phase:** clinical leg, prostate MRI (PI-CAI): plan drafted, nothing run · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
-**Now (2026-11-10):** **CT confirmation STOPPED by the user's decision (goal = a clinical finding, not a methods result). Next: prostate MRI.**
+**Now (2026-11-10):** **Prostate MRI M0 running.** The user approved plan revision 4 and the M0–M1 budgets ("OK").
+- Protocol `docs/MRI_M0M1_PROTOCOL.md`, fixed before running. Code `imgsae/mri/`.
+- Split done (`imgsae/mri/data/split.json`, SHA256 in `data/SHA256SUMS`): 738 / 738 patients, 754 dev / 746 sealed studies, 438 dev
+  biopsy-cohort studies.
+- Next: fetch (Modal, `mri_fetch`), then dev preprocessing + QC (`mri_prep`), then encoder checks; then stop for the user's review of the QC.
+
+**Earlier (2026-11-10):** CT confirmation STOPPED by the user's decision (goal = a clinical finding, not a methods result).
 - **Plan revision 2 (2026-11-10)**, after the colleague review (`docs/REVIEW_PLAN_PROSTATE_MRI_v1.md`, R1–R6, all facts recomputed:
   `docs/RESPONSE_REVIEW_PLAN_PROSTATE_MRI_v1.md`).
   - Primary clinical population is now the biopsy cohort (verified, PI-RADS ≥ 3: 884 studies, 467 without csPCa).
