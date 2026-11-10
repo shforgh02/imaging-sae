@@ -1,0 +1,12 @@
+{
+ "rid": "mri_m1_encode-015",
+ "task": "mri_m1_encode",
+ "app": "imgsae-mri-m0-encoders",
+ "job": "m0_encoder_check",
+ "call_id": "fc-01M72MJ6SEE5QXB19C0MNDVPAG",
+ "rate_h": 1.1172,
+ "timeout_min": 30,
+ "worst_usd": 0.71446,
+ "launched": "2026-11-10T15:17:46",
+ "result_name": "m0_encoders"
+}

@@ -36,36 +36,24 @@
   "10364_1000370"
  ],
  "mricore_check": {
-  "checkpoint_top_keys": [
-   "teacher"
-  ],
-  "n_encoder_tensors": 153,
-  "missing_in_checkpoint": [
-   "blocks.0.norm1.weight",
-   "blocks.0.norm1.bias",
-   "blocks.0.attn.qkv.weight",
-   "blocks.0.attn.qkv.bias",
-   "blocks.0.attn.proj.weight",
-   "blocks.0.attn.proj.bias",
-   "blocks.0.norm2.weight",
-   "blocks.0.norm2.bias",
-   "blocks.0.mlp.lin1.weight",
-   "blocks.0.mlp.lin1.bias",
-   "blocks.0.mlp.lin2.weight",
-   "blocks.0.mlp.lin2.bias",
-   "blocks.1.norm1.weight",
-   "blocks.1.norm1.bias",
-   "blocks.1.attn.qkv.weight",
-   "blocks.1.attn.qkv.bias",
-   "blocks.1.attn.proj.weight",
-   "blocks.1.attn.proj.bias",
-   "blocks.1.norm2.weight",
-   "blocks.1.norm2.bias"
-  ],
-  "n_missing": 150,
+  "checkpoint": "DINOv2 teacher ViT-B/16",
+  "n_backbone_tensors": 150,
+  "n_model_tensors": 150,
+  "strict_load": "<All keys matched successfully>",
   "n_not_equal": 0,
-  "not_equal": [],
-  "usable": false
+  "dropped": [
+   "backbone.mask_token",
+   "dino_head.last_layer.weight_g",
+   "dino_head.last_layer.weight_v",
+   "dino_head.mlp.0.bias",
+   "dino_head.mlp.0.weight",
+   "dino_head.mlp.2.bias",
+   "dino_head.mlp.2.weight",
+   "dino_head.mlp.4.bias",
+   "dino_head.mlp.4.weight"
+  ],
+  "input": "480 px, ImageNet mean/std (DINOv2 default)",
+  "usable": true
  },
  "sam_check": {
   "loaded": "official strict loader",
@@ -80,64 +68,40 @@
    "scaler"
   ],
   "epoch": 799,
-  "args": {
-   "batch_size": "4",
-   "epochs": "800",
-   "accum_iter": "1",
-   "root": "/SAN/medic/foundation/mae_train_data",
-   "model": "convnext",
-   "input_size": "(64, 224, 224)",
-   "mask_ratio": "0.6",
-   "norm_pix_loss": "True",
-   "crop_spatial_size": "(64, 224, 224)",
-   "weight_decay": "0.05",
-   "lr": "0.001",
-   "blr": "0.001",
-   "min_lr": "0.0",
-   "warmup_epochs": "40",
-   "output_dir": "output_mae_b16/out_mae_b2/convnext_1e3",
-   "log_dir": "output_mae_b16/out_mae_b2/convnext_1e3",
-   "dataset_csv": "./spilt/pretrain/pre-train.csv",
-   "device": "cuda",
-   "seed": "0",
-   "resume": "/SAN/medic/prostate_segmentation/mae/output_mae_b16/out_mae_b2/convnext_1e3/checkpoint-80.pth",
-   "start_epoch": "81",
-   "num_workers": "8",
-   "pin_mem": "True",
-   "world_size": "1",
-   "local_rank": "-1",
-   "dist_on_itp": "False",
-   "dist_url": "env://"
-  },
-  "n_tensors": 211,
-  "patch_embed": [],
-  "variant": "conv_or_other",
-  "usable": false,
-  "note": "not the ViT variant: the Conv code path is written only after inspecting this checkpoint"
+  "model": "convnext",
+  "input_size": "(64, 224, 224)",
+  "mask_ratio": 0.6,
+  "missing": [
+   "norm.weight",
+   "norm.bias"
+  ],
+  "unexpected": [],
+  "n_unexpected": 0,
+  "usable": true
  },
  "bench": {
   "mricore_A": {
    "shape": [
     15,
-    768,
-    64,
-    64
+    2304,
+    30,
+    30
    ],
    "finite": true,
    "const_channels": 0,
-   "sec_per_study_median": 4.236134886741638,
+   "sec_per_study_median": 0.3203164339065552,
    "n": 10
   },
   "mricore_B": {
    "shape": [
     15,
-    256,
-    64,
-    64
+    768,
+    30,
+    30
    ],
    "finite": true,
    "const_channels": 0,
-   "sec_per_study_median": 1.417405128479004,
+   "sec_per_study_median": 0.10379719734191895,
    "n": 10
   },
   "sam_A": {
@@ -149,7 +113,7 @@
    ],
    "finite": true,
    "const_channels": 0,
-   "sec_per_study_median": 5.792429804801941,
+   "sec_per_study_median": 6.122833847999573,
    "n": 10
   },
   "sam_B": {
@@ -161,7 +125,7 @@
    ],
    "finite": true,
    "const_channels": 0,
-   "sec_per_study_median": 1.9307936429977417,
+   "sec_per_study_median": 2.0390021800994873,
    "n": 10
   },
   "untrained_B": {
@@ -173,69 +137,55 @@
    ],
    "finite": true,
    "const_channels": 0,
-   "sec_per_study_median": 1.9297021627426147,
+   "sec_per_study_median": 2.0365140438079834,
    "n": 10
   },
   "profound": {
-   "shape": null,
+   "shape": [
+    1,
+    96,
+    16,
+    56,
+    56
+   ],
    "finite": true,
    "const_channels": 0,
-   "sec_per_study_median": null,
-   "n": 0
+   "stage_shapes": [
+    [
+     1,
+     96,
+     16,
+     56,
+     56
+    ],
+    [
+     1,
+     192,
+     8,
+     28,
+     28
+    ],
+    [
+     1,
+     384,
+     4,
+     14,
+     14
+    ],
+    [
+     1,
+     768,
+     4,
+     14,
+     14
+    ]
+   ],
+   "repeat_max_diff": 0.0,
+   "sec_per_study_median": 0.03358018398284912,
+   "n": 10
   }
  },
- "mricore_vs_sam": [
-  {
-   "key": "10003_1000003",
-   "mean_abs_diff": 0.8154308795928955,
-   "corr": -0.019844071939587593
-  },
-  {
-   "key": "10038_1000038",
-   "mean_abs_diff": 0.8156571984291077,
-   "corr": -0.021843580529093742
-  },
-  {
-   "key": "10070_1000070",
-   "mean_abs_diff": 0.8196653127670288,
-   "corr": -0.019313091412186623
-  },
-  {
-   "key": "10094_1000094",
-   "mean_abs_diff": 0.8202812075614929,
-   "corr": -0.02008477970957756
-  },
-  {
-   "key": "10104_1000104",
-   "mean_abs_diff": 0.8194085955619812,
-   "corr": -0.022604219615459442
-  },
-  {
-   "key": "10140_1000142",
-   "mean_abs_diff": 0.8199617266654968,
-   "corr": -0.02184671349823475
-  },
-  {
-   "key": "10158_1000161",
-   "mean_abs_diff": 0.8146899342536926,
-   "corr": -0.017221085727214813
-  },
-  {
-   "key": "10219_1000223",
-   "mean_abs_diff": 0.816411018371582,
-   "corr": -0.024223214015364647
-  },
-  {
-   "key": "10318_1000324",
-   "mean_abs_diff": 0.8210536241531372,
-   "corr": -0.020100001245737076
-  },
-  {
-   "key": "10364_1000370",
-   "mean_abs_diff": 0.8210086822509766,
-   "corr": -0.018671689555048943
-  }
- ],
- "peak_gpu_gb": 13.344446976,
- "container_min": 4.16828453540802
+ "mricore_vs_sam": [],
+ "peak_gpu_gb": 13.106449408,
+ "container_min": 2.228409934043884
 }

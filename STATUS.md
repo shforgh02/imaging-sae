@@ -2,11 +2,21 @@
 
 **Updated:** 2026-11-10 · **Phase:** clinical leg, prostate MRI (PI-CAI): plan drafted, nothing run · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
-**Now (2026-11-10):** **Prostate MRI M0 running.** The user approved plan revision 4 and the M0–M1 budgets ("OK").
-- Protocol `docs/MRI_M0M1_PROTOCOL.md`, fixed before running. Code `imgsae/mri/`.
-- Split done (`imgsae/mri/data/split.json`, SHA256 in `data/SHA256SUMS`): 738 / 738 patients, 754 dev / 746 sealed studies, 438 dev
-  biopsy-cohort studies.
-- Next: fetch (Modal, `mri_fetch`), then dev preprocessing + QC (`mri_prep`), then encoder checks; then stop for the user's review of the QC.
+**Now (2026-11-10):** **Prostate MRI M0 DONE, waiting for the user's review before M1.** Results `imgsae/mri/RESULTS_M0.md`.
+- **Data:** split 738/738 patients; fetch MD5-checked (26.9 GB); dev prep 754/754; 1 study excluded by the label-blind QC (11050_1001070,
+  README-documented faulty gland mask); 753 dev studies used, 212 positive.
+- **Decisions:**
+  - ADC units ok;
+  - **token size 4 mm**;
+  - **outline difference material** (RUMC Pooch25/resampled volume ratio 0.60): cross-centre token results are annotation-dependent,
+    and the clinical claim rests on patient-level M3.
+- **Encoders, all usable after the fixes:**
+  - MRI-CORE runs as its trained DINOv2 ViT-B/16 (the repo loader would use a random neck and drop the position embedding);
+  - ProFound-alpha is the ConvNeXt variant (stage 0, 4 mm);
+  - SAM via the official loader; untrained null.
+- **MRI Modal spend:** $1.10 (fetch 0.37, prep 0.30, encode 0.43). M1 encodes are projected at about $3.0–3.5, inside the encode cap
+  ($4.57 left).
+- **Next:** the user reviews M0 (QC decisions, the materiality consequence, the encoder corrections), then says go for M1.
 
 **Earlier (2026-11-10):** CT confirmation STOPPED by the user's decision (goal = a clinical finding, not a methods result).
 - **Plan revision 2 (2026-11-10)**, after the colleague review (`docs/REVIEW_PLAN_PROSTATE_MRI_v1.md`, R1–R6, all facts recomputed:

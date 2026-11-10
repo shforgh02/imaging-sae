@@ -128,6 +128,18 @@ def main():
     L += ["", "## T2W geometry", f"- In-plane spacing median {g['inplane_mm_median']:.3f} mm (range {g['inplane_mm_range']}); slice spacing median "
           f"{g['slice_mm_median']:.2f} mm (range {g['slice_mm_range']}); crop slices median {g['crop_slices_median']:.0f} (range {g['crop_slices_range']})."]
     if P["errors"]: L += ["", "## Errors", ""] + [f"- {k}: {v}" for k, v in sorted(P["errors"].items())]
+    if (RES / "m0_encoders.json").exists():
+        E = json.load(open(RES / "m0_encoders.json"))
+        L += ["", "## Encoders (M0.5)", f"- {E['gpu']}, torch {E['torch']}; benchmark on {len(E['bench_keys'])} dev studies; commits {E['commits']}.",
+              f"- MRI-CORE: {E['mricore_check'].get('checkpoint')}; {E['mricore_check'].get('n_backbone_tensors')} / {E['mricore_check'].get('n_model_tensors')} tensors, "
+              f"{E['mricore_check'].get('strict_load')}, not equal: {E['mricore_check'].get('n_not_equal')}; input {E['mricore_check'].get('input')}; usable **{E['mricore_check'].get('usable')}**.",
+              f"- SAM ViT-B: {E['sam_check']}.",
+              f"- ProFound: model {E['profound_check'].get('model')}, input {E['profound_check'].get('input_size')}, epoch {E['profound_check'].get('epoch')}; missing "
+              f"{E['profound_check'].get('missing')}, unexpected {E['profound_check'].get('n_unexpected')}; usable **{E['profound_check'].get('usable')}**.",
+              "- Weights SHA256: " + "; ".join(f"{k} {v.get('sha256', v.get('error'))}" for k, v in E["weights"].items()) + ".", "",
+              "| Arm | Output shape (per study) | Finite | Constant channels | Seconds per study (median) |", "|---|---|---|---|---|"]
+        for k, b in E["bench"].items():
+            L.append(f"| {k} | {b.get('shape')} | {b.get('finite')} | {b.get('const_channels')} | {b.get('sec_per_study_median') or 0:.2f} |")
     (HERE / "RESULTS_M0.md").write_text("\n".join(L) + "\n", encoding="utf-8"); print("\n".join(L))
 
 

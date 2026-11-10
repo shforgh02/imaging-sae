@@ -309,6 +309,26 @@
    "closed": "2026-11-10T15:11:20",
    "measured_usd": 0.2335,
    "note": "collected; container 4.2 min"
+  },
+  {
+   "id": "mri_m1_encode-015",
+   "task": "mri_m1_encode",
+   "opened": "2026-11-10T15:17:46",
+   "worst_usd": 0.7145,
+   "info": {
+    "app": "imgsae-mri-m0-encoders",
+    "jobs": [
+     "m0_encoder_check"
+    ],
+    "timeout_min": 30,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-10T15:40:57",
+   "measured_usd": 0.1974,
+   "note": "collected; container 2.2 min"
   }
  ],
  "checks": [
@@ -443,6 +463,12 @@
    "month_used_usd": 3.4346,
    "open_worst_usd": 0,
    "project_committed_usd": 8.4072
+  },
+  {
+   "time": "2026-11-10T15:17:46",
+   "month_used_usd": 3.555,
+   "open_worst_usd": 0,
+   "project_committed_usd": 8.6407
   }
  ]
 }

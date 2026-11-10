@@ -462,3 +462,27 @@ Progress (2026-11-09):
 - QC images (random 20 with lesion outlines): the outlines sit on low ADC / high HBV, and ADC/HBV are aligned with T2W after resampling.
 - **Encoder check** (M0.5): the first build failed on a dependency conflict (monai 1.5.0 needs torch < 2.7; no cost, the build failed
   before launch). Changed to torch 2.6.0 / torchvision 0.21.0, ProFound's documented environment. Launched mri_m1_encode-014.
+- **Encoder check 1** (mri_m1_encode-014, $0.23): SAM ok. MRI-CORE: 150 of 153 encoder tensors were not matched by my check. ProFound:
+  the checkpoint is not the ViT. Both were investigated from the checkpoints (torch safe loader, weights_only=True) and the repo code:
+  - **MRI-CORE's checkpoint** is a DINOv2 teacher ViT-B/16: cls token, pos embed (1, 197, 768) = 14x14 at 224 px, final norm, chunked
+    blocks, no layer scale, no SAM neck, plus dino_head.
+  - The repo's SAM-shaped loader (`build_sam.py`) would therefore:
+    - (a) run the features through a randomly initialised neck (no neck weights in the checkpoint);
+    - (b) drop the trained position embedding: it stores it under the original key `backbone.pos_embed`, not `image_encoder.pos_embed`,
+      and `strict=False` hides this;
+    - (c) use windowed attention at 1024 px.
+  - **Fix:** a timm ViT-B/16 loaded strictly with the 150 backbone tensors; 480 px input, so 30x30 tokens = exactly 4 mm on the 120 mm
+    crop; ImageNet normalisation (DINOv2 default; MRI-CORE's training config is not released; [0, 1] input becomes a descriptive
+    sensitivity analysis).
+  - **ProFound-alpha** (checkpoint-799): args model=convnext, input (64, 224, 224), mask ratio 0.6, norm_pix_loss, epoch 799. FCMAE
+    ConvNeXtV2-tiny 3D with sparse kernels. Built with its own `convnextv2_tiny` + `remap_checkpoint_keys`. Stage 0 (stride 4, 96-d)
+    per the protocol rule; input = the centre 64x224x224 of our 1 mm grid.
+  - Protocol section 5 and the M1 arm list updated (dated, before M1).
+- **Encoder check 2** (mri_m1_encode-015, $0.20): **all usable.**
+  - MRI-CORE: 150/150 tensors, strict "All keys matched", 0 not equal; only mask_token and dino_head dropped.
+  - ProFound: only the final norm missing, 0 unexpected, deterministic.
+  - SAM: strict.
+  - All features finite, 0 constant channels.
+  - Seconds per study: MRI-CORE A/B 0.32/0.10, SAM A/B 6.12/2.04, untrained 2.04, ProFound 0.03.
+  - Weights SHA256 recorded in `RESULTS_M0.md`.
+- **M0 DONE.** MRI Modal spend $1.10 (fetch 0.37, prep 0.30, encode 0.43). Stopped for the user's review before M1.
