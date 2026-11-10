@@ -1,18 +1,31 @@
 # Imaging SAE — status and handover
 
-**Updated:** 2026-11-10 04:00 · **Phase:** v2, Stage 1a done (exploratory); earlier Phase 1 (7-day feasibility, `docs/IMAGING_SAE_LEAN_v1.md`) · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
+**Updated:** 2026-11-10 · **Phase:** clinical leg, prostate MRI (PI-CAI): plan drafted, nothing run · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
-**State in one line:** Phase 1 DONE (verdict **NO-GO**, memo `docs/DECISION_MEMO_P1.md`). Exploratory checks done (`imgsae/exploratory/p1_checks/README.md`): NO-GO stands.
-**Now (2026-11-10):** **Stage 1a DONE, gate G1 PASSED, both post-G1 fixes done; waiting for the user's decision.** Protocol `docs/STAGE1A_PROTOCOL.md` (colleague review of plan v2, adopted with amendments; G1 fixed before running). Results `imgsae/exploratory/v2_ct/RESULTS_S1A.md`.
+**Now (2026-11-10):** **CT confirmation STOPPED by the user's decision (goal = a clinical finding, not a methods result). Next: prostate MRI.**
+- **Plan:** `docs/PLAN_PROSTATE_MRI_v1.md` (DRAFT, waiting for the user's and the colleague's review; branch `prostate-mri-plan`). Stages:
+  - M0 setup: fresh PI-CAI download, split, QC;
+  - M1 "does the model know cancer?" gate;
+  - M2 features; M3 clinical value; M4 readers; M5 sealed confirmation.
+- Budgets asked for M0–M1: $4.10 in caps (expected about $2). The user must accept the DINOv3 licence on Hugging Face.
+- **PI-CAI data:** fresh download from Zenodo + `picai_labels` (user's rule: any doubt → fresh). The Modal volume `picai-dataset-vol` (another
+  project) is NOT used: it holds processed images (t2_norm, adc_norm, no HBV, ai_heatmap). It was inspected read-only, by file names only.
+- **CT:** the 555 TotalSegmentator scans stay sealed. They have no tumour masks, only a scan-level "tumor" tag (136 of 555, mixed sites).
+  CT protocol revision 2 is archived unregistered on branch `protocol-v2-review`. Stage 1a is kept as method evidence.
+
+**State in one line (history):** Phase 1 DONE (verdict **NO-GO**, memo `docs/DECISION_MEMO_P1.md`). Exploratory checks done (`imgsae/exploratory/p1_checks/README.md`): NO-GO stands.
+**Stage 1a (2026-11-10):** DONE, gate G1 PASSED, both post-G1 fixes done. Protocol `docs/STAGE1A_PROTOCOL.md` (colleague review of plan v2, adopted with amendments; G1 fixed before running). Results `imgsae/exploratory/v2_ct/RESULTS_S1A.md`.
 - G1-cal pass: the supervised reference (oracle) covers 21.7 of 32 concepts at C(0.7).
 - G1-main pass: SAE consensus beats the best equally tuned baseline (k-means / ICA) by +0.22 / +0.30 / +0.24 (mean +0.25); it reaches 86–94% of the oracle.
+  **Correction (colleague review, 2026-11-10):** this is inflated. The consensus (~400 features) escapes the 425-feature subsampling.
+  Like for like (single SAE vs best single baseline), the gain is +0.090 / +0.122 / +0.100 (mean +0.104), and G1 still passes.
 - Flags: the physics-feature SAE comes close on organ concepts; no SAE advantage on vertebral level at k = 1.
 - **Post-G1 checks done (2026-11-10, user: "do the two fixes"; sensitivity only, G1 stands; RESULTS_S1A.md checks 1–2, EXECUTION_LOG):**
   - Physics-feature SAE consensus 0.35 / 0.34 / 0.35; CT-FM consensus beats it by +0.18 / +0.25 / +0.19 (≥ 0.05 in every rep).
   - Nonnegative DL (deviation M7): 0.063 / 0.046 / 0.038, still far below k-means / ICA; G1-main unchanged. A label-free check shows the
     two halves' dictionaries agree but the OMP codes don't: the instability is in the coding step.
 - Open: Q1 (keep "beyond physics" in the gates / headline?) and the freeze decision. Code `imgsae/exploratory/v2_ct/`; Modal task v2s1a_sae $6.06 of $7.
-- **Step 2 (review order): protocol revision 2 written 2026-11-10, waiting for the user's review** (branch `protocol-v2-review`):
+- **CT confirmation protocol, revision 2 (2026-11-10): ARCHIVED, stopped by the user before registration** (branch `protocol-v2-review`):
   `docs/SAE_PROTOCOL_v2.md` (DRAFT, not registered, nothing run). It adopts the colleague's review `docs/REVIEW_PROTOCOL_v2.md` with
   refinements; the reply is `docs/RESPONSE_REVIEW_PROTOCOL_v2.md`.
   - Family {H2, H3, H1}, m = 3: H2 single SAE vs best single baseline (dev +0.104); H3 consensus non-inferior at all features + R1;

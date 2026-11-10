@@ -324,3 +324,21 @@ Progress (2026-11-09):
     twin score counted as 0. K3 adds a centred smoothing control (1/8, 3/4, 1/8), because the review's 2 x 2 control is half a token off centre.
   - Physics consensus dropped from the confirmation; the physics single SAE runs (descriptive). Modal estimate about $15.7, caps $22.00.
 - Nothing run on Modal; the sealed scans were not touched. Open for the lead: D3-D8 and the budgets.
+
+## 2026-11-10: CT confirmation stopped; clinical leg (prostate MRI) planned
+- User's decision: the project's goal is a clinical finding (e.g. an SAE feature for cancer), not a methods result. The CT confirmation
+  (SAE_PROTOCOL_v2) is stopped, unregistered. The 555 TotalSegmentator scans stay sealed.
+- Reason, checked from the metadata only (no scan opened): TotalSegmentator has no tumour masks, only a scan-level "pathology" tag
+  ("tumor": 32 of 150 dev, 136 of 555 sealed, at many sites). CT-FM's Phase 1 scan-level tumour probe: AUROC 0.53 (reference 0.70, n = 75).
+  Kidney cysts (the only lesion masks) have core tokens in 5 dev patients and are not eligible.
+- PI-CAI data: the user allowed the Modal volume `picai-dataset-vol` (another project) only if certainly unaltered. It was inspected
+  read-only, by file names only, and is NOT used: 1,500 sessions with `t2_norm`, `adc_norm`, `prostate_mask`, `target_1_mask` and
+  `ai_heatmap` files. The intensities are normalised and HBV is missing. The plan uses a fresh download (Zenodo 10.5281/zenodo.6624726 +
+  `picai_labels` at a pinned commit). Zenodo did not answer from the laptop (SSL errors), so the fetch will run on Modal.
+- Checked for the plan (web):
+  - `picai_labels`: expert csPCa labels for all 1,500 studies (`human_expert/resampled` 1,295 incl. 220 positives + `Pooch25` 205
+    positives); the clinical sheet includes `lesion_PIRADS`; CC BY-NC 4.0; 328 ProstateX cases inside PI-CAI; a 2026 note says the
+    public set is convenience-sampled and not for AI benchmarking.
+  - Encoders: ProFound (pretrained on PI-CAI) and Triad (PI-CAI + ProstateX) are excluded as leaks. DINOv3 ViT-L/16 is leak-free
+    (gated licence). MRI-CORE is a candidate pending a leak and weights check.
+- Plan written: `docs/PLAN_PROSTATE_MRI_v1.md` (DRAFT). Nothing run, nothing downloaded. Budgets asked for M0-M1: $4.10 in caps.
