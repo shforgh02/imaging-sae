@@ -588,3 +588,19 @@ Progress (2026-11-09):
   - Within-PI-RADS AUROC **0.695 [0.604, 0.780]** (PSAD 0.618).
   - Over PI-RADS + PSAD + age: optimism-corrected 0.730 → 0.774, **+0.044** [bootstrap +0.010, +0.096]; likelihood-ratio p = 0.0001.
   - The same finding as the older 2-input model (+0.055).
+
+## 2026-11-11: go/no-go check before any training (user: "are you sure? limited resources")
+- **Question:** does the model's added value survive the lesion's own ADC, DWI and size (measured at the model's top lesion), and does it replicate on fold 3?
+  - Fold 3 was used only to pick the checkpoint by validation loss; its biopsy cohort is 177 studies, 80 csPCa.
+- **Gains in optimism-corrected AUROC:**
+
+| Model and data | Over clinic | Over clinic + ADC/DWI/size |
+|---|---|---|
+| New model, fold 4 | +0.041 (p 0.0002) | +0.027 (p 0.0007) |
+| New model, fold 3 | +0.010 (p 0.12) | +0.004 (p 0.15) |
+| **New model, pooled folds 3 + 4** (357 studies, 168 csPCa) | **+0.022** [+0.006, +0.050] (p 0.0002) | **+0.021** [+0.005, +0.046] (p 0.0002) |
+| Old model, fold 3 | +0.014 (p 0.02) | +0.000 (p 0.18) |
+| Old model, fold 4 | +0.054 (p 0.0001) | +0.052 (p 0.0001) |
+
+- **Reading:** a real but small signal beyond the clinic and the lesion's ADC/DWI/size (about +0.02 AUROC). It varies a lot between folds; fold 4 was the favourable fold, and the earlier +0.044 to +0.055 were optimistic.
+- **Decision proposed to the user:** no model training now; first, no-cost feasibility checks of a stronger-model or external-data route.
