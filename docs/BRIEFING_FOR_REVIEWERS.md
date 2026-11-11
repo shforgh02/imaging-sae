@@ -1,5 +1,7 @@
 # Briefing for reviewers (2026-11-10): from CT organs to prostate MRI
 
+> **Update 2026-11-11:** the prostate MRI plan below has since been run up to M1, and its gate failed. The project is paused while we look for a better clinical question. See [`PAUSE_NOTE_2026-11-11.md`](PAUSE_NOTE_2026-11-11.md). This briefing is kept for the CT story and the reasoning behind the MRI plan.
+
 **Please read this first.** It explains what the CT work showed, why we stop it before the confirmation run, and what comes next. It also lists what we would like you to review. Every number here comes from the committed result files; links are at the end.
 
 ## 1. In short

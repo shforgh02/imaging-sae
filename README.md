@@ -2,20 +2,31 @@
 
 **Goal:** find sparse autoencoder (SAE) features of an imaging foundation model that mark disease, are stable and not shortcuts, add information beyond standard clinical data, and are recognised by radiologists. The first clinical target is prostate cancer on MRI (PI-CAI).
 
-**Reviewers: start with [`docs/BRIEFING_FOR_REVIEWERS.md`](docs/BRIEFING_FOR_REVIEWERS.md).**
+**Colleagues: start with [`docs/PAUSE_NOTE_2026-11-11.md`](docs/PAUSE_NOTE_2026-11-11.md).** It explains where the project stands and why we are pausing to find a better clinical question.
 
-## Status (2026-11-10)
+## Status (2026-11-11): paused
+- **Prostate MRI (PI-CAI): stopped at M1.**
+  - Frozen MRI foundation models do not know cancer beyond simple intensity: best model 0.909 vs reference 0.912 AUROC.
+  - A model trained for cancer adds only +0.02 over PI-RADS + PSA density.
+  - The sealed half is unopened.
+- **Feasibility scan:** breast cancer risk (Mirai on EMBED) is the best fit, pending data access; lung (Sybil on NLST) is blocked. See [`docs/FEASIBILITY_SCAN_breast_lung.md`](docs/FEASIBILITY_SCAN_breast_lung.md).
+- **No compute is running.** Total Modal spend so far: $12.86.
+
+## Earlier status (2026-11-10)
 - **CT work (method test bench; TotalSegmentator, CT-FM, 150 dev scans): done and stopped before confirmation.**
   - Phase 1 was NO-GO, because of design faults.
   - Stage 1a then passed its gate: the SAE beats equally tuned baselines by +0.10 in coverage area.
   - Normal organs are not a clinical question, and the dataset has no tumour outlines. So the 555 sealed scans stay unused.
-- **Next: prostate MRI (PI-CAI).** The plan [`docs/PLAN_PROSTATE_MRI_v1.md`](docs/PLAN_PROSTATE_MRI_v1.md) is out for review. Nothing has been run or downloaded for it yet.
+- **Next: prostate MRI (PI-CAI).** The plan [`docs/PLAN_PROSTATE_MRI_v1.md`](docs/PLAN_PROSTATE_MRI_v1.md) went out for review; it was later run up to M1 (see the 2026-11-11 status above).
 
 ## Where to look
 | What | File |
 |---|---|
-| **Briefing for reviewers** (what happened, why CT stops, what we ask) | `docs/BRIEFING_FOR_REVIEWERS.md` |
-| **Prostate MRI plan** | `docs/PLAN_PROSTATE_MRI_v1.md` |
+| **Why we pause, in plain words** | `docs/PAUSE_NOTE_2026-11-11.md` |
+| Prostate MRI results (M0, M1) | `imgsae/mri/RESULTS_M0.md`, `imgsae/mri/RESULTS_M1.md` |
+| Feasibility scan (breast, lung) | `docs/FEASIBILITY_SCAN_breast_lung.md` |
+| Briefing for reviewers (CT story, why CT stopped) | `docs/BRIEFING_FOR_REVIEWERS.md` |
+| Prostate MRI plan | `docs/PLAN_PROSTATE_MRI_v1.md` |
 | Current state of the work | `STATUS.md` |
 | Every decision and deviation, in order | `docs/EXECUTION_LOG.md` |
 | Original plan (v1) and Phase 1 verdict | `docs/IMAGING_SAE_LEAN_v1.md`, `docs/DECISION_MEMO_P1.md` |

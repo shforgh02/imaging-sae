@@ -1,8 +1,21 @@
 # Imaging SAE — status and handover
 
-**Updated:** 2026-11-10 · **Phase:** clinical leg, prostate MRI (PI-CAI): M1 gate FAILED, waiting for the lead's decision · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
+**Updated:** 2026-11-11 · **Phase:** PAUSED, looking for a better clinical question · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
-**Now (2026-11-10):** **Prostate MRI M1 gate FAILED; stopped per the protocol, waiting for the lead's decision.** Results in
+**Now (2026-11-11): PAUSED by the lead's decision.** The plain-language summary is `docs/PAUSE_NOTE_2026-11-11.md`.
+- **The lead's own cancer model** (SegResNet, trained on PI-CAI folds 0-2) on held-out folds 3 + 4, 357 biopsied PI-RADS ≥ 3 men:
+  - +0.022 AUROC over PI-RADS + PSAD + age (p 0.0002);
+  - +0.021 after the lesion's ADC, DWI and size;
+  - unstable between folds.
+  - On UCLA (the lead's earlier work) such PI-CAI models fall to about 0.66, below radiologists.
+  - Too small to justify training a model for SAE discovery.
+- **Feasibility scan** (`docs/FEASIBILITY_SCAN_breast_lung.md`):
+  - lung (Sybil/NLST) blocked: unpublished training split; weak beyond-nodule signal;
+  - breast (Mirai/EMBED) is the best fit, pending whether the lead's institution can sign the EMBED data agreement.
+- **Kept:** all code (tested); the verified PI-CAI copy with its sealed half unopened; the 555 sealed CT scans unused.
+- **Spend:** Modal total $12.86 (CT 7.74, MRI 5.12). No open runs.
+
+**Before (2026-11-10):** **Prostate MRI M1 gate FAILED; stopped per the protocol.** Results in
 `imgsae/mri/RESULTS_M1.md`.
 - **Gate (nested CV):** Δ vs the intensity reference R = −0.022 [−0.038, −0.007] (needed ≥ +0.03); Δ vs the untrained network
   −0.005 (needed ≥ +0.05). Same on verified studies.

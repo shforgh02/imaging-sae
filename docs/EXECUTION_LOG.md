@@ -604,3 +604,10 @@ Progress (2026-11-09):
 
 - **Reading:** a real but small signal beyond the clinic and the lesion's ADC/DWI/size (about +0.02 AUROC). It varies a lot between folds; fold 4 was the favourable fold, and the earlier +0.044 to +0.055 were optimistic.
 - **Decision proposed to the user:** no model training now; first, no-cost feasibility checks of a stronger-model or external-data route.
+- **The lead's UCLA experience** (reported by the lead, not recomputed here): a PI-CAI-trained model reached about AUROC 0.66 and sensitivity about 70% on UCLA, below the radiologists. UCLA differs in scanners and coil, so both UCLA routes were dropped.
+
+## 2026-11-11: feasibility scan, then PAUSE
+- **Scan:** `docs/FEASIBILITY_SCAN_breast_lung.md` (no compute). Lung (Sybil/NLST) blocked; breast (Mirai/EMBED) is the best fit, with caveats on novelty and data access.
+- **The lead's decision:** push all notes for colleagues, and pause to find a better clinical question.
+- **Plain-language summary:** `docs/PAUSE_NOTE_2026-11-11.md`. README, STATUS and the reviewer briefing point to it.
+- **Project Modal total:** $12.86 (CT 7.74, MRI 5.12); no open runs; sealed halves (PI-CAI 746 studies, CT 555 scans) unopened.
