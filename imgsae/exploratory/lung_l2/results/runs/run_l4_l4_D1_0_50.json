@@ -1,0 +1,25 @@
+{
+ "n_rows": 50,
+ "n_todo": 50,
+ "n_done": 50,
+ "errors": {},
+ "mean_sec": {
+  "download": 1.5988048171997071,
+  "infer_main": 6.2104620838165285,
+  "infer_zfix": 6.160438060760498,
+  "load": 5.094059853553772,
+  "volumes_measures": 4.494021492004395
+ },
+ "gpu": "NVIDIA L4",
+ "verify": [],
+ "torch": "1.13.1+cu117",
+ "cuda": "11.7",
+ "tier": "D1",
+ "lo": 0,
+ "hi": 50,
+ "shard": 0,
+ "nshard": 1,
+ "root": "l4",
+ "zfix_max": 0.95,
+ "container_min": 8.023973015944163
+}

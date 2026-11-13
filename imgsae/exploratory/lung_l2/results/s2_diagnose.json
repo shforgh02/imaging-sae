@@ -1,0 +1,368 @@
+{
+ "G2e_air": {
+  "n": 300,
+  "n_fail": 40,
+  "fail_by_maker": {
+   "GE MEDICAL SYSTEMS": 21,
+   "TOSHIBA": 14,
+   "SIEMENS": 4,
+   "Philips": 1
+  },
+  "all_by_maker": {
+   "GE MEDICAL SYSTEMS": 149,
+   "SIEMENS": 104,
+   "Philips": 29,
+   "TOSHIBA": 18
+  },
+  "fail_air_median_q": [
+   -1079.2,
+   -1043.4,
+   -967.6,
+   -954.7,
+   -882.3
+  ],
+  "air_median_by_maker": {
+   "GE MEDICAL SYSTEMS": [
+    -1027.9,
+    -998.2,
+    -954.1
+   ],
+   "Philips": [
+    -1004.5,
+    -999.0,
+    -985.4
+   ],
+   "SIEMENS": [
+    -1000.9,
+    -994.2,
+    -972.8
+   ],
+   "TOSHIBA": [
+    -1074.2,
+    -1038.4,
+    -1011.3
+   ]
+  },
+  "fail_examples": [
+   {
+    "uid": "1.2.840.113654.2.55.102031487816323716640530771951059289602",
+    "maker": "TOSHIBA",
+    "model": "Aquilion",
+    "kernel": "FC51",
+    "fov": "293.75",
+    "ratio": "1.0",
+    "resT": "121",
+    "air_median_hu": "-1035.37451171875",
+    "air_noise_sd_hu": "10.820096015930176",
+    "air_n_vox": "27494",
+    "lung_vol_ml": "5945.2042236328125",
+    "laa950_pct": "52.11160321517846",
+    "lung_cut_z": "False",
+    "lung_cut_xy": "False",
+    "lung_z_extent_app_mm": "290.0",
+    "lung_z_first": "45",
+    "lung_z_last": "160",
+    "body_touches_edge": "True",
+    "n_real_slices": "121"
+   },
+   {
+    "uid": "1.2.840.113654.2.55.119395849855948270588222524611221749523",
+    "maker": "GE MEDICAL SYSTEMS",
+    "model": "HiSpeed QX/i",
+    "kernel": "BONE",
+    "fov": "300.0",
+    "ratio": "1.0",
+    "resT": "111",
+    "air_median_hu": NaN,
+    "air_noise_sd_hu": NaN,
+    "air_n_vox": "12",
+    "lung_vol_ml": "3433.937255859375",
+    "laa950_pct": "0.41808957252356793",
+    "lung_cut_z": "False",
+    "lung_cut_xy": "False",
+    "lung_z_extent_app_mm": "252.5",
+    "lung_z_first": "55",
+    "lung_z_last": "155",
+    "body_touches_edge": "True",
+    "n_real_slices": "111"
+   },
+   {
+    "uid": "1.2.840.113654.2.55.135042737338837405053176001638664255704",
+    "maker": "TOSHIBA",
+    "model": "Aquilion",
+    "kernel": "FC51",
+    "fov": "328.125",
+    "ratio": "1.0",
+    "resT": "135",
+    "air_median_hu": "-1069.182861328125",
+    "air_noise_sd_hu": "12.67622184753418",
+    "air_n_vox": "92348",
+    "lung_vol_ml": "5352.8126220703125",
+    "laa950_pct": "51.5858179662",
+    "lung_cut_z": "False",
+    "lung_cut_xy": "False",
+    "lung_z_extent_app_mm": "290.0",
+    "lung_z_first": "51",
+    "lung_z_last": "166",
+    "body_touches_edge": "True",
+    "n_real_slices": "134"
+   },
+   {
+    "uid": "1.2.840.113654.2.55.169036782208834993088245476210057711615",
+    "maker": "GE MEDICAL SYSTEMS",
+    "model": "LightSpeed QX/i",
+    "kernel": "STANDARD",
+    "fov": "340.0",
+    "ratio": "0.8",
+    "resT": "157",
+    "air_median_hu": NaN,
+    "air_noise_sd_hu": NaN,
+    "air_n_vox": "394",
+    "lung_vol_ml": "6388.950146484375",
+    "laa950_pct": "1.1656088137830194",
+    "lung_cut_z": "False",
+    "lung_cut_xy": "False",
+    "lung_z_extent_app_mm": "387.5",
+    "lung_z_first": "24",
+    "lung_z_last": "178",
+    "body_touches_edge": "True",
+    "n_real_slices": "157"
+   },
+   {
+    "uid": "1.2.840.113654.2.55.173747048492458210019422136596617645246",
+    "maker": "GE MEDICAL SYSTEMS",
+    "model": "LightSpeed QX/i",
+    "kernel": "BONE",
+    "fov": "420.0",
+    "ratio": "1.0",
+    "resT": "122",
+    "air_median_hu": "-926.4365234375",
+    "air_noise_sd_hu": "57.478973388671875",
+    "air_n_vox": "552660",
+    "lung_vol_ml": "53.37872314453125",
+    "laa950_pct": "54.37621561544873",
+    "lung_cut_z": "False",
+    "lung_cut_xy": "False",
+    "lung_z_extent_app_mm": "55.0",
+    "lung_z_first": "46",
+    "lung_z_last": "67",
+    "body_touches_edge": "True",
+    "n_real_slices": "122"
+   },
+   {
+    "uid": "1.2.840.113654.2.55.176744346629389894261057445768565467473",
+    "maker": "GE MEDICAL SYSTEMS",
+    "model": "LightSpeed QX/i",
+    "kernel": "BONE",
+    "fov": "380.0",
+    "ratio": "1.0",
+    "resT": "128",
+    "air_median_hu": "-918.796630859375",
+    "air_noise_sd_hu": "69.23014831542969",
+    "air_n_vox": "504526",
+    "lung_vol_ml": "46.21014404296875",
+    "laa950_pct": "19.48218679790307",
+    "lung_cut_z": "False",
+    "lung_cut_xy": "False",
+    "lung_z_extent_app_mm": "80.0",
+    "lung_z_first": "36",
+    "lung_z_last": "80",
+    "body_touches_edge": "True",
+    "n_real_slices": "128"
+   },
+   {
+    "uid": "1.2.840.113654.2.55.188715623891757578217856667601822826962",
+    "maker": "TOSHIBA",
+    "model": "Aquilion",
+    "kernel": "FC51",
+    "fov": "294.921",
+    "ratio": "1.0",
+    "resT": "128",
+    "air_median_hu": "-1073.348876953125",
+    "air_noise_sd_hu": "32.50868225097656",
+    "air_n_vox": "37368",
+    "lung_vol_ml": "4886.53857421875",
+    "laa950_pct": "49.49575478952012",
+    "lung_cut_z": "False",
+    "lung_cut_xy": "False",
+    "lung_z_extent_app_mm": "287.5",
+    "lung_z_first": "48",
+    "lung_z_last": "162",
+    "body_touches_edge": "True",
+    "n_real_slices": "127"
+   },
+   {
+    "uid": "1.2.840.113654.2.55.206865240546691123829938270523590779384",
+    "maker": "GE MEDICAL SYSTEMS",
+    "model": "HiSpeed QX/i",
+    "kernel": "BONE",
+    "fov": "300.0",
+    "ratio": "1.0",
+    "resT": "115",
+    "air_median_hu": NaN,
+    "air_noise_sd_hu": NaN,
+    "air_n_vox": "78",
+    "lung_vol_ml": "3241.2507934570312",
+    "laa950_pct": "0.37903458290180336",
+    "lung_cut_z": "False",
+    "lung_cut_xy": "False",
+    "lung_z_extent_app_mm": "255.0",
+    "lung_z_first": "56",
+    "lung_z_last": "157",
+    "body_touches_edge": "True",
+    "n_real_slices": "115"
+   },
+   {
+    "uid": "1.2.840.113654.2.55.21606538024227508175788451315459897232",
+    "maker": "Philips",
+    "model": "Mx8000",
+    "kernel": "D",
+    "fov": "305.0",
+    "ratio": "0.625",
+    "resT": "212",
+    "air_median_hu": "-962.2633056640625",
+    "air_noise_sd_hu": "25.307785034179688",
+    "air_n_vox": "20229",
+    "lung_vol_ml": "5543.8237380981445",
+    "laa950_pct": "2.9480992078244403",
+    "lung_cut_z": "True",
+    "lung_cut_xy": "False",
+    "lung_z_extent_app_mm": "445.0",
+    "lung_z_first": "22",
+    "lung_z_last": "199",
+    "body_touches_edge": "True",
+    "n_real_slices": "200"
+   },
+   {
+    "uid": "1.2.840.113654.2.55.233160960582721449631716026764059862241",
+    "maker": "TOSHIBA",
+    "model": "Aquilion",
+    "kernel": "FC51",
+    "fov": "289.062",
+    "ratio": "1.0",
+    "resT": "102",
+    "air_median_hu": "-1047.8048095703125",
+    "air_noise_sd_hu": "20.053138732910156",
+    "air_n_vox": "34660",
+    "lung_vol_ml": "3533.3926391601562",
+    "laa950_pct": "7.033111563512218",
+    "lung_cut_z": "False",
+    "lung_cut_xy": "False",
+    "lung_z_extent_app_mm": "242.5",
+    "lung_z_first": "54",
+    "lung_z_last": "150",
+    "body_touches_edge": "True",
+    "n_real_slices": "102"
+   },
+   {
+    "uid": "1.2.840.113654.2.55.243264076311933644128331481314620854025",
+    "maker": "GE MEDICAL SYSTEMS",
+    "model": "LightSpeed QX/i",
+    "kernel": "BONE",
+    "fov": "336.0",
+    "ratio": "0.5",
+    "resT": "240",
+    "air_median_hu": "-893.3826904296875",
+    "air_noise_sd_hu": "65.17288208007812",
+    "air_n_vox": "391660",
+    "lung_vol_ml": "67.61700439453125",
+    "laa950_pct": "34.95649630766981",
+    "lung_cut_z": "True",
+    "lung_cut_xy": "False",
+    "lung_z_extent_app_mm": "100.0",
+    "lung_z_first": "0",
+    "lung_z_last": "39",
+    "body_touches_edge": "True",
+    "n_real_slices": "200"
+   },
+   {
+    "uid": "1.2.840.113654.2.55.254642306249276065253532156055212316785",
+    "maker": "GE MEDICAL SYSTEMS",
+    "model": "LightSpeed QX/i",
+    "kernel": "STANDARD",
+    "fov": "411.0",
+    "ratio": "1.0",
+    "resT": "140",
+    "air_median_hu": "-955.5225219726562",
+    "air_noise_sd_hu": "116.32308197021484",
+    "air_n_vox": "63740",
+    "lung_vol_ml": "6907.904846191406",
+    "laa950_pct": "2.65610227922532",
+    "lung_cut_z": "False",
+    "lung_cut_xy": "False",
+    "lung_z_extent_app_mm": "320.0",
+    "lung_z_first": "42",
+    "lung_z_last": "169",
+    "body_touches_edge": "True",
+    "n_real_slices": "140"
+   }
+  ]
+ },
+ "G2f_stretch": {
+  "n": 37,
+  "within10_all": 0.3783783783783784,
+  "n_cut": 30,
+  "within10_not_cut": 1.0,
+  "n_not_cut": 7,
+  "measured_over_expected_not_cut": [
+   0.995,
+   0.999,
+   1.005
+  ],
+  "cut_cases_lung_at_grid_edge": 1.0,
+  "cut_cases_resampled_T": {
+   "count": 30.0,
+   "mean": 246.0,
+   "std": 21.0,
+   "min": 201.0,
+   "25%": 232.0,
+   "50%": 250.0,
+   "75%": 264.0,
+   "max": 281.0
+  },
+  "cut_by_ratio": {
+   "1.6": {
+    "sum": 4,
+    "count": 10
+   },
+   "2.0": {
+    "sum": 26,
+    "count": 27
+   }
+  }
+ },
+ "lung_cut_z_by_stretch": {
+  "1.0": {
+   "sum": 0,
+   "count": 189
+  },
+  "1.11": {
+   "sum": 0,
+   "count": 14
+  },
+  "1.18": {
+   "sum": 0,
+   "count": 2
+  },
+  "1.25": {
+   "sum": 0,
+   "count": 48
+  },
+  "1.28": {
+   "sum": 0,
+   "count": 2
+  },
+  "1.33": {
+   "sum": 0,
+   "count": 8
+  },
+  "1.6": {
+   "sum": 4,
+   "count": 10
+  },
+  "2.0": {
+   "sum": 26,
+   "count": 27
+  }
+ }
+}

@@ -673,6 +673,89 @@
    "closed": "2026-11-13T10:38:15",
    "measured_usd": 0.2,
    "note": "manual close: smoke ran (demo exact, 1.25 container-min in smoke.json on the volume); local collect could not unpickle torch.__version__; 3 dev series failed in the verify step (files already deleted); conservative 0.20 vs formula 0.164"
+  },
+  {
+   "id": "lung_l2_audit-032",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-13T10:39:00",
+   "worst_usd": 0.4478,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "smoke"
+    ],
+    "timeout_min": 20,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-13T10:41:51",
+   "measured_usd": 0.1718,
+   "note": "collected; 1 call(s), container 1.7 min"
+  },
+  {
+   "id": "lung_l2_audit-033",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-13T10:42:09",
+   "worst_usd": 3.9102,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_dev_D1_0_300('D1', 0, 300, 0, 4, 25.0, 0.95, 'dev', False)",
+     "run_dev_D1_0_300('D1', 0, 300, 1, 4, 25.0, 0.95, 'dev', False)",
+     "run_dev_D1_0_300('D1', 0, 300, 2, 4, 25.0, 0.95, 'dev', False)",
+     "run_dev_D1_0_300('D1', 0, 300, 3, 4, 25.0, 0.95, 'dev', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-13T10:57:44",
+   "measured_usd": 1.0771,
+   "note": "collected; 4 call(s), container 52.6 min"
+  },
+  {
+   "id": "lung_l2_audit-034",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-13T10:58:06",
+   "worst_usd": 1.0526,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_rep_D1_0_20('D1', 0, 20, 0, 1, 10.0, 0.95, 'rep', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-13T11:03:50",
+   "measured_usd": 0.2018,
+   "note": "collected; 1 call(s), container 3.7 min"
+  },
+  {
+   "id": "lung_l2_audit-035",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-13T10:58:26",
+   "worst_usd": 1.2731,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_l4_l4_D1_0_50('D1', 0, 50, 0, 1, 20.0, 0.95, 'l4', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-13T11:08:58",
+   "measured_usd": 0.3053,
+   "note": "collected; 1 call(s), container 8.0 min"
   }
  ],
  "checks": [
@@ -981,6 +1064,42 @@
    "month_used_usd": 21.1452,
    "open_worst_usd": 0.4478,
    "project_committed_usd": 25.8346
+  },
+  {
+   "time": "2026-11-13T10:38:50",
+   "month_used_usd": 21.1252,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.5868
+  },
+  {
+   "time": "2026-11-13T10:39:00",
+   "month_used_usd": 21.1252,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.5868
+  },
+  {
+   "time": "2026-11-13T10:42:09",
+   "month_used_usd": 21.2155,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.7586
+  },
+  {
+   "time": "2026-11-13T10:58:06",
+   "month_used_usd": 22.4541,
+   "open_worst_usd": 0,
+   "project_committed_usd": 26.8357
+  },
+  {
+   "time": "2026-11-13T10:58:26",
+   "month_used_usd": 22.4541,
+   "open_worst_usd": 1.0526,
+   "project_committed_usd": 27.8883
+  },
+  {
+   "time": "2026-11-13T11:09:51",
+   "month_used_usd": 22.5395,
+   "open_worst_usd": 0,
+   "project_committed_usd": 27.3428
   }
  ]
 }
