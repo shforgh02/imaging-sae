@@ -1,0 +1,58 @@
+{
+ "dev_participants_with_cancer": 149,
+ "location_flags_participants": {
+  "central (hilum, main bronchus, carina, mediastinum)": 19,
+  "upper lobe": 83,
+  "middle lobe or lingula": 9,
+  "lower lobe": 46,
+  "unknown": 2
+ },
+ "first_cancer_rows": 149,
+ "histology": {
+  "adenocarcinoma": 60,
+  "squamous": 38,
+  "other or not specified": 31,
+  "small cell": 20
+ },
+ "stage_7th_codes": {
+  "110": 63,
+  "120": 10,
+  "210": 10,
+  "220": 2,
+  "310": 11,
+  "320": 9,
+  "400": 35,
+  "900": 1,
+  "999": 2
+ },
+ "lesionsize_mm": {
+  "filled": 133,
+  "q25_50_75": [
+   14.0,
+   20.0,
+   35.0
+  ]
+ },
+ "exams": {
+  "y1": {
+   "all_pos": 88,
+   "all_neg": 7226,
+   "baseline_pos": 38,
+   "baseline_neg": 2454
+  },
+  "y2": {
+   "all_pos": 150,
+   "all_neg": 7101,
+   "baseline_pos": 65,
+   "baseline_neg": 2413
+  },
+  "y6": {
+   "all_pos": 319,
+   "all_neg": 2463,
+   "baseline_pos": 137,
+   "baseline_neg": 2050
+  }
+ },
+ "positive_call_no_cancer_1y": 2476,
+ "positive_call_sensitivity_1y": 0.9090909090909091
+}

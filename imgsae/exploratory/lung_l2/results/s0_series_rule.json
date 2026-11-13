@@ -1,0 +1,176 @@
+{
+ "n_test_studies_with_choice": 6715,
+ "min_slices": 40,
+ "rules": {
+  "count": {
+   "half_A": {
+    "n": 3354,
+    "covered": 1.0,
+    "exact": 0.9481216457960644,
+    "equivalent": 0.9525939177101967
+   },
+   "half_B": {
+    "n": 3361,
+    "covered": 1.0,
+    "exact": 0.9434692055935734,
+    "equivalent": 0.9467420410592086
+   },
+   "all": {
+    "n": 6715,
+    "covered": 1.0,
+    "exact": 0.9457930007446016,
+    "equivalent": 0.9496649292628444
+   }
+  },
+  "thin": {
+   "half_A": {
+    "n": 3354,
+    "covered": 1.0,
+    "exact": 0.9695885509838998,
+    "equivalent": 0.9740608228980322
+   },
+   "half_B": {
+    "n": 3361,
+    "covered": 1.0,
+    "exact": 0.9595358524248736,
+    "equivalent": 0.9625111573936328
+   },
+   "all": {
+    "n": 6715,
+    "covered": 1.0,
+    "exact": 0.9645569620253165,
+    "equivalent": 0.9682799702159345
+   }
+  },
+  "thin_soft": {
+   "half_A": {
+    "n": 3354,
+    "covered": 1.0,
+    "exact": 0.44573643410852715,
+    "equivalent": 0.44871794871794873
+   },
+   "half_B": {
+    "n": 3361,
+    "covered": 1.0,
+    "exact": 0.42011306158881284,
+    "equivalent": 0.42219577506694433
+   },
+   "all": {
+    "n": 6715,
+    "covered": 1.0,
+    "exact": 0.43291139240506327,
+    "equivalent": 0.43544303797468353
+   }
+  },
+  "sharp_thin": {
+   "half_A": {
+    "n": 3354,
+    "covered": 1.0,
+    "exact": 0.9889683959451401,
+    "equivalent": 0.9937388193202147
+   },
+   "half_B": {
+    "n": 3361,
+    "covered": 1.0,
+    "exact": 0.9857185361499554,
+    "equivalent": 0.9883963106218387
+   },
+   "all": {
+    "n": 6715,
+    "covered": 1.0,
+    "exact": 0.9873417721518988,
+    "equivalent": 0.9910647803425168
+   }
+  },
+  "count_thin": {
+   "half_A": {
+    "n": 3354,
+    "covered": 1.0,
+    "exact": 0.9484197972570065,
+    "equivalent": 0.9528920691711389
+   },
+   "half_B": {
+    "n": 3361,
+    "covered": 1.0,
+    "exact": 0.9437667360904493,
+    "equivalent": 0.9470395715560845
+   },
+   "all": {
+    "n": 6715,
+    "covered": 1.0,
+    "exact": 0.9460908413998511,
+    "equivalent": 0.9499627699180938
+   }
+  }
+ },
+ "chosen_rule_on_half_A": "sharp_thin",
+ "gate_all_equivalent_ge_0.90": true,
+ "disagreements": {
+  "n": 85,
+  "by_manufacturer": {
+   "GE MEDICAL SYSTEMS": 56,
+   "SIEMENS": 12,
+   "Philips": 10,
+   "TOSHIBA": 7
+  },
+  "top_patterns": {
+   "GE MEDICAL SYSTEMS | BONE | 2.5 | 132 | STANDARD | 2.5 | 132": 2,
+   "GE MEDICAL SYSTEMS | LUNG | 2.5 | 265 | STANDARD | 2.5 | 265": 2,
+   "SIEMENS | B50f | 2.0 | 162 | B30f | 2.0 | 162": 1,
+   "GE MEDICAL SYSTEMS | BONE | 2.5 | 124 | STANDARD | 2.5 | 124": 1,
+   "GE MEDICAL SYSTEMS | BONE | 2.5 | 163 | STANDARD | 2.5 | 159": 1,
+   "Philips | D | 3.2 | 164 | C | 3.2 | 164": 1,
+   "GE MEDICAL SYSTEMS | BONE | 2.5 | 110 | STANDARD | 2.5 | 110": 1,
+   "GE MEDICAL SYSTEMS | LUNG | 2.5 | 123 | STANDARD | 2.5 | 123": 1,
+   "GE MEDICAL SYSTEMS | BONE | 2.5 | 159 | STANDARD | 2.5 | 159": 1,
+   "Philips | D | 3.2 | 47 | C | 3.2 | 149": 1,
+   "GE MEDICAL SYSTEMS | BONE | 2.5 | 123 | STANDARD | 2.5 | 123": 1,
+   "SIEMENS | B50f | 2.0 | 173 | B30f | 2.0 | 173": 1,
+   "SIEMENS | B50f | 2.0 | 183 | B30f | 2.0 | 183": 1,
+   "SIEMENS | B50f | 2.0 | 178 | B30f | 2.0 | 178": 1,
+   "SIEMENS | B50f | 2.0 | 157 | B30f | 2.0 | 157": 1
+  }
+ },
+ "test_ref_thicker_than_2.5mm": 385,
+ "test_ref_by_kclass": {
+  "sharp": 4349,
+  "soft": 2366
+ },
+ "dev": {
+  "ct_studies": 7361,
+  "studies_with_selected_series": 7348,
+  "coverage": 0.9982339356065751,
+  "participants": 2492,
+  "study_yr": {
+   "0": 2492,
+   "1": 2446,
+   "2": 2410
+  },
+  "dup_pid_year": 6,
+  "thicker_than_2.5mm": 407,
+  "by_kclass": {
+   "sharp": 4865,
+   "soft": 2482,
+   "unknown": 1
+  },
+  "by_manufacturer": {
+   "GE MEDICAL SYSTEMS": 3815,
+   "SIEMENS": 2501,
+   "TOSHIBA": 535,
+   "Philips": 497
+  }
+ },
+ "test_ref": {
+  "by_manufacturer": {
+   "GE MEDICAL SYSTEMS": 3436,
+   "SIEMENS": 2253,
+   "TOSHIBA": 518,
+   "Philips": 508
+  },
+  "study_yr": {
+   "0": 2279,
+   "1": 2243,
+   "2": 2193
+  }
+ }
+}

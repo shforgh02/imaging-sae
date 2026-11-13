@@ -1,5 +1,6 @@
 {
  "cap_usd": 29.0,
+ "project_cap_usd": 72.0,
  "rule": "User, 2026-11-09: Modal free credit is $30/month; stop at $29; every task has its own budget and must not exceed it. Check usage before every launch. Using 'reserve' or moving money between tasks needs the user's OK. Updated by the user later on 2026-11-09: 2 Modal accounts, $29/month each. This ledger tracks account shforghani2002; cap_usd is its monthly cap and the project check stays as an extra limit.",
  "budgets": {
   "a3_sae": 3.0,
@@ -11,13 +12,16 @@
   "mri_fetch": 0.8,
   "mri_prep": 0.8,
   "mri_m1_encode": 5.0,
-  "lung_l1_sybil": 15.0
+  "lung_l1_sybil": 15.0,
+  "lung_l2_audit": 45.0
  },
  "budget_notes": {
   "stageC_encode, stageC_fit, stageD_dinov3": "Phase 1b Stage C/D superseded by plan v2 and Stage 1a (2026-11-09); never used; set to 0",
   "v2s1a_sae": "Stage 1a SAE rows (docs/STAGE1A_PROTOCOL.md section 7): 9 single jobs + 3 consensus jobs on L4, expected about $2.5. Raised $5 -> $7 with the user's OK (2026-11-09 evening) to rerun the 3 consensus jobs lost when the local client was stopped",
   "mri_fetch, mri_prep, mri_m1_encode": "Prostate MRI plan revision 4 (docs/PLAN_PROSTATE_MRI_v1.md section 6), approved by the user 2026-11-10 ('OK'): PI-CAI fetch $0.80, dev-half preprocessing $0.80, M0 encoder checks + M1 encodes $5.00 (M0-M1 caps $6.60)",
-  "lung_l1_sybil": "Lung L1 (docs/LUNG_L1_PROTOCOL.md): Sybil on its own NLST test split, 6,715 series, T4 or L4. Cap $15.00 approved by the user on 2026-11-12 ('1.yes'). Run by a delegated agent under the protocol."
+  "lung_l1_sybil": "Lung L1 (docs/LUNG_L1_PROTOCOL.md): Sybil on its own NLST test split, 6,715 series, T4 or L4. Cap $15.00 approved by the user on 2026-11-12 ('1.yes'). Run by a delegated agent under the protocol.",
+  "project_cap_usd": "All-time project limit for the guard's project check, separate from the monthly cap_usd (29, unchanged). Set to 72.00 by the lead on 2026-11-13 (hand-over prompt for the Sybil audit).",
+  "lung_l2_audit": "Lung L2, feature-level audit of Sybil (docs/LUNG_L2_PROTOCOL.md), steps S2 to S6, spread over months. $45.00 approved by the lead on 2026-11-13. S7 needs a new approval. Account shforghani2002 only; reserve and second account not used. Runs executed by a delegated agent under the protocol."
  },
  "runs": [
   {
@@ -931,6 +935,12 @@
   {
    "time": "2026-11-12T23:29:49",
    "month_used_usd": 21.1245,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.3868
+  },
+  {
+   "time": "2026-11-13T10:02:41",
+   "month_used_usd": 21.0745,
    "open_worst_usd": 0,
    "project_committed_usd": 25.3868
   }

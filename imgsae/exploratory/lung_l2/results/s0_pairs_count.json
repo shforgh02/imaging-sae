@@ -1,0 +1,151 @@
+{
+ "dev": {
+  "selected": 7348,
+  "studies_with_kernel_pair": 3895,
+  "pairs_by_manufacturer": {
+   "GE MEDICAL SYSTEMS": 1749,
+   "SIEMENS": 1670,
+   "Philips": 293,
+   "TOSHIBA": 183
+  },
+  "pair_kernels_top": {
+   "B50f vs B30f": 1636,
+   "BONE vs STANDARD": 1410,
+   "LUNG vs STANDARD": 336,
+   "D vs C": 245,
+   "FC51 vs FC10": 159,
+   "D vs B": 35,
+   "FC30 vs FC01": 13,
+   "D vs A": 13,
+   "B60f vs B30f": 12,
+   "B70f vs B30f": 8
+  },
+  "pairs_by_thickness": {
+   "2.0": 1830,
+   "2.5": 1596,
+   "3.2": 233,
+   "1.25": 153,
+   "1.3": 60,
+   "3.0": 11,
+   "1.0": 7,
+   "5.0": 5
+  },
+  "dup_pid_year_rows": [
+   {
+    "PatientID": "218857",
+    "study_yr": "0",
+    "StudyDate": "1999-01-02",
+    "StudyInstanceUID": "1.3.6.1.4.1.14519.5.2.1.7009.9004.268892810946844849718494509476",
+    "instanceCount": "307"
+   },
+   {
+    "PatientID": "205462",
+    "study_yr": "0",
+    "StudyDate": "1999-01-02",
+    "StudyInstanceUID": "1.3.6.1.4.1.14519.5.2.1.7009.9004.160958682283273077536934380330",
+    "instanceCount": "199"
+   },
+   {
+    "PatientID": "215652",
+    "study_yr": "1",
+    "StudyDate": "2000-01-02",
+    "StudyInstanceUID": "1.3.6.1.4.1.14519.5.2.1.7009.9004.262378253601824482389834747888",
+    "instanceCount": "189"
+   },
+   {
+    "PatientID": "215652",
+    "study_yr": "1",
+    "StudyDate": "2000-01-02",
+    "StudyInstanceUID": "1.3.6.1.4.1.14519.5.2.1.7009.9004.246549035649548682171341289996",
+    "instanceCount": "189"
+   },
+   {
+    "PatientID": "211024",
+    "study_yr": "1",
+    "StudyDate": "2000-01-02",
+    "StudyInstanceUID": "1.3.6.1.4.1.14519.5.2.1.7009.9004.313789788120873060210023799281",
+    "instanceCount": "176"
+   },
+   {
+    "PatientID": "207947",
+    "study_yr": "0",
+    "StudyDate": "1999-01-02",
+    "StudyInstanceUID": "1.3.6.1.4.1.14519.5.2.1.7009.9004.185146479174650606797835820276",
+    "instanceCount": "141"
+   },
+   {
+    "PatientID": "207947",
+    "study_yr": "0",
+    "StudyDate": "1999-01-02",
+    "StudyInstanceUID": "1.3.6.1.4.1.14519.5.2.1.7009.9004.217954200786385891956803865350",
+    "instanceCount": "141"
+   },
+   {
+    "PatientID": "211024",
+    "study_yr": "1",
+    "StudyDate": "2000-01-02",
+    "StudyInstanceUID": "1.3.6.1.4.1.14519.5.2.1.7009.9004.136890098708420689162039402561",
+    "instanceCount": "64"
+   },
+   {
+    "PatientID": "218857",
+    "study_yr": "0",
+    "StudyDate": "1999-01-02",
+    "StudyInstanceUID": "1.3.6.1.4.1.14519.5.2.1.7009.9004.470004244900060377284650646602",
+    "instanceCount": "205"
+   },
+   {
+    "PatientID": "205462",
+    "study_yr": "0",
+    "StudyDate": "1999-01-02",
+    "StudyInstanceUID": "1.3.6.1.4.1.14519.5.2.1.7009.9004.331151138572386804932962208756",
+    "instanceCount": "596"
+   },
+   {
+    "PatientID": "213914",
+    "study_yr": "0",
+    "StudyDate": "1999-01-02",
+    "StudyInstanceUID": "1.3.6.1.4.1.14519.5.2.1.7009.9004.311557459283614193980511306292",
+    "instanceCount": "170"
+   },
+   {
+    "PatientID": "213914",
+    "study_yr": "0",
+    "StudyDate": "1999-01-02",
+    "StudyInstanceUID": "1.3.6.1.4.1.14519.5.2.1.7009.9004.122469828852944082542007456245",
+    "instanceCount": "160"
+   }
+  ]
+ },
+ "test": {
+  "selected": 6932,
+  "studies_with_kernel_pair": 3523,
+  "pairs_by_manufacturer": {
+   "SIEMENS": 1629,
+   "GE MEDICAL SYSTEMS": 1456,
+   "Philips": 307,
+   "TOSHIBA": 131
+  },
+  "pair_kernels_top": {
+   "B50f vs B30f": 1596,
+   "BONE vs STANDARD": 1269,
+   "D vs C": 263,
+   "LUNG vs STANDARD": 187,
+   "FC51 vs FC10": 110,
+   "D vs B": 35,
+   "B60f vs B30f": 18,
+   "FC30 vs FC01": 11,
+   "D vs A": 9,
+   "B80f vs B30f": 5
+  },
+  "pairs_by_thickness": {
+   "2.0": 1747,
+   "2.5": 1302,
+   "3.2": 252,
+   "1.25": 154,
+   "1.3": 55,
+   "3.0": 7,
+   "1.0": 6
+  }
+ }
+}

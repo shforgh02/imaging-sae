@@ -1,13 +1,20 @@
 # Imaging SAE — status and handover
 
-**Updated:** 2026-11-13 · **Phase:** restart proposed (Sybil audit, plan v1); waiting for the lead's OK on the protocol and budget · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
+**Updated:** 2026-11-13 · **Phase:** Lung L2 step S0 done (free); protocol DRAFT waiting for the lead's OK · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
-**Now (2026-11-13): restart proposed as a feature-level audit of Sybil ("Lung L2").** Plan: `docs/PLAN_SYBIL_AUDIT_v1.md`. Hand-over prompt for the executing session: `docs/HANDOVER_PROMPT_SYBIL_AUDIT.md`.
+**Now (2026-11-13, S0 done): protocol `docs/LUNG_L2_PROTOCOL.md` written; stopped for the lead's OK (Part A).**
+- Series rule for dev exams built from metadata only: reproduces the split file's test series in 98.7% of exams (gate 90% passed); dev 7,336 exams.
+- New technical point: Sybil places slices at the slice thickness, not the true spacing; 44% of series are stretched along z (up to 2×). Added as a cheap `zfix` sub-study, to be confirmed in the pilot.
+- Literature: *Auditing Sybil* (synthetic nodules, LUNA25) and Simon 2025 (kernel pairs, AUROC only) overlap partly; nobody has decomposed Sybil against real outcomes, the form and technical factors. No second screening dataset is fully open (Duke DLCS restricted; P-ELCAP by request).
+- Budget: `project_cap_usd` 72 and task `lung_l2_audit` $45 added (approved); month usage $21.07 of $29. Nothing spent in S0.
+- Next after the lead's OK: S1 dev manifest, S2 pilot (≈ $1.2), S3 dev extraction (≈ $20), S4 analysis.
+
+**Before (2026-11-13): restart proposed as a feature-level audit of Sybil ("Lung L2").** Plan: `docs/PLAN_SYBIL_AUDIT_v1.md`. Hand-over prompt for the executing session: `docs/HANDOVER_PROMPT_SYBIL_AUDIT.md`.
 - **Lead's direction (2026-11-13):** no two-cancer paper. In this project, open the model: why it is right, why it is wrong, and whether its features can be used.
 - **Next step:** S0 of the plan (free): read the competing audit, write `docs/LUNG_L2_PROTOCOL.md`, stop for the lead's OK. Nothing is approved to spend until the lead gives the budget.
 - **Why Sybil:** same accuracy as the radiologist's form, but the form explains only 15% to 19% of Sybil's score; the score is stable within a person (r = 0.61 one year apart); the two make mostly different false alarms. Exploratory numbers, in `imgsae/exploratory/lung_l1/posthoc/`.
 - **Rule from now on:** no test activation and no new outcome analysis of the existing test scores before the hypotheses are frozen.
-- **Budget facts:** the guard's all-time project check has $3.61 left ($25.39 of $29 used). Modal's monthly usage on account `shforghani2002` is $21.12. No open runs.
+- **Budget facts (before the S0 change):** the guard's all-time project check had $3.61 left ($25.39 of $29 used). Modal's monthly usage on account `shforghani2002` was $21.12. No open runs.
 
 **Before (2026-11-12): lung re-checked at no cost, then the paired test L1.** Results in `imgsae/exploratory/lung_l0/RESULTS_L0.md` and `imgsae/exploratory/lung_l1/RESULTS_L1.md`.
 - **Sybil's split is published** (branch `train` of its repository), so lung was not blocked as the feasibility scan said.

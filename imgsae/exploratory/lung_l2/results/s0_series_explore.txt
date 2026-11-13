@@ -1,0 +1,36 @@
+CT series in NLST (IDC 25.0.5): 203111; by split group: {'train': 85695, 'none': 76367, 'dev': 21183, 'test': 19866}
+test series in split file: 6715; found among CT series: 6715
+test studies: 6944; with a chosen series: 6715; with >1 chosen: 0
+CT series per test study: {'count': 6944.0, 'mean': 2.86, 'std': 1.2, 'min': 1.0, '25%': 2.0, '50%': 3.0, '75%': 3.0, 'max': 13.0}
+series per study (test, distribution): {1: 308, 2: 2714, 3: 2808, 4: 401, 5: 262, 6: 395, 7: 41, 8: 10, 10: 2, 11: 2, 13: 1}
+
+== chosen vs not chosen, test studies with a chosen series ==
+localizer share: chosen 0.0000, other 0.4917
+slice thickness, chosen: {2.5: 3178, 2.0: 2784, 3.2: 377, 1.25: 260, 1.3: 55, 1.0: 49, 3.0: 8, 0.6: 3, 0.75: 1}
+slice thickness, other non-localizer: {2.0: 2064, 2.5: 1671, 5.0: 1378, 1.25: 457, 3.2: 272, 10.0: 226, 1.0: 216, 1.3: 59, 3.0: 8, 4.0: 3, 6.0: 2, 7.0: 1}
+kernel, chosen (top 25): {'B50f': 1813, 'STANDARD': 1747, 'BONE': 1363, 'FC51': 477, 'B30f': 405, 'LUNG': 326, 'D': 302, 'C': 202, 'FC30': 27, 'B60f': 19, 'B70f': 8, 'FC10': 6, 'B80f': 5, 'FC50': 4, 'B': 4, 'FC53': 2, 'B50s': 1, 'FC02': 1, 'B60s': 1, 'FC01': 1, 'B45f': 1}
+kernel, other non-localizer (top 25): {'B30f': 2830, 'STANDARD': 1762, 'B50f': 824, 'BONE': 369, 'C': 268, 'FC10': 108, 'FC51': 42, 'B': 40, 'FC11': 33, 'FC01': 23, 'LUNG': 14, 'A': 13, 'D': 11, 'FC02': 5, 'FC82': 3, 'B30s': 2, 'B70f': 2, 'FC30': 2, 'B60f': 2, 'B20f': 2, 'B40f': 1, 'B31f': 1, 'BONEPLUS': 1}
+manufacturer, chosen: {'GE MEDICAL SYSTEMS': 3436, 'SIEMENS': 2253, 'TOSHIBA': 518, 'Philips': 508}
+thickness > 2.5 mm among chosen: 385
+rank of chosen by instanceCount (1 = most slices): {1.0: 6398, 2.0: 309, 3.0: 8}
+rank of chosen by thickness (1 = thinnest): {1.0: 6232, 2.0: 472, 3.0: 11}
+test studies with >1 non-localizer CT series: 4147
+-- GE MEDICAL SYSTEMS: studies 1859
+   chosen kernels: {'BONE': 1332, 'LUNG': 326, 'STANDARD': 201}
+   not chosen kernels: {'STANDARD': 1762, 'BONE': 369, 'LUNG': 14, 'BONEPLUS': 1}
+   chosen thickness: {2.5: 1656, 1.25: 203} | not chosen: {2.5: 1671, 1.25: 456, 5.0: 8, 2.0: 7, 10.0: 3, 8.0: 1}
+-- Philips: studies 313
+   chosen kernels: {'D': 299, 'C': 12, 'B': 2}
+   not chosen kernels: {'C': 268, 'B': 40, 'A': 13, 'D': 11}
+   chosen thickness: {3.2: 257, 1.3: 55, 2.0: 1} | not chosen: {3.2: 272, 1.3: 59, 2.0: 1}
+-- SIEMENS: studies 1798
+   chosen kernels: {'B50f': 1739, 'B30f': 27, 'B60f': 19, 'B70f': 5, 'B80f': 5, 'B50s': 1, 'B60s': 1, 'B45f': 1}
+   not chosen kernels: {'B30f': 2830, 'B50f': 824, 'B30s': 2, 'B70f': 2, 'B60f': 2, 'B20f': 2, 'B40f': 1, 'B31f': 1}
+   chosen thickness: {2.0: 1747, 1.0: 45, 0.6: 3, 1.25: 2, 3.0: 1} | not chosen: {2.0: 1851, 5.0: 1370, 10.0: 223, 1.0: 214, 6.0: 2, 7.0: 1}
+-- TOSHIBA: studies 177
+   chosen kernels: {'FC51': 139, 'FC30': 27, 'FC10': 6, 'FC53': 2, 'FC50': 1, 'FC02': 1, 'FC01': 1}
+   not chosen kernels: {'FC10': 108, 'FC51': 42, 'FC11': 33, 'FC01': 23, 'FC02': 5, 'FC82': 3, 'FC30': 2}
+   chosen thickness: {2.0: 169, 3.0: 7, 1.0: 1} | not chosen: {2.0: 205, 3.0: 7, 1.0: 2, 4.0: 2}
+
+dev: CT series 21183, studies 7361, participants 2493; study years {0: 2494, 1: 2446, 2: 2421}
+example description strings: ['1,OPA,GE,LS16,BONE,370,2.5,140,60,0.1,1.4', '1,OPA,GE,LS16,STANDARD,370,2.5,140,60,0.1,1.4', '2,OPA,GE,LS16,STANDARD,370,2.5,140,60,0.1,1.4', '2,OPA,GE,LS16,BONE,370,2.5,140,60,0.1,1.4', '0,OPA,GE,LS16,BONE,370,2.5,140,60,0.1,1.4', '0,OPA,SE,VZOOM,B50f,300,2,120,75,40,na']

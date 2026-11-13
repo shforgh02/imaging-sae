@@ -1,7 +1,8 @@
 """Modal spending guard (user rule, 2026-11-09). Modal's free credit is $30 of compute per month. The whole project stops at $29, and
 every task has its own budget (ledger.json 'budgets'). A launch goes ahead only if all three checks pass:
   1. task: the task's committed cost + this launch's worst case <= the task's budget;
-  2. project: all committed costs + worst case <= cap. Committed = measured cost (or billed, if larger) for closed runs; worst case for open runs;
+  2. project: all committed costs + worst case <= project_cap_usd (ledger.json; falls back to cap_usd if absent; set to 72.00 with the
+     lead's approval on 2026-11-13). Committed = measured cost (or billed, if larger) for closed runs; worst case for open runs;
   3. month: this month's workspace usage that the free credit pays for + open worst cases + worst case <= cap. Usage comes from
      `modal billing summary` (metered cost minus free storage) and includes the user's other Modal apps. Billing data lags by up
      to about an hour, which is why open runs count at their worst case.
@@ -55,16 +56,16 @@ def status(L=None, log_check=True):
     for r in L["runs"]: per[r["task"]] = per.get(r["task"], 0.0) + run_cost(r)
     ow = sum(r["worst_usd"] for r in L["runs"] if r.get("closed") is None)
     s = dict(time=time.strftime("%Y-%m-%dT%H:%M:%S"), month_used_usd=round(m, 4), open_worst_usd=round(ow, 4), project_committed_usd=round(sum(per.values()), 4),
-             per_task_usd={t: round(v, 4) for t, v in per.items()}, cap_usd=L["cap_usd"])
+             per_task_usd={t: round(v, 4) for t, v in per.items()}, cap_usd=L["cap_usd"], project_cap_usd=L.get("project_cap_usd", L["cap_usd"]))
     if log_check: L["checks"].append({k: s[k] for k in ("time", "month_used_usd", "open_worst_usd", "project_committed_usd")}); save(L)
     return s
 
 
 def check(task, worst):
     """(ok, report) for launching `worst` dollars of worst-case work under `task`."""
-    L = load(); s = status(L); cap = L["cap_usd"]; b = L["budgets"][task]; t = s["per_task_usd"].get(task, 0.0)
+    L = load(); s = status(L); cap = L["cap_usd"]; pcap = L.get("project_cap_usd", cap); b = L["budgets"][task]; t = s["per_task_usd"].get(task, 0.0)
     tests = {f"task {task}: {t:.2f} + {worst:.2f} <= {b:.2f}": t + worst <= b,
-             f"project: {s['project_committed_usd']:.2f} + {worst:.2f} <= {cap:.2f}": s["project_committed_usd"] + worst <= cap,
+             f"project: {s['project_committed_usd']:.2f} + {worst:.2f} <= {pcap:.2f}": s["project_committed_usd"] + worst <= pcap,
              f"month (Modal billing): {s['month_used_usd']:.2f} + open {s['open_worst_usd']:.2f} + {worst:.2f} <= {cap:.2f}":
                  s["month_used_usd"] + s["open_worst_usd"] + worst <= cap}
     return all(tests.values()), dict(status=s, tests=tests)
@@ -88,7 +89,8 @@ def main():
     ap.add_argument("--mem-gib", type=float, default=16); a = ap.parse_args()
     if a.cmd == "worst": print(f"worst case ${worst_case(a.n, a.timeout_min, a.gpu, a.cpu, a.mem_gib):.2f}"); return
     L = load(); s = status(L); print(json.dumps(s, indent=1))
-    print("budgets:", json.dumps(L["budgets"]), "| sum", sum(L["budgets"].values()), "| cap", L["cap_usd"])
+    print("budgets:", json.dumps(L["budgets"]), "| sum", sum(L["budgets"].values()), "| month cap", L["cap_usd"],
+          "| project cap", L.get("project_cap_usd", L["cap_usd"]))
 
 
 if __name__ == "__main__":
