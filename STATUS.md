@@ -1,6 +1,8 @@
 # Imaging SAE — status and handover
 
-**Updated:** 2026-11-13 · **Phase:** Lung L2 step S0 done (free); protocol DRAFT waiting for the lead's OK · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
+**Updated:** 2026-11-13 · **Phase:** Lung L2 S2 pilot done; two pilot checks failed as written (diagnosed); waiting for the lead's decision before D1 · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
+
+**Now (2026-11-13, S2):** protocol approved; S1 dev manifest done (7,336 exams); pilot of 300 dev series done ($1.96 spent of $45; month $22.54 of $29). All recomputation and determinism checks passed. G2e (air HU check) and G2f (z-stretch check) failed as written; diagnosis in `docs/EXECUTION_LOG.md` and `imgsae/exploratory/lung_l2/results/s2_diagnose.json`. The z-stretch is real and cuts the lungs in 26 of 27 series at 2× stretch; correcting it moves Sybil's logit by about half the between-exam spread. Next: the lead's decision on the two checks, then D1 in November as the monthly budget allows.
 
 **Now (2026-11-13, S0 done): protocol `docs/LUNG_L2_PROTOCOL.md` written; stopped for the lead's OK (Part A).**
 - Series rule for dev exams built from metadata only: reproduces the split file's test series in 98.7% of exams (gate 90% passed); dev 7,336 exams.
