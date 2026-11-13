@@ -29,3 +29,7 @@ __pycache__/
 *.pyc
 .DS_Store
 .ipynb_checkpoints/
+
+# Kept out of git by the lead's decision (2026-11-13)
+/New report .txt
+imgsae/exploratory/ucla_audit/

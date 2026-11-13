@@ -700,3 +700,11 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 - **Budget change (approved by the lead):** `ledger.json` gets `project_cap_usd` = 72.0 and task `lung_l2_audit` = 45.0 (with notes); `budget.py` project check uses `project_cap_usd` (falls back to `cap_usd`); monthly check and `cap_usd` = 29 unchanged. Guard dry run: task 0.00 ≤ 45, project 25.39 ≤ 72, month 21.07 ≤ 29.
 - **Protocol written:** `docs/LUNG_L2_PROTOCOL.md` (DRAFT; changes C1–C12 from plan v1 in its section 1). Stopped for the lead's OK.
 - **Spend:** none.
+
+## 2026-11-13: Lung L2, lead's OK on Part A; step S1 (free) and S2 preparation
+- **Lead's answers:** (1) protocol and budget diff OK; (2) the second reviewer is an external person who reads the git repository; a short brief for them will be written; (3) keep `New report .txt` and `ucla_audit/` out of git (now in `.gitignore`); (4) no external dataset request now.
+- **S1 dev manifest** (`lung_l2/s1_manifest.py`, `results/manifest_dev.csv`, SHA-256 `0eddcbb1…19425b`, `results/s1_manifest.json`): 7,336 main rows = 99.65% of the 7,362 dev exams in the tables (gate ≥ 95%: **passed**); 0 duplicate pid-year; 2,492 participants. Tiers D1 2,484, D2 2,442, D3 2,410, D4 500 kernel partners (GE 236, Siemens 195, Philips 50, Toshiba 19; drawn from 1,316 available D1 pairs). Pilot = first 300 D1 rows in the fixed participant order (seed 0). Expected zfix rows: 908 (ratio ≤ 0.65); in the pilot 103 rows with ratio < 0.95.
+- **Cloud job** `lung_l2/cloud/l2_sybil_modal.py` (from the L1 job): Sybil members called directly with forward hooks; the volume is rebuilt from Sybil's own per-slice loader with the same resample and crop/pad (checked against `Serie.get_volume()` in the smoke step); image measures in the prefetch thread; zfix and pair variants; one `.npz` + `.json` per series and variant. Guard worst case uses the function's hard timeout (60 min).
+- **Tests on the PC:** image measures on a synthetic phantom (lung volume and emphysema exact to < 2% and < 1 point, air −1,005 HU, 0.75 s); pilot checks `s2_pilot_checks.py` on fake consistent files (all pass) and with one corrupted logit (detected).
+- **Run plan for the executing agent:** `lung_l2/cloud/RUN_PLAN_S2.md`.
+- **Spend:** none yet.
