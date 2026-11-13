@@ -165,10 +165,12 @@ def _s5():
     return IDCClient().s5cmdPath
 
 
-def _prepare(row, d, s5, zfix_max):
-    """download + load + build volumes + image measures (CPU; runs in the prefetch thread)."""
+def _prepare(row, d, s5, zfix_max, verify=False):
+    """download + load + build volumes + image measures (CPU; runs in the prefetch thread). verify: compare the rebuilt main volume with
+    Sybil's own Serie.get_volume() while the DICOM files still exist (they are deleted right after this function)."""
     import numpy as np
     import pydicom
+    import torch
     from sybil import Serie
 
     import image_measures as IM
@@ -193,7 +195,9 @@ def _prepare(row, d, s5, zfix_max):
         out["zfix"] = (vz, IM.measures(vz[0, 0].numpy(), stretch=1.0, z_cropped=shpz[3] > 200))
     geo["zfix_needed"] = bool(want_zfix)
     tags = _tags(s._meta.paths[len(s._meta.paths) // 2])
-    return dict(vols=out, geo=geo, tags=tags, sec=dict(download=t1 - t0, load=t2 - t1, volumes_measures=time.time() - t2), serie=s, x2d=x2d)
+    sec = dict(download=t1 - t0, load=t2 - t1, volumes_measures=time.time() - t2)
+    ver = bool(torch.equal(out["main"][0], s.get_volume())) if verify else None
+    return dict(vols=out, geo=geo, tags=tags, sec=sec, verify_equal=ver)
 
 
 def _done(root, row):
@@ -229,7 +233,7 @@ def _score_rows(rows, root, zfix_max, tag, t0, limit_s, verify=False, model=None
 
     def fetch(r):
         d = os.path.join(base, r["series_uid"]); os.makedirs(d, exist_ok=True)
-        try: return r, _prepare(r, d, s5, zfix_max), None
+        try: return r, _prepare(r, d, s5, zfix_max, verify), None
         except Exception as e: return r, None, f"{type(e).__name__}: {e}"[:500]
         finally: shutil.rmtree(d, ignore_errors=True)
     ex = ThreadPoolExecutor(2); fut = [ex.submit(fetch, r) for r in todo[:3]]; nxt = 3
@@ -239,8 +243,8 @@ def _score_rows(rows, root, zfix_max, tag, t0, limit_s, verify=False, model=None
         uid = r["series_uid"]
         try:
             if err: raise RuntimeError(err)
-            if verify:   # the rebuilt volume must equal Sybil's own Serie.get_volume()
-                ver.append(dict(series_uid=uid, equal=bool(torch.equal(P["vols"]["main"][0], P["serie"].get_volume()))))
+            if verify:   # the rebuilt volume must equal Sybil's own Serie.get_volume() (checked in _prepare)
+                ver.append(dict(series_uid=uid, equal=P["verify_equal"]))
             sec = dict(P["sec"])
             for var, (v, meas) in P["vols"].items():
                 ti = time.time(); arr, mean, calib = _forward(model, v, dev); sec[f"infer_{var}"] = time.time() - ti
@@ -260,7 +264,7 @@ def _score_rows(rows, root, zfix_max, tag, t0, limit_s, verify=False, model=None
     keys = sorted({k for s in T for k in s})
     mean = {k: (sum(s.get(k, 0.0) for s in T) / max(1, sum(k in s for s in T))) for k in keys}
     return dict(n_rows=len(rows), n_todo=len(todo), n_done=done, errors=errs, mean_sec=mean, gpu=gpu, verify=ver,
-                torch=torch.__version__, cuda=torch.version.cuda)
+                torch=str(torch.__version__), cuda=str(torch.version.cuda))   # plain str: torch.__version__ needs torch to unpickle locally
 
 
 # ------------------------------------------------------------------ cloud functions
@@ -277,7 +281,7 @@ def smoke(n_series: int = 3, zfix_max: float = 0.95):
     import torch
     from sybil import Serie
     t0 = time.time(); vol.reload(); sys.path.insert(0, REMOTE)
-    out = dict(gpu=torch.cuda.get_device_name(0) if torch.cuda.is_available() else None, torch=torch.__version__)
+    out = dict(gpu=torch.cuda.get_device_name(0) if torch.cuda.is_available() else None, torch=str(torch.__version__))
     model = _model(); dev = "cuda" if torch.cuda.is_available() else "cpu"
     os.makedirs("/vol/l2/run_info", exist_ok=True)
     _save_heads(model, "/vol/l2/run_info/heads.npz")

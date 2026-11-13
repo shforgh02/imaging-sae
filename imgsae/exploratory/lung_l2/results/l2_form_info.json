@@ -1,0 +1,17 @@
+{
+ "params_sha256": "b4cba3aa14c79a2cc6a45a315348e289ada862fb7fce47cebb4b219af3826806",
+ "n_dev": 7362,
+ "max_abs_vs_sklearn": 0.0,
+ "n_fit": {
+  "F1": 29752,
+  "F6": 9009
+ },
+ "n_fit_pos": {
+  "F1": 452,
+  "F6": 707
+ },
+ "n_features": {
+  "F1": 43,
+  "F6": 30
+ }
+}

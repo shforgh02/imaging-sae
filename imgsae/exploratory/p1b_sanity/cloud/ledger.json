@@ -653,6 +653,26 @@
    "closed": "2026-11-12T23:23:43",
    "measured_usd": 0.12,
    "note": "manual close: export call hit its 600 s timeout reading ~5.4k small files from the volume (CPU 1 core, 2 GiB); estimate 10 min + start + image allowance; export then done with modal volume get"
+  },
+  {
+   "id": "lung_l2_audit-031",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-13T10:25:33",
+   "worst_usd": 0.4478,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "smoke"
+    ],
+    "timeout_min": 20,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-13T10:38:15",
+   "measured_usd": 0.2,
+   "note": "manual close: smoke ran (demo exact, 1.25 container-min in smoke.json on the volume); local collect could not unpickle torch.__version__; 3 dev series failed in the verify step (files already deleted); conservative 0.20 vs formula 0.164"
   }
  ],
  "checks": [
@@ -943,6 +963,24 @@
    "month_used_usd": 21.0745,
    "open_worst_usd": 0,
    "project_committed_usd": 25.3868
+  },
+  {
+   "time": "2026-11-13T10:23:20",
+   "month_used_usd": 21.0745,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.3868
+  },
+  {
+   "time": "2026-11-13T10:25:33",
+   "month_used_usd": 21.0847,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.3868
+  },
+  {
+   "time": "2026-11-13T10:28:30",
+   "month_used_usd": 21.1452,
+   "open_worst_usd": 0.4478,
+   "project_committed_usd": 25.8346
   }
  ]
 }

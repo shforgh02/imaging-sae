@@ -708,3 +708,11 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 - **Tests on the PC:** image measures on a synthetic phantom (lung volume and emphysema exact to < 2% and < 1 point, air −1,005 HU, 0.75 s); pilot checks `s2_pilot_checks.py` on fake consistent files (all pass) and with one corrupted logit (detected).
 - **Run plan for the executing agent:** `lung_l2/cloud/RUN_PLAN_S2.md`.
 - **Spend:** none yet.
+
+## 2026-11-13: S2 smoke attempt 1 (run lung_l2_audit-031): demo passed, two bugs of mine fixed
+- **What ran:** the executing agent (Sonnet) launched the smoke step; guard tests passed (task 0.00 + 0.45 ≤ 45; project 25.39 + 0.45 ≤ 72; month 21.08 + 0.45 ≤ 29). The image built without trouble.
+- **Result read from the volume** (`l2/run_info/smoke.json`, fetched with `modal volume get`, free): demo case through the L2 path equals the published scores exactly (max difference 0.0); the rebuilt volume equals Sybil's `Serie.get_volume()`; Sybil's own `predict` gives the same six numbers; head weights saved (SHA-256 `ba2d6d85…009bac`); T4, torch 1.13.1+cu117; 1.25 container-minutes.
+- **Bug 1:** the returned dict held `torch.__version__` (a torch string type); the local client without torch could not unpickle it, so collect exited 4 and the agent stopped, as the run plan says. Fix: plain `str()`.
+- **Bug 2:** the three dev series failed with "COULD NOT LOAD DICOM" inside the verification step, because it re-read the DICOM files after the job had deleted them. Fix: the comparison with `Serie.get_volume()` now runs in `_prepare`, before deletion. Nothing partial was saved (`l2/dev/main` does not exist on the volume).
+- **Ledger:** run 031 closed by hand at $0.20 (formula from the measured 1.25 container-minutes: $0.16).
+- **Deviation:** a second smoke run (≈ $0.2) inside the S2 allocation ($2.00).
