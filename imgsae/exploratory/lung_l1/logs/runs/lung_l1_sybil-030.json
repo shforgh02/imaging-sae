@@ -1,0 +1,12 @@
+{
+ "rid": "lung_l1_sybil-030",
+ "task": "lung_l1_sybil",
+ "app": "imgsae-lung-l1",
+ "job": "export",
+ "call_id": "fc-01M790H4Q3TZ1P8P1WQKQ9BQQB",
+ "rate_h": 0.0633,
+ "timeout_min": 10,
+ "worst_usd": 0.11371500000000001,
+ "launched": "2026-11-12T23:12:20",
+ "result_name": "export"
+}

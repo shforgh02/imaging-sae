@@ -1,0 +1,17 @@
+{
+ "rid": "lung_l1_sybil-027",
+ "task": "lung_l1_sybil",
+ "app": "imgsae-lung-l1",
+ "job": "run_P1_0_2279",
+ "call_ids": [
+  "fc-01M78GGCGWW9D711CN9QHM6SZX",
+  "fc-01M78GGDG0MQTR3DN8V1JAVC6K",
+  "fc-01M78GGEG6EZVGN82MBRE7ZZ34",
+  "fc-01M78GGF0WH1BCPTRHSVXB5GPY"
+ ],
+ "rate_h": 0.9072,
+ "timeout_min": 35,
+ "worst_usd": 2.39824,
+ "launched": "2026-11-12T18:32:20",
+ "result_name": "run_P1_0_2279"
+}

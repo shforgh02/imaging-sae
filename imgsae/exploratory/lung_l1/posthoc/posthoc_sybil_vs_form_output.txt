@@ -1,0 +1,13 @@
+R2 of Sybil logit from recorded findings + age/sex/smoking: 0.187
+R2 of Sybil logit from age/sex/smoking only: 0.064
+Spearman Sybil vs recorded-findings model: 0.332
+all scored screens: n 5380, cancers 72, Sybil 0.914, recorded findings 0.945
+radiologist-positive screens: n 2062, cancers 68, Sybil 0.898, recorded findings 0.932
+radiologist-negative screens: n 3318, cancers 4, Sybil 0.712, recorded findings 0.583
+baseline, radiologist-positive: n 963, cancers 39, Sybil 0.903, recorded findings 0.901
+cancers within 1y: 72 | caught by both 56 | Sybil only 5 | findings only 8 | neither 3
+non-cancers: 5308 | flagged by both 212 | Sybil only 403 | findings only 319
+6y cancers (baseline): 131 | both 41 | Sybil only 18 | findings only 10 | neither 62
+nonlinear R2 (boosting) of Sybil logit from recorded findings: 0.151
+Sybil logit, same participant T0 vs T1: r = 0.605 n 1553
+recorded-findings logit, same participant T0 vs T1: r = 0.33

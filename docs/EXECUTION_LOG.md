@@ -611,3 +611,75 @@ Progress (2026-11-09):
 - **The lead's decision:** push all notes for colleagues, and pause to find a better clinical question.
 - **Plain-language summary:** `docs/PAUSE_NOTE_2026-11-11.md`. README, STATUS and the reviewer briefing point to it.
 - **Project Modal total:** $12.86 (CT 7.74, MRI 5.12); no open runs; sealed halves (PI-CAI 746 studies, CT 555 scans) unopened.
+
+## 2026-11-12: lung route re-checked at no cost (user: "do what you think its best"); still paused
+- **Correction of the feasibility scan.** Sybil's split is published: `files/Shetty_et_al(Google)_data_splits.p` on the `train` branch of its repository (15,019 participants: train 10,179, dev 2,493, test 2,347). The scan's "blocked" verdict was wrong and now carries a correction note.
+- **Lung L0** (`imgsae/exploratory/lung_l0/`; public NLST tables joined with the split; no images, no Modal):
+  - The 11,432 CT-arm participants in no Sybil split hold only 34 cancers, so they are not a test set. The clean test data are Sybil's test split (154 participants with cancer).
+  - A logistic regression on the trial radiologists' recorded findings, fitted on Sybil's train and dev participants, scores on Sybil's test participants:
+    - cancer within 1 year, baseline scans: 0.929 [0.879, 0.971], against Sybil's published 0.93;
+    - cancer within 6 years, baseline scans: 0.745 [0.699, 0.790], against Sybil's published 0.75.
+  - **Reading:** no gap over the doctor in lung either (condition 1 fails). The comparison is unpaired; a paired test needs Sybil's scores on the test scans (a paid run, not approved).
+  - Exploratory: nothing was fixed in a protocol beforehand. If a confirmatory test follows, the comparator is frozen as in `nlst_l0.py` before any Sybil score is computed.
+- **UCLA high-b audit** (`imgsae/exploratory/ucla_audit/`; read-only on the lead's copy of TCIA Prostate-MRI-US-Biopsy; DICOM headers only):
+  - **Question:** the lead's earlier pipeline picks the high-b series by name, so could a wrong series explain the fall to about 0.66 on UCLA?
+  - **Answer: no.** Of 975 sessions, 960 use an image with b ≥ 1,400 (955 at b = 1,400; 863 of them computed). No series mixes b-values.
+  - 15 sessions are wrong or unknown: 7 at b = 0 (the series is named CALCBVAL but holds b = 0 trace images), 1 at b = 50, 1 at b = 1,000, and 6 with no b-value in the header. They are listed in `highb_series_audit.csv`.
+  - The UCLA spreadsheets hold a UCLA score per target (1,617 targets), PSA and prostate volume for nearly all 1,150 patients; 551 patients have a Gleason ≥ 7 core.
+- **UCLA scanner and coil headers** (one DICOM header per series; the lead's copy; read-only). This corrects the 2026-11-11 entry, which put the fall on UCLA down to "scanners and coil":
+  - Of the 800 examinations in the lead's UCLA study, 598 are on a Siemens Skyra 3 T, 92 on Prisma or Vida, 62 on Verio or Trio, 32 on a Siemens 1.5 T, and 16 on GE or Philips.
+  - An endorectal coil shows in the headers of 12 of 800 (my reading of the coil strings; to be confirmed by a radiologist).
+  - On the Skyra examinations alone the picture is the same as overall: SegResNet 0.657, nnU-Net 0.688, UCLA score 0.685, PSA density 0.713. So coil and scanner do not explain the modest AUROC; the biopsy-referred population does most of it. Real shift shows only in the 48 examinations at 1.5 T or on other vendors.
+- **Checks of the lead's UCLA manuscript** (on its own `source_data` tables; handover file in the manuscript folder, `REFRAMING_HANDOVER_2026-11-12/`):
+  - The headline increment (AI top-3 added to radiologist targets: +16 of 36 missed) is not above the manuscript's chance model (12.6 expected, P = 0.12).
+  - The models add nothing to UCLA score + PSA density at examination level: −0.001 [−0.004, +0.001] and +0.000 [−0.002, +0.003].
+  - This is the same pattern as in PI-CAI and in lung: the model matches what the radiologist already recorded.
+- **Lung L1** fixed and launched: protocol `docs/LUNG_L1_PROTOCOL.md`; analysis frozen before any score (`imgsae/exploratory/lung_l1/l1_analysis.py`); ledger task `lung_l1_sybil`, cap $15.00, approved by the lead ("1.yes"). The run is executed by a delegated lower-cost agent at the lead's request.
+- **Data kept (git-ignored):** `imgsae_data/nlst_public/` (the NLST clinical package, its tables, the split file; SHA-256 in `RESULTS_L0.md`).
+- **Spend:** none. Modal total unchanged at $12.86.
+
+## 2026-11-12: lung L1 run and result (Sybil against the recorded findings, paired)
+
+- **Who ran it:** a lower-cost agent (Sonnet), under `docs/LUNG_L1_PROTOCOL.md`, as the lead asked. I checked its report against the files afterwards (analysis hash, `scores.csv` row count, ledger, volume list).
+- **What was scored:** all 2,279 baseline series and 3,133 of the 4,436 follow-up series of Sybil's test split (5,412 series, 2,331 participants). The follow-up tier stopped at the $13.00 line of the protocol. No series failed in the final runs.
+- **Gates:** all passed. Every one of the 6,715 series was found in IDC; Sybil reproduced its published demo scores exactly; labels agree with the split file for 99.87% of scored exams; Sybil's own AUROC is 0.927 at one year on baseline scans (published 0.93) and 0.914 on all scored screens (published 0.92).
+- **Verdict by the fixed rules:** "No evidence that Sybil carries information beyond the recorded findings, at the precision of this test set."
+
+| Analysis | Exams / cancers | Sybil | Recorded findings | Sybil minus findings | Both minus findings | Both minus Sybil |
+|---|---|---|---|---|---|---|
+| A1, 1 year, baseline (primary) | 2,278 / 41 | 0.927 | 0.929 | −0.003 [−0.063, +0.058] | +0.026 [−0.004, +0.061] | +0.025 [−0.014, +0.069] |
+| A2, 6 years, baseline (primary) | 2,002 / 131 | 0.724 | 0.745 | −0.021 [−0.073, +0.034] | +0.011 [−0.019, +0.040] | +0.040 [+0.012, +0.072] |
+| A3, 1 year, all scored screens | 5,380 / 72 | 0.914 | 0.945 | −0.031 [−0.072, +0.008] | +0.000 [−0.030, +0.021] | +0.035 [+0.012, +0.064] |
+| A4, 2 years, baseline | 2,270 / 57 | 0.877 | 0.891 | −0.014 [−0.067, +0.034] | +0.015 [−0.016, +0.045] | +0.030 [+0.005, +0.056] |
+| A5, negative baseline, cancer at 1 to 6 years | 1,140 / 51 | 0.580 | 0.644 | −0.064 [−0.160, +0.030] | −0.008 [−0.026, +0.011] | +0.086 [+0.005, +0.169] |
+
+Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000 draws).
+
+- **What it does and does not show:**
+  - Sybil does not beat a 39-variable logistic regression on the radiologists' form in any of the five analyses.
+  - The form adds to Sybil at 2 and 6 years, on all screens and after a negative baseline (the intervals exclude zero).
+  - Sybil is not empty of new information: the likelihood-ratio test for Sybil given the findings is significant in A1 to A4 (p about 1e-8), and at one year the combination is +0.026 over the findings with a lower bound of −0.004. The fixed "adds" rule is not met, but a small real gain is not excluded.
+  - With 41 and 131 cancers, a true gap under about 0.03 to 0.04 can be missed. The claim is "no large gap", not "equal".
+  - After a negative baseline screen Sybil scores 0.58, in line with the published range for cancers without a visible nodule.
+- **Deviations** (all listed in `imgsae/exploratory/lung_l1/RESULTS_L1.md`): torch installed from PyPI because the pinned CUDA build is not on the mirror; two failed smoke attempts and one hung download test before the fixes (non-DICOM files in the demo zip; `idc-index` replaced by direct `s5cmd`); one run with a stale address map in two containers, rescored; the follow-up tier is partial; the export was built on the PC from the per-series files after the cloud export call timed out; the agent was interrupted twice by its usage limit between launches.
+- **Spend:** $12.53 of the $15.00 cap. Project total $25.39 of the $29 cap on account shforghani2002; month usage $21.12. No run is open; the volume `imgsae-nlst-l1` is deleted; the lead's other volumes were not touched.
+- **Consequence for the plan:** the lung leg of the proposed clinical paper now has a paired result on the model's own test split. About $3.60 is left under the project cap on this account this month, so any further paid step waits for the lead's decision on budget.
+
+## 2026-11-13: direction after L1 (lead's decision), free checks, draft plan
+
+- **Lead's decision:** no two-cancer paper ("2 cancer only makes it hetrogen"). The lead's earlier prostate manuscript is handled outside this project. For this project the lead asks to open the model: why it is right, why wrong, and whether features can improve prediction or cut false positives and negatives.
+- **Free checks on the L1 scores (post hoc, exploratory; `imgsae/exploratory/lung_l1/posthoc/`):**
+  - The recorded findings explain only 15% (boosting) to 19% (ridge) of the variation in Sybil's one-year score; rank correlation 0.33.
+  - Same participant one year apart: r = 0.61 for Sybil's score, 0.33 for the recorded-findings model.
+  - At 90% specificity each: 615 and 531 non-cancers flagged, 212 shared. Of 72 one-year cancers: both 56, Sybil only 5, findings only 8, neither 3. Of 131 six-year cancers on baseline scans: both 41, Sybil only 18, findings only 10, neither 62.
+  - Within radiologist-positive screens (2,062 exams, 68 cancers): Sybil 0.898, recorded findings 0.932.
+  - Clean cancers: dev 149 participants (88 exams within one year, 319 within six); test 154 (91, 346).
+- **Sybil's code checked:** the risk is a linear function of a 512-number vector (three pooled vectors, one linear layer, ReLU, then the hazard layer), so feature contributions to a prediction can be computed exactly.
+- **Literature:** *Auditing Sybil* (arXiv 2602.02560, ICML 2026) audits Sybil with synthetic nodules; no real outcomes. No feature-decomposition study of a lung screening model found.
+- **Draft plan:** `docs/PLAN_SYBIL_AUDIT_v1.md` (v0 was replaced the same day). Not approved. About $39 to $49 in gated steps.
+- **Spend:** none.
+- **Later the same day (lead: run the work with Opus 5.5 at xhigh effort in a fresh session; keep the old prostate manuscript out of this project):**
+  - Plan v1 written, with three changes from v0: (1) Sybil's head is not plainly linear: the year-t logit is the base hazard plus a sum of ReLU hazards, and the published score is the calibrated mean of five members, so contributions are exact per member and exam only; (2) the split file lists series only for test participants, so dev needs a series-selection rule learned from metadata; (3) a paired-reconstruction sub-study (same exam, two kernels) is added as direct evidence of technical sensitivity.
+  - Rule added: no new outcome analysis of the existing test scores before the hypotheses are frozen.
+  - Budget fact: the guard's all-time project check has $3.61 left (used $25.39 of $29); Modal's monthly usage is $21.12. The new work needs the lead's approval of a separate project limit.
+  - Hand-over prompt for the new session: `docs/HANDOVER_PROMPT_SYBIL_AUDIT.md`.

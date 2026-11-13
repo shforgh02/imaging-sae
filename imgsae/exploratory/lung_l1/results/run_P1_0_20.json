@@ -1,0 +1,17 @@
+{
+ "n_todo": 20,
+ "n_done": 20,
+ "errors": {},
+ "mean_sec": {
+  "download": 2.721951723098755,
+  "load": 6.401795899868011,
+  "infer": 6.54084495306015
+ },
+ "n_attempted": 20,
+ "tier": "P1",
+ "lo": 0,
+ "hi": 20,
+ "shard": 0,
+ "nshard": 1,
+ "container_min": 4.739334626992544
+}

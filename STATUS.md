@@ -1,8 +1,25 @@
 # Imaging SAE — status and handover
 
-**Updated:** 2026-11-11 · **Phase:** PAUSED, looking for a better clinical question · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
+**Updated:** 2026-11-13 · **Phase:** restart proposed (Sybil audit, plan v1); waiting for the lead's OK on the protocol and budget · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
-**Now (2026-11-11): PAUSED by the lead's decision.** The plain-language summary is `docs/PAUSE_NOTE_2026-11-11.md`.
+**Now (2026-11-13): restart proposed as a feature-level audit of Sybil ("Lung L2").** Plan: `docs/PLAN_SYBIL_AUDIT_v1.md`. Hand-over prompt for the executing session: `docs/HANDOVER_PROMPT_SYBIL_AUDIT.md`.
+- **Lead's direction (2026-11-13):** no two-cancer paper. In this project, open the model: why it is right, why it is wrong, and whether its features can be used.
+- **Next step:** S0 of the plan (free): read the competing audit, write `docs/LUNG_L2_PROTOCOL.md`, stop for the lead's OK. Nothing is approved to spend until the lead gives the budget.
+- **Why Sybil:** same accuracy as the radiologist's form, but the form explains only 15% to 19% of Sybil's score; the score is stable within a person (r = 0.61 one year apart); the two make mostly different false alarms. Exploratory numbers, in `imgsae/exploratory/lung_l1/posthoc/`.
+- **Rule from now on:** no test activation and no new outcome analysis of the existing test scores before the hypotheses are frozen.
+- **Budget facts:** the guard's all-time project check has $3.61 left ($25.39 of $29 used). Modal's monthly usage on account `shforghani2002` is $21.12. No open runs.
+
+**Before (2026-11-12): lung re-checked at no cost, then the paired test L1.** Results in `imgsae/exploratory/lung_l0/RESULTS_L0.md` and `imgsae/exploratory/lung_l1/RESULTS_L1.md`.
+- **Sybil's split is published** (branch `train` of its repository), so lung was not blocked as the feasibility scan said.
+- **No gap over the doctor in lung (L0, unpaired).** On Sybil's test participants, a logistic regression on the NLST radiologists' recorded findings scores 0.93 for cancer within one year and 0.75 within six years. Sybil's published figures are 0.93 and 0.75.
+- **Clean lung test data:** Sybil's test split only (2,347 participants, 154 with cancer). The 11,432 CT-arm participants outside Sybil's splits hold 34 cancers.
+- **Lung L1 done (paired test, approved by the lead with a $15 cap, run by a lower-cost agent).**
+  - Scored: all 2,279 baseline series and 3,133 of 4,436 follow-up series of Sybil's test split. All gates passed.
+  - One year, baseline: Sybil 0.927, recorded findings 0.929, difference −0.003 [−0.063, +0.058].
+  - Six years, baseline: Sybil 0.724, recorded findings 0.745, difference −0.021 [−0.073, +0.034].
+  - Verdict by the fixed rules: no evidence that Sybil carries information beyond the recorded findings. The findings add to Sybil at 2 and 6 years. A small gain from Sybil at one year is not excluded (+0.026, lower bound −0.004).
+- **Spend:** lung L1 $12.53 of its $15 cap. The L1 volume is deleted.
+**Before (2026-11-11): PAUSED by the lead's decision.** The plain-language summary is `docs/PAUSE_NOTE_2026-11-11.md`.
 - **The lead's own cancer model** (SegResNet, trained on PI-CAI folds 0-2) on held-out folds 3 + 4, 357 biopsied PI-RADS ≥ 3 men:
   - +0.022 AUROC over PI-RADS + PSAD + age (p 0.0002);
   - +0.021 after the lesion's ADC, DWI and size;

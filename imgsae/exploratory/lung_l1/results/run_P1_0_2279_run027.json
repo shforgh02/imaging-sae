@@ -1,0 +1,73 @@
+{
+ "calls": [
+  {
+   "n_todo": 0,
+   "n_done": 0,
+   "errors": {},
+   "mean_sec": {
+    "download": null,
+    "load": null,
+    "infer": null
+   },
+   "n_attempted": 0,
+   "tier": "P1",
+   "lo": 0,
+   "hi": 2279,
+   "shard": 0,
+   "nshard": 4,
+   "container_min": 0.2923852801322937
+  },
+  {
+   "n_todo": 0,
+   "n_done": 0,
+   "errors": {},
+   "mean_sec": {
+    "download": null,
+    "load": null,
+    "infer": null
+   },
+   "n_attempted": 0,
+   "tier": "P1",
+   "lo": 0,
+   "hi": 2279,
+   "shard": 1,
+   "nshard": 4,
+   "container_min": 0.17392776807149252
+  },
+  {
+   "n_todo": 0,
+   "n_done": 0,
+   "errors": {},
+   "mean_sec": {
+    "download": null,
+    "load": null,
+    "infer": null
+   },
+   "n_attempted": 0,
+   "tier": "P1",
+   "lo": 0,
+   "hi": 2279,
+   "shard": 2,
+   "nshard": 4,
+   "container_min": 0.18699108362197875
+  },
+  {
+   "n_todo": 187,
+   "n_done": 187,
+   "errors": {},
+   "mean_sec": {
+    "download": 7.082653235624181,
+    "load": 6.7003521332766285,
+    "infer": 8.929288373273963
+   },
+   "n_attempted": 187,
+   "tier": "P1",
+   "lo": 0,
+   "hi": 2279,
+   "shard": 3,
+   "nshard": 4,
+   "container_min": 28.94094364643097
+  }
+ ],
+ "container_min": 29.594247778256737
+}

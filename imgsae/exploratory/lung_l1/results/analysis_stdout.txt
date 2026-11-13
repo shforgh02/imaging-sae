@@ -1,0 +1,257 @@
+{
+ "scores_file": "D:\\Shayan\\imgsae\\exploratory\\lung_l1\\results\\scores.csv",
+ "scores": {
+  "rows": 5412,
+  "participants": 2331,
+  "by_study_yr": {
+   "0": 2279,
+   "1": 1584,
+   "2": 1549
+  },
+  "duplicate_pid_year_rows": 0
+ },
+ "mapping_checks": {
+  "scored_rows_not_in_test_split": 0,
+  "test_exams_in_table": 6937,
+  "test_exams_with_score": 5412,
+  "scored_rows_without_table_exam": 0,
+  "label_agreement_with_split_file": 0.9987
+ },
+ "analyses": {
+  "A1": {
+   "n_exams": 2278,
+   "n_positive": 41,
+   "n_participants": 2278,
+   "interval": "97.5%",
+   "auroc_sybil": [
+    0.9265,
+    0.8746,
+    0.9684
+   ],
+   "auroc_recorded_findings": [
+    0.9293,
+    0.8646,
+    0.9741
+   ],
+   "delta_sybil_minus_recorded": [
+    -0.0027,
+    -0.0628,
+    0.0581
+   ],
+   "auroc_combined_crossfit": [
+    0.9469,
+    0.8977,
+    0.9806
+   ],
+   "delta_combined_minus_recorded": [
+    0.0255,
+    -0.0038,
+    0.0609
+   ],
+   "delta_combined_minus_sybil": [
+    0.0247,
+    -0.0139,
+    0.069
+   ],
+   "lr_test_sybil_given_recorded": {
+    "chi2_1df": 32.47,
+    "p": 1.2077253082376206e-08
+   },
+   "lr_test_recorded_given_sybil": {
+    "chi2_1df": 43.01,
+    "p": 5.435362307980803e-11
+   },
+   "title": "cancer within 1 year, baseline scans",
+   "primary": true
+  },
+  "A2": {
+   "n_exams": 2002,
+   "n_positive": 131,
+   "n_participants": 2002,
+   "interval": "97.5%",
+   "auroc_sybil": [
+    0.7238,
+    0.6654,
+    0.7824
+   ],
+   "auroc_recorded_findings": [
+    0.7448,
+    0.6909,
+    0.7945
+   ],
+   "delta_sybil_minus_recorded": [
+    -0.021,
+    -0.0734,
+    0.0342
+   ],
+   "auroc_combined_crossfit": [
+    0.7537,
+    0.6982,
+    0.8067
+   ],
+   "delta_combined_minus_recorded": [
+    0.0105,
+    -0.0189,
+    0.0403
+   ],
+   "delta_combined_minus_sybil": [
+    0.0395,
+    0.0115,
+    0.0724
+   ],
+   "lr_test_sybil_given_recorded": {
+    "chi2_1df": 30.77,
+    "p": 2.9119455194597158e-08
+   },
+   "lr_test_recorded_given_sybil": {
+    "chi2_1df": 36.91,
+    "p": 1.2381575410938847e-09
+   },
+   "title": "cancer within 6 years, baseline scans",
+   "primary": true
+  },
+  "A3": {
+   "n_exams": 5380,
+   "n_positive": 72,
+   "n_participants": 2330,
+   "interval": "95.0%",
+   "auroc_sybil": [
+    0.9141,
+    0.8664,
+    0.9522
+   ],
+   "auroc_recorded_findings": [
+    0.9448,
+    0.9063,
+    0.974
+   ],
+   "delta_sybil_minus_recorded": [
+    -0.0307,
+    -0.0722,
+    0.0077
+   ],
+   "auroc_combined_crossfit": [
+    0.9441,
+    0.9003,
+    0.9779
+   ],
+   "delta_combined_minus_recorded": [
+    0.0002,
+    -0.0297,
+    0.021
+   ],
+   "delta_combined_minus_sybil": [
+    0.0346,
+    0.0115,
+    0.0644
+   ],
+   "lr_test_sybil_given_recorded": {
+    "chi2_1df": 38.85,
+    "p": 4.5829631757855946e-10
+   },
+   "lr_test_recorded_given_sybil": {
+    "chi2_1df": 123.53,
+    "p": 1.065640841077379e-28
+   },
+   "title": "cancer within 1 year, all screens (recorded findings may use earlier scans)",
+   "primary": false
+  },
+  "A4": {
+   "n_exams": 2270,
+   "n_positive": 57,
+   "n_participants": 2270,
+   "interval": "95.0%",
+   "auroc_sybil": [
+    0.877,
+    0.8234,
+    0.9277
+   ],
+   "auroc_recorded_findings": [
+    0.8911,
+    0.8424,
+    0.9335
+   ],
+   "delta_sybil_minus_recorded": [
+    -0.0141,
+    -0.0669,
+    0.0337
+   ],
+   "auroc_combined_crossfit": [
+    0.9042,
+    0.8603,
+    0.9454
+   ],
+   "delta_combined_minus_recorded": [
+    0.0146,
+    -0.0157,
+    0.0451
+   ],
+   "delta_combined_minus_sybil": [
+    0.03,
+    0.0054,
+    0.0563
+   ],
+   "lr_test_sybil_given_recorded": {
+    "chi2_1df": 37.57,
+    "p": 8.8127870628591e-10
+   },
+   "lr_test_recorded_given_sybil": {
+    "chi2_1df": 40.59,
+    "p": 1.882387078412818e-10
+   },
+   "title": "cancer within 2 years, baseline scans",
+   "primary": false
+  },
+  "A5": {
+   "n_exams": 1140,
+   "n_positive": 51,
+   "n_participants": 1140,
+   "interval": "95.0%",
+   "auroc_sybil": [
+    0.5799,
+    0.5015,
+    0.6563
+   ],
+   "auroc_recorded_findings": [
+    0.6437,
+    0.5663,
+    0.7168
+   ],
+   "delta_sybil_minus_recorded": [
+    -0.0638,
+    -0.16,
+    0.0299
+   ],
+   "auroc_combined_crossfit": [
+    0.6348,
+    0.5538,
+    0.7077
+   ],
+   "delta_combined_minus_recorded": [
+    -0.0075,
+    -0.0264,
+    0.0106
+   ],
+   "delta_combined_minus_sybil": [
+    0.0857,
+    0.0045,
+    0.1686
+   ],
+   "lr_test_sybil_given_recorded": {
+    "chi2_1df": 1.14,
+    "p": 0.2856333499148688
+   },
+   "lr_test_recorded_given_sybil": {
+    "chi2_1df": 9.12,
+    "p": 0.002523409983152507
+   },
+   "title": "negative baseline screen, cancer 1 to 6 years later",
+   "primary": false
+  }
+ },
+ "sanity_sybil_reproduces_published": {
+  "A1": true,
+  "A3": true
+ },
+ "verdict": "No evidence that Sybil carries information beyond the recorded findings, at the precision of this test set."
+}

@@ -1,0 +1,71 @@
+groups: {'unseen': 30888, 'train': 29932, 'dev': 7362, 'test': 6937}
+{
+ "dev": {
+  "participants": 2493,
+  "exams": 7362,
+  "participants_with_cancer_after_a_scan": 149,
+  "exams_y1_pos": 88,
+  "baseline_y1_pos": 38,
+  "exams_y2_pos": 150,
+  "baseline_y2_pos": 65,
+  "exams_y6_pos": 319,
+  "baseline_y6_pos": 137,
+  "positive_calls": 2573,
+  "positive_calls_no_cancer_1y": 2476,
+  "negative_calls_cancer_1y": 8,
+  "negative_baseline_cancer_1to6y": 56
+ },
+ "test": {
+  "participants": 2347,
+  "exams": 6937,
+  "participants_with_cancer_after_a_scan": 154,
+  "exams_y1_pos": 91,
+  "baseline_y1_pos": 41,
+  "exams_y2_pos": 147,
+  "baseline_y2_pos": 61,
+  "exams_y6_pos": 346,
+  "baseline_y6_pos": 140,
+  "positive_calls": 2603,
+  "positive_calls_no_cancer_1y": 2501,
+  "negative_calls_cancer_1y": 5,
+  "negative_baseline_cancer_1to6y": 56
+ },
+ "train": {
+  "participants": 10179,
+  "exams": 29932,
+  "participants_with_cancer_after_a_scan": 739,
+  "exams_y1_pos": 452,
+  "baseline_y1_pos": 206,
+  "exams_y2_pos": 769,
+  "baseline_y2_pos": 326,
+  "exams_y6_pos": 1580,
+  "baseline_y6_pos": 707,
+  "positive_calls": 10893,
+  "positive_calls_no_cancer_1y": 10402,
+  "negative_calls_cancer_1y": 35,
+  "negative_baseline_cancer_1to6y": 253
+ },
+ "unseen": {
+  "participants": 11432,
+  "exams": 30888,
+  "participants_with_cancer_after_a_scan": 34,
+  "exams_y1_pos": 29,
+  "baseline_y1_pos": 6,
+  "exams_y2_pos": 48,
+  "baseline_y2_pos": 16,
+  "exams_y6_pos": 72,
+  "baseline_y6_pos": 33,
+  "positive_calls": 2072,
+  "positive_calls_no_cancer_1y": 1894,
+  "negative_calls_cancer_1y": 3,
+  "negative_baseline_cancer_1to6y": 14
+ }
+}
+scored exams merged: 5412
+cols: ['y1', 'y2', 'y6', 'y1_s', 'y2_s', 'y3', 'y4', 'y5', 'y6_s']
+1y cancers scored: 72 | missed by Sybil at 90% spec: 11 | missed by radiologist call: 4 | missed by both: 2
+1y negatives scored: 5308 | Sybil FP at 90% spec: 615 | radiologist positive calls (FP): 1994 | radiologist FP that Sybil scores below thr: 1601
+within positive calls: n 2062 cancers 68 Sybil AUROC 0.898
+within negative calls: n 3318 cancers 4 Sybil AUROC 0.712
+canc rows 2150 | de_type filled 2124 | lc_topog filled 2150 | stage filled 2149
+lc_morph top: {8140: 692, 8070: 438, 8041: 272, 8046: 250, 8250: 119, 8012: 50}

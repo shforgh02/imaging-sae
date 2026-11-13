@@ -1,0 +1,275 @@
+{
+ "participants": {
+  "ct_arm_in_public_table": 26453,
+  "split_file": 15019,
+  "split_pids_missing_from_table": 0,
+  "by_group": {
+   "unseen": 11434,
+   "train": 10179,
+   "dev": 2493,
+   "test": 2347
+  }
+ },
+ "first_cancer_by_screen_link": {
+  "train": {
+   "0": 9440,
+   "1": 449,
+   "2": 32,
+   "3": 15,
+   "4": 243
+  },
+  "dev": {
+   "0": 2344,
+   "1": 86,
+   "2": 6,
+   "3": 1,
+   "4": 56
+  },
+  "test": {
+   "0": 2193,
+   "1": 88,
+   "2": 3,
+   "4": 63
+  },
+  "unseen": {
+   "0": 11400,
+   "1": 26,
+   "2": 3,
+   "4": 5
+  }
+ },
+ "counts_all_screens": {
+  "train": {
+   "participants": 10179,
+   "exams": 29932,
+   "exams_cancer_within_1y": 452,
+   "exams_cancer_1_to_2y": 317,
+   "exams_cancer_2_to_6y": 811,
+   "participants_with_later_cancer": 739
+  },
+  "dev": {
+   "participants": 2493,
+   "exams": 7362,
+   "exams_cancer_within_1y": 88,
+   "exams_cancer_1_to_2y": 62,
+   "exams_cancer_2_to_6y": 169,
+   "participants_with_later_cancer": 149
+  },
+  "test": {
+   "participants": 2347,
+   "exams": 6937,
+   "exams_cancer_within_1y": 91,
+   "exams_cancer_1_to_2y": 56,
+   "exams_cancer_2_to_6y": 199,
+   "participants_with_later_cancer": 154
+  },
+  "unseen": {
+   "participants": 11432,
+   "exams": 30888,
+   "exams_cancer_within_1y": 29,
+   "exams_cancer_1_to_2y": 19,
+   "exams_cancer_2_to_6y": 24,
+   "participants_with_later_cancer": 34
+  }
+ },
+ "counts_negative_screens": {
+  "train": {
+   "participants": 8581,
+   "exams": 19039,
+   "exams_cancer_within_1y": 35,
+   "exams_cancer_1_to_2y": 127,
+   "exams_cancer_2_to_6y": 471,
+   "participants_with_later_cancer": 351
+  },
+  "dev": {
+   "participants": 2114,
+   "exams": 4789,
+   "exams_cancer_within_1y": 8,
+   "exams_cancer_1_to_2y": 34,
+   "exams_cancer_2_to_6y": 96,
+   "participants_with_later_cancer": 74
+  },
+  "test": {
+   "participants": 1974,
+   "exams": 4334,
+   "exams_cancer_within_1y": 5,
+   "exams_cancer_1_to_2y": 25,
+   "exams_cancer_2_to_6y": 117,
+   "participants_with_later_cancer": 80
+  },
+  "unseen": {
+   "participants": 10704,
+   "exams": 28816,
+   "exams_cancer_within_1y": 3,
+   "exams_cancer_1_to_2y": 9,
+   "exams_cancer_2_to_6y": 13,
+   "participants_with_later_cancer": 16
+  }
+ },
+ "label_check_vs_split_file": {
+  "split_test_series": 6715,
+  "split_test_cancer_in_1": 86,
+  "derived_test_exams": 6937,
+  "derived_test_cancer_within_1y": 91
+ },
+ "auroc_test": {
+  "cancer within 1y, all screens, with comparison to priors": {
+   "n_exams": 6894,
+   "n_positive": 91,
+   "n_fit_exams": 37066,
+   "n_fit_positive": 540,
+   "recorded findings + age, sex, smoking (logistic)": [
+    0.95,
+    0.921,
+    0.973
+   ],
+   "recorded findings + age, sex, smoking (boosting)": [
+    0.957,
+    0.933,
+    0.975
+   ],
+   "recorded findings only (logistic)": [
+    0.952,
+    0.925,
+    0.973
+   ],
+   "age, sex, smoking only (logistic)": [
+    0.607,
+    0.541,
+    0.672
+   ],
+   "largest nodule diameter alone (no fitting)": [
+    0.903,
+    0.863,
+    0.939
+   ],
+   "radiologist call, positive vs negative": [
+    0.789,
+    0.761,
+    0.81
+   ]
+  },
+  "cancer within 1y, baseline scans, single-scan findings": {
+   "n_exams": 2344,
+   "n_positive": 41,
+   "n_fit_exams": 12667,
+   "n_fit_positive": 244,
+   "recorded findings + age, sex, smoking (logistic)": [
+    0.929,
+    0.879,
+    0.971
+   ],
+   "recorded findings + age, sex, smoking (boosting)": [
+    0.925,
+    0.869,
+    0.974
+   ],
+   "recorded findings only (logistic)": [
+    0.932,
+    0.886,
+    0.97
+   ],
+   "age, sex, smoking only (logistic)": [
+    0.595,
+    0.498,
+    0.697
+   ],
+   "largest nodule diameter alone (no fitting)": [
+    0.908,
+    0.843,
+    0.958
+   ],
+   "radiologist call, positive vs negative": [
+    0.769,
+    0.731,
+    0.799
+   ]
+  },
+  "cancer within 2y, baseline scans, single-scan findings": {
+   "n_exams": 2336,
+   "n_positive": 61,
+   "n_fit_exams": 12608,
+   "n_fit_positive": 391,
+   "recorded findings + age, sex, smoking (logistic)": [
+    0.867,
+    0.811,
+    0.915
+   ],
+   "recorded findings + age, sex, smoking (boosting)": [
+    0.879,
+    0.826,
+    0.925
+   ],
+   "recorded findings only (logistic)": [
+    0.859,
+    0.797,
+    0.909
+   ],
+   "age, sex, smoking only (logistic)": [
+    0.631,
+    0.561,
+    0.707
+   ],
+   "largest nodule diameter alone (no fitting)": [
+    0.826,
+    0.756,
+    0.888
+   ],
+   "radiologist call, positive vs negative": [
+    0.721,
+    0.672,
+    0.764
+   ]
+  },
+  "cancer within 6y, baseline scans, single-scan findings": {
+   "n_exams": 2065,
+   "n_positive": 140,
+   "n_fit_exams": 11196,
+   "n_fit_positive": 844,
+   "recorded findings + age, sex, smoking (logistic)": [
+    0.745,
+    0.699,
+    0.79
+   ],
+   "recorded findings + age, sex, smoking (boosting)": [
+    0.75,
+    0.703,
+    0.794
+   ],
+   "recorded findings only (logistic)": [
+    0.707,
+    0.664,
+    0.757
+   ],
+   "age, sex, smoking only (logistic)": [
+    0.637,
+    0.587,
+    0.688
+   ],
+   "largest nodule diameter alone (no fitting)": [
+    0.642,
+    0.588,
+    0.694
+   ],
+   "radiologist call, positive vs negative": [
+    0.586,
+    0.544,
+    0.628
+   ]
+  }
+ },
+ "negative_baseline_screens_cancer_1_to_6y": {
+  "n_exams": 1175,
+  "n_positive": 56,
+  "recorded findings + age, sex, smoking (logistic)": [
+   0.666,
+   0.593,
+   0.735
+  ],
+  "age, sex, smoking only (logistic)": [
+   0.618,
+   0.546,
+   0.687
+  ]
+ }
+}

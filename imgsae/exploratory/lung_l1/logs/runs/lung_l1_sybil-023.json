@@ -1,0 +1,12 @@
+{
+ "rid": "lung_l1_sybil-023",
+ "task": "lung_l1_sybil",
+ "app": "imgsae-lung-l1",
+ "job": "dl_test",
+ "call_id": "fc-01M781R9023VN65RD2ZADQ0PR1",
+ "rate_h": 0.15860000000000002,
+ "timeout_min": 8,
+ "worst_usd": 0.12907666666666667,
+ "launched": "2026-11-12T14:14:32",
+ "result_name": "dl_test"
+}

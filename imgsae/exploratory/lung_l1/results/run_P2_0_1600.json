@@ -1,0 +1,73 @@
+{
+ "calls": [
+  {
+   "n_todo": 400,
+   "n_done": 400,
+   "errors": {},
+   "mean_sec": {
+    "download": 2.16283365547657,
+    "load": 4.314540848135948,
+    "infer": 7.445115631818771
+   },
+   "n_attempted": 400,
+   "tier": "P2",
+   "lo": 0,
+   "hi": 1600,
+   "shard": 0,
+   "nshard": 4,
+   "container_min": 50.523174281915026
+  },
+  {
+   "n_todo": 400,
+   "n_done": 400,
+   "errors": {},
+   "mean_sec": {
+    "download": 2.142937678694725,
+    "load": 4.312788805961609,
+    "infer": 7.025250597000122
+   },
+   "n_attempted": 400,
+   "tier": "P2",
+   "lo": 0,
+   "hi": 1600,
+   "shard": 1,
+   "nshard": 4,
+   "container_min": 47.81183844407399
+  },
+  {
+   "n_todo": 400,
+   "n_done": 400,
+   "errors": {},
+   "mean_sec": {
+    "download": 1.9618769258260726,
+    "load": 4.1653269177675245,
+    "infer": 7.042563861608505
+   },
+   "n_attempted": 400,
+   "tier": "P2",
+   "lo": 0,
+   "hi": 1600,
+   "shard": 2,
+   "nshard": 4,
+   "container_min": 47.782322430610655
+  },
+  {
+   "n_todo": 400,
+   "n_done": 400,
+   "errors": {},
+   "mean_sec": {
+    "download": 2.1670299756526945,
+    "load": 4.65434555888176,
+    "infer": 7.2808105581998825
+   },
+   "n_attempted": 400,
+   "tier": "P2",
+   "lo": 0,
+   "hi": 1600,
+   "shard": 3,
+   "nshard": 4,
+   "container_min": 49.48219335476558
+  }
+ ],
+ "container_min": 195.59952851136524
+}

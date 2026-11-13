@@ -15,6 +15,10 @@
 
 ## Lung: Sybil on NLST. **Not recommended now**
 
+> **Correction, 2026-11-12.** The "Leakage (blocker)" point below is wrong: Sybil's split **is** published, on the `train` branch of its repository (`files/Shetty_et_al(Google)_data_splits.p`). The route was therefore re-checked at no cost; see `imgsae/exploratory/lung_l0/RESULTS_L0.md`.
+> - Clean test data exist: Sybil's test split, with 2,347 participants and 154 cancers.
+> - The verdict stays "not recommended" for an SAE discovery study, for a different reason. On those test participants, a logistic regression on the trial radiologists' recorded findings matches Sybil's published accuracy (0.93 against 0.93 at one year; 0.75 against 0.75 at six years). There is no gap over the doctor to explain.
+
 - **Model** (verified): MIT licence; checkpoints on GitHub releases and Google Drive. It takes one axial LDCT.
 - **Performance:**
   - Paper: 1-year AUC 0.92 / 0.86 / 0.94 (NLST / MGH / CGMH); 6-year C-index 0.75 / 0.81 / 0.80.

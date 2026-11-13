@@ -48,6 +48,7 @@
   - It adds **+0.022 AUROC** over PI-RADS + PSA density + age (p = 0.0002), and almost the same after the lesion's ADC, DWI and size.
   - Real, but small. It is also unstable: +0.04 to +0.05 in one fold, about 0 in the other.
 - **On the UCLA cohort** (the lead's earlier work: different scanners and coil): this kind of PI-CAI model falls to about AUROC 0.66 with sensitivity near 70%, below the radiologists.
+  - **Correction, 2026-11-12:** scanners and coil are not the main reason. Three quarters of the UCLA examinations are on a Siemens Skyra 3 T, an endorectal coil shows in about 12 of 800, and the result is the same on the Skyra examinations alone. In this biopsy-referred cohort the radiologists' own score reaches only 0.69. See `docs/EXECUTION_LOG.md`, 2026-11-12.
 - **Conclusion:** the gap over doctors is too small to explain with an SAE and too small to confirm with the patients available. Training a new model would cost money for a likely null result.
 - **Details:** `docs/EXECUTION_LOG.md`, entries of 2026-11-11.
 

@@ -1,0 +1,49 @@
+{
+ "gpu": "Tesla T4",
+ "ckpt_sha256": {
+  "28a7cd44f5bcd3e6cc760b65c7e0d54d.ckpt": "40c9a46c45b8d32b23b52ed75182d7e1886746796476feb07a2767db86947251",
+  "56ce1a7d241dc342982f5466c4a9d7ef.ckpt": "d4802c8b66511e7a4261c501dac2d8d6887103c11f58587cc7a3ce796a5f0f9e",
+  "624407ef8e3a2a009f9fa51f9846fe9a.ckpt": "622482b897994e1daa95be133d928421571ed4c1fa1c3a9b006e68b7cdd7a90d",
+  "64a91b25f84141d32852e75a3aec7305.ckpt": "f66c956e56f0cf1ce90baf08738be3b87fef365399c7b468033e028c7b5d7235",
+  "65fd1f04cb4c5847d86a9ed8ba31ac1a.ckpt": "313bff54241dde0ebc4cd9b884bc3910e1b5497e37b8659199577e81f4cdd6c2",
+  "sybil_1_simple_calibrator.json": "d2eba4e3f4b594a9302e971dbd6e00216612e67ad6a88012185231296ab370aa",
+  "sybil_2_simple_calibrator.json": "ebe422ddda454edc6c4ecdbc8b633d160f23a17b553dc37f3fa7a00c4b72209d",
+  "sybil_3_simple_calibrator.json": "90700cf6d2c24cc5792cff6c29333ee5393efed03339a41b95afe2585613a60e",
+  "sybil_4_simple_calibrator.json": "aa277e089e42c2cb4951c65f1734b0c655c971597125ef474bce7f70026526b8",
+  "sybil_5_simple_calibrator.json": "85454c8921daeeb01f5ad39b0e442817ecf08fee447a61e1870e68986a42d6b6",
+  "sybil_ensemble_simple_calibrator.json": "74cedae39715fa1ca29ebad881790432639d39fd0a3cf811529ebce9a767393a",
+  "__MACOSX/._28a7cd44f5bcd3e6cc760b65c7e0d54d.ckpt": "1bc9fc1af2aad66665a960cf9b8cda09181c6fe7ad6f2ff012fcbc2e10a9721f",
+  "__MACOSX/._56ce1a7d241dc342982f5466c4a9d7ef.ckpt": "1bc9fc1af2aad66665a960cf9b8cda09181c6fe7ad6f2ff012fcbc2e10a9721f",
+  "__MACOSX/._624407ef8e3a2a009f9fa51f9846fe9a.ckpt": "1bc9fc1af2aad66665a960cf9b8cda09181c6fe7ad6f2ff012fcbc2e10a9721f",
+  "__MACOSX/._64a91b25f84141d32852e75a3aec7305.ckpt": "1bc9fc1af2aad66665a960cf9b8cda09181c6fe7ad6f2ff012fcbc2e10a9721f",
+  "__MACOSX/._65fd1f04cb4c5847d86a9ed8ba31ac1a.ckpt": "1bc9fc1af2aad66665a960cf9b8cda09181c6fe7ad6f2ff012fcbc2e10a9721f"
+ },
+ "demo_all_files_head": [
+  "/tmp/demo/x/sybil_demo_data/1-2da413541bb2518fb0f8c583900999ef.dcm",
+  "/tmp/demo/x/sybil_demo_data/10-dbf03b1cebdbfa4a33ab36b0cf98448e.dcm",
+  "/tmp/demo/x/sybil_demo_data/100-2604b362c678af2f5c522d666b7791a0.dcm",
+  "/tmp/demo/x/sybil_demo_data/101-70873afc7405309ba6c645b5c60e718b.dcm",
+  "/tmp/demo/x/sybil_demo_data/102-52cc0694a1a054bd6e9bc9be6f4b0889.dcm"
+ ],
+ "demo_all_files_n": 196,
+ "demo_n_files": 194,
+ "demo_scores": [
+  0.021628819563619374,
+  0.03857256315036462,
+  0.07191945816622261,
+  0.07926975188037134,
+  0.09584583525781108,
+  0.13568094038444453
+ ],
+ "demo_ref": [
+  0.021628819563619374,
+  0.03857256315036462,
+  0.07191945816622261,
+  0.07926975188037134,
+  0.09584583525781108,
+  0.13568094038444453
+ ],
+ "demo_maxdiff": 0.0,
+ "demo_pass": true,
+ "container_min": 0.44107176462809244
+}

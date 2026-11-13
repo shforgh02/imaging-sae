@@ -1,0 +1,12 @@
+{
+ "rid": "lung_l1_sybil-021",
+ "task": "lung_l1_sybil",
+ "app": "imgsae-lung-l1",
+ "job": "smoke",
+ "call_id": "fc-01M7815QZS4BN0REV09R8T60RZ",
+ "rate_h": 0.9072,
+ "timeout_min": 12,
+ "worst_usd": 0.3268,
+ "launched": "2026-11-12T14:04:24",
+ "result_name": "smoke"
+}

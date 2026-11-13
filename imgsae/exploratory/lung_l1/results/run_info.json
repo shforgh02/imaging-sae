@@ -1,0 +1,176 @@
+{
+ "sybil_commit": "d9fc81b93c1c6239a570c1c570c1f2a2e6266a4a",
+ "sybil_version": "1.4.0 (setup.cfg)",
+ "python": "3.10",
+ "torch": "1.13.1 (PyPI wheel, CUDA 11.7 bundled)",
+ "gpu": "Tesla T4",
+ "checkpoint_sha256": {
+  "28a7cd44f5bcd3e6cc760b65c7e0d54d.ckpt": "40c9a46c45b8d32b23b52ed75182d7e1886746796476feb07a2767db86947251",
+  "56ce1a7d241dc342982f5466c4a9d7ef.ckpt": "d4802c8b66511e7a4261c501dac2d8d6887103c11f58587cc7a3ce796a5f0f9e",
+  "624407ef8e3a2a009f9fa51f9846fe9a.ckpt": "622482b897994e1daa95be133d928421571ed4c1fa1c3a9b006e68b7cdd7a90d",
+  "64a91b25f84141d32852e75a3aec7305.ckpt": "f66c956e56f0cf1ce90baf08738be3b87fef365399c7b468033e028c7b5d7235",
+  "65fd1f04cb4c5847d86a9ed8ba31ac1a.ckpt": "313bff54241dde0ebc4cd9b884bc3910e1b5497e37b8659199577e81f4cdd6c2",
+  "sybil_1_simple_calibrator.json": "d2eba4e3f4b594a9302e971dbd6e00216612e67ad6a88012185231296ab370aa",
+  "sybil_2_simple_calibrator.json": "ebe422ddda454edc6c4ecdbc8b633d160f23a17b553dc37f3fa7a00c4b72209d",
+  "sybil_3_simple_calibrator.json": "90700cf6d2c24cc5792cff6c29333ee5393efed03339a41b95afe2585613a60e",
+  "sybil_4_simple_calibrator.json": "aa277e089e42c2cb4951c65f1734b0c655c971597125ef474bce7f70026526b8",
+  "sybil_5_simple_calibrator.json": "85454c8921daeeb01f5ad39b0e442817ecf08fee447a61e1870e68986a42d6b6",
+  "sybil_ensemble_simple_calibrator.json": "74cedae39715fa1ca29ebad881790432639d39fd0a3cf811529ebce9a767393a",
+  "__MACOSX/._28a7cd44f5bcd3e6cc760b65c7e0d54d.ckpt": "1bc9fc1af2aad66665a960cf9b8cda09181c6fe7ad6f2ff012fcbc2e10a9721f",
+  "__MACOSX/._56ce1a7d241dc342982f5466c4a9d7ef.ckpt": "1bc9fc1af2aad66665a960cf9b8cda09181c6fe7ad6f2ff012fcbc2e10a9721f",
+  "__MACOSX/._624407ef8e3a2a009f9fa51f9846fe9a.ckpt": "1bc9fc1af2aad66665a960cf9b8cda09181c6fe7ad6f2ff012fcbc2e10a9721f",
+  "__MACOSX/._64a91b25f84141d32852e75a3aec7305.ckpt": "1bc9fc1af2aad66665a960cf9b8cda09181c6fe7ad6f2ff012fcbc2e10a9721f",
+  "__MACOSX/._65fd1f04cb4c5847d86a9ed8ba31ac1a.ckpt": "1bc9fc1af2aad66665a960cf9b8cda09181c6fe7ad6f2ff012fcbc2e10a9721f"
+ },
+ "demo_check": {
+  "scores": [
+   0.021628819563619374,
+   0.03857256315036462,
+   0.07191945816622261,
+   0.07926975188037134,
+   0.09584583525781108,
+   0.13568094038444453
+  ],
+  "reference": [
+   0.021628819563619374,
+   0.03857256315036462,
+   0.07191945816622261,
+   0.07926975188037134,
+   0.09584583525781108,
+   0.13568094038444453
+  ],
+  "max_abs_diff": 0.0,
+  "passed": true
+ },
+ "series_scored": {
+  "P1": 2279,
+  "P2": 3133,
+  "total": 5412,
+  "by_study_yr": {
+   "0": 2279,
+   "1": 1584,
+   "2": 1549
+  },
+  "participants": 2331
+ },
+ "p2_cutoff": "P2 order positions 0-3199 attempted (4 shards); 3133 scored; 67 not reached by shard 3 before its 50-min limit; positions 3200-4435 not run because the 13.00 USD rule of section 5 was reached",
+ "failures_in_final_runs": "none (runs 027-029: 0 errors). Run 025 shards 2 and 3 failed on every series with KeyError (stale address map); those series were rescored in run 026/027 and have scores.",
+ "mean_seconds_per_series": {
+  "download": 2.73,
+  "load": 4.56,
+  "infer": 7.37
+ },
+ "container_min_per_series_runs": {
+  "run026": 7.733656174334139,
+  "run028": 7.335
+ },
+ "ledger_runs": [
+  {
+   "id": "lung_l1_sybil-018",
+   "jobs": [
+    "s1_index"
+   ],
+   "measured_usd": 0.1082
+  },
+  {
+   "id": "lung_l1_sybil-019",
+   "jobs": [
+    "smoke"
+   ],
+   "measured_usd": 0.25
+  },
+  {
+   "id": "lung_l1_sybil-020",
+   "jobs": [
+    "smoke"
+   ],
+   "measured_usd": 0.57
+  },
+  {
+   "id": "lung_l1_sybil-021",
+   "jobs": [
+    "smoke"
+   ],
+   "measured_usd": 0.152
+  },
+  {
+   "id": "lung_l1_sybil-022",
+   "jobs": [
+    "dl_test"
+   ],
+   "measured_usd": 0.13
+  },
+  {
+   "id": "lung_l1_sybil-023",
+   "jobs": [
+    "dl_test"
+   ],
+   "measured_usd": 0.1084
+  },
+  {
+   "id": "lung_l1_sybil-024",
+   "jobs": [
+    "run_P1_0_20('P1', 0, 20, 0, 1, 15.0)"
+   ],
+   "measured_usd": 0.217
+  },
+  {
+   "id": "lung_l1_sybil-025",
+   "jobs": [
+    "run_P1_0_800('P1', 0, 800, 0, 4, 50.0)",
+    "run_P1_0_800('P1', 0, 800, 1, 4, 50.0)",
+    "run_P1_0_800('P1', 0, 800, 2, 4, 50.0)",
+    "run_P1_0_800('P1', 0, 800, 3, 4, 50.0)"
+   ],
+   "measured_usd": 1.0005
+  },
+  {
+   "id": "lung_l1_sybil-026",
+   "jobs": [
+    "run_P1_0_2279('P1', 0, 2279, 0, 4, 55.0)",
+    "run_P1_0_2279('P1', 0, 2279, 1, 4, 55.0)",
+    "run_P1_0_2279('P1', 0, 2279, 2, 4, 55.0)",
+    "run_P1_0_2279('P1', 0, 2279, 3, 4, 55.0)"
+   ],
+   "measured_usd": 2.6958
+  },
+  {
+   "id": "lung_l1_sybil-027",
+   "jobs": [
+    "run_P1_0_2279('P1', 0, 2279, 0, 4, 30.0)",
+    "run_P1_0_2279('P1', 0, 2279, 1, 4, 30.0)",
+    "run_P1_0_2279('P1', 0, 2279, 2, 4, 30.0)",
+    "run_P1_0_2279('P1', 0, 2279, 3, 4, 30.0)"
+   ],
+   "measured_usd": 0.7289
+  },
+  {
+   "id": "lung_l1_sybil-028",
+   "jobs": [
+    "run_P2_0_1600('P2', 0, 1600, 0, 4, 55.0)",
+    "run_P2_0_1600('P2', 0, 1600, 1, 4, 55.0)",
+    "run_P2_0_1600('P2', 0, 1600, 2, 4, 55.0)",
+    "run_P2_0_1600('P2', 0, 1600, 3, 4, 55.0)"
+   ],
+   "measured_usd": 3.2389
+  },
+  {
+   "id": "lung_l1_sybil-029",
+   "jobs": [
+    "run_P2_1600_3200('P2', 1600, 3200, 0, 4, 50.0)",
+    "run_P2_1600_3200('P2', 1600, 3200, 1, 4, 50.0)",
+    "run_P2_1600_3200('P2', 1600, 3200, 2, 4, 50.0)",
+    "run_P2_1600_3200('P2', 1600, 3200, 3, 4, 50.0)"
+   ],
+   "measured_usd": 3.2105
+  },
+  {
+   "id": "lung_l1_sybil-030",
+   "jobs": [
+    "export"
+   ],
+   "measured_usd": 0.12
+  }
+ ],
+ "total_measured_usd": 12.5302
+}
