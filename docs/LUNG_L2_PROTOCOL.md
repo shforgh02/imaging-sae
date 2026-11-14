@@ -233,6 +233,10 @@ An arm is valid if V1 to V4 pass. **Primary arm** = the valid arm with the most 
 2. Second reviewer for the hypothesis file: a colleague, or a fresh reviewer agent?
 3. Optional, free: request access to P-ELCAP (Zenodo request box) or Duke DLCS (restricted). Both need the lead's name; they would allow a small external check of one or two confirmed findings.
 
+## 16a. Amendments after the pilot (logged deviations, approved by the lead on 2026-11-14)
+- **A1, G2f:** judged on the pilot series whose lung is not cut by the 200-slice grid (all 7 within 0.5%); the series where the crop cuts the lung (30 of 37; 26 of 27 at stretch 2.0) show the predicted effect of the stretch. z-fix (D5, T5, U1b, Q1d ii) is kept. The share of series with `lung_cut_z` is reported by stretch.
+- **A2, G2e:** accepted. Analysis rule: if `lung_vol_ml` < 1,500, all image measures of that series are set missing and the flag `T_lung_at_edge` = 1 is added to the technical group. Toshiba's air offset (about −38 HU) is reported; the cloud job is unchanged.
+
 ## 16. Files
 - Work folder `imgsae/exploratory/lung_l2/`: `series_rule.py`, `s0_idc_meta.py`, `s0_series_explore.py`, `s0_series_rule_test.py`, `s0_pairs_count.py`, `s0_dev_counts.py`, `results/` (S0 outputs), later `cloud/`, `l2_form.py`, `s4_*.py`, `HYPOTHESES_L2.md`, `RESULTS_L2.md`.
 - Data (not in git): `imgsae_data/idc_index_25.0.5/` (IDC release files with their SHA-256 files; `nlst_series_meta.csv`).

@@ -100,8 +100,10 @@ def build_exams(main, b, meta, man, form):
     race = pd.to_numeric(prsn.set_index(prsn.pid.astype(int).astype(str)).race, errors="coerce")
     E["race"] = E.pid.map(race)
     E["D_race_black"], E["D_race_other"] = (E.race == 2).astype(int), (~E.race.isin([1, 2])).astype(int)
-    # I
-    for k in MEASURES: E[f"I_{k}"] = E.get(f"m_{k}")
+    # I (protocol amendment A2: lung volume < 1,500 ml = segmentation leaked; measures missing, flag the lung at the image edge)
+    seg_bad = pd.to_numeric(E.get("m_lung_vol_ml"), errors="coerce").fillna(0) < 1500
+    for k in MEASURES: E[f"I_{k}"] = np.where(seg_bad, np.nan, pd.to_numeric(E.get(f"m_{k}"), errors="coerce"))
+    E["T_lung_at_edge"] = seg_bad.astype(int)
     # T: IDC metadata + DICOM tags + geometry + the radiologist's quality items
     mm = meta.set_index("SeriesInstanceUID")
     E["T_maker"] = E.series_uid.map(mm.Manufacturer)
