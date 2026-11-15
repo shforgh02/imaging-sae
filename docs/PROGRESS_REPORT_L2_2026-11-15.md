@@ -118,6 +118,9 @@ Expected from here:
 | D2 + D3 + D4 (December) | ≈ $14.50 | ≈ $22.20 of $45 |
 | S6 test | ≈ $15.50 to $18.40 | ≈ $37.70 to $40.60 of $45 |
 
+- **Second account `armanfo`** (not used for this project without the lead's word; checked 15 Nov, read only):
+  - November $1.62 used, all by that account's own other apps, which are not this project.
+  - $27.88 left of its $29.50 cap. Nothing is running.
 - After S6, the project would be at about $63 to $66 of $72.
 - S7 (≈ $10) would need a new approval and a higher project cap.
 
@@ -187,3 +190,50 @@ Note on S6 timing:
 - **Data (on the PC only, too large for git):**
   - `D:\Shayan\imgsae_data\lung_l2_vol\l2\` (dev/main 2,484 files, dev/zfix 430)
   - `D:\Shayan\imgsae_data\idc_index_25.0.5\`
+
+## 12. Added 15 Nov: the three data groups, and how the feature methods are tested
+### The three groups of Sybil's split
+| Group | Participants | Scans | Did Sybil see them? | What we do with them |
+|---|---|---|---|---|
+| Train | 10,179 | — | **Yes.** Sybil learned its weights from them | **We do not run Sybil on them.** Sybil's features on its own training data are over-fitted and would mislead. We only use their recorded findings to fit the form model F. |
+| Dev | 2,493 | 7,336 exams (D1 2,484 baseline, D2 2,442 year 1, D3 2,410 year 2) + 500 kernel pairs | **Partly.** No weights were learned from them, but Sybil's authors used dev to choose when to stop training. | Discovery: fit and test all feature methods, choose thresholds, write the hypotheses |
+| Test | 2,347 | 6,715 | **No** | Confirmation, once, after the freeze |
+| Never used by Sybil | 11,432 (34 cancers) | — | No | Only in S7, with a new approval |
+
+### S4, the feature step, in detail (all on dev, on the PC, free)
+1. **Input:**
+   - For every dev exam, we take the 512 numbers that each of Sybil's 5 models makes just before its risk layer (`h`).
+   - The risk is an exact linear function of `h`. So every feature's part in the score can be computed exactly.
+2. **Six methods ("arms"), each with exactly 64 features, under the same rules:**
+   - sparse autoencoder (SAE);
+   - PCA;
+   - ICA;
+   - NMF;
+   - k-means;
+   - Sybil's own 64 most important units ("raw").
+   - Same number of features, same seeds and consensus rule, same naming code. K = 128 is run as a check.
+3. **Is a method good? Four pass marks, on held-out folds:**
+   - **V1, function kept:** rebuilt from its features, Sybil's score must stay almost the same (r ≥ 0.98, AUROC change ≤ 0.005).
+   - **V2, stable:** two different sets of random seeds must give the same features.
+   - **V3, replicated:** a feature must appear in at least 3 of Sybil's 5 models, and there must be at least 16 such feature families.
+   - **V4, the name is reliable:** each family is linked to nodules, other findings, demographics, image measures or technical factors. The two halves of dev must give the same name.
+   - A method is valid only if it passes all four.
+   - The **primary method** is the valid one with the most named families. If the SAE is not the best, we report that plainly. If no method is valid, feature claims are dropped, and the questions that need no features go on.
+4. **References shown next to every method:**
+   - a probe on all 2,560 numbers (the ceiling);
+   - Sybil's own score;
+   - the form model F.
+5. **Use of the valid features:**
+   - which families carry Sybil's score and its unexplained part (Q1b);
+   - which families are high in Sybil's false alarms and low in its misses (Q2);
+   - removing technical content (U1a);
+   - a reliability flag (U2).
+6. **Gate 9.8:** a candidate becomes a hypothesis only if it holds on dev (right direction, interval excludes the null, same sign in both halves of dev).
+
+### Then S5 and S6
+- **S5:** the fitted methods are frozen and hashed, together with the thresholds and at most 5 hypotheses. Then the reviewer's check and the lead's OK.
+- **S6:** Sybil is run on the test scans. The test `h` is encoded with the frozen methods. **Nothing is refitted on test.** The frozen analysis runs once.
+
+### What can start now
+- The S4 code can be run on D1 (2,484 baseline exams) now. This covers fitting the six methods, V2, V3, the V1 score part, and V4 naming. None of these uses outcomes.
+- This is a dry run. The protocol fits the methods on all dev exams, so the final numbers come after D2 and D3 are in.
