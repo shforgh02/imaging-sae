@@ -2,6 +2,8 @@
 
 **Updated:** 2026-11-15 · **Phase:** Lung L2 S3: D1 complete (2,484 baseline dev series, all checks pass); November budget used up; D2, D3, D4 wait for 1 December · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
 
+**Progress report for the lead (2026-11-15):** `docs/PROGRESS_REPORT_L2_2026-11-15.md` (steps, findings so far, money, why we wait, plan, decisions needed). The December task `imgsae_l2_dec` is not created yet (checked 2026-11-15).
+
 **Now (2026-11-15):** spend task $7.67 of $45 (Modal billing reconciled; preemption restarts are billed); month $28.17 of $29. December driver ready (`imgsae/exploratory/lung_l2/cloud/run_dec.cmd`); its scheduled task is created by the lead with `schedule_dec.ps1` (the permission system blocked me from creating unattended future spending). Next: D2 + D3 + D4 (≈ $14.5) from 1 December, then S4 on the PC.
 
 **Now (2026-11-13, S2):** protocol approved; S1 dev manifest done (7,336 exams); pilot of 300 dev series done ($1.96 spent of $45; month $22.54 of $29). All recomputation and determinism checks passed. G2e (air HU check) and G2f (z-stretch check) failed as written; diagnosis in `docs/EXECUTION_LOG.md` and `imgsae/exploratory/lung_l2/results/s2_diagnose.json`. The z-stretch is real and cuts the lungs in 26 of 27 series at 2× stretch; correcting it moves Sybil's logit by about half the between-exam spread. Next: the lead's decision on the two checks, then D1 in November as the monthly budget allows.
