@@ -1,0 +1,266 @@
+{
+ "G2a": {
+  "demo_maxdiff": 0.0,
+  "demo_volume_equal_serie": true,
+  "official_vs_l2_maxdiff": 0.0,
+  "dev_volume_equal_serie": [
+   true,
+   true,
+   true
+  ],
+  "pass": true
+ },
+ "n_saved": {
+  "main": 2484,
+  "zfix": 430,
+  "pilot_main": 300
+ },
+ "G2b": {
+  "max_abs": {
+   "relu_vs_h": 0.0,
+   "hidden_fc": 1.9049931498926753e-06,
+   "logits": 6.828394711888564e-07,
+   "raw_hazards": 3.260550047734512e-07
+  },
+  "n_fail": 0,
+  "pass_": true
+ },
+ "G2c": {
+  "max_abs_mean_prob": 1.1102230246251565e-16,
+  "max_abs_calib": 1.700029006457271e-15,
+  "n_fail": 0,
+  "pass_": true
+ },
+ "hazard_units_on_share": {
+  "by_member": [
+   0.1336,
+   0.0,
+   0.0,
+   0.0,
+   0.1469
+  ],
+  "by_unit": [
+   0.0,
+   0.1763,
+   0.1602,
+   0.0001,
+   0.0,
+   0.0001
+  ]
+ },
+ "G2d": {
+  "n": 20,
+  "max_abs": 0.0,
+  "pass_": true
+ },
+ "l4_vs_t4_max_abs_calib": 6.909834783762336e-07,
+ "G2e": {
+  "n": 300,
+  "computed": 1.0,
+  "plausible": 0.96,
+  "air_ok": 0.8666666666666667,
+  "lung_vol_ml_q": [
+   3232.0,
+   5439.0,
+   7704.0
+  ],
+  "laa950_q": [
+   0.42,
+   2.51,
+   27.57
+  ],
+  "air_median_q": [
+   -1027.9,
+   -997.0,
+   -982.5
+  ],
+  "noise_q": [
+   8.7,
+   20.6,
+   69.7
+  ],
+  "lung_cut_z": 30,
+  "lung_cut_xy": 8,
+  "mean_sec_volumes_measures": 3.4023964897791545
+ },
+ "G2f": {
+  "n": 37,
+  "share_within_10pct": 0.3783783783783784,
+  "pass_": false,
+  "examples": [
+   {
+    "expected": 1.6,
+    "measured": 1.5289256198347108,
+    "cut": true
+   },
+   {
+    "expected": 2.0,
+    "measured": 1.6476190476190475,
+    "cut": true
+   },
+   {
+    "expected": 2.0,
+    "measured": 1.5267175572519085,
+    "cut": true
+   },
+   {
+    "expected": 1.6,
+    "measured": 1.5963302752293578,
+    "cut": false
+   },
+   {
+    "expected": 1.6,
+    "measured": 1.5901639344262295,
+    "cut": true
+   },
+   {
+    "expected": 1.6,
+    "measured": 1.6055045871559632,
+    "cut": false
+   },
+   {
+    "expected": 1.6,
+    "measured": 1.5614035087719298,
+    "cut": true
+   },
+   {
+    "expected": 1.6,
+    "measured": 1.5922330097087378,
+    "cut": false
+   }
+  ]
+ },
+ "zfix_change_calib_y6": {
+  "n": 111,
+  "mean_abs": 0.017942542891154916,
+  "by_ratio": {
+   "0.5": 0.028871815095660853,
+   "0.62": 0.018692290159160487,
+   "0.75": 0.010287090813138295,
+   "0.78": 0.007972685426437386,
+   "0.8": 0.016414300559267583,
+   "0.85": 0.006801262643598427,
+   "0.9": 0.00895923587526612
+  }
+ },
+ "runs": {
+  "run_dev_D1_0_300": {
+   "container_min": 52.62166939576467,
+   "n_done": 297,
+   "n_err": 0,
+   "gpu": "Tesla T4",
+   "mean_sec": {
+    "download": 4.630791798454148,
+    "load": 4.523811202328484,
+    "volumes_measures": 3.3757965447344223,
+    "infer_main": 7.403745264867404,
+    "infer_zfix": 7.386154741413089
+   }
+  },
+  "run_dev_D1_300_2484": {
+   "container_min": 49.152647483348844,
+   "n_done": 308,
+   "n_err": 0,
+   "gpu": "Tesla T4",
+   "mean_sec": {
+    "download": 2.6827802155104985,
+    "load": 4.493826571493054,
+    "volumes_measures": 3.0445656305135684,
+    "infer_main": 7.113497143964039,
+    "infer_zfix": 7.208830289542675
+   }
+  },
+  "run_dev_D1_300_2484__lung_l2_audit-036": {
+   "container_min": 220.364429239432,
+   "n_done": 1597,
+   "n_err": 0,
+   "gpu": "Tesla T4",
+   "mean_sec": {
+    "download": 1.447772169598472,
+    "load": 4.2434408266596755,
+    "volumes_measures": 2.6494538366779867,
+    "infer_main": 7.082236490117913,
+    "infer_zfix": 6.936024976161468
+   }
+  },
+  "run_dev_D1_300_2484__lung_l2_audit-037": {
+   "container_min": 49.152647483348844,
+   "n_done": 308,
+   "n_err": 0,
+   "gpu": "Tesla T4",
+   "mean_sec": {
+    "download": 2.6827802155104985,
+    "load": 4.493826571493054,
+    "volumes_measures": 3.0445656305135684,
+    "infer_main": 7.113497143964039,
+    "infer_zfix": 7.208830289542675
+   }
+  },
+  "run_l4_l4_D1_0_50": {
+   "container_min": 8.023973015944163,
+   "n_done": 50,
+   "n_err": 0,
+   "gpu": "NVIDIA L4",
+   "mean_sec": {
+    "download": 1.5988048171997071,
+    "load": 5.094059853553772,
+    "volumes_measures": 4.494021492004395,
+    "infer_main": 6.2104620838165285,
+    "infer_zfix": 6.160438060760498
+   }
+  },
+  "run_rep_D1_0_20": {
+   "container_min": 3.7300798932711285,
+   "n_done": 20,
+   "n_err": 0,
+   "gpu": "Tesla T4",
+   "mean_sec": {
+    "download": 1.1200319886207581,
+    "load": 4.367992556095123,
+    "volumes_measures": 3.531780731678009,
+    "infer_main": 6.940208303928375,
+    "infer_zfix": 6.960890425576104
+   }
+  },
+  "smoke": {
+   "container_min": 1.7459087252616883,
+   "n_done": 0,
+   "n_err": 0,
+   "gpu": "Tesla T4",
+   "mean_sec": {
+    "download": NaN,
+    "load": NaN,
+    "volumes_measures": NaN,
+    "infer_main": NaN,
+    "infer_zfix": NaN
+   }
+  }
+ },
+ "G2g": {
+  "t4_container_sec_per_series": 10.63064028197266,
+  "t4_usd_per_series": 0.0026789213510571104,
+  "l4_container_sec_per_series": 9.628767619132995,
+  "l4_usd_per_series": 0.002988127551137606,
+  "cheaper": "T4"
+ },
+ "G2h": {
+  "n_rows": 300,
+  "n_err": 0,
+  "share": 0.0,
+  "pass_": true
+ },
+ "error_files": [
+  {
+   "series_uid": "1.2.840.113654.2.55.16249317695401414182773086111254535377",
+   "error": "Exception: LOADING ERROR! COULD NOT LOAD DICOM."
+  },
+  {
+   "series_uid": "1.3.6.1.4.1.14519.5.2.1.7009.9004.296031150448176958550538752673",
+   "error": "Exception: LOADING ERROR! COULD NOT LOAD DICOM."
+  },
+  {
+   "series_uid": "1.3.6.1.4.1.14519.5.2.1.7009.9004.985010663800056576423308017009",
+   "error": "Exception: LOADING ERROR! COULD NOT LOAD DICOM."
+  }
+ ]
+}

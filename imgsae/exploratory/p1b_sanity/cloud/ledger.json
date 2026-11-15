@@ -672,7 +672,9 @@
    },
    "closed": "2026-11-13T10:38:15",
    "measured_usd": 0.2,
-   "note": "manual close: smoke ran (demo exact, 1.25 container-min in smoke.json on the volume); local collect could not unpickle torch.__version__; 3 dev series failed in the verify step (files already deleted); conservative 0.20 vs formula 0.164"
+   "note": "manual close: smoke ran (demo exact, 1.25 container-min in smoke.json on the volume); local collect could not unpickle torch.__version__; 3 dev series failed in the verify step (files already deleted); conservative 0.20 vs formula 0.164",
+   "billed_usd": 0.1403,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
   },
   {
    "id": "lung_l2_audit-032",
@@ -692,7 +694,9 @@
    },
    "closed": "2026-11-13T10:41:51",
    "measured_usd": 0.1718,
-   "note": "collected; 1 call(s), container 1.7 min"
+   "note": "collected; 1 call(s), container 1.7 min",
+   "billed_usd": 0.1205,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
   },
   {
    "id": "lung_l2_audit-033",
@@ -715,7 +719,9 @@
    },
    "closed": "2026-11-13T10:57:44",
    "measured_usd": 1.0771,
-   "note": "collected; 4 call(s), container 52.6 min"
+   "note": "collected; 4 call(s), container 52.6 min",
+   "billed_usd": 0.7557,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
   },
   {
    "id": "lung_l2_audit-034",
@@ -735,7 +741,9 @@
    },
    "closed": "2026-11-13T11:03:50",
    "measured_usd": 0.2018,
-   "note": "collected; 1 call(s), container 3.7 min"
+   "note": "collected; 1 call(s), container 3.7 min",
+   "billed_usd": 0.1416,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
   },
   {
    "id": "lung_l2_audit-035",
@@ -755,7 +763,9 @@
    },
    "closed": "2026-11-13T11:08:58",
    "measured_usd": 0.3053,
-   "note": "collected; 1 call(s), container 8.0 min"
+   "note": "collected; 1 call(s), container 8.0 min",
+   "billed_usd": 0.2142,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
   },
   {
    "id": "lung_l2_audit-036",
@@ -778,7 +788,32 @@
    },
    "closed": "2026-11-14T19:40:47",
    "measured_usd": 3.6134,
-   "note": "collected; 4 call(s), container 220.4 min"
+   "note": "collected; 4 call(s), container 220.4 min",
+   "billed_usd": 4.0663,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+  },
+  {
+   "id": "lung_l2_audit-037",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-15T05:54:15",
+   "worst_usd": 2.0051,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_dev_D1_300_2484('D1', 300, 2484, 0, 2, 55.0, 0.65, 'dev', False)",
+     "run_dev_D1_300_2484('D1', 300, 2484, 1, 2, 55.0, 0.65, 'dev', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-15T06:40:18",
+   "measured_usd": 0.9339,
+   "note": "collected; 2 call(s), container 49.2 min",
+   "billed_usd": 1.651,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
   }
  ],
  "checks": [
@@ -1141,6 +1176,24 @@
    "month_used_usd": 26.5179,
    "open_worst_usd": 0,
    "project_committed_usd": 30.9562
+  },
+  {
+   "time": "2026-11-15T05:54:15",
+   "month_used_usd": 26.5179,
+   "open_worst_usd": 0,
+   "project_committed_usd": 30.9562
+  },
+  {
+   "time": "2026-11-15T06:41:14",
+   "month_used_usd": 28.3076,
+   "open_worst_usd": 0,
+   "project_committed_usd": 31.8901
+  },
+  {
+   "time": "2026-11-15T08:52:21",
+   "month_used_usd": 28.1676,
+   "open_worst_usd": 0,
+   "project_committed_usd": 33.0601
   }
  ]
 }

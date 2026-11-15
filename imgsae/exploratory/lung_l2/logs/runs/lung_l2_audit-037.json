@@ -1,0 +1,15 @@
+{
+ "rid": "lung_l2_audit-037",
+ "task": "lung_l2_audit",
+ "app": "imgsae-lung-l2",
+ "job": "run_dev_D1_300_2484",
+ "call_ids": [
+  "fc-01M7EWAH7ZS068MV9AG6JV3WYB",
+  "fc-01M7EWAHKPTZZF97SCFSE34MS0"
+ ],
+ "rate_h": 0.9072,
+ "timeout_min": 60,
+ "worst_usd": 2.0051200000000002,
+ "launched": "2026-11-15T05:54:16",
+ "result_name": "run_dev_D1_300_2484"
+}
