@@ -136,7 +136,7 @@ Expected from here:
 ## 8. Plan from here (dates are estimates)
 | When | What | Cost |
 |---|---|---|
-| Now to 30 Nov | **Free work on the PC, no outcomes:** write the missing S4 scripts (Q2 errors, U1a, U2, U3, U4) and test them. Run the outcome-free parts on D1: build the data table, fit the decompositions (SAE on the GPU), run the validity checks, and measure the z-fix change for the 430 D1 scans. | free |
+| Now to 30 Nov | **Code only, on the PC:** write the missing S4 scripts (Q2 errors, U1a, U2, U3, U4) and test them on synthetic data and the pilot. **No dry run on D1** (decided 15 Nov): results from part of dev would not be trusted and would be replaced anyway. | free |
 | 1 Dec | **D2, D3, D4 run by themselves**, through the guard, about 4 to 6 hours. It stops on any problem, then copies the data to the PC and reconciles the billing. | ≈ $14.50 |
 | 1 to 3 Dec | Check every new file (the same recomputation checks as D1); commit | free |
 | December | **Full S4 on all dev data.** Gate 9.8: does any candidate hold on dev (right direction, interval excludes null, same sign in both halves)? **If nothing holds: stop, no test spending, report plainly.** The fallback paper is then L1 plus the technical findings. | free |
@@ -169,7 +169,7 @@ Note on S6 timing:
 2. **Use the second Modal account to avoid the wait?**
    - It would let D2 to D4 run now and save about 2 weeks.
    - My suggestion is **no**. There is free work to do until 1 December, and your one-account rule stays clean. It is your call.
-3. **Free work on D1 now** (section 8, first row): I will do this unless you say no. It uses no outcomes. All outcome analyses wait for the full dev data.
+3. **No dry run on D1** (decided 15 Nov). S4 runs once, on all dev data, after December. Until then, only code is written and tested.
 4. **The external reviewer:** nothing is needed from them yet. Their main check is at S5 (late December). Section 10 gives a short message you can send now.
 
 ## 10. Short message for the external reviewer (optional, now)
@@ -234,6 +234,6 @@ Note on S6 timing:
 - **S5:** the fitted methods are frozen and hashed, together with the thresholds and at most 5 hypotheses. Then the reviewer's check and the lead's OK.
 - **S6:** Sybil is run on the test scans. The test `h` is encoded with the frozen methods. **Nothing is refitted on test.** The frozen analysis runs once.
 
-### What can start now
-- The S4 code can be run on D1 (2,484 baseline exams) now. This covers fitting the six methods, V2, V3, the V1 score part, and V4 naming. None of these uses outcomes.
-- This is a dry run. The protocol fits the methods on all dev exams, so the final numbers come after D2 and D3 are in.
+### What starts now
+- **No S4 run on D1 alone** (decided 15 Nov). The protocol fits the methods on all dev exams. A D1-only result would not be trusted, and it would be replaced anyway.
+- Until the data are complete, only code is written and tested (synthetic data and the pilot). S4 then runs once, on all dev data.
