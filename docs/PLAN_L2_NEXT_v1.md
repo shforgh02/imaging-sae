@@ -1,6 +1,6 @@
 # Lung L2: plan from 15 November 2026 to the paper (v1)
 
-**Status:** DRAFT, written 2026-11-15. To be reviewed by Fable 5.2, then approved by the lead. Nothing in this plan that spends money or changes the protocol is done before the lead's OK.
+**Status:** REVIEWED by Fable 5.2 on 2026-11-15: **approve with edits** (review: `docs/REVIEW_PLAN_L2_NEXT_v1.md`; every change is marked `[Fable edit]`). Written 2026-11-15. Still waits for the lead's OK. Nothing in this plan that spends money or changes the protocol is done before the lead's OK.
 **Binding rules:** `docs/LUNG_L2_PROTOCOL.md` (with amendments A1 and A2, section 16a) stays the rule book. This plan only (1) puts the remaining steps in order with their gates and outputs, and (2) proposes three amendments (A3, A4, A5) that need the lead's OK.
 **Who does what:**
 - Fable 5.2 reviews this plan.
@@ -40,12 +40,19 @@ Money (ledger after billing reconciliation):
 - **F+I:** the form plus simple image measures.
   - **Inputs:**
     - F's logit (F1 for `y1`, F6 for `y6`; frozen, fitted on train);
-    - the 7 image measures of `l2_data.MEASURES` (lung volume, emphysema % LAA-950, lung 15th-percentile HU, lung mean HU, body area, air noise, lung z-extent), with rule A2 (all missing if lung volume < 1,500 ml);
+    - `[Fable edit]` the **5 patient measures** of `l2_data.MEASURES`: lung volume, emphysema % LAA-950, lung 15th-percentile HU, lung mean HU, body area. Rule A2 applies (all missing if lung volume < 1,500 ml).
+      - Air noise and lung z-extent are left out of the primary model. Reason: they depend on the scan technique (dose, kernel, the crop of a stretched scan), and this plan keeps technical factors out of the outcome model.
+      - Sensitivity runs, reported next to the primary: (i) all 7 measures; (ii) only exams with `lung_cut_z` = 0, because a cut lung makes the volume wrong.
     - one indicator "any measure missing". Medians are imputed inside each training fold.
   - **Model:** `nlst_l0.logit_model()` (standardise + logistic, C = 0.3).
   - **Dev:** participant-grouped 5-fold CV (seed 0), AUROC with a participant bootstrap (2,000 draws).
   - **S6:** one fit on all dev, its parameters hashed and frozen with the S5 files, then applied to test unchanged.
-  - **Why F's logit and not its 43 inputs:** F keeps its large train fit (29,752 screens). Dev fits only about 9 coefficients against 88 one-year cancers.
+  - **Why F's logit and not its 43 inputs:** F keeps its large train fit (29,752 screens). Dev fits only about 7 coefficients against 88 one-year cancers.
+  - `[Fable edit]` **The test that gives F+I its meaning: does Sybil add to F+I?**
+    - Cross-fitted logistic `y ~ (F+I logit) + logit(s_t)` against `y ~ (F+I logit)`, for `y1` (all screens) and `y6` (baseline).
+    - Reported: ΔAUROC with a participant-bootstrap interval, and the likelihood-ratio test. Same form as protocol Q1b ("does U add to F").
+    - Reason: two AUROCs side by side do not show whether Sybil holds information beyond the simple measures. This test does.
+  - `[Fable edit]` **Known limit, to be written in the results:** emphysema % depends on the scanner (Toshiba air reads about 38 HU low). F+I is also reported by maker, descriptively.
   - **Why no technical factors:** they should carry no cancer information. If they do, the model would learn site or scanner confounding. Technical factors are studied in Q1a and U1a instead.
   - **Question it answers:** is what Sybil adds beyond the form explained by simple, measurable image facts such as emphysema and body size?
   - **Where it is reported:** next to Sybil, F, C (Sybil + F, U3) and the probe (U4), and in the U3 table (false alarms per 1,000 at the radiologists' sensitivity). It is a reference. It becomes a hypothesis only by the normal rules (section 9.8 and section 10).
@@ -56,9 +63,12 @@ Money (ledger after billing reconciliation):
 - **Unchanged limits:** task $45; project $72; T4 (or L4); timeout ≤ 60 min; ≤ 4 containers at once across both accounts; detached spawn; one saved unit per series.
 - **Per-account month check:** `armanfo` usage (its whole workspace, from Modal's billing) + open worst cases on `armanfo` + this launch's worst case ≤ $29.50.
 - **Protection for the lead's other work on `armanfo`:**
-  - Before each launch, `modal app list` on `armanfo` must show no running app other than `imgsae-lung-l2`. Otherwise the cost of the other app is not yet in the billing.
-  - If one is running: wait 30 minutes and check again. After 2 hours, stop and report.
+  - `[Fable edit]` Before each launch, `modal app list --json --profile armanfo` must show **no other app with running containers** (task count above 0). Otherwise the cost of the other app is not yet in the billing.
+    - Reason for the edit: the first wording ("no running app") would block for ever if the lead keeps a deployed app that is idle. An idle deployed app costs nothing.
+    - In P1 the executor reads the JSON once (free, read only) and fixes the exact field names in the code and the log.
+  - If another app has running containers: wait 30 minutes and check again. After 2 hours, stop and report.
   - No other app or volume on `armanfo` is touched or deleted.
+  - `[Fable edit]` **A limit for this project on `armanfo`:** the sum of this project's ledger runs on `armanfo` in November (worst case for open runs) stays ≤ **$17.00**. The guard enforces it as a fourth test. Expected use is about $14.90. Reason: the per-account cap alone would let this project use all of the lead's remaining credit there. The lead may change the number (review, question 1).
 - **Identity across accounts (gate of P2):** 20 D1 series re-run on `armanfo` must equal the saved D1 files: calibrated probabilities within 1e-4 and `h` within 1e-4 (L1 and S2 gave 0.0). The checkpoint and head-weight hashes must equal those of the main account.
 
 ### A5: the executor of paid runs
@@ -91,6 +101,15 @@ Each step ends with a few-line report to the lead, a log entry, and a commit and
    - **Never** `modal profile activate`.
    - `reconcile_billing.py` reconciles per account.
 4. **`drive_runs.py`:** adds the A4 app-list check before each launch on `armanfo`.
+   - `[Fable edit]` Three places in today's code are not account-aware and must change. I read them in the code:
+     - `Driver.precheck` uses the single `cap_usd`: it must use the account's cap.
+     - `Driver.lag_extra` sums recently closed runs of all accounts: it must sum only the runs of the launch's account.
+     - The copy to the PC has a fixed destination (`…\lung_l2_vol`) and uses `--force`: the destination must depend on the account. The same holds for the copy in `drive_plan.py`.
+   - `[Fable edit]` The driver refuses to start if `MODAL_PROFILE` in its environment differs from `--profile`. The `.cmd` wrapper sets `MODAL_PROFILE` itself, because a scheduled task does not inherit it from a chat session.
+   - `[Fable edit]` Optional, no install: while it runs, the driver asks Windows not to sleep (`SetThreadExecutionState` through `ctypes`).
+   - `[Fable edit]` **Ledger safety.** Today `budget.py status` writes a `checks` entry into `ledger.json` on every call, also on a read-only look. A chat session and a running driver could write the file at the same time.
+     - `budget.save` writes to a temporary file and then replaces the ledger (atomic).
+     - `status` gets a no-log mode. While a driver runs, the session uses only that mode and does not run `reconcile_billing.py`.
 5. **Tests:**
    - a unit test of `budget.py` on a copy of the ledger with both accounts: limits per account, open runs counted on the right account, a refusal at the cap;
    - `budget.py status --profile armanfo` shows $1.62 used and cap $29.50;
@@ -105,6 +124,8 @@ Each step ends with a few-line report to the lead, a log entry, and a commit and
    - 3 dev volumes equal Sybil's own;
    - checkpoint and head-weight SHA-256 equal to the main account's smoke record.
 3. **Identity:** D1 rows 0–20 under root `xacct`, compared on the PC with the saved D1 files (rule A4).
+   - `[Fable edit]` Command shape: `--step run --tier D1 --lo 0 --hi 20 --nshard 1 --root xacct --zfix-max 0.65`. Main files and any z-fix files that exist on both sides are compared.
+   - `[Fable edit]` **The smoke step also writes 3 D1 pilot series into root `dev` on the `armanfo` volume** (`smoke()` in `l2_sybil_modal.py` scores `_rows("D1", 0, 3)` into `dev`). These 3 files are a second identity check: they must equal the saved D1 files. The merge of P3 must expect them (see P3).
 4. **Gate:** both pass. If one fails, stop and report. D2 to D4 do not run on `armanfo`, and they wait for December on the main account.
 
 ### P3: D2, D3, D4 on `armanfo` (≈ $14.50; unattended, about 6 hours)
@@ -119,8 +140,10 @@ Each step ends with a few-line report to the lead, a log entry, and a commit and
    - a plan step starts only if the one before it finished cleanly.
 3. **PC copy:**
    - Copy into a separate folder `D:\Shayan\imgsae_data\lung_l2_vol_armanfo\l2\`.
-   - Then a merge script copies the files into the main PC copy. It refuses any overwrite and checks counts and hashes.
-   - The `xacct` files stay separate.
+   - Then a merge script copies the files into the main PC copy. It never overwrites, and it checks counts and hashes.
+     - `[Fable edit]` New files must belong to tiers D2, D3 or D4 of the manifest (or be their z-fix files). Any other new file stops the merge.
+     - `[Fable edit]` A file that already exists in the main copy (the 3 smoke series of P2) is compared: arrays equal within 1e-6 and calibrated scores within 1e-4 → skipped and counted. A file that differs stops the merge.
+   - The `xacct` files and the `run_info` folder of `armanfo` stay separate.
 4. **Checks on every new file (S3 gate):**
    - failures < 5% per tier;
    - G2b and G2c on every saved series;
@@ -129,16 +152,28 @@ Each step ends with a few-line report to the lead, a log entry, and a commit and
 5. **Afterwards:**
    - Reconcile `armanfo` billing (after 70 minutes).
    - Ledger and log.
-   - Delete the dev volumes on both accounts only after the PC copy is verified (protocol section 12). Delete only `imgsae-nlst-l2`, nothing else.
+   - `[Fable edit]` **No cloud volume is deleted in P3.** Both `imgsae-nlst-l2` volumes are kept until the paper's results are final (after P8), or until a second copy exists outside the laptop.
+     - Reason: after a deletion the laptop would hold the only copy of data that cost about $22 and many hours. The volumes are small (about 1 GB together).
+     - Protocol section 12 says the PC copy is checked "before the volume is deleted". It does not ask for an early deletion.
+     - The lead decides (review, question 2). When a volume is deleted later, only `imgsae-nlst-l2` is deleted, nothing else.
 6. **Expected:** `armanfo` about $16.50 of $29.50; task about $22.60 of $45; S3 total about $20.60 of its $22.00 allocation (stop rule: +10%).
 
 ### P4: S4 on all dev data (free, on the PC; about 1 to 2 weeks)
+`[Fable edit]` **Order inside P4, for honesty and for speed:**
+- The scripts of item 3 are written and tested **while P1 to P3 run** (free time; no full-dev outcome exists yet).
+- **All S4 scripts are committed and pushed before the first full-dev run of any outcome analysis.** The commit hash is written in the log. So the dev analysis is fixed by a commit, not by memory.
+- Tests on the pilot (300 real dev exams) are code tests only. Their numbers are not reported and not used to choose anything.
+- A change to an S4 script after full-dev results are seen is logged with its reason (protocol section 14).
+- **No S4 script reads `lung_l1/results/scores.csv` or any other test file.** `s4_gate.py` checks this by searching the S4 scripts.
+
 1. `l2_data.py`: assemble the dev table (7,336 main exams, z-fix and pair variants) and the arrays file. Rule A2 applied.
+   - `[Fable edit]` The assemble report must list the non-missing share of every I and T variable. Reason: `l2_data.py` reads the measures with `E.get(...)`, so a wrong key name would give an empty column without an error.
 2. **Scripts already there:**
    - `s4_q1a.py`: Shapley R² by group, plus U;
    - `s4_decomp.py`: 6 arms × K 64 (and K 128 as a check), SAE on the GPU (`--device cuda`), V1–V4, families, naming, Q1b shares, arms saved;
    - `s4_q1d.py`: kernel pairs D4 and z-fix D5.
 3. **Scripts to write.** Each is tested first on synthetic data and on the pilot, with exact definitions from protocol section 9.7:
+   - `[Fable edit]` `s4_scores.py`: the two items of protocol section 9.1 that no script covers yet. (i) Check P1: Spearman(ℓ̄_t, s_t) ≥ 0.98 for t = 1 and 6; if it fails, the decomposition is reported per member only. (ii) The share of hazard units that are on, by member and unit. Also Sybil's and F's dev AUROC with intervals, with the note that Sybil's dev numbers are mildly optimistic (protocol C6: dev was used for model selection).
    - `s4_q1b_u.py`: does U add to F (ΔAUROC, likelihood-ratio test);
    - `s4_q1c.py`: stable shares, T0 against T1;
    - `s4_q2.py`: false-alarm classes and misses, SMDs, FDR, counts by location, histology, stage and size;
@@ -146,7 +181,7 @@ Each step ends with a few-line report to the lead, a log entry, and a commit and
    - `s4_u2.py`: reliability flag, R-fixed against R-learned;
    - `s4_u3.py`: Sybil + F at the radiologists' sensitivity;
    - `s4_u4.py`: probe and family-activation references;
-   - `s4_refs.py`: A3, R-size and F+I;
+   - `s4_refs.py`: A3, R-size and F+I `[Fable edit]` (with the "does Sybil add to F+I" test and the two sensitivity runs);
    - `s4_gate.py`: section 9.8, one table of all candidates (direction, 95% interval, sign in both dev halves).
 4. **Report:** `lung_l2/RESULTS_S4_dev.md`, with every number giving its exams, participants and cancers. Next to the SAE, always the simple arms, R-size, F, F+I and the probe ceiling.
 5. **Gate 9.8:**
@@ -160,9 +195,19 @@ Each step ends with a few-line report to the lead, a log entry, and a commit and
    - It reads only frozen files, refits nothing and runs once.
    - Tested end to end on dev ("dev as if test"), so that S6 cannot fail on code.
 4. **SHA-256 list** in `HYPOTHESES_L2.md`. `docs/REVIEWER_BRIEF_L2.md` is updated if needed.
+   - `[Fable edit]` **The S6 run plan is fixed in the S5 file too:**
+     - **Order:** T1 → T2 → T5 and T4 (only the ones a frozen hypothesis uses) → T3. So if money runs short, the tiers the hypotheses need come first.
+     - **Cost projection:** from the *billed* cost per series of S3, which includes preemption restarts. Not from the protocol's older $0.0023.
+     - **Why:** all five test tiers are about 7,958 inferences. At the billed S3 rate ($0.0024 to $0.0028 each) that is about $19 to $22. The task has about $22.40 left after P3. The margin is thin.
+     - **Rule:** if the projection is above the task's remaining budget minus $1.00, the lead decides before any launch (drop a tier, or raise the task budget).
 5. **Stop.** The lead sends the files to the external reviewer. Their note and the lead's OK are logged.
 
 ### P6: S6 test (≈ $15.50 to $18.40; main account, December)
+`[Fable edit]` **Code-level protection of the test split.** Today the cloud image contains only `manifest_dev.csv`, so the job cannot score a test series. This stays so until the lead's S5 OK.
+- The test manifest is built, and the job is changed to read it, **only after the OK is logged**.
+- Then a smoke run on the test path comes first.
+- If no frozen hypothesis uses z-fix, the test runs use `--zfix-max 0`, so no T5 file is made.
+
 1. **Extraction:**
    - T1 baseline 2,279, T2 year 1 2,243, T3 year 2 2,193, root `test`;
    - T4 kernel pairs and T5 z-fix only if a frozen hypothesis uses them;
@@ -188,9 +233,11 @@ Each step ends with a few-line report to the lead, a log entry, and a commit and
 | | Now | After P2 + P3 | After P6 | Limit |
 |---|---|---|---|---|
 | Task `lung_l2_audit` | 7.67 | ≈ 22.60 | ≈ 38 to 41 | 45.00 |
-| Project | 33.06 | ≈ 48.00 | ≈ 64 to 67 | 72.00 |
+| Project | 33.06 | ≈ 48.00 | ≈ 63.50 to 66.50 | 72.00 |
 | `armanfo`, November | 1.62 | ≈ 16.50 | — | 29.50 |
 | `shforghani2002`, December | — | — | ≈ 15.50 to 18.40 | 29.00 |
+
+`[Fable edit]` **The P6 column is the optimistic case.** It uses the protocol's $0.0023 per series. With the billed S3 rate, and if both T4 and T5 are needed, P6 can reach about $22. Then the task ends near $44.60 of $45 and the project near $70 of $72. The rule in P5 item 4 handles this before any test launch.
 
 ## 6. Timeline (estimates)
 | When | Step |
@@ -235,7 +282,12 @@ Each step ends with a few-line report to the lead, a log entry, and a commit and
 | Modal preemption is billed twice | Per-account billing reconciliation; the guard uses max(measured, billed) |
 | The assistant's usage limit | Unattended driver as a Windows task |
 | The laptop sleeps during P3 | Cloud work continues and is saved; the driver stops; restart from the log |
-| A merge overwrites files | Separate folder; a merge that refuses any overwrite; hash check |
+| A merge overwrites files | Separate folder; a merge that never overwrites; hash check |
+| `[Fable edit]` The laptop holds the only copy of the data | Cloud volumes kept until the results are final, or a second copy outside the laptop |
+| `[Fable edit]` Two programs write `ledger.json` at once | Atomic save; no-log status mode while a driver runs |
+| `[Fable edit]` This project uses up the lead's `armanfo` credit | The $17.00 project limit on `armanfo`, as a guard test |
+| `[Fable edit]` Test money runs short (T4, T5, preemption) | Run order and billed-rate projection fixed at S5; the lead decides before launch |
+| `[Fable edit]` A measure column is silently empty | Non-missing shares in the assemble report |
 
 ## 10. Considered and not added (for the reviewer to judge)
 - **Running Sybil on the train set, or fitting the SAE on train `h`:** Sybil learned these scans, so its features there are over-fitted. It would cost about $80. The protocol rules it out.
