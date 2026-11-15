@@ -756,6 +756,29 @@
    "closed": "2026-11-13T11:08:58",
    "measured_usd": 0.3053,
    "note": "collected; 1 call(s), container 8.0 min"
+  },
+  {
+   "id": "lung_l2_audit-036",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-14T18:44:45",
+   "worst_usd": 3.9102,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_dev_D1_300_2484('D1', 300, 2484, 0, 4, 55.0, 0.65, 'dev', False)",
+     "run_dev_D1_300_2484('D1', 300, 2484, 1, 4, 55.0, 0.65, 'dev', False)",
+     "run_dev_D1_300_2484('D1', 300, 2484, 2, 4, 55.0, 0.65, 'dev', False)",
+     "run_dev_D1_300_2484('D1', 300, 2484, 3, 4, 55.0, 0.65, 'dev', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-14T19:40:47",
+   "measured_usd": 3.6134,
+   "note": "collected; 4 call(s), container 220.4 min"
   }
  ],
  "checks": [
@@ -1100,6 +1123,24 @@
    "month_used_usd": 22.5395,
    "open_worst_usd": 0,
    "project_committed_usd": 27.3428
+  },
+  {
+   "time": "2026-11-14T18:44:24",
+   "month_used_usd": 22.4495,
+   "open_worst_usd": 0,
+   "project_committed_usd": 27.3428
+  },
+  {
+   "time": "2026-11-14T18:44:45",
+   "month_used_usd": 22.4495,
+   "open_worst_usd": 0,
+   "project_committed_usd": 27.3428
+  },
+  {
+   "time": "2026-11-15T05:49:53",
+   "month_used_usd": 26.5179,
+   "open_worst_usd": 0,
+   "project_committed_usd": 30.9562
   }
  ]
 }
