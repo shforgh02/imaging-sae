@@ -1,6 +1,8 @@
 # Imaging SAE — status and handover
 
-**Updated:** 2026-11-15 · **Phase:** Lung L2 S3: D1 complete (2,484 baseline dev series, all checks pass); November budget used up; D2, D3, D4 wait for 1 December · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
+**Updated:** 2026-11-15 · **Phase:** Lung L2 S3: D1 complete (2,484 baseline dev series, all checks pass); main account's November budget used up; D2, D3, D4 planned on account `armanfo` (waits for the plan review and the lead's OK) · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
+
+**Next (2026-11-15):** plan `docs/PLAN_L2_NEXT_v1.md` (DRAFT) waits for the Fable 5.2 review (`docs/PROMPT_REVIEW_FABLE_L2.md`) and the lead's OK; then a fresh Opus 5.5 session executes it (`docs/HANDOVER_PROMPT_L2_EXEC.md`). The lead decided to use account `armanfo` (cap $29.50) for S3 D2 to D4 now, under proposed amendment A4.
 
 **Progress report for the lead (2026-11-15):** `docs/PROGRESS_REPORT_L2_2026-11-15.md` (steps, findings so far, money, why we wait, plan, decisions needed). The December task `imgsae_l2_dec` is not created yet (checked 2026-11-15).
 
