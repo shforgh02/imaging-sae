@@ -1,0 +1,209 @@
+{
+ "root": "dev",
+ "frozen": "results\\s5",
+ "n_exams": 7336,
+ "participants": 2492,
+ "zfix_descriptive": {
+  "1.6": {
+   "n": 333,
+   "mean_d1": -0.28192092495055887,
+   "share_quarter_sd": 0.6036036036036037,
+   "flag_change": 0.07207207207207207
+  },
+  "2.0": {
+   "n": 591,
+   "mean_d1": -0.351422800089023,
+   "share_quarter_sd": 0.7072758037225042,
+   "flag_change": 0.07614213197969544
+  }
+ },
+ "group_shares_lbar1_all_terms": {
+  "intercept": 8.574424944646287e-32,
+  "residual": 0.16601846168122342,
+  "N": 0.4459301316299236,
+  "mixed": 0.20488604570468924,
+  "unreplicated": 0.13266798534667365,
+  "T": 0.05049736303699371
+ },
+ "hypotheses": [
+  {
+   "id": "H1",
+   "name": "z-fix moves Sybil's score materially",
+   "direction": ">",
+   "null": 0.3,
+   "est": 0.6699134199134199,
+   "ci95": [
+    0.6380750261218591,
+    0.7014135349312072
+   ],
+   "p_one_sided": 4.87174427909181e-112,
+   "counts": {
+    "exams": 924,
+    "participants": 424,
+    "cancers_y1": 16
+   },
+   "evaluated": true,
+   "confirmed_holm": true
+  },
+  {
+   "id": "H2",
+   "name": "z-fix lowers Sybil's score",
+   "direction": "<",
+   "null": -0.1,
+   "est": -0.32637504638652454,
+   "ci95": [
+    -0.3664775189777754,
+    -0.28240698585881013
+   ],
+   "p_one_sided": 9.403419202005806e-26,
+   "counts": {
+    "exams": 924,
+    "participants": 424,
+    "cancers_y1": 16
+   },
+   "evaluated": true,
+   "confirmed_holm": true
+  },
+  {
+   "id": "H3",
+   "name": "z-fix changes the tau90 flag",
+   "direction": ">",
+   "null": 0.05,
+   "est": 0.07467532467532467,
+   "ci95": [
+    0.05579552663516172,
+    0.09708999979030802
+   ],
+   "p_one_sided": 0.008806996800703105,
+   "counts": {
+    "exams": 924,
+    "participants": 424,
+    "cancers_y1": 16
+   },
+   "evaluated": true,
+   "confirmed_holm": true
+  },
+  {
+   "id": "H4",
+   "name": "kernel change rarely changes the tau90 flag",
+   "direction": "<",
+   "null": 0.05,
+   "est": 0.018,
+   "ci95": [
+    0.008,
+    0.03
+   ],
+   "p_one_sided": 3.8746080401285056e-08,
+   "counts": {
+    "pairs": 500,
+    "participants": 500
+   },
+   "evaluated": true,
+   "confirmed_holm": true
+  },
+  {
+   "id": "H5",
+   "name": "technical-named features carry a part of Sybil's score",
+   "direction": ">",
+   "null": 0.03,
+   "est": 0.05049736303699371,
+   "ci95": [
+    0.05008570106329477,
+    0.050912057735237194
+   ],
+   "p_one_sided": 0.0,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "evaluated": true,
+   "confirmed_holm": true
+  }
+ ],
+ "n_confirmed": 5,
+ "secondary": {
+  "y1": {
+   "counts": {
+    "exams": 7289,
+    "participants": 2492,
+    "cancers": 88
+   },
+   "sybil": {
+    "est": 0.9693500587039678,
+    "lo": 0.9486362754614729,
+    "hi": 0.9852326882454492,
+    "n_draws": 2000
+   },
+   "F": {
+    "est": 0.9282912095542285,
+    "lo": 0.8928771622479292,
+    "hi": 0.9591160235923006,
+    "n_draws": 2000
+   },
+   "R_size": {
+    "est": 0.8743995467801189,
+    "lo": 0.825215762223807,
+    "hi": 0.9219304896682224,
+    "n_draws": 2000
+   },
+   "FI": {
+    "est": 0.9282312431354232,
+    "lo": 0.8933782931630246,
+    "hi": 0.9594308686578639,
+    "n_draws": 2000
+   },
+   "FI_plus_sybil_minus_FI": {
+    "est": 0.04414159649543614,
+    "lo": 0.02187679628656041,
+    "hi": 0.07109062446437549,
+    "n_draws": 2000
+   }
+  },
+  "U3_table": {
+   "target_sensitivity": 0.9090909090909091,
+   "radiologists": 338.5923995061051,
+   "sybil": 60.090547400192065,
+   "F": 192.7562079846344,
+   "C_frozen": 41.56948826999588,
+   "FI": 237.75552201948142
+  },
+  "y6": {
+   "counts": {
+    "exams": 2180,
+    "participants": 2180,
+    "cancers": 135
+   },
+   "sybil": {
+    "est": 0.8511509553563343,
+    "lo": 0.8157472896281125,
+    "hi": 0.8845685785114277,
+    "n_draws": 2000
+   },
+   "F": {
+    "est": 0.7794747804038757,
+    "lo": 0.7370271470185089,
+    "hi": 0.8205900664267397,
+    "n_draws": 2000
+   },
+   "R_size": {
+    "est": 0.6616807027075975,
+    "lo": 0.6074294302669293,
+    "hi": 0.7137338015365836,
+    "n_draws": 2000
+   },
+   "FI": {
+    "est": 0.7852775513900209,
+    "lo": 0.7441399158967779,
+    "hi": 0.8256367821478258,
+    "n_draws": 2000
+   },
+   "FI_plus_sybil_minus_FI": {
+    "est": 0.08373630354070438,
+    "lo": 0.05301739401595785,
+    "hi": 0.11764028463733033,
+    "n_draws": 2000
+   }
+  }
+ },
+ "note": "secondary references are outside the Holm family; anything else is exploratory (protocol 11)"
+}
