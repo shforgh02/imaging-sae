@@ -1,0 +1,6 @@
+2026-11-16T04:22:39 DRY RUN on armanfo: tier D2 rows 0-2442, copy folder D:\Shayan\imgsae_data\lung_l2_vol_armanfo
+2026-11-16T04:22:43 app check armanfo: ok []
+2026-11-16T04:22:45 precheck nshard 4 on armanfo: task lung_l2_audit: 8.04 + 3.91 <= 45.00 ok | project: 33.43 + 3.91 <= 72.00 ok | month armanfo (Modal billing): 1.80 + lag 0.37 + open 0.00 + 3.91 <= 29.50 ok | project on armanfo: 0.37 + 3.91 <= 17.00 ok
+2026-11-16T04:22:48 precheck nshard 3 on armanfo: task lung_l2_audit: 8.04 + 2.96 <= 45.00 ok | project: 33.43 + 2.96 <= 72.00 ok | month armanfo (Modal billing): 1.80 + lag 0.37 + open 0.00 + 2.96 <= 29.50 ok | project on armanfo: 0.37 + 2.96 <= 17.00 ok
+2026-11-16T04:22:51 precheck nshard 2 on armanfo: task lung_l2_audit: 8.04 + 2.01 <= 45.00 ok | project: 33.43 + 2.01 <= 72.00 ok | month armanfo (Modal billing): 1.80 + lag 0.37 + open 0.00 + 2.01 <= 29.50 ok | project on armanfo: 0.37 + 2.01 <= 17.00 ok
+2026-11-16T04:22:53 precheck nshard 1 on armanfo: task lung_l2_audit: 8.04 + 1.05 <= 45.00 ok | project: 33.43 + 1.05 <= 72.00 ok | month armanfo (Modal billing): 1.80 + lag 0.37 + open 0.00 + 1.05 <= 29.50 ok | project on armanfo: 0.37 + 1.05 <= 17.00 ok
