@@ -9,6 +9,7 @@ import hashlib
 import itertools
 import json
 import math
+import os
 import pickle
 import sys
 from pathlib import Path
@@ -26,6 +27,7 @@ import s4_core as C  # noqa: E402
 import s4_q1a as Q  # noqa: E402
 from imgsae import sae as SAE  # noqa: E402
 
+DATA = Path(os.environ.get("L2_S4_DATA", r"D:\Shayan\imgsae_data\lung_l2"))   # same folder as s4_common.DATA (tests point it elsewhere)
 SEEDED = ("ica", "nmf", "kmeans", "sae")
 DENSE = ("raw", "pca", "ica")          # signed codes: matching across members uses |r| and aligns signs
 
@@ -73,11 +75,26 @@ def shapley_label(E, G, a, fold):
     return lab, tot, sh
 
 
-def assoc_vector(E, cols, a):
-    v = []
+def assoc_frame(E, cols):
+    """numeric frame of the naming variables: text columns (maker, model) one-hot, as s4_q1a.design (fixed 2026-11-16, before any
+    full-dev run: under pandas 3 text columns are 'str', and pd.to_numeric turned them into missing values)."""
+    parts = {}
     for c in cols:
-        x = pd.to_numeric(E[c], errors="coerce").to_numpy(float); m = np.isfinite(x)
-        v.append(spearmanr(x[m], a[m])[0] if m.sum() > 20 and np.nanstd(x[m]) > 0 else np.nan)
+        v = E[c]
+        if not pd.api.types.is_numeric_dtype(v):
+            for lev, d in pd.get_dummies(v.fillna("NA"), prefix=c, dtype=float).items(): parts[lev] = d.to_numpy()
+        else: parts[c] = pd.to_numeric(v, errors="coerce").to_numpy(float)
+    return pd.DataFrame(parts)
+
+
+def assoc_vector(X, a):
+    """protocol 9.6: Spearman rho; binary variables as rank-biserial r = 2 AUROC - 1 (fixed 2026-11-16; Spearman before)."""
+    v = []
+    for c in X.columns:
+        x = X[c].to_numpy(float); m = np.isfinite(x); u = np.unique(x[m])
+        if m.sum() <= 20 or len(u) < 2: v.append(np.nan)
+        elif len(u) == 2: v.append(2 * roc_auc_score(x[m] == u[1], a[m]) - 1)
+        else: v.append(spearmanr(x[m], a[m])[0])
     return np.array(v)
 
 
@@ -87,7 +104,7 @@ def main():
     ap.add_argument("--K", type=int, default=64); ap.add_argument("--arms", default=",".join(C.ARMS)); ap.add_argument("--device", default="cpu")
     ap.add_argument("--v2-members", default="0,1,2,3,4"); ap.add_argument("--tag", default="dev"); ap.add_argument("--skip-v2", action="store_true")
     a = ap.parse_args(); out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
-    arm_dir = Path(r"D:\Shayan\imgsae_data\lung_l2\arms"); arm_dir.mkdir(parents=True, exist_ok=True)
+    arm_dir = DATA / "arms"; arm_dir.mkdir(parents=True, exist_ok=True)
     E = pd.read_csv(a.exams, dtype={"pid": str}, low_memory=False)
     Z = np.load(a.arrays, allow_pickle=True); pos = {u: i for i, u in enumerate(Z["series_uid"])}
     idx = np.array([pos[u] for u in E.series_uid]); Hh = Z["h"][idx].astype(np.float64); LG = Z["logit"][idx].astype(np.float64)
@@ -95,7 +112,7 @@ def main():
     lbar = {t: LG[:, :, t - 1].mean(1) for t in (1, 6)}
     y1, y6 = E.y1.to_numpy(float), np.where(E.study_yr == 0, E.y6, np.nan).astype(float)
     fold = Q.folds(E.pid.to_numpy()); half = Q.folds(E.pid.to_numpy(), k=2, seed=0)
-    G = D.groups(E); allv = [c for g in G.values() for c in g]
+    G = D.groups(E); allv = [c for g in G.values() for c in g]; AF = assoc_frame(E, allv); allv_num = list(AF.columns)
     for t in (1, 6):   # identity check: saved logits equal Sybil's head on saved h
         rec = np.stack([C.head_logits(Hh[:, m], heads[m])[0][:, t - 1] for m in range(5)], 1)
         assert np.abs(rec - LG[:, :, t - 1]).max() < 1e-3
@@ -147,15 +164,15 @@ def main():
             hl, av = [], []
             for hh in (0, 1):
                 S = E[half == hh].reset_index(drop=True); ah = act[half == hh]; fh = Q.folds(S.pid.to_numpy())
-                hl.append(shapley_label(S, G, ah, fh)[0]); av.append(assoc_vector(S, allv, ah))
+                hl.append(shapley_label(S, G, ah, fh)[0]); av.append(assoc_vector(AF[half == hh].reset_index(drop=True), ah))
             ok = np.isfinite(av[0]) & np.isfinite(av[1])
             rho = float(np.corrcoef(av[0][ok], av[1][ok])[0, 1]) if ok.sum() > 3 else np.nan
-            assoc = assoc_vector(E, allv, act); top = np.argsort(-np.nan_to_num(np.abs(assoc)))[:5]
+            assoc = assoc_vector(AF, act); top = np.argsort(-np.nan_to_num(np.abs(assoc)))[:5]
             T0 = pd.Series(act[(E.study_yr == 0).to_numpy()], index=E.pid[E.study_yr == 0]); T1 = pd.Series(act[(E.study_yr == 1).to_numpy()], index=E.pid[E.study_yr == 1])
             j = T0.to_frame("a").join(T1.to_frame("b"), how="inner")
             rows.append(dict(family=k, members=json.dumps({str(m): int(f) for m, f in fam.items()}), n_members=len(fam), label=lab, cv_r2=tot,
                              **{f"sh_{g}": v for g, v in sh.items()}, label_half_a=hl[0], label_half_b=hl[1], assoc_half_corr=rho,
-                             top_assoc="; ".join(f"{allv[i]} {assoc[i]:+.2f}" for i in top),
+                             top_assoc="; ".join(f"{allv_num[i]} {assoc[i]:+.2f}" for i in top),
                              auc_y1=auc(y1, act), auc_y6=auc(y6, act), auc_y2=auc(np.where(E.study_yr == 0, E.y2, np.nan).astype(float), act),
                              r_T0_T1=float(np.corrcoef(j.a, j.b)[0, 1]) if len(j) > 20 else None, active_share=float(np.mean(np.abs(act - np.median(act)) > 1e-9))))
         F = pd.DataFrame(rows)
@@ -182,13 +199,13 @@ def main():
                     comp[key] = comp.get(key, 0) + ct[:, i] / 5
             tot_l = sum(comp.values())
             assert np.abs(tot_l - lbar[t]).max() < 1e-3
-            v = np.var(lbar[t]); shares[f"lbar{t}"] = {k: float(np.cov(x, lbar[t])[0, 1] / v) for k, x in comp.items()}
+            v = np.var(lbar[t], ddof=1); shares[f"lbar{t}"] = {k: float(np.cov(x, lbar[t])[0, 1] / v) for k, x in comp.items()}   # ddof 1 both (fixed 2026-11-16)
             for k, x in comp.items(): store[f"t{t}_{k}"] = x
         res["group_shares"] = shares
         tag = f"{a.tag}_{arm}_K{a.K}"
         (out / f"s4_decomp_{tag}.json").write_text(json.dumps(res, indent=1, default=str))
         F.to_csv(out / f"s4_families_{tag}.csv", index=False)
-        np.savez(Path(r"D:\Shayan\imgsae_data\lung_l2") / f"s4_contrib_{tag}.npz", series_uid=E.series_uid.to_numpy(), **store,
+        np.savez(DATA / f"s4_contrib_{tag}.npz", series_uid=E.series_uid.to_numpy(), **store,
                  **{f"family_{k}": fam_act(As, fam, sg) for k, (fam, sg) in enumerate(fams)})
         pk = arm_dir / f"arms_{tag}.pkl"; pickle.dump(dict(arms=arms, families=fams), open(pk, "wb"))
         res["arms_pickle_sha256"] = hashlib.sha256(pk.read_bytes()).hexdigest()

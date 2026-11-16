@@ -168,6 +168,12 @@ def main():
     info.update(n_exams=len(E), participants=int(E.pid.nunique()), groups={k: len(v) for k, v in g.items()},
                 outcomes={y: dict(pos=int((E[y] == 1).sum()), neg=int((E[y] == 0).sum())) for y in ("y1", "y2", "y6", "late")},
                 missing_I=int(E.I_lung_vol_ml.isna().sum()), unmatched_table=int(E.age.isna().sum()))
+    # non-missing share of every group variable (plan P4 item 1: a wrong key name would give an empty column without an error)
+    nm = {g: {c: float(E[c].notna().mean()) for c in cols} for g, cols in g.items()}
+    info["nonmissing_share"] = nm
+    info["empty_columns"] = sorted(c for cols in nm.values() for c, v in cols.items() if v == 0.0)
+    info["constant_columns"] = sorted(c for cols in g.values() for c in cols if E[c].nunique(dropna=True) <= 1)
+    info["grp_values"] = E.grp.value_counts().to_dict()
     (out_d / f"assemble_{root}.json").write_text(json.dumps(info, indent=1, default=str))
     print(json.dumps(info, indent=1, default=str))
 
