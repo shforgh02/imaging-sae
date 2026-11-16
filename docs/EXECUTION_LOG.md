@@ -849,3 +849,7 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 - `HYPOTHESES_L2.md` cites only the raw K = 128 row (21 T families carrying 0.109), which was final before the freeze; it is unchanged, and so are all frozen files.
 - Fixed in this log: the dollar amounts in the P5 money line above had been lost when the entry was written.
 - **Stop:** still waiting for the external reviewer's note and the lead's OK.
+
+## 2026-11-16: prompt for the S5 review
+- At the lead's request: `docs/PROMPT_REVIEW_FABLE_S5.md`, a prompt for Fable 5.2 as the external reviewer. It asks for answers to items 1 to 8 of `docs/REVIEWER_BRIEF_L2.md` on the freeze commit `c593005`, and for a note in `docs/REVIEW_S5_L2.md`. It also lists the weak points I see. It forbids changing frozen files, opening test data, and any cloud command.
+- GitHub checked: `origin/prostate-mri-plan` equals the local branch; every file in the brief is committed.
