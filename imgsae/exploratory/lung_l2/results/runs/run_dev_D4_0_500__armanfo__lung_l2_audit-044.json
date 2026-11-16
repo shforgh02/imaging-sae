@@ -1,0 +1,101 @@
+{
+ "calls": [
+  {
+   "n_rows": 125,
+   "n_todo": 125,
+   "n_done": 125,
+   "errors": {},
+   "mean_sec": {
+    "download": 0.701127592086792,
+    "infer_main": 6.755707788467407,
+    "load": 4.293606748580933,
+    "volumes_measures": 2.257716949462891
+   },
+   "gpu": "Tesla T4",
+   "verify": [],
+   "torch": "1.13.1+cu117",
+   "cuda": "11.7",
+   "tier": "D4",
+   "lo": 0,
+   "hi": 500,
+   "shard": 0,
+   "nshard": 4,
+   "root": "dev",
+   "zfix_max": 0.65,
+   "container_min": 14.554202711582183
+  },
+  {
+   "n_rows": 125,
+   "n_todo": 125,
+   "n_done": 125,
+   "errors": {},
+   "mean_sec": {
+    "download": 7.376940214157105,
+    "infer_main": 9.22146937561035,
+    "load": 5.470915203094482,
+    "volumes_measures": 2.8226351795196534
+   },
+   "gpu": "Tesla T4",
+   "verify": [],
+   "torch": "1.13.1+cu117",
+   "cuda": "11.7",
+   "tier": "D4",
+   "lo": 0,
+   "hi": 500,
+   "shard": 1,
+   "nshard": 4,
+   "root": "dev",
+   "zfix_max": 0.65,
+   "container_min": 20.266458829243977
+  },
+  {
+   "n_rows": 125,
+   "n_todo": 125,
+   "n_done": 125,
+   "errors": {},
+   "mean_sec": {
+    "download": 7.35697193145752,
+    "infer_main": 7.715359827041626,
+    "load": 5.734243782043457,
+    "volumes_measures": 2.830071002960205
+   },
+   "gpu": "Tesla T4",
+   "verify": [],
+   "torch": "1.13.1+cu117",
+   "cuda": "11.7",
+   "tier": "D4",
+   "lo": 0,
+   "hi": 500,
+   "shard": 2,
+   "nshard": 4,
+   "root": "dev",
+   "zfix_max": 0.65,
+   "container_min": 17.622889908154807
+  },
+  {
+   "n_rows": 125,
+   "n_todo": 125,
+   "n_done": 125,
+   "errors": {},
+   "mean_sec": {
+    "download": 7.32274132156372,
+    "infer_main": 9.070414503097535,
+    "load": 5.216291902542114,
+    "volumes_measures": 2.7524654598236085
+   },
+   "gpu": "Tesla T4",
+   "verify": [],
+   "torch": "1.13.1+cu117",
+   "cuda": "11.7",
+   "tier": "D4",
+   "lo": 0,
+   "hi": 500,
+   "shard": 3,
+   "nshard": 4,
+   "root": "dev",
+   "zfix_max": 0.65,
+   "container_min": 19.9868040283521
+  }
+ ],
+ "container_min": 72.43035547733307
+}

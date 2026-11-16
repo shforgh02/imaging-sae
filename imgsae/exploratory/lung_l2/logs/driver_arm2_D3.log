@@ -7,3 +7,20 @@
 2026-11-16T07:18:16   "month armanfo (Modal billing): 12.87 + lag 6.31 + open 0.00 + 3.91 <= 29.50": true,
 2026-11-16T07:18:16   "project on armanfo: 10.95 + 3.91 <= 17.00": true
 2026-11-16T07:18:16   SPAWNED lung_l2_audit-043: 4 calls on armanfo, worst case $3.91. Collect with: python imgsae/exploratory/lung_l2/cloud/collect.py lung_l2_audit-043 --profile armanfo
+2026-11-16T07:18:48 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:21:19 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:23:50 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:26:24 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:28:56 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:31:27 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:33:59 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:36:30 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:39:02 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:41:33 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:44:05 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:46:36 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:49:08 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:51:39 collect lung_l2_audit-043: exit 3 lung_l2_audit-043: call fc-01M7HKGPY39KFSD98SM9ND2ASE still running
+2026-11-16T07:53:42 collect lung_l2_audit-043: exit 0 lung_l2_audit-043: collected on armanfo -> results/runs/run_dev_D3_0_2410__armanfo.json; closed at $1.60
+2026-11-16T07:53:42 lung_l2_audit-043: todo 592, done 592, errors 0, remaining 0
+2026-11-16T07:53:45 STOP finished: budget after: {'profile': 'armanfo', 'month_used_usd': 14.3824, 'open_worst_usd': 0, 'project_committed_usd': 45.6162, 'project_on_account_usd': 12.5561}, task 20.2294

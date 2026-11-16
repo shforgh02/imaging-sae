@@ -1,0 +1,91 @@
+{
+ "copy": "D:\\Shayan\\imgsae_data\\lung_l2_vol\\l2",
+ "tiers": {
+  "D1": {
+   "variant": "main",
+   "manifest_rows": 2484,
+   "done": 2484,
+   "logged_failures": 0,
+   "silently_missing": 0,
+   "failure_share": 0.0,
+   "pass_failures": true,
+   "pass_counts": true,
+   "missing_examples": []
+  },
+  "D2": {
+   "variant": "main",
+   "manifest_rows": 2442,
+   "done": 2442,
+   "logged_failures": 0,
+   "silently_missing": 0,
+   "failure_share": 0.0,
+   "pass_failures": true,
+   "pass_counts": true,
+   "missing_examples": []
+  },
+  "D3": {
+   "variant": "main",
+   "manifest_rows": 2410,
+   "done": 2410,
+   "logged_failures": 0,
+   "silently_missing": 0,
+   "failure_share": 0.0,
+   "pass_failures": true,
+   "pass_counts": true,
+   "missing_examples": []
+  },
+  "D4": {
+   "variant": "pair",
+   "manifest_rows": 500,
+   "done": 500,
+   "logged_failures": 0,
+   "silently_missing": 0,
+   "failure_share": 0.0,
+   "pass_failures": true,
+   "pass_counts": true,
+   "missing_examples": []
+  }
+ },
+ "zfix": {
+  "needed": 998,
+  "present": 998,
+  "needed_but_missing": 0,
+  "zfix_without_main": 0,
+  "by_tier": {
+   "D1": 430,
+   "D2": 304,
+   "D3": 264,
+   "D4": 0
+  },
+  "pass_": true
+ },
+ "G2b": {
+  "n_files": 8834,
+  "max_abs": {
+   "relu_vs_h": 0.0,
+   "hidden_fc": 1.9049931498926753e-06,
+   "logits": 8.420976671530411e-07,
+   "raw_hazards": 4.0141833101969837e-07
+  },
+  "n_fail": 0,
+  "pass_": true
+ },
+ "G2c": {
+  "n_files": 8834,
+  "max_abs_mean_prob": 2.220446049250313e-16,
+  "max_abs_calib": 5.8321403262340255e-15,
+  "n_fail": 0,
+  "pass_": true
+ },
+ "files_checked_by_tier_variant": {
+  "D1_main": 2484,
+  "D3_main": 2410,
+  "D2_main": 2442,
+  "D3_zfix": 264,
+  "D1_zfix": 430,
+  "D2_zfix": 304,
+  "D4_pair": 500
+ },
+ "failing_files": [],
+ "gate_S3_pass": true
+}

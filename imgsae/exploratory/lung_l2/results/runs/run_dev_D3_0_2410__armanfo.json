@@ -2,15 +2,15 @@
  "calls": [
   {
    "n_rows": 603,
-   "n_todo": 603,
-   "n_done": 355,
+   "n_todo": 248,
+   "n_done": 248,
    "errors": {},
    "mean_sec": {
-    "download": 0.7950624828607263,
-    "infer_main": 8.193682563137001,
-    "infer_zfix": 8.076533485542644,
-    "load": 4.244910106524615,
-    "volumes_measures": 2.7439679676378277
+    "download": 2.3078478940071596,
+    "infer_main": 7.1503379152667135,
+    "infer_zfix": 7.152992034780568,
+    "load": 4.181211714783022,
+    "volumes_measures": 2.5286382542502497
    },
    "gpu": "Tesla T4",
    "verify": [],
@@ -23,20 +23,14 @@
    "nshard": 4,
    "root": "dev",
    "zfix_max": 0.65,
-   "container_min": 55.05486119588216
+   "container_min": 35.01161082983017
   },
   {
    "n_rows": 603,
-   "n_todo": 293,
-   "n_done": 293,
+   "n_todo": 0,
+   "n_done": 0,
    "errors": {},
-   "mean_sec": {
-    "download": 2.227575657717604,
-    "infer_main": 6.846384718963311,
-    "infer_zfix": 6.796275699839873,
-    "load": 4.172497501959166,
-    "volumes_measures": 2.5233807067415412
-   },
+   "mean_sec": {},
    "gpu": "Tesla T4",
    "verify": [],
    "torch": "1.13.1+cu117",
@@ -48,19 +42,19 @@
    "nshard": 4,
    "root": "dev",
    "zfix_max": 0.65,
-   "container_min": 39.74846014181773
+   "container_min": 1.2591103792190552
   },
   {
    "n_rows": 602,
-   "n_todo": 602,
-   "n_done": 435,
+   "n_todo": 167,
+   "n_done": 167,
    "errors": {},
    "mean_sec": {
-    "download": 2.030425548553467,
-    "infer_main": 6.7526192966548875,
-    "infer_zfix": 6.645379360685957,
-    "load": 3.3899113419412195,
-    "volumes_measures": 2.416106660338654
+    "download": 0.8543407859916459,
+    "infer_main": 7.987306677652691,
+    "infer_zfix": 8.0153191725413,
+    "load": 4.393722162989086,
+    "volumes_measures": 2.7680789924667266
    },
    "gpu": "Tesla T4",
    "verify": [],
@@ -73,19 +67,19 @@
    "nshard": 4,
    "root": "dev",
    "zfix_max": 0.65,
-   "container_min": 55.0484755674998
+   "container_min": 25.84646721680959
   },
   {
    "n_rows": 602,
-   "n_todo": 602,
-   "n_done": 425,
+   "n_todo": 177,
+   "n_done": 177,
    "errors": {},
    "mean_sec": {
-    "download": 2.0579856104009293,
-    "infer_main": 6.991757210563211,
-    "infer_zfix": 6.880567017055693,
-    "load": 3.580107622707591,
-    "volumes_measures": 2.448500748802634
+    "download": 2.239969491958618,
+    "infer_main": 7.043042151941418,
+    "infer_zfix": 6.8630465269088745,
+    "load": 4.040970963946844,
+    "volumes_measures": 2.5100216245920643
    },
    "gpu": "Tesla T4",
    "verify": [],
@@ -98,8 +92,8 @@
    "nshard": 4,
    "root": "dev",
    "zfix_max": 0.65,
-   "container_min": 55.06728524367015
+   "container_min": 25.41418287754059
   }
  ],
- "container_min": 204.91908214886985
+ "container_min": 87.5313713033994
 }

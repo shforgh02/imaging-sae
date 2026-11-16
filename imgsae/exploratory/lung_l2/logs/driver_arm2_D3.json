@@ -18,8 +18,22 @@
  "launches": [
   {
    "rid": "lung_l2_audit-043",
-   "launched": "2026-11-16T07:18:16"
+   "launched": "2026-11-16T07:18:16",
+   "collect": "ok",
+   "n_todo": 592,
+   "n_done": 592,
+   "n_err": 0,
+   "container_min": 87.5313713033994
   }
  ],
- "status": "running"
+ "status": "finished",
+ "budget_after": {
+  "profile": "armanfo",
+  "month_used_usd": 14.3824,
+  "open_worst_usd": 0,
+  "project_committed_usd": 45.6162,
+  "project_on_account_usd": 12.5561
+ },
+ "task_usd": 20.2294,
+ "ended": "2026-11-16T07:53:45"
 }
