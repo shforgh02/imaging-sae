@@ -1,6 +1,13 @@
 # Imaging SAE — status and handover
 
-**Updated:** 2026-11-15 · **Phase:** Lung L2 S3: D1 complete (2,484 baseline dev series, all checks pass); main account's November budget used up; D2, D3, D4 planned on account `armanfo` (waits for the plan review and the lead's OK) · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA)
+**Updated:** 2026-11-16 · **Phase:** Lung L2 P4b (S4 on all dev data, free, on the PC). S3 is complete: all 7,336 dev exams + 998 z-fix + 500 kernel-pair series, 0 failures, S3 gate passed. · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA; capped at 210 MHz by a power setting on 16 Nov)
+
+**Now (2026-11-16, execution of `docs/PLAN_L2_NEXT_v1.md` by Opus 5.5):**
+- Step 0 and P1 to P3 done. P1: the guard knows two accounts (per-account caps, $17 limit for this project on `armanfo`, atomic ledger, no-log status, app check). P2: smoke and identity on `armanfo` equal to the main account (max difference 0.0). P3: D2, D3, D4 on `armanfo` (one Modal preemption stopped the first driver by its 80-minute rule; restarted; no data lost); merged into `imgsae_data/lung_l2_vol/l2` (no overwrite); `results/s3_checks_all.json`.
+- P4a done: S4 code fixed at commit `a536192` before any full-dev run (synthetic test 50/50; a pandas-3 bug that dropped scanner maker and model was found and fixed).
+- P4b running: `imgsae/exploratory/lung_l2/run_s4_dev.ps1` (results in `lung_l2/results/s4/`). Check P1 passed.
+- Money (billing reconciled): task `lung_l2_audit` $21.70 of $45; project $47.09 of $72; `armanfo` this project $14.03 of $17.00 (month $15.69 of $29.50); `shforghani2002` $28.17 of $29.00. S3 total $19.75 of $22.00. No open run. No cloud volume deleted.
+- Next: S4 results → gate 9.8 → P5 (S5 freeze) → stop for the lead's OK. Test data stay closed.
 
 **Next (2026-11-15):** plan `docs/PLAN_L2_NEXT_v1.md` is reviewed by Fable 5.2: approve with edits (`docs/REVIEW_PLAN_L2_NEXT_v1.md`, 15 edits, 3 questions for the lead with defaults). It waits for the lead's OK; then a fresh Opus 5.5 session executes P1 to P5 with the prompt `docs/HANDOVER_PROMPT_L2_EXEC.md` (version 2; pasting it gives the OK). The lead decided to use account `armanfo` (cap $29.50) for S3 D2 to D4 now, under proposed amendment A4.
 

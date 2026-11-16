@@ -1,0 +1,187 @@
+{
+ "tag": "dev",
+ "counts": {
+  "exams": 7336,
+  "participants": 2492
+ },
+ "participants_note": "2,493 dev participants in Sybil's split file; 2,492 have a usable exam (S1 manifest)",
+ "check_P1": {
+  "t1_all": 0.9914009351429668,
+  "t6_all": 0.9967446363484738,
+  "t6_baseline": 0.9966945037273539,
+  "pass_": true,
+  "primary_populations_pass": true,
+  "consequence_if_fail": "decomposition reported per member only (protocol 9.1)",
+  "diagnostics": {
+   "t1": {
+    "spearman_lbar_vs_mean_member_prob": 0.998045682607792,
+    "n_unique_s": 227,
+    "share_at_min_s": 0.16344056706652127,
+    "min_s": 0.0
+   },
+   "t6": {
+    "spearman_lbar_vs_mean_member_prob": 0.998601394360116,
+    "n_unique_s": 524,
+    "share_at_min_s": 0.02140130861504907,
+    "min_s": 0.0
+   }
+  }
+ },
+ "gating_on_share": {
+  "overall": 0.05592057433660487,
+  "by_member": [
+   0.13316,
+   0.0,
+   0.0,
+   0.0,
+   0.14645
+  ],
+  "by_unit": [
+   0.0,
+   0.17571,
+   0.15973,
+   5e-05,
+   0.0,
+   3e-05
+  ],
+  "by_member_unit": [
+   [
+    0.0,
+    0.0,
+    0.79866,
+    0.00027,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0,
+    0.0
+   ],
+   [
+    0.0,
+    0.87854,
+    0.0,
+    0.0,
+    0.0,
+    0.00014
+   ]
+  ],
+  "exams_any_unit_on": 0.8912213740458015,
+  "n_exams": 7336
+ },
+ "auroc": {
+  "y1": {
+   "counts": {
+    "exams": 7289,
+    "participants": 2492,
+    "cancers": 88
+   },
+   "sybil_s": {
+    "est": 0.9693500587039678,
+    "lo": 0.9486362754614729,
+    "hi": 0.9852326882454492,
+    "n_draws": 2000
+   },
+   "sybil_lbar": {
+    "est": 0.968516052063476,
+    "lo": 0.9471744159787424,
+    "hi": 0.9850556369160147,
+    "n_draws": 2000
+   },
+   "form_F": {
+    "est": 0.9282912095542285,
+    "lo": 0.8928771622479292,
+    "hi": 0.9591160235923006,
+    "n_draws": 2000
+   },
+   "sybil_minus_F": {
+    "est": 0.04105884914973934,
+    "lo": 0.017141241304033595,
+    "hi": 0.07046390169893926,
+    "n_draws": 2000
+   }
+  },
+  "y2": {
+   "counts": {
+    "exams": 2470,
+    "participants": 2470,
+    "cancers": 65
+   },
+   "sybil_s": {
+    "est": 0.9260387014233168,
+    "lo": 0.8824552598612314,
+    "hi": 0.9630408350549433,
+    "n_draws": 2000
+   },
+   "sybil_lbar": {
+    "est": 0.9256292979369902,
+    "lo": 0.8814481721501247,
+    "hi": 0.9629524287098914,
+    "n_draws": 2000
+   }
+  },
+  "y6": {
+   "counts": {
+    "exams": 2180,
+    "participants": 2180,
+    "cancers": 135
+   },
+   "sybil_s": {
+    "est": 0.8511509553563343,
+    "lo": 0.8157472896281125,
+    "hi": 0.8845685785114277,
+    "n_draws": 2000
+   },
+   "sybil_lbar": {
+    "est": 0.8509173231911619,
+    "lo": 0.8167116560968792,
+    "hi": 0.8847253879004799,
+    "n_draws": 2000
+   },
+   "form_F": {
+    "est": 0.7794747804038757,
+    "lo": 0.7370271470185089,
+    "hi": 0.8205900664267397,
+    "n_draws": 2000
+   },
+   "sybil_minus_F": {
+    "est": 0.0716761749524586,
+    "lo": 0.02736954152226831,
+    "hi": 0.11763380739011998,
+    "n_draws": 2000
+   }
+  },
+  "radiologists_y1": {
+   "sensitivity": 0.9090909090909091,
+   "specificity": 0.6572698236356062,
+   "positive_rate": 0.3495678419536288,
+   "counts": {
+    "exams": 7289,
+    "participants": 2492,
+    "cancers": 88
+   },
+   "positive_calls": 2548
+  }
+ },
+ "note_C6": "Sybil's dev numbers are mildly optimistic: dev was used for Sybil's model selection (protocol C6). Test is clean."
+}

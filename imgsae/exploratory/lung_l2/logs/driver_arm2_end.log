@@ -2,3 +2,22 @@
 2026-11-16T07:53:45 plan step D3 finished
 2026-11-16T08:16:20 plan step D4 finished
 2026-11-16T08:16:20 PLAN END (all steps tried); reconcile after 70 min
+2026-11-16T09:26:23 reconcile_billing armanfo: exit 0 3.3798,
+   "billed": 3.8328
+  },
+  {
+   "id": "lung_l2_audit-043",
+   "measured": 1.6049,
+   "billed": 1.82
+  },
+  {
+   "id": "lung_l2_audit-044",
+   "measured": 1.3766,
+   "billed": 1.5611
+  }
+ ],
+ "total_billed": 14.0294,
+ "total_measured": 12.3713,
+ "billed_hours_without_run": []
+}
+ledger updated
