@@ -856,3 +856,6 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 
 ## 2026-11-16: S5 review done (external reviewer, Fable 5.2)
 - Review in `docs/REVIEW_S5_L2.md`. **Verdict: approve with changes.** Hashes 22 of 22 match; the dev re-run of the frozen analysis is byte-identical to the committed file; no test data found; H1 to H4 approved; **H5 not approved as frozen** (any 6 of the 56 families pass its test; proposal H5′ = change of the T-family term under z-fix, dev −0.057 [−0.059, −0.054]); four small changes (wording of H3 and H4, `wald()` with SD 0, test-manifest script and its hash, three CRLF input hashes). No frozen file, analysis script, ledger or test data touched; no cloud command. Waiting for the lead's decision.
+
+## 2026-11-16: project guide written (at the lead's request)
+- `docs/PROJECT_GUIDE.md`: the whole project in simple words (all stages since 6 Nov, with what was wanted, done, went wrong, found, and what each result shows), the honest score against the lead's goal, the state and money today, the step-by-step plan from here (N0 to N9, each with who, cost, why, what to do, done-when, what can go wrong and its prevention, stop points), the rules for every agent, and how to publish. Writing only; no data, code, frozen file or ledger touched. **Next step: N0, the lead's decisions** (H5; the new freeze; S6 in December).
