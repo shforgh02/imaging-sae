@@ -1,0 +1,89 @@
+{
+ "arm": "ica",
+ "K": 128,
+ "n_exams": 7336,
+ "participants": 2492,
+ "V1": {
+  "r_y1": 0.9997182357788889,
+  "r_y6": 0.9989875861114511,
+  "dAUROC_y1": -9.152769186104859e-05,
+  "dAUROC_y6": -0.0002861541247850541,
+  "pass_": true
+ },
+ "V2": {
+  "per_member": [
+   {
+    "member": 0,
+    "n_cons_a": 106,
+    "n_cons_b": 106,
+    "share": 0.9528301886792453,
+    "median_r": 0.9970152353899028,
+    "n_stable_seed0": 103
+   },
+   {
+    "member": 1,
+    "n_cons_a": 112,
+    "n_cons_b": 118,
+    "share": 1.0,
+    "median_r": 0.9995721718208888,
+    "n_stable_seed0": 111
+   },
+   {
+    "member": 2,
+    "n_cons_a": 108,
+    "n_cons_b": 110,
+    "share": 0.9722222222222222,
+    "median_r": 0.999645155519679,
+    "n_stable_seed0": 107
+   },
+   {
+    "member": 3,
+    "n_cons_a": 101,
+    "n_cons_b": 106,
+    "share": 0.9702970297029703,
+    "median_r": 0.999549645839849,
+    "n_stable_seed0": 98
+   },
+   {
+    "member": 4,
+    "n_cons_a": 105,
+    "n_cons_b": 105,
+    "share": 0.8761904761904762,
+    "median_r": 0.9952072169820723,
+    "n_stable_seed0": 96
+   }
+  ],
+  "share": 0.9543079833589829,
+  "median_r": 0.9981978851104782,
+  "pass_": true
+ },
+ "V3": {
+  "n_families": 7,
+  "pass_": false
+ },
+ "V4": {
+  "median_assoc_half_corr": 0.20796700596424048,
+  "label_agreement_named": 0.0,
+  "pass_": false
+ },
+ "valid": false,
+ "audit_yield_named_replicated": 0,
+ "labels": {
+  "unnamed": 7
+ },
+ "group_shares": {
+  "lbar1": {
+   "intercept": 8.574424944646287e-32,
+   "residual": 4.628460830493125e-05,
+   "unreplicated": 0.9812418622353724,
+   "unnamed": 0.018711840555827225
+  },
+  "lbar6": {
+   "intercept": -0.04685855417895184,
+   "residual": 5.8288298024043874e-05,
+   "unreplicated": 1.0249928516682032,
+   "unnamed": 0.021807401462610926
+  }
+ },
+ "arms_pickle_sha256": "e366f2b0f641fd2e9b0fc0248ab366437054392aef94448089dddae9d9f6ad10"
+}

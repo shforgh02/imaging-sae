@@ -1,0 +1,622 @@
+{
+ "tag": "dev",
+ "tau90": 0.017993675365094892,
+ "sd_lbar1_all": 1.0278226074383936,
+ "sd_lbar6_all": 0.9295745304501313,
+ "sd_lbar6_baseline": 0.9598513942830385,
+ "n_exams": 7336,
+ "primary_arm": "raw",
+ "zfix": {
+  "n_zfix_rows": 998,
+  "n_D5": 924,
+  "n_extra_pilot_rows": 74,
+  "D5": {
+   "counts": {
+    "exams": 924,
+    "participants": 424,
+    "cancers": 16
+   },
+   "t1": {
+    "n": 924,
+    "mean": -0.32637504638652454,
+    "sd": 0.50752015103134,
+    "icc": 0.8637257896951991,
+    "sd_ratio": 0.4937818523920336,
+    "share_ge_quarter_sd": 0.7153679653679653,
+    "mean_abs_over_sd": 0.48473358755420304,
+    "share_flag_changed": 0.07467532467532467
+   },
+   "t6": {
+    "n": 924,
+    "mean": -0.23100643711551638,
+    "sd": 0.45442718132390486,
+    "icc": 0.8695948007447588,
+    "sd_ratio": 0.4888550260772054,
+    "share_ge_quarter_sd": 0.6699134199134199,
+    "mean_abs_over_sd": 0.44335042424909926,
+    "share_flag_changed": 0.07467532467532467
+   },
+   "t6_baseline_only": {
+    "n": 356,
+    "mean": -0.22636955825800306,
+    "sd": 0.4622571735160084,
+    "icc": 0.888922543869459,
+    "sd_ratio": 0.48159243844334015,
+    "share_ge_quarter_sd": 0.6938202247191011,
+    "mean_abs_over_sd": 0.44113922705971986,
+    "share_flag_changed": 0.06460674157303371
+   },
+   "t6_by_stretch": {
+    "1.6": {
+     "n": 333,
+     "mean": -0.19128388205582317,
+     "sd": 0.4169380930538987,
+     "icc": 0.8915387286303701,
+     "sd_ratio": 0.44852572805754826,
+     "share_ge_quarter_sd": 0.6036036036036037,
+     "mean_abs_over_sd": 0.396804931723433,
+     "share_flag_changed": 0.07207207207207207
+    },
+    "2.0": {
+     "n": 591,
+     "mean": -0.2533881813369679,
+     "sd": 0.472779192568358,
+     "icc": 0.8574389853460574,
+     "sd_ratio": 0.5085974035233327,
+     "share_ge_quarter_sd": 0.7072758037225042,
+     "mean_abs_over_sd": 0.4695765647077235,
+     "share_flag_changed": 0.07614213197969544
+    }
+   },
+   "t6_by_lung_cut": {
+    "False": {
+     "n": 168,
+     "mean": -0.29179507679128575,
+     "sd": 0.3865466689133535,
+     "icc": 0.9172174761298532,
+     "sd_ratio": 0.4158318200974962,
+     "share_ge_quarter_sd": 0.6666666666666666,
+     "mean_abs_over_sd": 0.43137050489845025,
+     "share_flag_changed": 0.06547619047619048
+    },
+    "True": {
+     "n": 756,
+     "mean": -0.21749785052090095,
+     "sd": 0.4671039838142801,
+     "icc": 0.8577164806155408,
+     "sd_ratio": 0.5024922354403284,
+     "share_ge_quarter_sd": 0.6706349206349206,
+     "mean_abs_over_sd": 0.4460126285492435,
+     "share_flag_changed": 0.07671957671957672
+    }
+   },
+   "candidates_stats": {
+    "share_ge_quarter_sd_lbar6": {
+     "est": 0.6699134199134199,
+     "lo": 0.6380750261218591,
+     "hi": 0.7014135349312072,
+     "n_draws": 2000,
+     "halves": [
+      0.6688453159041394,
+      0.6709677419354839
+     ]
+    },
+    "share_flag_changed": {
+     "est": 0.07467532467532467,
+     "lo": 0.05579552663516172,
+     "hi": 0.09708999979030802,
+     "n_draws": 2000,
+     "halves": [
+      0.07407407407407407,
+      0.07526881720430108
+     ]
+    },
+    "mean_delta_lbar1": {
+     "est": -0.32637504638652454,
+     "lo": -0.3664775189777754,
+     "hi": -0.28240698585881013,
+     "n_draws": 2000,
+     "halves": [
+      -0.320294139051327,
+      -0.332377490401268
+     ]
+    },
+    "mean_delta_lbar6": {
+     "est": -0.23100643711551638,
+     "lo": -0.26717471177397945,
+     "hi": -0.1920384633271853,
+     "n_draws": 2000,
+     "halves": [
+      -0.22705029878594907,
+      -0.23491152849889568
+     ]
+    }
+   },
+   "U1b_dev_qualifies": true,
+   "auroc_descriptive": {
+    "y1_pos": 16,
+    "y1_main": 0.9946881898454746,
+    "y1_zfix": 0.9848233995584988,
+    "y6_pos": 27,
+    "y6_main": 0.8738042678440029,
+    "y6_zfix": 0.8585970076036302
+   },
+   "group_change": {
+    "t1": {
+     "intercept": {
+      "mean": 0.0,
+      "sd": 0.0,
+      "share_of_var_delta": 0.0
+     },
+     "residual": {
+      "mean": -0.10102921248498972,
+      "sd": 0.08195791004319614,
+      "share_of_var_delta": 0.15636963809762094
+     },
+     "N": {
+      "mean": 0.005331521267673536,
+      "sd": 0.22329312664135492,
+      "share_of_var_delta": 0.43253898872687063
+     },
+     "mixed": {
+      "mean": -0.19674117983919948,
+      "sd": 0.11724196693682344,
+      "share_of_var_delta": 0.22103129853918332
+     },
+     "unreplicated": {
+      "mean": 0.02269025303471487,
+      "sd": 0.0740381457793284,
+      "share_of_var_delta": 0.13866133636232397
+     },
+     "T": {
+      "mean": -0.05662641930114353,
+      "sd": 0.02826510474851618,
+      "share_of_var_delta": 0.051398730543955946
+     }
+    },
+    "t6": {
+     "intercept": {
+      "mean": 0.014566569411674534,
+      "sd": 0.04734734846051465,
+      "share_of_var_delta": -0.04597039373751472
+     },
+     "residual": {
+      "mean": -0.06019470529134806,
+      "sd": 0.07103937653251642,
+      "share_of_var_delta": 0.12380129379283059
+     },
+     "N": {
+      "mean": 0.01571461608335395,
+      "sd": 0.21856211346785653,
+      "share_of_var_delta": 0.4736337873978143
+     },
+     "mixed": {
+      "mean": -0.1774365526600969,
+      "sd": 0.11087399694526162,
+      "share_of_var_delta": 0.23287149675960242
+     },
+     "unreplicated": {
+      "mean": 0.02468935681598925,
+      "sd": 0.0782460273093508,
+      "share_of_var_delta": 0.1620045829155727
+     },
+     "T": {
+      "mean": -0.04834571278754372,
+      "sd": 0.026648671816431643,
+      "share_of_var_delta": 0.05365922672603478
+     }
+    }
+   }
+  },
+  "extra_pilot_0.65_0.95": {
+   "counts": {
+    "exams": 74,
+    "participants": 74,
+    "cancers": 0
+   },
+   "t1": {
+    "n": 74,
+    "mean": -0.13127245071369248,
+    "sd": 0.3244558859386994,
+    "icc": 0.9394788950574944,
+    "sd_ratio": 0.31567303889854054,
+    "share_ge_quarter_sd": 0.43243243243243246,
+    "mean_abs_over_sd": 0.25416985821063753,
+    "share_flag_changed": 0.05405405405405406
+   },
+   "t6": {
+    "n": 74,
+    "mean": -0.10513540705716289,
+    "sd": 0.2875989270673961,
+    "icc": 0.9411485323326924,
+    "sd_ratio": 0.30938770119716064,
+    "share_ge_quarter_sd": 0.44594594594594594,
+    "mean_abs_over_sd": 0.24832245075972267,
+    "share_flag_changed": 0.05405405405405406
+   },
+   "t6_baseline_only": {
+    "n": 74,
+    "mean": -0.10513540705716289,
+    "sd": 0.2875989270673961,
+    "icc": 0.9411485323326924,
+    "sd_ratio": 0.29962859748952936,
+    "share_ge_quarter_sd": 0.43243243243243246,
+    "mean_abs_over_sd": 0.2404895455067988,
+    "share_flag_changed": 0.05405405405405406
+   },
+   "t6_by_stretch": {
+    "<1.5": {
+     "n": 74,
+     "mean": -0.10513540705716289,
+     "sd": 0.2875989270673961,
+     "icc": 0.9411485323326924,
+     "sd_ratio": 0.30938770119716064,
+     "share_ge_quarter_sd": 0.44594594594594594,
+     "mean_abs_over_sd": 0.24832245075972267,
+     "share_flag_changed": 0.05405405405405406
+    }
+   },
+   "t6_by_lung_cut": {
+    "False": {
+     "n": 74,
+     "mean": -0.10513540705716289,
+     "sd": 0.2875989270673961,
+     "icc": 0.9411485323326924,
+     "sd_ratio": 0.30938770119716064,
+     "share_ge_quarter_sd": 0.44594594594594594,
+     "mean_abs_over_sd": 0.24832245075972267,
+     "share_flag_changed": 0.05405405405405406
+    }
+   }
+  }
+ },
+ "kernel_pairs": {
+  "counts": {
+   "exams": 500,
+   "participants": 500,
+   "cancers": 8
+  },
+  "n_baseline": 500,
+  "note": "delta = sharp (main) minus soft (pair); SD reference for t = 6: baseline dev main exams",
+  "t1": {
+   "n": 500,
+   "mean": 0.027930584030598414,
+   "sd": 0.21800153037080242,
+   "icc": 0.978182053946378,
+   "sd_ratio": 0.21210034571444192,
+   "share_ge_quarter_sd": 0.198,
+   "mean_abs_over_sd": 0.15647848001834272,
+   "share_flag_changed": 0.018
+  },
+  "t6": {
+   "n": 500,
+   "mean": 0.02456183358356357,
+   "sd": 0.19536176693661872,
+   "icc": 0.9786084268774646,
+   "sd_ratio": 0.20353334703706327,
+   "share_ge_quarter_sd": 0.184,
+   "mean_abs_over_sd": 0.15071239263282993,
+   "share_flag_changed": 0.018
+  },
+  "by_maker": {
+   "GE MEDICAL SYSTEMS": {
+    "n": 236,
+    "mean_delta_lbar1": 0.05232667020379992,
+    "mean_delta_lbar6": 0.047585958561275975,
+    "sd_delta_lbar6": 0.20356983191694464
+   },
+   "Philips": {
+    "n": 50,
+    "mean_delta_lbar1": 0.01700479695945979,
+    "mean_delta_lbar6": 0.016027339972555645,
+    "sd_delta_lbar6": 0.2153856741840644
+   },
+   "SIEMENS": {
+    "n": 195,
+    "mean_delta_lbar1": 0.007252151862933095,
+    "mean_delta_lbar6": 0.0038897211926105717,
+    "sd_delta_lbar6": 0.1831266510519437
+   },
+   "TOSHIBA": {
+    "n": 19,
+    "mean_delta_lbar1": -0.03411640073908001,
+    "mean_delta_lbar6": -0.026801687361378418,
+    "sd_delta_lbar6": 0.1298131643261167
+   }
+  },
+  "candidates_stats": {
+   "share_ge_quarter_sd_lbar6": {
+    "est": 0.184,
+    "lo": 0.152,
+    "hi": 0.218,
+    "n_draws": 2000,
+    "halves": [
+     0.184,
+     0.184
+    ]
+   },
+   "share_flag_changed": {
+    "est": 0.018,
+    "lo": 0.008,
+    "hi": 0.03,
+    "n_draws": 2000,
+    "halves": [
+     0.028,
+     0.008
+    ]
+   },
+   "mean_delta_lbar1": {
+    "est": 0.027930584030598414,
+    "lo": 0.009009336644336587,
+    "hi": 0.048515149609074,
+    "n_draws": 2000,
+    "halves": [
+     0.02432011141330003,
+     0.03154105664789678
+    ]
+   },
+   "mean_delta_lbar6": {
+    "est": 0.02456183358356357,
+    "lo": 0.007569541994761682,
+    "hi": 0.04232998023012649,
+    "n_draws": 2000,
+    "halves": [
+     0.02131768513470888,
+     0.027805982032418256
+    ]
+   }
+  },
+  "group_change": {
+   "t1": {
+    "intercept": {
+     "mean": 0.0,
+     "sd": 0.0,
+     "share_of_var_delta": 0.0
+    },
+    "residual": {
+     "mean": 0.004672126235011627,
+     "sd": 0.03544697224560432,
+     "share_of_var_delta": 0.1585098217374187
+    },
+    "N": {
+     "mean": 0.00879260564102562,
+     "sd": 0.09295074510261908,
+     "share_of_var_delta": 0.41903750130311096
+    },
+    "mixed": {
+     "mean": 0.006334318885393997,
+     "sd": 0.048495719289239285,
+     "share_of_var_delta": 0.21844957967903375
+    },
+    "unreplicated": {
+     "mean": 0.007722054071918736,
+     "sd": 0.035326050716430614,
+     "share_of_var_delta": 0.15513236554504647
+    },
+    "T": {
+     "mean": 0.0004094706170586352,
+     "sd": 0.01106017073256779,
+     "share_of_var_delta": 0.04887071914677192
+    }
+   },
+   "t6": {
+    "intercept": {
+     "mean": -0.0006416808249533137,
+     "sd": 0.022546510076272657,
+     "share_of_var_delta": -0.03779052102990497
+    },
+    "residual": {
+     "mean": 0.002519767913460643,
+     "sd": 0.028801422876088882,
+     "share_of_var_delta": 0.11627009346440943
+    },
+    "N": {
+     "mean": 0.008491222492729239,
+     "sd": 0.09048564005278831,
+     "share_of_var_delta": 0.45465064138744327
+    },
+    "mixed": {
+     "mean": 0.005966739867204488,
+     "sd": 0.04619809268355202,
+     "share_of_var_delta": 0.2316892830590889
+    },
+    "unreplicated": {
+     "mean": 0.008284032235565373,
+     "sd": 0.03757427802915092,
+     "share_of_var_delta": 0.18214414133191975
+    },
+    "T": {
+     "mean": -5.8257918945332164e-05,
+     "sd": 0.010839357678123735,
+     "share_of_var_delta": 0.0530363483132046
+    }
+   }
+  }
+ },
+ "candidates": [
+  {
+   "id": "ZF_share_ge_quarter_sd_lbar6",
+   "source": "Q1d (ii) / U1b (9.7)",
+   "statistic": "share_ge_quarter_sd_lbar6",
+   "population": "D5 z-fix exams (spacing/thickness <= 0.65), all screens",
+   "direction": ">",
+   "null": 0.3,
+   "est": 0.6699134199134199,
+   "lo": 0.6380750261218591,
+   "hi": 0.7014135349312072,
+   "half_a": 0.6688453159041394,
+   "half_b": 0.6709677419354839,
+   "counts": {
+    "exams": 924,
+    "participants": 424,
+    "cancers": 16,
+    "population": "D5 z-fix exams (spacing/thickness <= 0.65), all screens"
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": "U1b: >= 0.30 (or flag change >= 0.10)",
+   "note": ""
+  },
+  {
+   "id": "ZF_share_flag_changed",
+   "source": "Q1d (ii) / U1b (9.7)",
+   "statistic": "share_flag_changed",
+   "population": "D5 z-fix exams (spacing/thickness <= 0.65), all screens",
+   "direction": ">",
+   "null": 0.1,
+   "est": 0.07467532467532467,
+   "lo": 0.05579552663516172,
+   "hi": 0.09708999979030802,
+   "half_a": 0.07407407407407407,
+   "half_b": 0.07526881720430108,
+   "counts": {
+    "exams": 924,
+    "participants": 424,
+    "cancers": 16,
+    "population": "D5 z-fix exams (spacing/thickness <= 0.65), all screens"
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": "U1b: >= 0.10 (or share >= 0.30)",
+   "note": ""
+  },
+  {
+   "id": "ZF_mean_delta_lbar1",
+   "source": "Q1d (ii) / U1b (9.7)",
+   "statistic": "mean_delta_lbar1",
+   "population": "D5 z-fix exams (spacing/thickness <= 0.65), all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": -0.32637504638652454,
+   "lo": -0.3664775189777754,
+   "hi": -0.28240698585881013,
+   "half_a": -0.320294139051327,
+   "half_b": -0.332377490401268,
+   "counts": {
+    "exams": 924,
+    "participants": 424,
+    "cancers": 16,
+    "population": "D5 z-fix exams (spacing/thickness <= 0.65), all screens"
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "ZF_mean_delta_lbar6",
+   "source": "Q1d (ii) / U1b (9.7)",
+   "statistic": "mean_delta_lbar6",
+   "population": "D5 z-fix exams (spacing/thickness <= 0.65), all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": -0.23100643711551638,
+   "lo": -0.26717471177397945,
+   "hi": -0.1920384633271853,
+   "half_a": -0.22705029878594907,
+   "half_b": -0.23491152849889568,
+   "counts": {
+    "exams": 924,
+    "participants": 424,
+    "cancers": 16,
+    "population": "D5 z-fix exams (spacing/thickness <= 0.65), all screens"
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "KP_share_ge_quarter_sd_lbar6",
+   "source": "Q1d (i) (9.7)",
+   "statistic": "share_ge_quarter_sd_lbar6",
+   "population": "D4 kernel pairs (baseline D1 exams with a soft-kernel partner)",
+   "direction": ">",
+   "null": 0.3,
+   "est": 0.184,
+   "lo": 0.152,
+   "hi": 0.218,
+   "half_a": 0.184,
+   "half_b": 0.184,
+   "counts": {
+    "exams": 500,
+    "participants": 500,
+    "cancers": 8,
+    "population": "D4 kernel pairs (baseline D1 exams with a soft-kernel partner)"
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "margin carried over from U1b (my choice, fixed before the full-dev run)"
+  },
+  {
+   "id": "KP_share_flag_changed",
+   "source": "Q1d (i) (9.7)",
+   "statistic": "share_flag_changed",
+   "population": "D4 kernel pairs (baseline D1 exams with a soft-kernel partner)",
+   "direction": ">",
+   "null": 0.1,
+   "est": 0.018,
+   "lo": 0.008,
+   "hi": 0.03,
+   "half_a": 0.028,
+   "half_b": 0.008,
+   "counts": {
+    "exams": 500,
+    "participants": 500,
+    "cancers": 8,
+    "population": "D4 kernel pairs (baseline D1 exams with a soft-kernel partner)"
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "margin carried over from U1b (my choice, fixed before the full-dev run)"
+  },
+  {
+   "id": "KP_mean_delta_lbar1",
+   "source": "Q1d (i) (9.7)",
+   "statistic": "mean_delta_lbar1",
+   "population": "D4 kernel pairs (baseline D1 exams with a soft-kernel partner)",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.027930584030598414,
+   "lo": 0.009009336644336587,
+   "hi": 0.048515149609074,
+   "half_a": 0.02432011141330003,
+   "half_b": 0.03154105664789678,
+   "counts": {
+    "exams": 500,
+    "participants": 500,
+    "cancers": 8,
+    "population": "D4 kernel pairs (baseline D1 exams with a soft-kernel partner)"
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "KP_mean_delta_lbar6",
+   "source": "Q1d (i) (9.7)",
+   "statistic": "mean_delta_lbar6",
+   "population": "D4 kernel pairs (baseline D1 exams with a soft-kernel partner)",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.02456183358356357,
+   "lo": 0.007569541994761682,
+   "hi": 0.04232998023012649,
+   "half_a": 0.02131768513470888,
+   "half_b": 0.027805982032418256,
+   "counts": {
+    "exams": 500,
+    "participants": 500,
+    "cancers": 8,
+    "population": "D4 kernel pairs (baseline D1 exams with a soft-kernel partner)"
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  }
+ ]
+}

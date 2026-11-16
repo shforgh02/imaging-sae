@@ -1,0 +1,87 @@
+{
+ "tag": "dev",
+ "primary_arm": "raw",
+ "tau90": 0.017993675365094892,
+ "tau90_F": -3.967785648312468,
+ "counts": {
+  "y1_neg": 7201,
+  "y1_pos": 88,
+  "participants": 2492
+ },
+ "R_fixed_items_share": {
+  "t_share_gt_p80": 0.19997273718647765,
+  "zstretch_ge_1.54": 0.12704471101417666,
+  "thickness_gt_2.5": 0.05547982551799346,
+  "radiologist_quality_item": 0.02753544165757906,
+  "air_noise_gt_p90": 0.09514721919302072
+ },
+ "R_fixed": {
+  "rule": "R-fixed",
+  "flagged_share_y1_neg": 0.3567560061102625,
+  "flagged_exams": 2618,
+  "statistic": {
+   "est": -0.03192222802633499,
+   "lo": -0.05129106177193067,
+   "hi": -0.012598869921741165,
+   "n_draws": 2000
+  },
+  "halves": [
+   -0.043386580547237825,
+   -0.02042548982434738
+  ],
+  "E_flagged": -0.008174386920980926,
+  "E_unflagged": 0.023747841105354058,
+  "sybil_sens_flagged": 0.9259259259259259,
+  "n_cancers_flagged": 27,
+  "sybil_sens_unflagged": 0.9344262295081968,
+  "n_cancers_unflagged": 61
+ },
+ "R_learned": {
+  "rule": "R-learned",
+  "flagged_share_y1_neg": 0.2001110956811554,
+  "flagged_exams": 1524,
+  "statistic": {
+   "est": 0.3784270423702676,
+   "lo": 0.34041610871356637,
+   "hi": 0.4129641337961978,
+   "n_draws": 2000
+  },
+  "halves": [
+   0.38834948653878165,
+   0.3684540070936194
+  ],
+  "E_flagged": 0.315058986814712,
+  "E_unflagged": -0.06336805555555555,
+  "sybil_sens_flagged": 0.9859154929577465,
+  "n_cancers_flagged": 71,
+  "sybil_sens_unflagged": 0.7058823529411765,
+  "n_cancers_unflagged": 17,
+  "n_inputs": 102,
+  "cv_auroc_of_sybil_only_fa": 0.9783389808050079
+ },
+ "rule_that_can_be_frozen": "R-learned",
+ "candidates": [
+  {
+   "id": "U2_R-learned",
+   "source": "U2 (9.7)",
+   "statistic": "E(flagged) - E(unflagged), R-learned",
+   "population": "y1 = 0, all screens",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.3784270423702676,
+   "lo": 0.34041610871356637,
+   "hi": 0.4129641337961978,
+   "half_a": 0.38834948653878165,
+   "half_b": 0.3684540070936194,
+   "counts": {
+    "y1_neg": 7201,
+    "y1_pos": 88,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "the rule with the larger dev statistic (protocol 9.7)"
+  }
+ ]
+}

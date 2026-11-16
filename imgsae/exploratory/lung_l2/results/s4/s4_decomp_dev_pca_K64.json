@@ -1,0 +1,52 @@
+{
+ "arm": "pca",
+ "K": 64,
+ "n_exams": 7336,
+ "participants": 2492,
+ "V1": {
+  "r_y1": 0.9990047917767431,
+  "r_y6": 0.9977303698098833,
+  "dAUROC_y1": -0.0002588024390551835,
+  "dAUROC_y6": -0.0014669926650366927,
+  "pass_": true
+ },
+ "V2": {
+  "pass_": true,
+  "note": "deterministic arm"
+ },
+ "V3": {
+  "n_families": 3,
+  "pass_": false
+ },
+ "V4": {
+  "median_assoc_half_corr": 0.6418709752664363,
+  "label_agreement_named": 1.0,
+  "pass_": false
+ },
+ "valid": false,
+ "audit_yield_named_replicated": 2,
+ "labels": {
+  "unnamed": 1,
+  "T": 1,
+  "N": 1
+ },
+ "group_shares": {
+  "lbar1": {
+   "intercept": 8.574424944646287e-32,
+   "residual": 0.00021907754236049636,
+   "N": 0.9912723655995662,
+   "unnamed": 0.0016032421991768325,
+   "T": 0.002110463774679724,
+   "unreplicated": 0.004794838283720789
+  },
+  "lbar6": {
+   "intercept": -0.04685855417895184,
+   "residual": 0.00033365847478247237,
+   "N": 1.035697972999958,
+   "unnamed": -0.0005554473222021059,
+   "T": 0.0018615387464164827,
+   "unreplicated": 0.009520818529883329
+  }
+ },
+ "arms_pickle_sha256": "2ca045a082a96d969433af84c9ad1a7774757dc0db4e5baf4fc501a6c28993f2"
+}

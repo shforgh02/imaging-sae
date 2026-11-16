@@ -1,0 +1,3647 @@
+{
+ "tag": "dev",
+ "K": 64,
+ "U_adds_to_F_y1": {
+  "auroc_base": {
+   "est": 0.926273655174155,
+   "lo": 0.8895967857113534,
+   "hi": 0.958898553196697,
+   "n_draws": 2000
+  },
+  "auroc_full": {
+   "est": 0.9669458787289644,
+   "lo": 0.9406142488002953,
+   "hi": 0.9876617727053838,
+   "n_draws": 2000
+  },
+  "dauroc": {
+   "est": 0.04067222355480937,
+   "lo": 0.01984252111199852,
+   "hi": 0.0666568248883911,
+   "n_draws": 2000
+  },
+  "lr": {
+   "chi2": 182.31577943970387,
+   "df": 1,
+   "p": 1.512896291289681e-41
+  },
+  "dauroc_halves": [
+   0.059430829399240936,
+   0.028253472222222187
+  ],
+  "counts": {
+   "exams": 7289,
+   "participants": 2492,
+   "cancers": 88
+  }
+ },
+ "U_adds_to_F_y6": {
+  "auroc_base": {
+   "est": 0.7745992936701982,
+   "lo": 0.7304044711743184,
+   "hi": 0.8165020643411514,
+   "n_draws": 2000
+  },
+  "auroc_full": {
+   "est": 0.8682857919043738,
+   "lo": 0.836915250424488,
+   "hi": 0.8975255225598014,
+   "n_draws": 2000
+  },
+  "dauroc": {
+   "est": 0.09368649823417563,
+   "lo": 0.06166767183569163,
+   "hi": 0.12746364169665333,
+   "n_draws": 2000
+  },
+  "lr": {
+   "chi2": 138.83093548273894,
+   "df": 1,
+   "p": 4.7958825491382193e-32
+  },
+  "dauroc_halves": [
+   0.06569790344465365,
+   0.11740244042822612
+  ],
+  "counts": {
+   "exams": 2180,
+   "participants": 2180,
+   "cancers": 135
+  }
+ },
+ "arms": [
+  {
+   "arm": "raw",
+   "valid": true,
+   "named_replicated": 40,
+   "V1": true,
+   "V2": true,
+   "V3": true,
+   "V4": true
+  },
+  {
+   "arm": "pca",
+   "valid": false,
+   "named_replicated": 2,
+   "V1": true,
+   "V2": true,
+   "V3": false,
+   "V4": false
+  },
+  {
+   "arm": "ica",
+   "valid": false,
+   "named_replicated": 0,
+   "V1": true,
+   "V2": true,
+   "V3": false,
+   "V4": false
+  },
+  {
+   "arm": "nmf",
+   "valid": false,
+   "named_replicated": 3,
+   "V1": false,
+   "V2": true,
+   "V3": false,
+   "V4": false
+  },
+  {
+   "arm": "kmeans",
+   "valid": false,
+   "named_replicated": 0,
+   "V1": false,
+   "V2": true,
+   "V3": false,
+   "V4": false
+  },
+  {
+   "arm": "sae",
+   "valid": false,
+   "named_replicated": 4,
+   "V1": false,
+   "V2": true,
+   "V3": false,
+   "V4": true
+  }
+ ],
+ "primary_arm": "raw",
+ "group_shares": {
+  "lbar1": {
+   "intercept": {
+    "est": 8.574424944646287e-32,
+    "lo": -2.000709451089712e-31,
+    "hi": 1.8845230799225089e-31,
+    "n_draws": 2000,
+    "halves": [
+     3.1258299400383526e-32,
+     0.0
+    ]
+   },
+   "residual": {
+    "est": 0.16601846168122342,
+    "lo": 0.1642778281534677,
+    "hi": 0.16788191277706688,
+    "n_draws": 2000,
+    "halves": [
+     0.16565040234134665,
+     0.16641473322403505
+    ]
+   },
+   "N": {
+    "est": 0.4459301316299236,
+    "lo": 0.4424105812997776,
+    "hi": 0.4492700576793152,
+    "n_draws": 2000,
+    "halves": [
+     0.44629077938669776,
+     0.4455408216094345
+    ]
+   },
+   "mixed": {
+    "est": 0.20488604570468924,
+    "lo": 0.20196839532048905,
+    "hi": 0.20800812458504278,
+    "n_draws": 2000,
+    "halves": [
+     0.20435753343205362,
+     0.2054540880916617
+    ]
+   },
+   "unreplicated": {
+    "est": 0.13266798534667365,
+    "lo": 0.1314492449444331,
+    "hi": 0.13390183259947155,
+    "n_draws": 2000,
+    "halves": [
+     0.1333337983392245,
+     0.13195397771022407
+    ]
+   },
+   "T": {
+    "est": 0.05049736303699371,
+    "lo": 0.05008570106329477,
+    "hi": 0.050912057735237194,
+    "n_draws": 2000,
+    "halves": [
+     0.05036747425505412,
+     0.05063636638392282
+    ]
+   },
+   "sum_of_shares": 0.9999999873995037
+  },
+  "lbar6": {
+   "intercept": {
+    "est": -0.04560416628187098,
+    "lo": -0.04740555011349182,
+    "hi": -0.04382214904413637,
+    "n_draws": 2000,
+    "halves": [
+     -0.04640517476859851,
+     -0.044729950195072435
+    ]
+   },
+   "residual": {
+    "est": 0.1470105053272311,
+    "lo": 0.14129935718427977,
+    "hi": 0.152584526137216,
+    "n_draws": 2000,
+    "halves": [
+     0.1455398477787322,
+     0.1485811217890234
+    ]
+   },
+   "N": {
+    "est": 0.485309741288045,
+    "lo": 0.48136170865744615,
+    "hi": 0.4891755940277166,
+    "n_draws": 2000,
+    "halves": [
+     0.48524045490366824,
+     0.48536136714229156
+    ]
+   },
+   "mixed": {
+    "est": 0.21174953067702115,
+    "lo": 0.20629207759360413,
+    "hi": 0.21732204859098422,
+    "n_draws": 2000,
+    "halves": [
+     0.21310398290222696,
+     0.21029817494824102
+    ]
+   },
+   "unreplicated": {
+    "est": 0.14821901314220023,
+    "lo": 0.14521096671938954,
+    "hi": 0.15134591918650872,
+    "n_draws": 2000,
+    "halves": [
+     0.14919870032388258,
+     0.14718241032585178
+    ]
+   },
+   "T": {
+    "est": 0.05331536342090007,
+    "lo": 0.052728231775129024,
+    "hi": 0.053934559184741784,
+    "n_draws": 2000,
+    "halves": [
+     0.0533221773972708,
+     0.0533068625333021
+    ]
+   },
+   "sum_of_shares": 0.9999999875735265
+  }
+ },
+ "family_covariance_with_U": {
+  "lbar1": {
+   "n_rows": 7336,
+   "families": [
+    {
+     "family": 0,
+     "label": "N",
+     "share_of_var_U": 0.02791779892201841,
+     "r": 0.8008631816289498,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 1,
+     "label": "N",
+     "share_of_var_U": 0.01681112948566064,
+     "r": 0.7675405273984645,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 2,
+     "label": "mixed",
+     "share_of_var_U": 0.015554166451244961,
+     "r": 0.7196646798179411,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 3,
+     "label": "mixed",
+     "share_of_var_U": 0.014065616210295935,
+     "r": 0.6816799356463452,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 4,
+     "label": "mixed",
+     "share_of_var_U": 0.010307400097938927,
+     "r": 0.6740549316773438,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 5,
+     "label": "T",
+     "share_of_var_U": 0.00719719277291219,
+     "r": 0.6472275537252947,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 6,
+     "label": "N",
+     "share_of_var_U": 0.02011381209430285,
+     "r": 0.7804317511745659,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 7,
+     "label": "N",
+     "share_of_var_U": 0.014370441335478995,
+     "r": 0.6823942175782,
+     "p": 7.591105739481094e-229,
+     "q": 8.335331792371396e-229
+    },
+    {
+     "family": 8,
+     "label": "T",
+     "share_of_var_U": 0.003311878676635603,
+     "r": 0.5200028179348315,
+     "p": 1.608951866203863e-194,
+     "q": 1.6685426760632652e-194
+    },
+    {
+     "family": 9,
+     "label": "mixed",
+     "share_of_var_U": 0.017388397483720765,
+     "r": 0.7154856926165362,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 10,
+     "label": "mixed",
+     "share_of_var_U": 0.009857054650171006,
+     "r": 0.6949570398392465,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 11,
+     "label": "mixed",
+     "share_of_var_U": 0.005072317476279179,
+     "r": 0.5947076166703693,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 12,
+     "label": "N",
+     "share_of_var_U": 0.012712801190237676,
+     "r": 0.7787553713158021,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 13,
+     "label": "mixed",
+     "share_of_var_U": 0.010716654805127101,
+     "r": 0.7362219581344052,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 14,
+     "label": "N",
+     "share_of_var_U": 0.0115104843945693,
+     "r": 0.7965495226547572,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 15,
+     "label": "N",
+     "share_of_var_U": 0.010034943044926584,
+     "r": 0.7844808030561227,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 16,
+     "label": "mixed",
+     "share_of_var_U": 0.005960409032145057,
+     "r": 0.735781732249341,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 17,
+     "label": "T",
+     "share_of_var_U": 0.005790694775725837,
+     "r": 0.5241165777700103,
+     "p": 2.9842124022802304e-232,
+     "q": 3.342317890553858e-232
+    },
+    {
+     "family": 18,
+     "label": "N",
+     "share_of_var_U": 0.01166532411543684,
+     "r": 0.7966016259105902,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 19,
+     "label": "mixed",
+     "share_of_var_U": 0.021308807649977366,
+     "r": 0.7403842733696059,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 20,
+     "label": "T",
+     "share_of_var_U": 0.01195680980257812,
+     "r": 0.6589771104223141,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 21,
+     "label": "N",
+     "share_of_var_U": 0.01998709015996612,
+     "r": 0.7794396077221716,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 22,
+     "label": "mixed",
+     "share_of_var_U": 0.011550056015757424,
+     "r": 0.7497678538828602,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 23,
+     "label": "mixed",
+     "share_of_var_U": 0.009663022767616066,
+     "r": 0.6627075058888283,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 24,
+     "label": "N",
+     "share_of_var_U": 0.005050637806705685,
+     "r": 0.7249232019984279,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 25,
+     "label": "N",
+     "share_of_var_U": 0.012816471973981084,
+     "r": 0.7514717378596574,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 26,
+     "label": "N",
+     "share_of_var_U": 0.0031523825367300697,
+     "r": 0.7010368227151134,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 27,
+     "label": "N",
+     "share_of_var_U": 0.017603342103576745,
+     "r": 0.7876332739808459,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 28,
+     "label": "mixed",
+     "share_of_var_U": 0.011833285442430773,
+     "r": 0.726134160625457,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 29,
+     "label": "N",
+     "share_of_var_U": 0.007935349070481757,
+     "r": 0.6600870741934259,
+     "p": 7.064864955828092e-254,
+     "q": 8.074131378089249e-254
+    },
+    {
+     "family": 30,
+     "label": "N",
+     "share_of_var_U": 0.011923973882566101,
+     "r": 0.7929082959839651,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 31,
+     "label": "N",
+     "share_of_var_U": 0.006238041619997532,
+     "r": 0.6517476970049049,
+     "p": 1.8766695001367321e-215,
+     "q": 2.0210286924549423e-215
+    },
+    {
+     "family": 32,
+     "label": "N",
+     "share_of_var_U": 0.02116368003615963,
+     "r": 0.7590884142663588,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 33,
+     "label": "N",
+     "share_of_var_U": 0.003093050895017704,
+     "r": 0.4969377998587873,
+     "p": 5.76325012142358e-73,
+     "q": 5.76325012142358e-73
+    },
+    {
+     "family": 34,
+     "label": "N",
+     "share_of_var_U": 0.00838122987063831,
+     "r": 0.7811146042953163,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 35,
+     "label": "mixed",
+     "share_of_var_U": 0.01705151867300149,
+     "r": 0.7065763170789814,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 36,
+     "label": "T",
+     "share_of_var_U": 0.011292650730130954,
+     "r": 0.6691868386425389,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 37,
+     "label": "N",
+     "share_of_var_U": 0.016676453571126754,
+     "r": 0.7782562856555963,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 38,
+     "label": "mixed",
+     "share_of_var_U": 0.012589637808653426,
+     "r": 0.731513926401454,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 39,
+     "label": "N",
+     "share_of_var_U": 0.013167309594586044,
+     "r": 0.7774109180332,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 40,
+     "label": "N",
+     "share_of_var_U": 0.019166817568628293,
+     "r": 0.7794603553986671,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 41,
+     "label": "N",
+     "share_of_var_U": 0.01550833031933776,
+     "r": 0.7796970905952806,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 42,
+     "label": "N",
+     "share_of_var_U": 0.012329010086673097,
+     "r": 0.7582334149560775,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 43,
+     "label": "N",
+     "share_of_var_U": 0.008188383622060454,
+     "r": 0.6766538371067145,
+     "p": 2.2049628045546723e-200,
+     "q": 2.3297720199068236e-200
+    },
+    {
+     "family": 44,
+     "label": "N",
+     "share_of_var_U": 0.011627121604922993,
+     "r": 0.7782732679727539,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 45,
+     "label": "mixed",
+     "share_of_var_U": 0.012153541926300603,
+     "r": 0.7444366092670591,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 46,
+     "label": "N",
+     "share_of_var_U": 0.005801678080626618,
+     "r": 0.6550709294426227,
+     "p": 7.345600215158193e-171,
+     "q": 7.479156582706524e-171
+    },
+    {
+     "family": 47,
+     "label": "N",
+     "share_of_var_U": 0.014981567939254432,
+     "r": 0.7845457339081293,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 48,
+     "label": "N",
+     "share_of_var_U": 0.016557707853823024,
+     "r": 0.7723304827672507,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 49,
+     "label": "mixed",
+     "share_of_var_U": 0.010206371944305433,
+     "r": 0.7280074658763036,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 50,
+     "label": "N",
+     "share_of_var_U": 0.014711765262958365,
+     "r": 0.7833983959753974,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 51,
+     "label": "N",
+     "share_of_var_U": 0.009804638956546227,
+     "r": 0.7524541894359628,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 52,
+     "label": "N",
+     "share_of_var_U": 0.01736728274723456,
+     "r": 0.7781174825242377,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 53,
+     "label": "T",
+     "share_of_var_U": 0.0077674005234815045,
+     "r": 0.6705739151991369,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 54,
+     "label": "N",
+     "share_of_var_U": 0.007034898434393072,
+     "r": 0.7694951440498982,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 55,
+     "label": "N",
+     "share_of_var_U": 0.010570585015422317,
+     "r": 0.724678699944314,
+     "p": 0.0,
+     "q": 0.0
+    }
+   ]
+  },
+  "lbar6": {
+   "n_rows": 2484,
+   "families": [
+    {
+     "family": 0,
+     "label": "N",
+     "share_of_var_U": 0.029438479364895402,
+     "r": 0.8123762571950139,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 1,
+     "label": "N",
+     "share_of_var_U": 0.0174605608943412,
+     "r": 0.7818429399331047,
+     "p": 5.31278162431823e-309,
+     "q": 1.416741766484862e-308
+    },
+    {
+     "family": 2,
+     "label": "mixed",
+     "share_of_var_U": 0.01773169217152641,
+     "r": 0.7232580663618561,
+     "p": 2.9386394476274234e-296,
+     "q": 6.094955891375397e-296
+    },
+    {
+     "family": 3,
+     "label": "mixed",
+     "share_of_var_U": 0.014550516518371677,
+     "r": 0.7018752184233552,
+     "p": 9.73611846252582e-248,
+     "q": 1.603595982063076e-247
+    },
+    {
+     "family": 4,
+     "label": "mixed",
+     "share_of_var_U": 0.01102581652526391,
+     "r": 0.6718416163299068,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 5,
+     "label": "T",
+     "share_of_var_U": 0.007366278749748094,
+     "r": 0.6626540316203838,
+     "p": 6.908978913148737e-166,
+     "q": 8.597840425251761e-166
+    },
+    {
+     "family": 6,
+     "label": "N",
+     "share_of_var_U": 0.019320540428544697,
+     "r": 0.7921730665432059,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 7,
+     "label": "N",
+     "share_of_var_U": 0.016004979590742575,
+     "r": 0.6733101079099469,
+     "p": 5.562870939205974e-73,
+     "q": 5.990784088375665e-73
+    },
+    {
+     "family": 8,
+     "label": "T",
+     "share_of_var_U": 0.004507066251857252,
+     "r": 0.49925534916121844,
+     "p": 1.5862345649225604e-114,
+     "q": 1.8128395027686403e-114
+    },
+    {
+     "family": 9,
+     "label": "mixed",
+     "share_of_var_U": 0.016513179656415355,
+     "r": 0.7250101999385897,
+     "p": 7.839123735645494e-300,
+     "q": 1.8291288716506152e-299
+    },
+    {
+     "family": 10,
+     "label": "mixed",
+     "share_of_var_U": 0.01140195867745873,
+     "r": 0.6982356789151696,
+     "p": 1.1061125815386908e-241,
+     "q": 1.674116339626127e-241
+    },
+    {
+     "family": 11,
+     "label": "mixed",
+     "share_of_var_U": 0.0056112839539229015,
+     "r": 0.5765418842360518,
+     "p": 1.2798541561493595e-296,
+     "q": 2.7566089517063125e-296
+    },
+    {
+     "family": 12,
+     "label": "N",
+     "share_of_var_U": 0.013838460948239307,
+     "r": 0.7856112752670693,
+     "p": 1.1812924111940146e-187,
+     "q": 1.5384273262061584e-187
+    },
+    {
+     "family": 13,
+     "label": "mixed",
+     "share_of_var_U": 0.0113489452043835,
+     "r": 0.737408730424298,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 14,
+     "label": "N",
+     "share_of_var_U": 0.01117360680509858,
+     "r": 0.8054970535805932,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 15,
+     "label": "N",
+     "share_of_var_U": 0.01127338720302309,
+     "r": 0.7866882467216905,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 16,
+     "label": "mixed",
+     "share_of_var_U": 0.0065988976762745375,
+     "r": 0.7459116978620981,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 17,
+     "label": "T",
+     "share_of_var_U": 0.005130542471958441,
+     "r": 0.5891259226530178,
+     "p": 3.2028880433939978e-133,
+     "q": 3.899168052827476e-133
+    },
+    {
+     "family": 18,
+     "label": "N",
+     "share_of_var_U": 0.012513848687284536,
+     "r": 0.8092943554496536,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 19,
+     "label": "mixed",
+     "share_of_var_U": 0.020032353476422207,
+     "r": 0.7531891695809029,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 20,
+     "label": "T",
+     "share_of_var_U": 0.013470529261080747,
+     "r": 0.661127001748828,
+     "p": 5.36594164226995e-238,
+     "q": 7.907703472818874e-238
+    },
+    {
+     "family": 21,
+     "label": "N",
+     "share_of_var_U": 0.022799009956540522,
+     "r": 0.7903028683490414,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 22,
+     "label": "mixed",
+     "share_of_var_U": 0.012687661495602416,
+     "r": 0.7567033685208322,
+     "p": 6.463629164589636e-304,
+     "q": 1.5737531879000852e-303
+    },
+    {
+     "family": 23,
+     "label": "mixed",
+     "share_of_var_U": 0.011220578224107117,
+     "r": 0.6529000198796441,
+     "p": 2.8841794242450956e-257,
+     "q": 4.894365083567435e-257
+    },
+    {
+     "family": 24,
+     "label": "N",
+     "share_of_var_U": 0.006778227743349713,
+     "r": 0.6975128403841065,
+     "p": 1.3358299024847276e-307,
+     "q": 3.400294297233852e-307
+    },
+    {
+     "family": 25,
+     "label": "N",
+     "share_of_var_U": 0.01543804182076185,
+     "r": 0.761570984654457,
+     "p": 1.853483006281411e-271,
+     "q": 3.243595260992469e-271
+    },
+    {
+     "family": 26,
+     "label": "N",
+     "share_of_var_U": 0.003149044481775278,
+     "r": 0.6665583008387248,
+     "p": 7.12125338839728e-193,
+     "q": 9.49500451786304e-193
+    },
+    {
+     "family": 27,
+     "label": "N",
+     "share_of_var_U": 0.021349633324780473,
+     "r": 0.7935779585723977,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 28,
+     "label": "mixed",
+     "share_of_var_U": 0.012331864314454035,
+     "r": 0.7381207078795192,
+     "p": 4.6309059638998296e-284,
+     "q": 8.644357799279682e-284
+    },
+    {
+     "family": 29,
+     "label": "N",
+     "share_of_var_U": 0.009657476742840856,
+     "r": 0.6847066765270449,
+     "p": 2.8544757920442105e-100,
+     "q": 3.1343263598916823e-100
+    },
+    {
+     "family": 30,
+     "label": "N",
+     "share_of_var_U": 0.013266195064555503,
+     "r": 0.7963018332084032,
+     "p": 2.9916075355592134e-200,
+     "q": 4.0860980973491697e-200
+    },
+    {
+     "family": 31,
+     "label": "N",
+     "share_of_var_U": 0.007455359291145043,
+     "r": 0.6709057988854753,
+     "p": 2.033301998430346e-69,
+     "q": 2.1086094798536925e-69
+    },
+    {
+     "family": 32,
+     "label": "N",
+     "share_of_var_U": 0.0233612341879611,
+     "r": 0.761823640090265,
+     "p": 3.104579442179512e-131,
+     "q": 3.6990733779160144e-131
+    },
+    {
+     "family": 33,
+     "label": "N",
+     "share_of_var_U": 0.003888276604964457,
+     "r": 0.5183949098005869,
+     "p": 8.813822906965519e-26,
+     "q": 8.813822906965519e-26
+    },
+    {
+     "family": 34,
+     "label": "N",
+     "share_of_var_U": 0.00903533546601677,
+     "r": 0.793525154765756,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 35,
+     "label": "mixed",
+     "share_of_var_U": 0.019551019640205784,
+     "r": 0.713749645848169,
+     "p": 2.194072507966847e-293,
+     "q": 4.388145015933694e-293
+    },
+    {
+     "family": 36,
+     "label": "T",
+     "share_of_var_U": 0.012098549151700692,
+     "r": 0.6923582673567524,
+     "p": 4.449574866493028e-226,
+     "q": 6.3891331416310144e-226
+    },
+    {
+     "family": 37,
+     "label": "N",
+     "share_of_var_U": 0.018145144228009332,
+     "r": 0.7868975288802119,
+     "p": 7.503179589728189e-242,
+     "q": 1.167161269513274e-241
+    },
+    {
+     "family": 38,
+     "label": "mixed",
+     "share_of_var_U": 0.013010030160637245,
+     "r": 0.7489912336670099,
+     "p": 3.3170843782691426e-299,
+     "q": 7.430269007322879e-299
+    },
+    {
+     "family": 39,
+     "label": "N",
+     "share_of_var_U": 0.015861271770381914,
+     "r": 0.7778802703368374,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 40,
+     "label": "N",
+     "share_of_var_U": 0.020881690613772413,
+     "r": 0.7838773320041618,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 41,
+     "label": "N",
+     "share_of_var_U": 0.018164073342714505,
+     "r": 0.7905106507155348,
+     "p": 2.4870742716701725e-221,
+     "q": 3.4819039803382415e-221
+    },
+    {
+     "family": 42,
+     "label": "N",
+     "share_of_var_U": 0.013844474287333899,
+     "r": 0.7644630502799119,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 43,
+     "label": "N",
+     "share_of_var_U": 0.009830839364209662,
+     "r": 0.6969431412012994,
+     "p": 1.217789215129756e-69,
+     "q": 1.2867206801371004e-69
+    },
+    {
+     "family": 44,
+     "label": "N",
+     "share_of_var_U": 0.0105174952729575,
+     "r": 0.728309439614186,
+     "p": 3.1834454694812118e-108,
+     "q": 3.5654589258189574e-108
+    },
+    {
+     "family": 45,
+     "label": "mixed",
+     "share_of_var_U": 0.013987064954671738,
+     "r": 0.7377458552170654,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 46,
+     "label": "N",
+     "share_of_var_U": 0.006950215676807331,
+     "r": 0.6656710015600557,
+     "p": 1.0019254932722882e-51,
+     "q": 1.0201423204226935e-51
+    },
+    {
+     "family": 47,
+     "label": "N",
+     "share_of_var_U": 0.017689274632200342,
+     "r": 0.7811158990946081,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 48,
+     "label": "N",
+     "share_of_var_U": 0.01721509293149129,
+     "r": 0.78029999874413,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 49,
+     "label": "mixed",
+     "share_of_var_U": 0.011792037805299391,
+     "r": 0.7290320309070298,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 50,
+     "label": "N",
+     "share_of_var_U": 0.01827331415836108,
+     "r": 0.7695756452379402,
+     "p": 0.0,
+     "q": 0.0
+    },
+    {
+     "family": 51,
+     "label": "N",
+     "share_of_var_U": 0.011176082367877925,
+     "r": 0.7688981204979474,
+     "p": 9.256013738448493e-279,
+     "q": 1.67205409468747e-278
+    },
+    {
+     "family": 52,
+     "label": "N",
+     "share_of_var_U": 0.019657370506523067,
+     "r": 0.7828581033520494,
+     "p": 3.981302844814453e-170,
+     "q": 5.067112711582031e-170
+    },
+    {
+     "family": 53,
+     "label": "T",
+     "share_of_var_U": 0.00925693467608319,
+     "r": 0.6584861652987233,
+     "p": 2.01293617132825e-242,
+     "q": 3.2206978741251998e-242
+    },
+    {
+     "family": 54,
+     "label": "N",
+     "share_of_var_U": 0.007857084094244193,
+     "r": 0.7822562888366565,
+     "p": 1.8453389722308124e-288,
+     "q": 3.563413187756052e-288
+    },
+    {
+     "family": 55,
+     "label": "N",
+     "share_of_var_U": 0.012299192285249377,
+     "r": 0.73512454210105,
+     "p": 7.975573089003932e-126,
+     "q": 9.304835270504587e-126
+    }
+   ]
+  }
+ },
+ "candidates": [
+  {
+   "id": "Q1b_U_adds_to_F_y1",
+   "source": "Q1b (9.7)",
+   "statistic": "dAUROC cross-fitted (F + U) - F",
+   "population": "y1, all screens",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.04067222355480937,
+   "lo": 0.01984252111199852,
+   "hi": 0.0666568248883911,
+   "half_a": 0.059430829399240936,
+   "half_b": 0.028253472222222187,
+   "counts": {
+    "exams": 7289,
+    "participants": 2492,
+    "cancers": 88
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "LR test p = 1.51e-41"
+  },
+  {
+   "id": "Q1b_U_adds_to_F_y6",
+   "source": "Q1b (9.7)",
+   "statistic": "dAUROC cross-fitted (F + U) - F",
+   "population": "y6, baseline",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.09368649823417563,
+   "lo": 0.06166767183569163,
+   "hi": 0.12746364169665333,
+   "half_a": 0.06569790344465365,
+   "half_b": 0.11740244042822612,
+   "counts": {
+    "exams": 2180,
+    "participants": 2180,
+    "cancers": 135
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "LR test p = 4.8e-32"
+  },
+  {
+   "id": "Q1b_share_N_lbar1",
+   "source": "Q1b (9.2, 9.7)",
+   "statistic": "share of lbar_1 carried by group N features (raw)",
+   "population": "all screens",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.4459301316299236,
+   "lo": 0.4424105812997776,
+   "hi": 0.4492700576793152,
+   "half_a": 0.44629077938669776,
+   "half_b": 0.4455408216094345,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_share_T_lbar1",
+   "source": "Q1b (9.2, 9.7)",
+   "statistic": "share of lbar_1 carried by group T features (raw)",
+   "population": "all screens",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.05049736303699371,
+   "lo": 0.05008570106329477,
+   "hi": 0.050912057735237194,
+   "half_a": 0.05036747425505412,
+   "half_b": 0.05063636638392282,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_share_N_lbar6",
+   "source": "Q1b (9.2, 9.7)",
+   "statistic": "share of lbar_6 carried by group N features (raw)",
+   "population": "baseline",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.485309741288045,
+   "lo": 0.48136170865744615,
+   "hi": 0.4891755940277166,
+   "half_a": 0.48524045490366824,
+   "half_b": 0.48536136714229156,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_share_T_lbar6",
+   "source": "Q1b (9.2, 9.7)",
+   "statistic": "share of lbar_6 carried by group T features (raw)",
+   "population": "baseline",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.05331536342090007,
+   "lo": 0.052728231775129024,
+   "hi": 0.053934559184741784,
+   "half_a": 0.0533221773972708,
+   "half_b": 0.0533068625333021,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family0_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 0 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.02791779892201841,
+   "lo": 0.026264046336212123,
+   "hi": 0.029155115587606504,
+   "half_a": 0.027500277826285034,
+   "half_b": 0.028415628265126183,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family1_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 1 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01681112948566064,
+   "lo": 0.01574315603500114,
+   "hi": 0.017608579767175274,
+   "half_a": 0.016489612057627584,
+   "half_b": 0.017190683756625698,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family2_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 2 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.015554166451244961,
+   "lo": 0.014527055838285816,
+   "hi": 0.016316454579054496,
+   "half_a": 0.015158879434576377,
+   "half_b": 0.016019584749375926,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family3_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 3 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.014065616210295935,
+   "lo": 0.013121600682263654,
+   "hi": 0.014800496524428408,
+   "half_a": 0.013707380119414555,
+   "half_b": 0.014487191815306758,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family4_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 4 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.010307400097938927,
+   "lo": 0.009605371420424738,
+   "hi": 0.010884594797154805,
+   "half_a": 0.009924564455550672,
+   "half_b": 0.010760832136467915,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family5_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 5 (T, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.00719719277291219,
+   "lo": 0.006692883996080336,
+   "hi": 0.007596482409172243,
+   "half_a": 0.007013449981662844,
+   "half_b": 0.007414154018829735,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family6_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 6 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.02011381209430285,
+   "lo": 0.01889535991601309,
+   "hi": 0.021023553374235088,
+   "half_a": 0.019804995047956492,
+   "half_b": 0.02048103736831902,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family7_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 7 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.014370441335478995,
+   "lo": 0.013253086698625478,
+   "hi": 0.015419337521041573,
+   "half_a": 0.014425168907066544,
+   "half_b": 0.014304842071439476,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family8_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 8 (T, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.003311878676635603,
+   "lo": 0.0030387625746581648,
+   "hi": 0.003541335227959833,
+   "half_a": 0.003185511864448156,
+   "half_b": 0.0034600355071804888,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family9_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 9 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.017388397483720765,
+   "lo": 0.016232096680786248,
+   "hi": 0.018256628036685704,
+   "half_a": 0.016846568172663796,
+   "half_b": 0.018025830186266027,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family10_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 10 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.009857054650171006,
+   "lo": 0.009191911059906011,
+   "hi": 0.010362660054664597,
+   "half_a": 0.009636985386802995,
+   "half_b": 0.010115414004759338,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family11_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 11 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.005072317476279179,
+   "lo": 0.004704907503392307,
+   "hi": 0.005398254895000912,
+   "half_a": 0.004869909296228677,
+   "half_b": 0.005312122164163406,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family12_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 12 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.012712801190237676,
+   "lo": 0.011891195914415955,
+   "hi": 0.013364358471309616,
+   "half_a": 0.0125385535891169,
+   "half_b": 0.012919747566442001,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family13_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 13 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.010716654805127101,
+   "lo": 0.010061186954965048,
+   "hi": 0.01127265085625866,
+   "half_a": 0.010362599250899725,
+   "half_b": 0.011134571858573633,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family14_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 14 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.0115104843945693,
+   "lo": 0.010840245546888127,
+   "hi": 0.012012443384715535,
+   "half_a": 0.011301082460460172,
+   "half_b": 0.011758470438049593,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family15_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 15 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.010034943044926584,
+   "lo": 0.009458862318227856,
+   "hi": 0.01047991731722701,
+   "half_a": 0.009897484451007842,
+   "half_b": 0.01019767216711334,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family16_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 16 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.005960409032145057,
+   "lo": 0.005574602614476703,
+   "hi": 0.006253726096915607,
+   "half_a": 0.005807562220657993,
+   "half_b": 0.006140030489163111,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family17_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 17 (T, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.005790694775725837,
+   "lo": 0.005332138425740394,
+   "hi": 0.00617898408292048,
+   "half_a": 0.005567196056744393,
+   "half_b": 0.0060526635035900115,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family18_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 18 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01166532411543684,
+   "lo": 0.010953407011675083,
+   "hi": 0.012192337644506406,
+   "half_a": 0.01151670794170948,
+   "half_b": 0.011841609661667108,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family19_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 19 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.021308807649977366,
+   "lo": 0.019917096524387026,
+   "hi": 0.022384411670344783,
+   "half_a": 0.020660845631269645,
+   "half_b": 0.02207415261611451,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family20_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 20 (T, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01195680980257812,
+   "lo": 0.011232482290814295,
+   "hi": 0.012582546624031805,
+   "half_a": 0.012077711793434436,
+   "half_b": 0.011815922287013949,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family21_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 21 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01998709015996612,
+   "lo": 0.01874115136178444,
+   "hi": 0.02093688195577027,
+   "half_a": 0.01956952769592429,
+   "half_b": 0.020478142907527763,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family22_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 22 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.011550056015757424,
+   "lo": 0.010828527483279313,
+   "hi": 0.012092146930190246,
+   "half_a": 0.011330074978251642,
+   "half_b": 0.011808771514267135,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family23_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 23 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.009663022767616066,
+   "lo": 0.009141186393581593,
+   "hi": 0.010143669129704196,
+   "half_a": 0.009796983378765339,
+   "half_b": 0.00950689715356682,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family24_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 24 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.005050637806705685,
+   "lo": 0.004772474144241158,
+   "hi": 0.00527712950900591,
+   "half_a": 0.00500464769418499,
+   "half_b": 0.00510459945407286,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family25_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 25 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.012816471973981084,
+   "lo": 0.012051498334695727,
+   "hi": 0.01343531717100933,
+   "half_a": 0.012807820849700852,
+   "half_b": 0.012828678795561483,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family26_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 26 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.0031523825367300697,
+   "lo": 0.0029630718928287314,
+   "hi": 0.0033100275740136644,
+   "half_a": 0.003133326846391771,
+   "half_b": 0.0031750385550908707,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family27_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 27 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.017603342103576745,
+   "lo": 0.01657946231224698,
+   "hi": 0.018425955326447408,
+   "half_a": 0.017533955615310945,
+   "half_b": 0.017686126871338623,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family28_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 28 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.011833285442430773,
+   "lo": 0.01107001281798771,
+   "hi": 0.012423066690743946,
+   "half_a": 0.011568168048762326,
+   "half_b": 0.012145200133223717,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family29_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 29 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.007935349070481757,
+   "lo": 0.007287074137295167,
+   "hi": 0.008547639471734028,
+   "half_a": 0.008091430510293953,
+   "half_b": 0.007750126342363095,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family30_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 30 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.011923973882566101,
+   "lo": 0.011197202812262726,
+   "hi": 0.012517300662855871,
+   "half_a": 0.011821961018774174,
+   "half_b": 0.012044695423331883,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family31_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 31 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.006238041619997532,
+   "lo": 0.005737331307091209,
+   "hi": 0.006724863233681016,
+   "half_a": 0.006346161329791357,
+   "half_b": 0.006109990869877746,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family32_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 32 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.02116368003615963,
+   "lo": 0.0197436445171424,
+   "hi": 0.02235055872481485,
+   "half_a": 0.020891499456664162,
+   "half_b": 0.021484555477030255,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family33_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 33 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.003093050895017704,
+   "lo": 0.00272139190090024,
+   "hi": 0.0034937468517805955,
+   "half_a": 0.0031499530373530083,
+   "half_b": 0.0030262526661198022,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family34_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 34 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.00838122987063831,
+   "lo": 0.007919329699917441,
+   "hi": 0.008745210856090306,
+   "half_a": 0.008303804226402287,
+   "half_b": 0.008471380489199536,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family35_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 35 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01705151867300149,
+   "lo": 0.015928327566283148,
+   "hi": 0.017910011939548498,
+   "half_a": 0.01658368323576193,
+   "half_b": 0.017601058595504253,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family36_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 36 (T, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.011292650730130954,
+   "lo": 0.010549651010741587,
+   "hi": 0.01190443303174002,
+   "half_a": 0.010962410224128439,
+   "half_b": 0.011680988543859195,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family37_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 37 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.016676453571126754,
+   "lo": 0.015593384438719785,
+   "hi": 0.01755267527200956,
+   "half_a": 0.01646106295553575,
+   "half_b": 0.016929608695719113,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family38_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 38 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.012589637808653426,
+   "lo": 0.011761203686374129,
+   "hi": 0.013229502652615428,
+   "half_a": 0.01224765514185663,
+   "half_b": 0.012994060418946948,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family39_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 39 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.013167309594586044,
+   "lo": 0.012385306789767096,
+   "hi": 0.013755476666902808,
+   "half_a": 0.012958724655078278,
+   "half_b": 0.013413845370493758,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family40_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 40 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.019166817568628293,
+   "lo": 0.01801742922739222,
+   "hi": 0.020042740084856292,
+   "half_a": 0.018713813148735884,
+   "half_b": 0.019701102434284995,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family41_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 41 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01550833031933776,
+   "lo": 0.014551623521879239,
+   "hi": 0.016303341880472125,
+   "half_a": 0.015349036172713774,
+   "half_b": 0.01569650755164353,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family42_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 42 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.012329010086673097,
+   "lo": 0.011689647644289295,
+   "hi": 0.012852416769772832,
+   "half_a": 0.012230897002281306,
+   "half_b": 0.012446882618415946,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family43_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 43 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.008188383622060454,
+   "lo": 0.007560733481241256,
+   "hi": 0.008785270907491281,
+   "half_a": 0.00824345351942549,
+   "half_b": 0.008122622018066837,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family44_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 44 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.011627121604922993,
+   "lo": 0.010883577620696937,
+   "hi": 0.01223710628592263,
+   "half_a": 0.011464987822761064,
+   "half_b": 0.011819887301765508,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family45_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 45 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.012153541926300603,
+   "lo": 0.011346732163699674,
+   "hi": 0.012764860239439523,
+   "half_a": 0.011760196885423407,
+   "half_b": 0.012617958484385605,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family46_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 46 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.005801678080626618,
+   "lo": 0.005353536993951206,
+   "hi": 0.006247353611984181,
+   "half_a": 0.00577197948156399,
+   "half_b": 0.005836332707868302,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family47_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 47 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.014981567939254432,
+   "lo": 0.014125069727022214,
+   "hi": 0.015625222004286198,
+   "half_a": 0.014835187969640973,
+   "half_b": 0.015156268676315122,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family48_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 48 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.016557707853823024,
+   "lo": 0.015608296521189646,
+   "hi": 0.01731676958449225,
+   "half_a": 0.01643610723128525,
+   "half_b": 0.016705258110161467,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family49_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 49 (mixed, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.010206371944305433,
+   "lo": 0.009634927855558818,
+   "hi": 0.010672099869387284,
+   "half_a": 0.010190081996846127,
+   "half_b": 0.010226759081269543,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family50_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 50 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.014711765262958365,
+   "lo": 0.013853166463961609,
+   "hi": 0.015347017679157986,
+   "half_a": 0.014531599883726631,
+   "half_b": 0.014925045448041522,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family51_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 51 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.009804638956546227,
+   "lo": 0.009177758744922878,
+   "hi": 0.010309421353025804,
+   "half_a": 0.009715193463865039,
+   "half_b": 0.009908951265848235,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family52_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 52 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01736728274723456,
+   "lo": 0.016271728449635547,
+   "hi": 0.018286537078738268,
+   "half_a": 0.01730493687607293,
+   "half_b": 0.01743969320430125,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family53_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 53 (T, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.0077674005234815045,
+   "lo": 0.007255550932322189,
+   "hi": 0.008171942154516533,
+   "half_a": 0.007549919460363682,
+   "half_b": 0.008022079374673117,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family54_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 54 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.007034898434393072,
+   "lo": 0.006624691188908006,
+   "hi": 0.007349704032523464,
+   "half_a": 0.006953959796692662,
+   "half_b": 0.007129904723026905,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family55_carries_U_lbar1",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_1) covaried with family 55 (N, raw)",
+   "population": "all screens",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.010570585015422317,
+   "lo": 0.00980248546029304,
+   "hi": 0.01125697304177068,
+   "half_a": 0.010703690666350353,
+   "half_b": 0.010412705939507782,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family0_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 0 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.029438479364895402,
+   "lo": 0.02801819989782278,
+   "hi": 0.030672541164722997,
+   "half_a": 0.028066654788493562,
+   "half_b": 0.03082684823983239,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family1_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 1 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.0174605608943412,
+   "lo": 0.01653589892196502,
+   "hi": 0.018249082908864206,
+   "half_a": 0.016660575566162638,
+   "half_b": 0.018270326496326327,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family2_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 2 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01773169217152641,
+   "lo": 0.016871279151882294,
+   "hi": 0.01850418476141762,
+   "half_a": 0.01697566590659271,
+   "half_b": 0.01849213662028967,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family3_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 3 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.014550516518371677,
+   "lo": 0.013785050900055428,
+   "hi": 0.015256896701253526,
+   "half_a": 0.014035190459391743,
+   "half_b": 0.015066534149751003,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family4_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 4 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01102581652526391,
+   "lo": 0.010468786375275211,
+   "hi": 0.011575719018455723,
+   "half_a": 0.010890358850857793,
+   "half_b": 0.011155776838989783,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family5_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 5 (T, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.007366278749748094,
+   "lo": 0.006914746023496105,
+   "hi": 0.007789041950693354,
+   "half_a": 0.0071134500781640155,
+   "half_b": 0.007620513101470862,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family6_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 6 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.019320540428544697,
+   "lo": 0.0183622109596442,
+   "hi": 0.02020101909844724,
+   "half_a": 0.01841451840659422,
+   "half_b": 0.02023305000178855,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family7_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 7 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.016004979590742575,
+   "lo": 0.014444429787700344,
+   "hi": 0.01747906252766652,
+   "half_a": 0.014801715857616995,
+   "half_b": 0.01722383448133436,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family8_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 8 (T, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.004507066251857252,
+   "lo": 0.004211036369148424,
+   "hi": 0.004801475225377329,
+   "half_a": 0.004398200076562793,
+   "half_b": 0.004613101174227058,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family9_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 9 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.016513179656415355,
+   "lo": 0.01572089960773676,
+   "hi": 0.01724343823717094,
+   "half_a": 0.01601046563494549,
+   "half_b": 0.01702264339527293,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family10_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 10 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01140195867745873,
+   "lo": 0.010789227719628643,
+   "hi": 0.011967112148200957,
+   "half_a": 0.010891354997480267,
+   "half_b": 0.01191291819210813,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family11_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 11 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.0056112839539229015,
+   "lo": 0.005273986413826531,
+   "hi": 0.005963477783609348,
+   "half_a": 0.005596816779467024,
+   "half_b": 0.0056157389874267535,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family12_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 12 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.013838460948239307,
+   "lo": 0.013004047807067274,
+   "hi": 0.014593694089333436,
+   "half_a": 0.013055243363660603,
+   "half_b": 0.014630203960046509,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family13_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 13 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.0113489452043835,
+   "lo": 0.010829172543630233,
+   "hi": 0.011885705445905686,
+   "half_a": 0.01111566073733242,
+   "half_b": 0.011579098045736163,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family14_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 14 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01117360680509858,
+   "lo": 0.010651683496234503,
+   "hi": 0.011633290260132571,
+   "half_a": 0.010711872279683158,
+   "half_b": 0.011646085505432467,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family15_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 15 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01127338720302309,
+   "lo": 0.010736546999656907,
+   "hi": 0.011772064499887392,
+   "half_a": 0.010924994749878778,
+   "half_b": 0.011621970391930225,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family16_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 16 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.0065988976762745375,
+   "lo": 0.006295522786971241,
+   "hi": 0.006881656579189247,
+   "half_a": 0.006383757082759306,
+   "half_b": 0.006814735629697678,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family17_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 17 (T, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.005130542471958441,
+   "lo": 0.004741843342931301,
+   "hi": 0.0055113216255389735,
+   "half_a": 0.004844531067683362,
+   "half_b": 0.0054144626087946,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family18_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 18 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.012513848687284536,
+   "lo": 0.011886609626619032,
+   "hi": 0.013068811421320296,
+   "half_a": 0.011989167941089932,
+   "half_b": 0.013044943778765791,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family19_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 19 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.020032353476422207,
+   "lo": 0.019118413841899086,
+   "hi": 0.02089656682068508,
+   "half_a": 0.019584187744392887,
+   "half_b": 0.02047673993207984,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family20_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 20 (T, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.013470529261080747,
+   "lo": 0.012602281148173229,
+   "hi": 0.014287968694890843,
+   "half_a": 0.012847049621931537,
+   "half_b": 0.014106874529988971,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family21_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 21 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.022799009956540522,
+   "lo": 0.021711052268898315,
+   "hi": 0.023759326296677687,
+   "half_a": 0.021915378625725842,
+   "half_b": 0.023696589531117467,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family22_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 22 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.012687661495602416,
+   "lo": 0.012065159230709506,
+   "hi": 0.013226591446510437,
+   "half_a": 0.012003395718502974,
+   "half_b": 0.01337568152178859,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family23_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 23 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.011220578224107117,
+   "lo": 0.010587671988828817,
+   "hi": 0.011819622178284969,
+   "half_a": 0.010824970779108208,
+   "half_b": 0.011617219041883944,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family24_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 24 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.006778227743349713,
+   "lo": 0.006447230907190237,
+   "hi": 0.007092758673981463,
+   "half_a": 0.006587976383913264,
+   "half_b": 0.00696383559458541,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family25_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 25 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01543804182076185,
+   "lo": 0.014600581126908796,
+   "hi": 0.016193710434316434,
+   "half_a": 0.014809319088545148,
+   "half_b": 0.01607551314569309,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family26_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 26 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.003149044481775278,
+   "lo": 0.0029214297645901643,
+   "hi": 0.0033486806899570916,
+   "half_a": 0.002951414921474432,
+   "half_b": 0.0033472131831421247,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family27_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 27 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.021349633324780473,
+   "lo": 0.020313249408848443,
+   "hi": 0.02228964922059703,
+   "half_a": 0.020439439334654308,
+   "half_b": 0.022271850249597457,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family28_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 28 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.012331864314454035,
+   "lo": 0.01169504400152703,
+   "hi": 0.01293423250209125,
+   "half_a": 0.011802908291101666,
+   "half_b": 0.012864032694530706,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family29_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 29 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.009657476742840856,
+   "lo": 0.008749766301910255,
+   "hi": 0.010535010445245905,
+   "half_a": 0.008784107457000721,
+   "half_b": 0.010536534930878654,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family30_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 30 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.013266195064555503,
+   "lo": 0.012494363301223096,
+   "hi": 0.01400767087882956,
+   "half_a": 0.01259348691624249,
+   "half_b": 0.01394682856086928,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family31_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 31 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.007455359291145043,
+   "lo": 0.006732900594265624,
+   "hi": 0.008153904338677898,
+   "half_a": 0.007010525954540619,
+   "half_b": 0.007909990630255827,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family32_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 32 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.0233612341879611,
+   "lo": 0.021714049888099895,
+   "hi": 0.024847578790586806,
+   "half_a": 0.022107941010034885,
+   "half_b": 0.02463816730523797,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family33_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 33 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.003888276604964457,
+   "lo": 0.003248244324503139,
+   "hi": 0.00451542176152182,
+   "half_a": 0.0034738225632753006,
+   "half_b": 0.004305455109742386,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family34_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 34 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.00903533546601677,
+   "lo": 0.008616594165430817,
+   "hi": 0.009420760259024014,
+   "half_a": 0.008665998830897569,
+   "half_b": 0.009407432453900924,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family35_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 35 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.019551019640205784,
+   "lo": 0.018596182670006466,
+   "hi": 0.020439377441498954,
+   "half_a": 0.01900077292209792,
+   "half_b": 0.02009927151682696,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family36_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 36 (T, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.012098549151700692,
+   "lo": 0.01139798648490323,
+   "hi": 0.012753863589756605,
+   "half_a": 0.01156026204437874,
+   "half_b": 0.01264161676604615,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family37_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 37 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.018145144228009332,
+   "lo": 0.01710832342846622,
+   "hi": 0.019124492525875465,
+   "half_a": 0.017131358772548334,
+   "half_b": 0.01917340268161071,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family38_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 38 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.013010030160637245,
+   "lo": 0.012351374084309837,
+   "hi": 0.013615776896634324,
+   "half_a": 0.012452117839390585,
+   "half_b": 0.013572380270753396,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family39_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 39 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.015861271770381914,
+   "lo": 0.015125945687470284,
+   "hi": 0.016508117122226194,
+   "half_a": 0.015106082933926063,
+   "half_b": 0.016626220909989654,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family40_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 40 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.020881690613772413,
+   "lo": 0.019998191165950897,
+   "hi": 0.021735820377136728,
+   "half_a": 0.02017342973956915,
+   "half_b": 0.02159745552746812,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family41_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 41 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.018164073342714505,
+   "lo": 0.017148939722072674,
+   "hi": 0.01912051608774618,
+   "half_a": 0.01734627727537582,
+   "half_b": 0.018991686591214745,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family42_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 42 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.013844474287333899,
+   "lo": 0.013225092869724227,
+   "hi": 0.014460327011708426,
+   "half_a": 0.013433196008063636,
+   "half_b": 0.014259735933454884,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family43_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 43 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.009830839364209662,
+   "lo": 0.00891378708816121,
+   "hi": 0.01066330858153785,
+   "half_a": 0.009164897103831617,
+   "half_b": 0.010506422812794191,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family44_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 44 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.0105174952729575,
+   "lo": 0.009655032111564613,
+   "hi": 0.011302950247997125,
+   "half_a": 0.00977674714034483,
+   "half_b": 0.011262199928407962,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family45_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 45 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.013987064954671738,
+   "lo": 0.013339099250499697,
+   "hi": 0.014611641812226133,
+   "half_a": 0.013721100295312828,
+   "half_b": 0.014253155627067053,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family46_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 46 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.006950215676807331,
+   "lo": 0.0062604759459213635,
+   "hi": 0.007606056181012753,
+   "half_a": 0.00637337025304519,
+   "half_b": 0.007534995434329787,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family47_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 47 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.017689274632200342,
+   "lo": 0.016908127808618452,
+   "hi": 0.01843080070824849,
+   "half_a": 0.01714664042524374,
+   "half_b": 0.018224474423348163,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family48_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 48 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01721509293149129,
+   "lo": 0.016294746902370556,
+   "hi": 0.018049122907294157,
+   "half_a": 0.016302130030233945,
+   "half_b": 0.018128069522491075,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family49_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 49 (mixed, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.011792037805299391,
+   "lo": 0.01118872010981814,
+   "hi": 0.012335251815548799,
+   "half_a": 0.011248350933503879,
+   "half_b": 0.012339985735876594,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family50_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 50 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.01827331415836108,
+   "lo": 0.01745502583420306,
+   "hi": 0.019048928613235806,
+   "half_a": 0.01780774639754789,
+   "half_b": 0.018735298988673987,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family51_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 51 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.011176082367877925,
+   "lo": 0.010531974403514813,
+   "hi": 0.011774136587720068,
+   "half_a": 0.010670999667560563,
+   "half_b": 0.011693462270188542,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family52_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 52 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.019657370506523067,
+   "lo": 0.018429696351347644,
+   "hi": 0.0207905215987419,
+   "half_a": 0.01849268257553522,
+   "half_b": 0.020838466972126074,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family53_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 53 (T, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.00925693467608319,
+   "lo": 0.008797950862619485,
+   "hi": 0.00968138958482633,
+   "half_a": 0.009067832338856234,
+   "half_b": 0.009443788066304755,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family54_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 54 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.007857084094244193,
+   "lo": 0.007429611189887577,
+   "hi": 0.008231301169101196,
+   "half_a": 0.007434045937289938,
+   "half_b": 0.008281019217639018,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  },
+  {
+   "id": "Q1b_family55_carries_U_lbar6",
+   "source": "Q1b (9.7)",
+   "statistic": "share of Var(U of lbar_6) covaried with family 55 (N, raw)",
+   "population": "baseline",
+   "direction": "!=",
+   "null": 0.0,
+   "est": 0.012299192285249377,
+   "lo": 0.01129673982162864,
+   "hi": 0.01322153415462633,
+   "half_a": 0.011694722098490894,
+   "half_b": 0.012915626319102189,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": true,
+   "partly_seen": false,
+   "qualification": null,
+   "note": ""
+  }
+ ]
+}

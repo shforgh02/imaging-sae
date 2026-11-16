@@ -1,0 +1,409 @@
+{
+ "groups": {
+  "N": 28,
+  "B": 14,
+  "D": 6,
+  "I": 7,
+  "T": 24
+ },
+ "lbar1_all": {
+  "n_exams": 7336,
+  "participants": 2492,
+  "cv_r2_ridge_all": 0.3066416596636339,
+  "cv_r2_boost_all": 0.32334279431135293,
+  "shapley": {
+   "N": 0.20735760103425704,
+   "B": 0.03663056842656297,
+   "D": 0.015476477682596811,
+   "I": 0.031239196049872818,
+   "T": 0.015937816470344267
+  },
+  "shapley_share_of_r2": {
+   "N": 0.6762212325021817,
+   "B": 0.11945724682922841,
+   "D": 0.05047089067928184,
+   "I": 0.10187525101494754,
+   "T": 0.051975378974360574
+  },
+  "single_group_r2": {
+   "N": 0.23119143013282373,
+   "B": 0.05548308341663544,
+   "D": 0.030552981124461254,
+   "I": 0.056960526088731034,
+   "T": 0.020614861090289982
+  },
+  "unexplained": 0.6933583403363661,
+  "shapley_ci95": {
+   "N": [
+    0.15780598890491868,
+    0.24512873798619406
+   ],
+   "B": [
+    0.026652642469425683,
+    0.04631375818161236
+   ],
+   "D": [
+    0.008455659022442328,
+    0.02268512436663225
+   ],
+   "I": [
+    0.02210292523940363,
+    0.040453034135226294
+   ],
+   "T": [
+    0.00800636200816573,
+    0.023905908219370716
+   ]
+  },
+  "shapley_halves": [
+   {
+    "N": 0.15228970656587087,
+    "B": 0.03118034518239401,
+    "D": 0.01747662543188149,
+    "I": 0.021631701097551685,
+    "T": 0.011884880051649935
+   },
+   {
+    "N": 0.2403341192120232,
+    "B": 0.03972851168492242,
+    "D": 0.011156032028743988,
+    "I": 0.02800247468954852,
+    "T": 0.014061248865788363
+   }
+  ]
+ },
+ "lbar6_baseline": {
+  "n_exams": 2484,
+  "participants": 2484,
+  "cv_r2_ridge_all": 0.3275190527194164,
+  "cv_r2_boost_all": 0.2882676779918031,
+  "shapley": {
+   "N": 0.2507895392636585,
+   "B": 0.03333251487041969,
+   "D": 0.012587295480148116,
+   "I": 0.021626472516753013,
+   "T": 0.009183230588437116
+  },
+  "shapley_share_of_r2": {
+   "N": 0.7657250385323641,
+   "B": 0.10177275060384183,
+   "D": 0.03843225417158121,
+   "I": 0.06603118913903394,
+   "T": 0.028038767553179064
+  },
+  "single_group_r2": {
+   "N": 0.2768050657339671,
+   "B": 0.05244538380006403,
+   "D": 0.02653862684470576,
+   "I": 0.048646104513203614,
+   "T": 0.01775814687829791
+  },
+  "unexplained": 0.6724809472805836,
+  "shapley_ci95": {
+   "N": [
+    0.20431950207228805,
+    0.295808016530281
+   ],
+   "B": [
+    0.01923584779083449,
+    0.0467494698888923
+   ],
+   "D": [
+    0.004542776314091942,
+    0.02081387932825899
+   ],
+   "I": [
+    0.01251316718227068,
+    0.03070005615729137
+   ],
+   "T": [
+    -0.001003782103107381,
+    0.019289087909398955
+   ]
+  },
+  "shapley_halves": [
+   {
+    "N": 0.2101947426711092,
+    "B": 0.01952014020302382,
+    "D": 0.016377156954494494,
+    "I": 0.01813324269121038,
+    "T": 0.009364429772187322
+   },
+   {
+    "N": 0.265302266289125,
+    "B": 0.03639032260444461,
+    "D": 0.006160817354239832,
+    "I": 0.011236107400252384,
+    "T": 0.01759072510559899
+   }
+  ]
+ },
+ "lbar1_never_cancer": {
+  "n_exams": 7014,
+  "participants": 2343,
+  "cv_r2_ridge_all": 0.24474518556506608,
+  "cv_r2_boost_all": 0.2646219184826425,
+  "shapley": {
+   "N": 0.1374440432543985,
+   "B": 0.04225095392470494,
+   "D": 0.013306656652687762,
+   "I": 0.03168947449749265,
+   "T": 0.02005405723578226
+  },
+  "shapley_share_of_r2": {
+   "N": 0.5615801713813842,
+   "B": 0.17263242105112797,
+   "D": 0.05436943170900559,
+   "I": 0.12947946013454034,
+   "T": 0.08193851572394195
+  },
+  "single_group_r2": {
+   "N": 0.15449648975580732,
+   "B": 0.05883156039036985,
+   "D": 0.024922837969786782,
+   "I": 0.053639763407425156,
+   "T": 0.02296381489182442
+  },
+  "unexplained": 0.7552548144349339
+ },
+ "lbar6_baseline_never_cancer": {
+  "n_exams": 2338,
+  "participants": 2338,
+  "cv_r2_ridge_all": 0.24870399469513216,
+  "cv_r2_boost_all": 0.2242911180018382,
+  "shapley": {
+   "N": 0.15675115300105483,
+   "B": 0.038966597028131295,
+   "D": 0.011935041180642427,
+   "I": 0.02291720743218866,
+   "T": 0.018133996053114977
+  },
+  "shapley_share_of_r2": {
+   "N": 0.6302719551939826,
+   "B": 0.15667861336886674,
+   "D": 0.047988940407944436,
+   "I": 0.09214651923979415,
+   "T": 0.07291397178941215
+  },
+  "single_group_r2": {
+   "N": 0.1879638873139533,
+   "B": 0.06139043623297036,
+   "D": 0.02606044255176987,
+   "I": 0.05432862968510099,
+   "T": 0.03287880700418544
+  },
+  "unexplained": 0.7512960053048678
+ },
+ "candidates": [
+  {
+   "id": "Q1a_shapley_N_lbar1_all",
+   "source": "Q1a (9.7)",
+   "statistic": "Shapley CV R2 of group N for lbar1",
+   "population": "all screens",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.20735760103425704,
+   "lo": 0.15780598890491868,
+   "hi": 0.24512873798619406,
+   "half_a": 0.15228970656587087,
+   "half_b": 0.2403341192120232,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "H-C1 template (technical share) for T; interval from fixed out-of-fold predictions"
+  },
+  {
+   "id": "Q1a_shapley_B_lbar1_all",
+   "source": "Q1a (9.7)",
+   "statistic": "Shapley CV R2 of group B for lbar1",
+   "population": "all screens",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.03663056842656297,
+   "lo": 0.026652642469425683,
+   "hi": 0.04631375818161236,
+   "half_a": 0.03118034518239401,
+   "half_b": 0.03972851168492242,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "H-C1 template (technical share) for T; interval from fixed out-of-fold predictions"
+  },
+  {
+   "id": "Q1a_shapley_D_lbar1_all",
+   "source": "Q1a (9.7)",
+   "statistic": "Shapley CV R2 of group D for lbar1",
+   "population": "all screens",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.015476477682596811,
+   "lo": 0.008455659022442328,
+   "hi": 0.02268512436663225,
+   "half_a": 0.01747662543188149,
+   "half_b": 0.011156032028743988,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "H-C1 template (technical share) for T; interval from fixed out-of-fold predictions"
+  },
+  {
+   "id": "Q1a_shapley_I_lbar1_all",
+   "source": "Q1a (9.7)",
+   "statistic": "Shapley CV R2 of group I for lbar1",
+   "population": "all screens",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.031239196049872818,
+   "lo": 0.02210292523940363,
+   "hi": 0.040453034135226294,
+   "half_a": 0.021631701097551685,
+   "half_b": 0.02800247468954852,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "H-C1 template (technical share) for T; interval from fixed out-of-fold predictions"
+  },
+  {
+   "id": "Q1a_shapley_T_lbar1_all",
+   "source": "Q1a (9.7)",
+   "statistic": "Shapley CV R2 of group T for lbar1",
+   "population": "all screens",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.015937816470344267,
+   "lo": 0.00800636200816573,
+   "hi": 0.023905908219370716,
+   "half_a": 0.011884880051649935,
+   "half_b": 0.014061248865788363,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "H-C1 template (technical share) for T; interval from fixed out-of-fold predictions"
+  },
+  {
+   "id": "Q1a_shapley_N_lbar6_baseline",
+   "source": "Q1a (9.7)",
+   "statistic": "Shapley CV R2 of group N for lbar6",
+   "population": "baseline",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.2507895392636585,
+   "lo": 0.20431950207228805,
+   "hi": 0.295808016530281,
+   "half_a": 0.2101947426711092,
+   "half_b": 0.265302266289125,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "H-C1 template (technical share) for T; interval from fixed out-of-fold predictions"
+  },
+  {
+   "id": "Q1a_shapley_B_lbar6_baseline",
+   "source": "Q1a (9.7)",
+   "statistic": "Shapley CV R2 of group B for lbar6",
+   "population": "baseline",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.03333251487041969,
+   "lo": 0.01923584779083449,
+   "hi": 0.0467494698888923,
+   "half_a": 0.01952014020302382,
+   "half_b": 0.03639032260444461,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "H-C1 template (technical share) for T; interval from fixed out-of-fold predictions"
+  },
+  {
+   "id": "Q1a_shapley_D_lbar6_baseline",
+   "source": "Q1a (9.7)",
+   "statistic": "Shapley CV R2 of group D for lbar6",
+   "population": "baseline",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.012587295480148116,
+   "lo": 0.004542776314091942,
+   "hi": 0.02081387932825899,
+   "half_a": 0.016377156954494494,
+   "half_b": 0.006160817354239832,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "H-C1 template (technical share) for T; interval from fixed out-of-fold predictions"
+  },
+  {
+   "id": "Q1a_shapley_I_lbar6_baseline",
+   "source": "Q1a (9.7)",
+   "statistic": "Shapley CV R2 of group I for lbar6",
+   "population": "baseline",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.021626472516753013,
+   "lo": 0.01251316718227068,
+   "hi": 0.03070005615729137,
+   "half_a": 0.01813324269121038,
+   "half_b": 0.011236107400252384,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "H-C1 template (technical share) for T; interval from fixed out-of-fold predictions"
+  },
+  {
+   "id": "Q1a_shapley_T_lbar6_baseline",
+   "source": "Q1a (9.7)",
+   "statistic": "Shapley CV R2 of group T for lbar6",
+   "population": "baseline",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.009183230588437116,
+   "lo": -0.001003782103107381,
+   "hi": 0.019289087909398955,
+   "half_a": 0.009364429772187322,
+   "half_b": 0.01759072510559899,
+   "counts": {
+    "exams": 2484,
+    "participants": 2484
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": null,
+   "note": "H-C1 template (technical share) for T; interval from fixed out-of-fold predictions"
+  }
+ ]
+}

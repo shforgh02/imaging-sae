@@ -1,0 +1,95 @@
+{
+ "arm": "nmf",
+ "K": 64,
+ "n_exams": 7336,
+ "participants": 2492,
+ "V1": {
+  "r_y1": 0.8688045036262284,
+  "r_y6": 0.8579942283129837,
+  "dAUROC_y1": -0.0002556463117496799,
+  "dAUROC_y6": -0.0018074798514896573,
+  "pass_": false
+ },
+ "V2": {
+  "per_member": [
+   {
+    "member": 0,
+    "n_cons_a": 60,
+    "n_cons_b": 60,
+    "share": 0.9166666666666666,
+    "median_r": 0.998313974581043,
+    "n_stable_seed0": 58
+   },
+   {
+    "member": 1,
+    "n_cons_a": 54,
+    "n_cons_b": 52,
+    "share": 0.9807692307692307,
+    "median_r": 0.9982927719208297,
+    "n_stable_seed0": 53
+   },
+   {
+    "member": 2,
+    "n_cons_a": 55,
+    "n_cons_b": 56,
+    "share": 0.9636363636363636,
+    "median_r": 0.9978542515200328,
+    "n_stable_seed0": 52
+   },
+   {
+    "member": 3,
+    "n_cons_a": 57,
+    "n_cons_b": 53,
+    "share": 0.9622641509433962,
+    "median_r": 0.9965862096793511,
+    "n_stable_seed0": 55
+   },
+   {
+    "member": 4,
+    "n_cons_a": 60,
+    "n_cons_b": 58,
+    "share": 1.0,
+    "median_r": 0.9987573369563797,
+    "n_stable_seed0": 58
+   }
+  ],
+  "share": 0.9646672824031313,
+  "median_r": 0.9979609089315271,
+  "pass_": true
+ },
+ "V3": {
+  "n_families": 8,
+  "pass_": false
+ },
+ "V4": {
+  "median_assoc_half_corr": 0.595525673159053,
+  "label_agreement_named": 0.6666666666666666,
+  "pass_": false
+ },
+ "valid": false,
+ "audit_yield_named_replicated": 3,
+ "labels": {
+  "unnamed": 5,
+  "N": 2,
+  "T": 1
+ },
+ "group_shares": {
+  "lbar1": {
+   "intercept": 0.0,
+   "residual": 0.020285680520472305,
+   "unreplicated": 0.8275880624372665,
+   "N": 0.14825586521763495,
+   "T": -0.0015301846630819105,
+   "unnamed": 0.005400563887212469
+  },
+  "lbar6": {
+   "intercept": -0.00013474765952479364,
+   "residual": 0.02182644933558086,
+   "unreplicated": 0.807995341195754,
+   "N": 0.16568177905556966,
+   "T": -0.0016944957524098294,
+   "unnamed": 0.00632566107491697
+  }
+ },
+ "arms_pickle_sha256": "5b34d788e3de97dcb6c40085b5df6c58ec6f189f678861d21d20ff625211dee4"
+}

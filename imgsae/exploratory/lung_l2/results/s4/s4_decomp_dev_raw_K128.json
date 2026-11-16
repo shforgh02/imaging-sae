@@ -1,0 +1,52 @@
+{
+ "arm": "raw",
+ "K": 128,
+ "n_exams": 7336,
+ "participants": 2492,
+ "V1": {
+  "r_y1": 0.9999787860439675,
+  "r_y6": 0.9999687017046046,
+  "dAUROC_y1": -9.468381916621915e-06,
+  "dAUROC_y6": -2.8977632889781724e-05,
+  "pass_": true
+ },
+ "V2": {
+  "pass_": true,
+  "note": "deterministic arm"
+ },
+ "V3": {
+  "n_families": 102,
+  "pass_": true
+ },
+ "V4": {
+  "median_assoc_half_corr": 0.720148721254134,
+  "label_agreement_named": 0.8289473684210527,
+  "pass_": true
+ },
+ "valid": true,
+ "audit_yield_named_replicated": 76,
+ "labels": {
+  "N": 55,
+  "mixed": 26,
+  "T": 21
+ },
+ "group_shares": {
+  "lbar1": {
+   "intercept": 8.574424944646287e-32,
+   "residual": 0.008783609200405688,
+   "N": 0.49522645185159453,
+   "mixed": 0.23178680431869472,
+   "unreplicated": 0.15568224571217218,
+   "T": 0.10852087631663682
+  },
+  "lbar6": {
+   "intercept": -0.04685855417895184,
+   "residual": 0.00639048727067374,
+   "N": 0.5188324705178667,
+   "mixed": 0.23607315564056233,
+   "unreplicated": 0.17393624311919512,
+   "T": 0.11162618488054067
+  }
+ },
+ "arms_pickle_sha256": "01ea524d9e6c0a2317794753f19cb65fa06241013d044d525d0eeebed3b6bae1"
+}

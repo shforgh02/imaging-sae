@@ -1,0 +1,190 @@
+{
+ "tag": "dev",
+ "n_T_columns": 37,
+ "heldout_r2_of_h_on_T_by_member": [
+  0.1138,
+  0.1544,
+  0.1239,
+  0.1311,
+  0.0994
+ ],
+ "check_recomputed_s_vs_saved_max_abs": 1.6411070008492956e-06,
+ "auroc_y1": {
+  "counts": {
+   "exams": 7289,
+   "participants": 2492,
+   "cancers": 88
+  },
+  "before": 0.9693500587039678,
+  "after": 0.9683708702074207,
+  "dauroc": {
+   "est": -0.000979188496547101,
+   "lo": -0.0031928634252638617,
+   "hi": 0.0007343884988931115,
+   "n_draws": 2000
+  },
+  "dauroc_halves": [
+   -0.0022534249745439494,
+   0.0002847222222222001
+  ]
+ },
+ "auroc_y6": {
+  "counts": {
+   "exams": 2180,
+   "participants": 2180,
+   "cancers": 135
+  },
+  "before": 0.8511509553563343,
+  "after": 0.8491044100335055,
+  "dauroc": {
+   "est": -0.0020465453228288855,
+   "lo": -0.007873377739263412,
+   "hi": 0.0035419957122091207,
+   "n_draws": 2000
+  },
+  "dauroc_halves": [
+   -0.002226645283235018,
+   -0.0014514852065801165
+  ]
+ },
+ "spread": {
+  "groups": [
+   "GE MEDICAL SYSTEMS|sharp",
+   "GE MEDICAL SYSTEMS|soft",
+   "Philips|sharp",
+   "Philips|soft",
+   "SIEMENS|sharp",
+   "SIEMENS|soft",
+   "TOSHIBA|sharp"
+  ],
+  "n_neg_by_group": [
+   1985,
+   1745,
+   304,
+   189,
+   1957,
+   499,
+   520
+  ],
+  "fa_rate_before": [
+   0.11385390428211586,
+   0.1329512893982808,
+   0.125,
+   0.14814814814814814,
+   0.09913132345426673,
+   0.08617234468937876,
+   0.09230769230769231
+  ],
+  "fa_rate_after": [
+   0.10982367758186398,
+   0.11919770773638969,
+   0.10197368421052631,
+   0.1164021164021164,
+   0.11088400613183444,
+   0.10020040080160321,
+   0.11346153846153846
+  ],
+  "fa_rate_F": [
+   0.10881612090680101,
+   0.09054441260744986,
+   0.10855263157894737,
+   0.10052910052910052,
+   0.11190597853857946,
+   0.05410821643286573,
+   0.09423076923076923
+  ],
+  "sd_before": 0.0227751832116023,
+  "sd_after": 0.007050936372757335,
+  "sd_F": 0.01992310962693612,
+  "ratio": 0.3095885687174361,
+  "specificity_at_tau90": {
+   "before": 0.8875156228301625,
+   "after": 0.8880711012359395
+  },
+  "ratio_ci": {
+   "est": 0.3095885687174361,
+   "lo": 0.3365217970056696,
+   "hi": 1.3598958453054537,
+   "n_draws": 2000
+  },
+  "ratio_halves": [
+   1.4297144364762149,
+   0.631779132115632
+  ]
+ },
+ "qualification": {
+  "dauroc_y1_ok": true,
+  "dauroc_y6_ok": true,
+  "ratio_ok": true,
+  "sybil_spread_gt_F": true,
+  "qualifies": true
+ },
+ "candidates": [
+  {
+   "id": "U1a_dAUROC_y1",
+   "source": "U1a (9.7)",
+   "statistic": "dAUROC after technical removal, y1",
+   "population": "y1, all screens",
+   "direction": ">",
+   "null": -0.01,
+   "est": -0.000979188496547101,
+   "lo": -0.0031928634252638617,
+   "hi": 0.0007343884988931115,
+   "half_a": -0.0022534249745439494,
+   "half_b": 0.0002847222222222001,
+   "counts": {
+    "exams": 7289,
+    "participants": 2492,
+    "cancers": 88
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": "dAUROC >= -0.01 at both horizons",
+   "note": ""
+  },
+  {
+   "id": "U1a_dAUROC_y6",
+   "source": "U1a (9.7)",
+   "statistic": "dAUROC after technical removal, y6",
+   "population": "y6, baseline",
+   "direction": ">",
+   "null": -0.01,
+   "est": -0.0020465453228288855,
+   "lo": -0.007873377739263412,
+   "hi": 0.0035419957122091207,
+   "half_a": -0.002226645283235018,
+   "half_b": -0.0014514852065801165,
+   "counts": {
+    "exams": 2180,
+    "participants": 2180,
+    "cancers": 135
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": "dAUROC >= -0.01 at both horizons",
+   "note": ""
+  },
+  {
+   "id": "U1a_spread_ratio",
+   "source": "U1a (9.7)",
+   "statistic": "false-alarm-rate spread across maker x kernel class, after / before",
+   "population": "y1 = 0, all screens",
+   "direction": "<",
+   "null": 1.0,
+   "est": 0.3095885687174361,
+   "lo": 0.3365217970056696,
+   "hi": 1.3598958453054537,
+   "half_a": 1.4297144364762149,
+   "half_b": 0.631779132115632,
+   "counts": {
+    "exams": 7201,
+    "participants": 2453,
+    "groups": 7
+   },
+   "feature_based": false,
+   "partly_seen": false,
+   "qualification": "ratio <= 0.80, dAUROC >= -0.01 both, Sybil spread > F spread: True",
+   "note": ""
+  }
+ ]
+}
