@@ -1,6 +1,6 @@
 # Lung L2 protocol: a feature-level audit of Sybil on NLST
 
-- **Date fixed:** 2026-11-13, before any Sybil activation exists. **Status:** DRAFT, waiting for the lead's OK (Part A of the hand-over prompt).
+- **Date fixed:** 2026-11-13, before any Sybil activation exists. **Status:** APPROVED by the lead on 2026-11-13 (execution log, "lead's OK on Part A"). Amended with the lead's OK: A1 and A2 on 2026-11-14, A3, A4 and A5 on 2026-11-15 (section 16a). (Status line corrected on 2026-11-15; it said "DRAFT" by mistake, review finding F6.)
 - **Plan it executes:** `docs/PLAN_SYBIL_AUDIT_v1.md`. Section 1 lists what this protocol changes in the plan, and why.
 - **Budget approved by the lead (2026-11-13):** ledger task `lung_l2_audit` $45.00 for S2 to S6; guard project limit `project_cap_usd` 72.00; monthly stop $29 per account unchanged; November on account `shforghani2002` only.
 - **Rule from now on:** no test activation is extracted and no new outcome analysis of the existing L1 test scores is made before the hypothesis file (S5) is approved by the lead.
@@ -236,6 +236,24 @@ An arm is valid if V1 to V4 pass. **Primary arm** = the valid arm with the most 
 ## 16a. Amendments after the pilot (logged deviations, approved by the lead on 2026-11-14)
 - **A1, G2f:** judged on the pilot series whose lung is not cut by the 200-slice grid (all 7 within 0.5%); the series where the crop cuts the lung (30 of 37; 26 of 27 at stretch 2.0) show the predicted effect of the stretch. z-fix (D5, T5, U1b, Q1d ii) is kept. The share of series with `lung_cut_z` is reported by stretch.
 - **A2, G2e:** accepted. Analysis rule: if `lung_vol_ml` < 1,500, all image measures of that series are set missing and the flag `T_lung_at_edge` = 1 is added to the technical group. Toshiba's air offset (about −38 HU) is reported; the cloud job is unchanged.
+
+### Amendments A3 to A5 (logged deviations, approved by the lead on 2026-11-15)
+Source: `docs/PLAN_L2_NEXT_v1.md` section 3, as reviewed by Fable 5.2 (`docs/REVIEW_PLAN_L2_NEXT_v1.md`, verdict "approve with edits"), with all its `[Fable edit]` changes. Approved by the lead in the execution prompt of 2026-11-15 (`docs/HANDOVER_PROMPT_L2_EXEC.md`, block "The lead's OK"). Made before any dev outcome analysis (no S4 result file exists).
+- **A3, two simple references** (added to section 9; references only, they become hypotheses only by sections 9.8 and 10):
+  - **R-size:** the largest nodule's long diameter (`max_dia`, 0 if no nodule), no fitting. AUROC for `y1` (all screens) and `y6` (baseline), on dev in S4 and on test in S6. Computed on test in L0, so "partly seen": a reference only, never a hypothesis.
+  - **F+I:** inputs = F's logit (F1 for `y1`, F6 for `y6`; frozen, fitted on train) + the **5 patient measures** of `l2_data.MEASURES` (lung volume, emphysema % LAA-950, lung 15th-percentile HU, lung mean HU, body area; rule A2 applies) + one indicator "any measure missing"; medians imputed inside each training fold. Model `nlst_l0.logit_model()` (standardise + logistic, C = 0.3). Dev: participant-grouped 5-fold CV (seed 0), AUROC with a participant bootstrap (2,000 draws). S6: one fit on all dev, parameters hashed and frozen with the S5 files, applied to test unchanged.
+  - **Lead's answer (question 3 of the review): yes**, F+I uses the 5 patient measures as its primary model. Sensitivity runs reported next to it: (i) all 7 measures (adds air noise and lung z-extent); (ii) only exams with `lung_cut_z` = 0.
+  - **Test "does Sybil add to F+I":** cross-fitted logistic `y ~ (F+I logit) + logit(s_t)` against `y ~ (F+I logit)`, for `y1` (all screens) and `y6` (baseline); ΔAUROC with a participant-bootstrap interval and the likelihood-ratio test (same form as Q1b).
+  - **Stated limit:** emphysema % depends on the scanner (Toshiba air about 38 HU low); F+I is also reported by maker, descriptively.
+- **A4, second Modal account for the rest of S3** (amends section 12, "account `shforghani2002` only"):
+  - **Scope:** account `armanfo` for S3 tiers D2, D3, D4 (with their z-fix rows) and the smoke and identity runs of P2. Nothing else. S6 stays on `shforghani2002` (December) unless the lead decides otherwise.
+  - **Unchanged limits:** task $45; project $72; T4 or L4; container timeout ≤ 60 min; ≤ 4 containers at once across both accounts; detached spawn; one saved unit per series.
+  - **Per-account month check:** that account's usage (Modal billing of its whole workspace) + open worst cases on that account + the launch's worst case ≤ the account's cap (`shforghani2002` $29.00, `armanfo` $29.50).
+  - **Project limit on `armanfo`:** this project's ledger runs on `armanfo` in November (worst case for open runs) ≤ **$17.00**, a fourth guard test. **Lead's answer (question 1 of the review): $17.00**; the `armanfo` month cap is $29.50.
+  - **Protection of the lead's other work on `armanfo`:** before each launch, `modal app list --json --profile armanfo` must show no other app with running containers; otherwise wait 30 minutes and look again, and stop after 2 hours. No other app or volume on `armanfo` is touched.
+  - **Volumes:** **lead's answer (question 2 of the review): keep both cloud volumes; delete nothing on Modal.** This replaces the deletion in section 12 ("before the volume `imgsae-nlst-l2` is deleted"): the PC copy is still checked, but no volume is deleted.
+  - **Identity gate across accounts (P2):** 20 D1 series re-run on `armanfo` equal the saved D1 files (calibrated probabilities within 1e-4, `h` within 1e-4); the 3 smoke series likewise; checkpoint and head-weight hashes equal those of the main account. If it fails, D2 to D4 do not run on `armanfo`.
+- **A5, executor of paid runs** (amends section 13, "paid runs: a lower-cost agent"): paid runs are executed by the unattended driver (`cloud/drive_runs.py`, `cloud/drive_plan.py`), started as a one-time Windows task, following the written run plan. Every launch goes through the guard; the driver stops on any failure. (Used for D1 on 2026-11-15 as a logged deviation; A5 makes it the rule.)
 
 ## 16. Files
 - Work folder `imgsae/exploratory/lung_l2/`: `series_rule.py`, `s0_idc_meta.py`, `s0_series_explore.py`, `s0_series_rule_test.py`, `s0_pairs_count.py`, `s0_dev_counts.py`, `results/` (S0 outputs), later `cloud/`, `l2_form.py`, `s4_*.py`, `HYPOTHESES_L2.md`, `RESULTS_L2.md`.
