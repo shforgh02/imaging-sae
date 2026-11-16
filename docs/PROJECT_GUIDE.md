@@ -192,9 +192,45 @@ The lead's direction of 13 Nov: do not only compare with the radiologist; open t
 
 ---
 
+## 6b. Why the feature tools failed, and what more we can try
+
+### What "Sybil's own raw units" means
+For every scan, Sybil itself computes 512 numbers just before its score (we call them `h`). These are **Sybil's own units**. We did not make them. The "raw units" arm simply takes the 64 units that matter most for the score and calls each one a feature. It is the "do nothing clever" option. The other five tools (SAE, PCA, ICA, NMF, k-means) try to build **new** features out of those 512 numbers.
+
+### Why each tool failed
+| Tool | What it assumes | What it met in Sybil | Mark it failed |
+|---|---|---|---|
+| **SAE** (4 of 64 features active per scan) | Many separate ideas; each scan uses only a few | Few directions (about 5); every scan uses all of them | It could not rebuild Sybil's score (0.72 to 0.86; needed 0.98) |
+| **PCA, ICA** | A few main directions | True, and they rebuild the score (0.999). But each of the five member models has its own directions after the first three | Only 2 to 7 features were found again in other members (16 needed) |
+| **NMF, k-means** | Parts that add up; or groups of similar scans | One smooth dial, not parts and not groups | Did not rebuild the score, and did not replicate |
+| **Raw units** | Nothing | 64 units that are mostly copies of the risk dial | Passed, but tells us little |
+
+**Why is Sybil like this?** It was trained for one job: give one risk number. A network trained this way keeps only what that number needs. And its five members were trained apart, so each has its own inner "language" beyond the main dial.
+
+### A new check (16 Nov; dev, 2,500 random exams, no outcomes; exploratory)
+| Saved layer | What it is | Real dimensions | Directions that two members share |
+|---|---|---|---|
+| `h` | the 512 numbers after the last switch (ReLU) | 4.5 to 6.4 | 6 |
+| `pre` | the same 512 numbers before the switch | 2.5 to 3.7 | 9 |
+| `pooled` | 1,536 numbers, one layer earlier | 5.7 to 10.8 | **14** |
+
+So the earlier layer holds somewhat more. It is still small and dense, so I do not expect an SAE to work there either. But a method made for "a few shared directions" can work.
+
+### What more can be tried
+| What | Cost | When | What I expect |
+|---|---|---|---|
+| The same six tools on the `pooled` layer (F1) | free, data already on the PC | now, before the freeze | SAE fails again; raw units pass |
+| SAE with other sparsity settings (F1b) | free | now | It keeps the score only when it is no longer sparse |
+| Shared axes across the five members (F2) | free | now | About 6 axes at `h`, about 14 at `pooled`; some can be named; some move with z-fix |
+| Where Sybil looks: attention maps (F3) | free | now | Descriptive pictures for the paper |
+| An SAE on the spatial map before pooling (N9b) | new extraction, about the cost of S3 again plus storage; new budget | after the test | The only place where many separate ideas can exist. Uncertain |
+| More outcome-free tests on the 11,432 people Sybil never used (old step S7) | paid, new approval | after the test | A second confirmation set for technical findings (it has only 34 cancers) |
+
+---
+
 ## 7. Where we are today (16 Nov 2026)
 
-- **State:** S5 frozen at `c593005`; reviewed; **waiting for the lead's decisions** (part 8, step N0). The test split is closed. No test data exist on the PC or in the cloud.
+- **State:** S5 frozen at `c593005`; reviewed; the lead decided on 16 Nov (step N0 done). **Next: step NF and then N1, by the executor (Opus 5.5) with the prompt `docs/HANDOVER_PROMPT_L2_N1.md`.** The test split is closed. No test data exist on the PC or in the cloud.
 - **Money:**
 
 | | Used | Limit | Left |
@@ -213,15 +249,34 @@ The lead's direction of 13 Nov: do not only compare with the radiologist; open t
 
 **Rule for every agent:** do the next open step only. Each step says who does it, what it costs, why, what to do, when it is done, what can go wrong, how we prevent it, and when to stop and ask. If something is not written here or in the protocol, **stop and ask the lead**.
 
-### N0. The lead decides (free)
+### N0. The lead decides (free). **DONE on 2026-11-16**
+- **The lead's words:** "we do all you ask, put in plan, push and give prompt to give Opus xhigh".
+- **Recorded as:** (1) H5 is replaced by H5′; (2) OK for a new freeze with the four small changes; (3) OK for the test extraction in December on the main account with the thin margin and the frozen fallbacks.
+- **Still open, only the lead can do them:** (4) the request for an outside dataset (needs the lead's name); (5) the clinical co-author.
+- **Added the same day:** the lead asked for more feature work ("other method? other layer?"). It is step NF below. Its OK is given by pasting the execution prompt `docs/HANDOVER_PROMPT_L2_N1.md`.
 - **Who:** the lead.
 - **Why:** an agent must not choose hypotheses. That is the lead's right.
-- **Decide:**
+- **The questions were:**
   1. **H5:** (a) replace it by H5′, the reviewer's advice; or (b) drop it, family of four; or (c) keep it. With (c) H5 stays unapproved.
   2. OK for a new freeze commit with the four small changes of the review.
   3. OK for S6 in December on the main account with the thin money margin.
   4. Optional now or later: request an outside dataset (step N9a); tell Sybil's authors (N9c).
 - **Done when:** the answers are written in `docs/EXECUTION_LOG.md` with the date and the lead's words.
+
+### NF. More feature work on dev, before the test opens (free, on the PC; amendment A6)
+- **Who:** the executor agent (Opus 5.5, xhigh). Prompt: `docs/HANDOVER_PROMPT_L2_N1.md`.
+- **Why now:** the test cannot run before 1 December (money). These two weeks are free. Anything we learn on dev **before** the test opens can still become a hypothesis. After the test opens, it cannot.
+- **Why it may help:** part 6b. One layer earlier, Sybil has more shared directions (about 14 against 6). And we never tested whether the SAE failed only because of its sparsity setting.
+- **Do (all fixed in the prompt before any run; code committed before the full-dev run):**
+  - **F1.** The same six tools and the same four validity marks, on the earlier layer (`pooled`, 1,536 numbers).
+  - **F1b.** The SAE on `h` with other sparsity settings (8, 16 and 32 active features instead of 4).
+  - **F2.** "Shared axes": the few directions that all five member models agree on, at both layers. Name them, and see which move under z-fix and kernel change.
+  - **F3.** Where Sybil looks (its attention maps): descriptive only.
+  - **F4.** A report `RESULTS_F_dev.md`, with every failed mark shown.
+- **A new hypothesis may come from it only if:** it holds gate 9.8; a random choice of the same size does **not** also pass (the lesson of H5); and it can be computed on test from what S6 saves anyway. At most one. It then takes the place of H2, which becomes a secondary result. The lead can reject this at the stop.
+- **Time limit:** if NF is not finished by 26 November, the freeze is made without it, and NF continues as exploratory work.
+- **Can go wrong → prevention:** fishing for a result → the list of analyses is fixed first, the test set is the final judge, and the random-choice test is required. The slow laptop GPU → the time limit.
+- **My honest expectation:** the SAE will fail again (the space is small and dense at both layers). The shared axes will give a handful of nameable directions. A new outcome-free hypothesis is possible. A feature that improves cancer prediction is unlikely.
 
 ### N1. The new freeze (free, on the PC)
 - **Who:** the executor agent (Opus 5.5), in a fresh session.
@@ -233,7 +288,8 @@ The lead's direction of 13 Nov: do not only compare with the radiologist; open t
   4. **Test-list script** `s6_manifest_test.py` (new; write it, test it on dev, **do not run it on test yet**): main rows = the split file's 6,715 series, tiers T1, T2, T3 by study year; T4 = 500 soft-kernel partners of T1 exams, with the same pair rule as `s1_manifest.py` (same study, same thickness, other kernel class, slice count within 2%), seed 0, the same quota rule by maker. Metadata and the split file only. It must not read any outcome.
   5. Run `s5_freeze.py`, then the frozen analysis on dev ("dev as if test"). H1 to H4 must equal the old values exactly. H5′ must equal step 1.
   6. **`HYPOTHESES_L2.md`:** rewrite H5; add a section "Changes after the first freeze `c593005`" that says what changed, why, and that H5′ was chosen from dev after the first freeze, on the reviewer's advice. Add comment 3 of the review ("sensitivity, not harm") and the two-direction flag numbers. New hash table (run `s5_hashes.py`), including the two new scripts.
-  7. Commit, push, log the new freeze commit, update `STATUS.md`. **Stop.**
+  7. If step NF gave a hypothesis that meets its three conditions, it enters as the fifth hypothesis and H2 moves to the secondary list. The hypothesis file says so plainly, with the dev evidence and the random-choice test.
+  8. Commit, push, log the new freeze commit, update `STATUS.md`. **Stop.**
 - **Done when:** one commit holds all of it, dev-as-if-test reproduces, the hash table matches.
 - **Can go wrong → prevention:**
   - A frozen number changes by accident → compare old and new H1 to H4 values; any difference is a stop.
@@ -392,10 +448,11 @@ The lead's direction of 13 Nov: do not only compare with the radiologist; open t
 
 ---
 
-## 13. Open questions for the lead (step N0)
+## 13. Open questions for the lead
 
-1. H5: replace by H5′, drop, or keep?
-2. OK for the new freeze with the four small changes?
-3. OK for the test extraction in December with about $1.5 of margin? Or raise the task budget a little for safety?
-4. Request an outside dataset now, so it is ready after the test?
-5. Who is the clinical co-author?
+Answered on 2026-11-16 (step N0): H5 → H5′; the new freeze; the test extraction in December.
+
+Still open:
+1. Request an outside dataset now, so it is ready after the test? (Duke DLCS or P-ELCAP; it needs your name.)
+2. Who is the clinical co-author?
+3. Step NF (more feature work on dev) starts when you paste the prompt. If you do not want it, delete the block marked "STEP F" in the prompt before pasting.
