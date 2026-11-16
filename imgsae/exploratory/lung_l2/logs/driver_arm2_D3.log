@@ -1,0 +1,9 @@
+2026-11-16T07:17:49 app check armanfo: ok []
+2026-11-16T07:17:52 precheck nshard 4 on armanfo: task lung_l2_audit: 18.62 + 3.91 <= 45.00 ok | project: 44.01 + 3.91 <= 72.00 ok | month armanfo (Modal billing): 12.87 + lag 6.31 + open 0.00 + 3.91 <= 29.50 ok | project on armanfo: 10.95 + 3.91 <= 17.00 ok
+2026-11-16T07:17:52 launch: --detach --profile armanfo imgsae/exploratory/lung_l2/cloud/l2_sybil_modal.py --step run --tier D3 --lo 0 --hi 2410 --nshard 4 --timeout-min 60 --zfix-max 0.65 --root dev
+2026-11-16T07:18:16   app check armanfo: ok []
+2026-11-16T07:18:16   "task lung_l2_audit: 18.62 + 3.91 <= 45.00": true,
+2026-11-16T07:18:16   "project: 44.01 + 3.91 <= 72.00": true,
+2026-11-16T07:18:16   "month armanfo (Modal billing): 12.87 + lag 6.31 + open 0.00 + 3.91 <= 29.50": true,
+2026-11-16T07:18:16   "project on armanfo: 10.95 + 3.91 <= 17.00": true
+2026-11-16T07:18:16   SPAWNED lung_l2_audit-043: 4 calls on armanfo, worst case $3.91. Collect with: python imgsae/exploratory/lung_l2/cloud/collect.py lung_l2_audit-043 --profile armanfo

@@ -1,0 +1,48 @@
+{
+ "tag": "arm_D2",
+ "profile": "armanfo",
+ "args": {
+  "profile": "armanfo",
+  "tag": "arm_D2",
+  "tier": "D2",
+  "lo": 0,
+  "hi": 2442,
+  "zfix_max": 0.65,
+  "root": "dev",
+  "nshards": "4,3,2,1",
+  "max_launches": 4,
+  "copy": false,
+  "dry": false
+ },
+ "started": "2026-11-16T04:23:22",
+ "launches": [
+  {
+   "rid": "lung_l2_audit-040",
+   "launched": "2026-11-16T04:23:51",
+   "collect": "ok",
+   "n_todo": 2442,
+   "n_done": 1629,
+   "n_err": 0,
+   "container_min": 220.32544689575832
+  },
+  {
+   "rid": "lung_l2_audit-041",
+   "launched": "2026-11-16T05:19:59",
+   "collect": "ok",
+   "n_todo": 813,
+   "n_done": 813,
+   "n_err": 0,
+   "container_min": 115.51423944632212
+  }
+ ],
+ "status": "finished",
+ "budget_after": {
+  "profile": "armanfo",
+  "month_used_usd": 8.3176,
+  "open_worst_usd": 0,
+  "project_committed_usd": 39.0701,
+  "project_on_account_usd": 6.01
+ },
+ "task_usd": 13.6833,
+ "ended": "2026-11-16T05:53:06"
+}

@@ -1,0 +1,98 @@
+/usr/local/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/usr/local/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=R3D_18_Weights.KINETICS400_V1`. You can also use `weights=R3D_18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+/usr/local/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/usr/local/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=R3D_18_Weights.KINETICS400_V1`. You can also use `weights=R3D_18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+/usr/local/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/usr/local/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=R3D_18_Weights.KINETICS400_V1`. You can also use `weights=R3D_18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+/usr/local/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/usr/local/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=R3D_18_Weights.KINETICS400_V1`. You can also use `weights=R3D_18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+dev:D3[0:2410] s3: 25/602 errs=0 3.3 min
+dev:D3[0:2410] s1: 25/603 errs=0 3.6 min
+dev:D3[0:2410] s2: 25/602 errs=0 3.8 min
+dev:D3[0:2410] s0: 25/603 errs=0 4.1 min
+dev:D3[0:2410] s3: 50/602 errs=0 6.6 min
+dev:D3[0:2410] s1: 50/603 errs=0 6.7 min
+dev:D3[0:2410] s2: 50/602 errs=0 6.8 min
+dev:D3[0:2410] s0: 50/603 errs=0 8.1 min
+dev:D3[0:2410] s3: 75/602 errs=0 9.6 min
+dev:D3[0:2410] s2: 75/602 errs=0 9.7 min
+dev:D3[0:2410] s1: 75/603 errs=0 9.9 min
+dev:D3[0:2410] s0: 75/603 errs=0 11.9 min
+dev:D3[0:2410] s3: 100/602 errs=0 12.8 min
+dev:D3[0:2410] s1: 100/603 errs=0 12.9 min
+dev:D3[0:2410] s2: 100/602 errs=0 12.9 min
+dev:D3[0:2410] s0: 100/603 errs=0 15.7 min
+dev:D3[0:2410] s3: 125/602 errs=0 16.0 min
+dev:D3[0:2410] s1: 125/603 errs=0 16.0 min
+dev:D3[0:2410] s2: 125/602 errs=0 16.1 min
+dev:D3[0:2410] s2: 150/602 errs=0 19.0 min
+dev:D3[0:2410] s1: 150/603 errs=0 19.3 min
+dev:D3[0:2410] s3: 150/602 errs=0 19.4 min
+dev:D3[0:2410] s0: 125/603 errs=0 19.7 min
+dev:D3[0:2410] s2: 175/602 errs=0 22.1 min
+dev:D3[0:2410] s3: 175/602 errs=0 22.5 min
+dev:D3[0:2410] s1: 175/603 errs=0 22.7 min
+dev:D3[0:2410] s0: 150/603 errs=0 23.9 min
+dev:D3[0:2410] s2: 200/602 errs=0 25.1 min
+dev:D3[0:2410] s1: 200/603 errs=0 25.7 min
+dev:D3[0:2410] s3: 200/602 errs=0 25.9 min
+dev:D3[0:2410] s0: 175/603 errs=0 27.8 min
+dev:D3[0:2410] s2: 225/602 errs=0 28.7 min
+dev:D3[0:2410] s1: 225/603 errs=0 28.9 min
+dev:D3[0:2410] s3: 225/602 errs=0 29.0 min
+dev:D3[0:2410] s0: 200/603 errs=0 31.6 min
+dev:D3[0:2410] s2: 250/602 errs=0 31.6 min
+dev:D3[0:2410] s1: 250/603 errs=0 32.2 min
+dev:D3[0:2410] s3: 250/602 errs=0 32.5 min
+dev:D3[0:2410] s2: 275/602 errs=0 34.7 min
+dev:D3[0:2410] s1: 275/603 errs=0 35.1 min
+dev:D3[0:2410] s0: 225/603 errs=0 35.8 min
+dev:D3[0:2410] s3: 275/602 errs=0 36.2 min
+dev:D3[0:2410] s2: 300/602 errs=0 38.1 min
+dev:D3[0:2410] s1: 300/603 errs=0 38.3 min
+dev:D3[0:2410] s0: 250/603 errs=0 39.5 min
+dev:D3[0:2410] s3: 300/602 errs=0 39.2 min
+[modal-client] 2026-11-16T06:33:26+0000 Detected 2 background thread(s) [ThreadPoolExecutor-0_0, ThreadPoolExecutor-0_1] still running after container exit. This will prevent runner shutdown for up to 30 seconds.
+Container terminated due to preemption. Your Function will be restarted with the same input. For more details, see https://modal.com/docs/guide/preemption
+/usr/local/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/usr/local/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=R3D_18_Weights.KINETICS400_V1`. You can also use `weights=R3D_18_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+dev:D3[0:2410] s2: 325/602 errs=0 41.4 min
+dev:D3[0:2410] s3: 325/602 errs=0 42.4 min
+dev:D3[0:2410] s0: 275/603 errs=0 43.3 min
+dev:D3[0:2410] s2: 350/602 errs=0 44.5 min
+dev:D3[0:2410] s1: 25/293 errs=0 4.9 min
+dev:D3[0:2410] s3: 350/602 errs=0 45.7 min
+dev:D3[0:2410] s0: 300/603 errs=0 47.2 min
+dev:D3[0:2410] s2: 375/602 errs=0 47.7 min
+dev:D3[0:2410] s1: 50/293 errs=0 8.2 min
+dev:D3[0:2410] s3: 375/602 errs=0 48.7 min
+dev:D3[0:2410] s0: 325/603 errs=0 50.8 min
+dev:D3[0:2410] s2: 400/602 errs=0 50.7 min
+dev:D3[0:2410] s1: 75/293 errs=0 11.4 min
+dev:D3[0:2410] s3: 400/602 errs=0 51.9 min
+dev:D3[0:2410] s2: 425/602 errs=0 53.8 min
+dev:D3[0:2410] s0: 350/603 errs=0 54.4 min
+dev:D3[0:2410] s1: 100/293 errs=0 14.8 min
+time limit reached, stopping cleanly
+[modal-client] 2026-11-16T06:48:34+0000 Detected 1 background thread(s) [ThreadPoolExecutor-0_0] still running after container exit. This will prevent runner shutdown for up to 30 seconds.
+time limit reached, stopping cleanly
+dev:D3[0:2410] s3: 425/602 errs=0 55.1 min
+time limit reached, stopping cleanly
+dev:D3[0:2410] s1: 125/293 errs=0 17.8 min
+dev:D3[0:2410] s1: 150/293 errs=0 20.9 min
+dev:D3[0:2410] s1: 175/293 errs=0 23.9 min
+dev:D3[0:2410] s1: 200/293 errs=0 27.2 min
+dev:D3[0:2410] s1: 225/293 errs=0 30.7 min
+dev:D3[0:2410] s1: 250/293 errs=0 34.0 min
+dev:D3[0:2410] s1: 275/293 errs=0 37.2 min
+

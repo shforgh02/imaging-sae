@@ -1,0 +1,105 @@
+{
+ "calls": [
+  {
+   "n_rows": 603,
+   "n_todo": 603,
+   "n_done": 355,
+   "errors": {},
+   "mean_sec": {
+    "download": 0.7950624828607263,
+    "infer_main": 8.193682563137001,
+    "infer_zfix": 8.076533485542644,
+    "load": 4.244910106524615,
+    "volumes_measures": 2.7439679676378277
+   },
+   "gpu": "Tesla T4",
+   "verify": [],
+   "torch": "1.13.1+cu117",
+   "cuda": "11.7",
+   "tier": "D3",
+   "lo": 0,
+   "hi": 2410,
+   "shard": 0,
+   "nshard": 4,
+   "root": "dev",
+   "zfix_max": 0.65,
+   "container_min": 55.05486119588216
+  },
+  {
+   "n_rows": 603,
+   "n_todo": 293,
+   "n_done": 293,
+   "errors": {},
+   "mean_sec": {
+    "download": 2.227575657717604,
+    "infer_main": 6.846384718963311,
+    "infer_zfix": 6.796275699839873,
+    "load": 4.172497501959166,
+    "volumes_measures": 2.5233807067415412
+   },
+   "gpu": "Tesla T4",
+   "verify": [],
+   "torch": "1.13.1+cu117",
+   "cuda": "11.7",
+   "tier": "D3",
+   "lo": 0,
+   "hi": 2410,
+   "shard": 1,
+   "nshard": 4,
+   "root": "dev",
+   "zfix_max": 0.65,
+   "container_min": 39.74846014181773
+  },
+  {
+   "n_rows": 602,
+   "n_todo": 602,
+   "n_done": 435,
+   "errors": {},
+   "mean_sec": {
+    "download": 2.030425548553467,
+    "infer_main": 6.7526192966548875,
+    "infer_zfix": 6.645379360685957,
+    "load": 3.3899113419412195,
+    "volumes_measures": 2.416106660338654
+   },
+   "gpu": "Tesla T4",
+   "verify": [],
+   "torch": "1.13.1+cu117",
+   "cuda": "11.7",
+   "tier": "D3",
+   "lo": 0,
+   "hi": 2410,
+   "shard": 2,
+   "nshard": 4,
+   "root": "dev",
+   "zfix_max": 0.65,
+   "container_min": 55.0484755674998
+  },
+  {
+   "n_rows": 602,
+   "n_todo": 602,
+   "n_done": 425,
+   "errors": {},
+   "mean_sec": {
+    "download": 2.0579856104009293,
+    "infer_main": 6.991757210563211,
+    "infer_zfix": 6.880567017055693,
+    "load": 3.580107622707591,
+    "volumes_measures": 2.448500748802634
+   },
+   "gpu": "Tesla T4",
+   "verify": [],
+   "torch": "1.13.1+cu117",
+   "cuda": "11.7",
+   "tier": "D3",
+   "lo": 0,
+   "hi": 2410,
+   "shard": 3,
+   "nshard": 4,
+   "root": "dev",
+   "zfix_max": 0.65,
+   "container_min": 55.06728524367015
+  }
+ ],
+ "container_min": 204.91908214886985
+}

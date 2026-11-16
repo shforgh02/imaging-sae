@@ -1,0 +1,58 @@
+2026-11-16T04:23:25 app check armanfo: ok []
+2026-11-16T04:23:28 precheck nshard 4 on armanfo: task lung_l2_audit: 8.04 + 3.91 <= 45.00 ok | project: 33.43 + 3.91 <= 72.00 ok | month armanfo (Modal billing): 1.80 + lag 0.37 + open 0.00 + 3.91 <= 29.50 ok | project on armanfo: 0.37 + 3.91 <= 17.00 ok
+2026-11-16T04:23:28 launch: --detach --profile armanfo imgsae/exploratory/lung_l2/cloud/l2_sybil_modal.py --step run --tier D2 --lo 0 --hi 2442 --nshard 4 --timeout-min 60 --zfix-max 0.65 --root dev
+2026-11-16T04:23:51   app check armanfo: ok []
+2026-11-16T04:23:51   "task lung_l2_audit: 8.04 + 3.91 <= 45.00": true,
+2026-11-16T04:23:51   "project: 33.43 + 3.91 <= 72.00": true,
+2026-11-16T04:23:51   "month armanfo (Modal billing): 1.77 + lag 0.37 + open 0.00 + 3.91 <= 29.50": true,
+2026-11-16T04:23:51   "project on armanfo: 0.37 + 3.91 <= 17.00": true
+2026-11-16T04:23:51   SPAWNED lung_l2_audit-040: 4 calls on armanfo, worst case $3.91. Collect with: python imgsae/exploratory/lung_l2/cloud/collect.py lung_l2_audit-040 --profile armanfo
+2026-11-16T04:24:22 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:26:54 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:29:25 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:31:57 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:34:28 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:37:00 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:39:31 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:42:03 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:44:34 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:47:06 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:49:37 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:52:09 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:54:40 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:57:12 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T04:59:43 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T05:02:15 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T05:04:46 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T05:07:18 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T05:09:50 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T05:12:21 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T05:14:53 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T05:17:25 collect lung_l2_audit-040: exit 3 lung_l2_audit-040: call fc-01M7H9HBJPF2JEQXSWVJVZ5EF9 still running
+2026-11-16T05:19:28 collect lung_l2_audit-040: exit 0 lung_l2_audit-040: collected on armanfo -> results/runs/run_dev_D2_0_2442__armanfo.json; closed at $3.61
+2026-11-16T05:19:28 lung_l2_audit-040: todo 2442, done 1629, errors 0, remaining 813
+2026-11-16T05:19:32 app check armanfo: ok []
+2026-11-16T05:19:35 precheck nshard 4 on armanfo: task lung_l2_audit: 11.66 + 3.91 <= 45.00 ok | project: 37.04 + 3.91 <= 72.00 ok | month armanfo (Modal billing): 6.13 + lag 3.98 + open 0.00 + 3.91 <= 29.50 ok | project on armanfo: 3.98 + 3.91 <= 17.00 ok
+2026-11-16T05:19:35 launch: --detach --profile armanfo imgsae/exploratory/lung_l2/cloud/l2_sybil_modal.py --step run --tier D2 --lo 0 --hi 2442 --nshard 4 --timeout-min 60 --zfix-max 0.65 --root dev
+2026-11-16T05:19:59   app check armanfo: ok []
+2026-11-16T05:19:59   "task lung_l2_audit: 11.66 + 3.91 <= 45.00": true,
+2026-11-16T05:19:59   "project: 37.04 + 3.91 <= 72.00": true,
+2026-11-16T05:19:59   "month armanfo (Modal billing): 6.20 + lag 3.98 + open 0.00 + 3.91 <= 29.50": true,
+2026-11-16T05:19:59   "project on armanfo: 3.98 + 3.91 <= 17.00": true
+2026-11-16T05:19:59   SPAWNED lung_l2_audit-041: 4 calls on armanfo, worst case $3.91. Collect with: python imgsae/exploratory/lung_l2/cloud/collect.py lung_l2_audit-041 --profile armanfo
+2026-11-16T05:20:31 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR4V7260D2TQ7702AJBB6 still running
+2026-11-16T05:23:02 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR4V7260D2TQ7702AJBB6 still running
+2026-11-16T05:25:34 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR4V7260D2TQ7702AJBB6 still running
+2026-11-16T05:28:06 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR4V7260D2TQ7702AJBB6 still running
+2026-11-16T05:30:37 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR4V7260D2TQ7702AJBB6 still running
+2026-11-16T05:33:09 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR4V7260D2TQ7702AJBB6 still running
+2026-11-16T05:35:41 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR4V7260D2TQ7702AJBB6 still running
+2026-11-16T05:38:12 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR4V7260D2TQ7702AJBB6 still running
+2026-11-16T05:40:44 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR4V7260D2TQ7702AJBB6 still running
+2026-11-16T05:43:16 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR4V7260D2TQ7702AJBB6 still running
+2026-11-16T05:45:47 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR4V7260D2TQ7702AJBB6 still running
+2026-11-16T05:48:20 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR5JRWVHWDV8AEHKPWYQ7 still running
+2026-11-16T05:51:00 collect lung_l2_audit-041: exit 3 lung_l2_audit-041: call fc-01M7HCR5Y2JRZ4A1NM0EP67SDP still running
+2026-11-16T05:53:03 collect lung_l2_audit-041: exit 0 lung_l2_audit-041: collected on armanfo -> results/runs/run_dev_D2_0_2442__armanfo.json; closed at $2.03
+2026-11-16T05:53:03 lung_l2_audit-041: todo 813, done 813, errors 0, remaining 0
+2026-11-16T05:53:06 STOP finished: budget after: {'profile': 'armanfo', 'month_used_usd': 8.3176, 'open_worst_usd': 0, 'project_committed_usd': 39.0701, 'project_on_account_usd': 6.01}, task 13.6833
