@@ -1,0 +1,98 @@
+{
+ "arm": "nmf",
+ "K": 128,
+ "n_exams": 7336,
+ "participants": 2492,
+ "V1": {
+  "r_y1": 0.9066779037267928,
+  "r_y6": 0.9011560483037835,
+  "dAUROC_y1": -3.945159131946152e-05,
+  "dAUROC_y6": -0.0002281988590058237,
+  "pass_": false
+ },
+ "V2": {
+  "per_member": [
+   {
+    "member": 0,
+    "n_cons_a": 105,
+    "n_cons_b": 106,
+    "share": 0.9619047619047619,
+    "median_r": 0.9979420936150658,
+    "n_stable_seed0": 103
+   },
+   {
+    "member": 1,
+    "n_cons_a": 97,
+    "n_cons_b": 99,
+    "share": 0.9381443298969072,
+    "median_r": 0.9979779289473291,
+    "n_stable_seed0": 94
+   },
+   {
+    "member": 2,
+    "n_cons_a": 110,
+    "n_cons_b": 109,
+    "share": 0.9357798165137615,
+    "median_r": 0.9994531127540409,
+    "n_stable_seed0": 106
+   },
+   {
+    "member": 3,
+    "n_cons_a": 102,
+    "n_cons_b": 103,
+    "share": 0.9607843137254902,
+    "median_r": 0.9994333654748028,
+    "n_stable_seed0": 101
+   },
+   {
+    "member": 4,
+    "n_cons_a": 105,
+    "n_cons_b": 100,
+    "share": 0.97,
+    "median_r": 0.9979989448616735,
+    "n_stable_seed0": 103
+   }
+  ],
+  "share": 0.9533226444081843,
+  "median_r": 0.9985610891305825,
+  "pass_": true
+ },
+ "V3": {
+  "n_families": 10,
+  "pass_": false
+ },
+ "V4": {
+  "median_assoc_half_corr": 0.674739186079977,
+  "label_agreement_named": 1.0,
+  "pass_": false
+ },
+ "valid": false,
+ "audit_yield_named_replicated": 4,
+ "labels": {
+  "unnamed": 5,
+  "T": 3,
+  "mixed": 1,
+  "N": 1
+ },
+ "group_shares": {
+  "lbar1": {
+   "intercept": 0.0,
+   "residual": 0.01128143125131096,
+   "unreplicated": 0.7455560146217142,
+   "mixed": 0.1585484744716608,
+   "T": 0.02051497650000397,
+   "unnamed": 0.0037432080507047473,
+   "N": 0.060355882504109004
+  },
+  "lbar6": {
+   "intercept": -0.00013474765952479364,
+   "residual": 0.011953448813629652,
+   "unreplicated": 0.7465987735684095,
+   "mixed": 0.14573173351756472,
+   "T": 0.02357430184231025,
+   "unnamed": 0.004394666327914619,
+   "N": 0.06788181083958249
+  }
+ },
+ "arms_pickle_sha256": "a7001860ef69d8f2517f64623a23fa7dd489687fd64f97c90376ac452bff02a9"
+}

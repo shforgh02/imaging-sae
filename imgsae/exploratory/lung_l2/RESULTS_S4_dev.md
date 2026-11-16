@@ -11,7 +11,7 @@
 1. **Sybil's score is mostly not explained by known factors.** Recorded findings, demographics, image measures and technical factors together explain 31% of the variation of its 1-year logit (CV R² 0.307; 7,336 exams, 2,492 participants) and 33% of the 6-year logit on baseline screens (2,484 exams). Nodule findings carry most of that (Shapley share 0.21 and 0.25). Technical factors carry little: 0.016 [0.008, 0.024] at 1 year, and 0.009 [−0.001, 0.019] at 6 years (the second interval includes 0).
 2. **The slice-spacing error is real and large.** In the 924 dev exams whose spacing is at most 0.65 of the slice thickness (424 participants), placing the slices at their true spacing lowers Sybil's mean member 1-year logit by 0.33 [0.28, 0.37] (about 0.32 of its between-exam SD). 67% [64%, 70%] of these exams move by at least 0.25 SD at 6 years. The τ90 flag changes in 7.5% [5.6%, 9.7%]. Same in both dev halves. This holds with and without a lung cut by the crop. U1b's dev qualification is met (share ≥ 30%).
 3. **The kernel matters little.** In 500 sharp/soft pairs of the same acquisition (500 participants), the sharp kernel gives a slightly higher logit (+0.03 [0.01, 0.05]), the between-kernel SD is 0.21 of the between-exam SD (ICC 0.98), and the τ90 flag changes in 1.8% [0.8%, 3.0%].
-4. **Only the simplest decomposition is valid.** At K = 64, raw units are the only arm that passes all four validity marks (56 families replicated across members, 40 named). The sparse autoencoder **fails** V1 (it does not keep Sybil's function: logit correlation 0.72 and 0.73, AUROC change −0.023) and V3 (8 families; 16 needed). PCA and ICA keep the function but **fail** V3 (3 and 2 families replicate across the five members) and V4. NMF and k-means **fail** V1 and V3. By the protocol's rule, raw units is the primary arm. At K = 128 (check), raw units is again valid (102 families, 76 named); the other arms are listed in the tables.
+4. **Only the simplest decomposition is valid.** At K = 64, raw units are the only arm that passes all four validity marks (56 families replicated across members, 40 named). The sparse autoencoder **fails** V1 (it does not keep Sybil's function: logit correlation 0.72 and 0.73, AUROC change −0.023) and V3 (8 families; 16 needed). PCA and ICA keep the function but **fail** V3 (3 and 2 families replicate across the five members) and V4. NMF and k-means **fail** V1, V3 and V4. By the protocol's rule, raw units is the primary arm. At K = 128 (check, finished 2026-11-16), raw units is again the only valid arm (102 families, 76 named). The SAE now passes V3 (35 families, 24 named) but still **fails** V1 (logit correlation 0.83 and 0.86, AUROC change −0.029 at 1 year) and **fails** V4 (label agreement between halves 0.25). PCA and ICA again fail V3 and V4; NMF and k-means again fail V1, V3 and V4.
 5. **Most of Sybil's named features are nodule-type risk units.** Of the 56 raw-unit families, 34 are named N (nodule findings), 6 T (technical), 16 mixed. Nearly all of them track Sybil's own risk (family AUROC for y1 about 0.96 to 0.97, or the mirror value). The six T families are risk units whose activation is mainly explained by technical factors: lower when the lung is cut by Sybil's 200-slice crop (rank-biserial −0.75 to −0.90), in slices thicker than 2.5 mm, with z-stretch, and on one Philips model (Mx8000). They carry 5.0% of the variance of the 1-year logit.
 6. **Use of the features: no candidate passes.** Technical removal (U1a) keeps the AUROC (−0.001 and −0.002) and lowers the false-alarm spread across scanner groups from 0.023 to 0.007 (ratio 0.31), but the bootstrap interval of the ratio is [0.34, 1.36] and the two dev halves disagree (1.43 and 0.63): **gate 9.8 fails**. Sybil plus the form at the radiologists' sensitivity (U3) lowers false alarms from 60 to 42 per 1,000 screens (ratio 0.70), but the interval [0.35, 1.05] includes 1: **gate 9.8 fails**. The fixed reliability flag (U2, R-fixed) goes the wrong way (−0.032 [−0.051, −0.013]); the learned flag (R-learned) "works" (+0.378) only because it flags exams with high Sybil scores, so it is not a reliability flag.
 7. **Simple image measures add nothing to the form.** F+I (the form's logit plus 5 patient measures) is not better than F: −0.005 [−0.015, 0.004] at 1 year, −0.013 [−0.026, −0.002] at 6 years. On dev, Sybil adds to F+I (+0.050 and +0.104), but on test L1 found that Sybil adds almost nothing to the recorded findings (+0.000 at 1 year all screens, +0.011 at 6 years). So the dev gain is most likely the C6 selection effect.
@@ -51,7 +51,8 @@
 - F+I parameters fitted on all dev, for freezing at S5: `results/s4/s4_refs_FI_params_dev.json`.
 
 ## Failed marks and negative results (as they are)
-- Decomposition: SAE V1 and V3 failed (K = 64); PCA, ICA V3 and V4 failed; NMF, k-means V1 and V3 failed. Only raw units valid.
+- Decomposition, K = 64: SAE V1 and V3 failed; PCA, ICA V3 and V4 failed; NMF, k-means V1, V3 and V4 failed. Only raw units valid.
+- Decomposition, K = 128 (check): SAE V1 and V4 failed (V3 passed); PCA, ICA V3 and V4 failed; NMF, k-means V1, V3 and V4 failed. Only raw units valid.
 - U1a: gate 9.8 failed (spread-ratio interval includes 1; halves disagree), although its point qualification is met.
 - U3: gate 9.8 failed (interval includes 1).
 - U2 R-fixed: wrong direction (−0.032).
@@ -67,7 +68,7 @@
 - **Multiplicity:** BH q within each table; the gate counts 354 candidates; S5 will freeze at most 5 hypotheses with Holm correction.
 - **Order change (logged):** the K = 128 check ran in parallel with the later steps, which read only K = 64 outputs.
 
-## Tables (generated from the result files by `s4_report.py`; K = 128 rows appear as the check finishes)
+## Tables (generated from the result files by `s4_report.py`; the K = 128 check finished on 2026-11-16 and all its rows are in)
 
 ### Scores (9.1)
 - Exams 7,336 exams, 2,492 participants. 2,493 dev participants in Sybil's split file; 2,492 have a usable exam (S1 manifest).
@@ -110,6 +111,10 @@
 |---|---|---|---|---|---|---|---|---|---|
 | raw | 1.000 / 1.000 | -0.0000 / -0.0000 | pass | pass — / — | pass 102 | pass 0.720 / 0.829 | **valid** | 76 | {"N": 55, "mixed": 26, "T": 21} |
 | pca | 1.000 / 0.999 | -0.0001 / -0.0003 | pass | pass — / — | **FAILED** 3 | **FAILED** 0.642 / 1.000 | not valid | 2 | {"unnamed": 1, "T": 1, "N": 1} |
+| ica | 1.000 / 0.999 | -0.0001 / -0.0003 | pass | pass 0.998 / 0.954 | **FAILED** 7 | **FAILED** 0.208 / 0.000 | not valid | 0 | {"unnamed": 7} |
+| nmf | 0.907 / 0.901 | -0.0000 / -0.0002 | **FAILED** | pass 0.999 / 0.953 | **FAILED** 10 | **FAILED** 0.675 / 1.000 | not valid | 4 | {"unnamed": 5, "T": 3, "mixed": 1, "N": 1} |
+| kmeans | 0.983 / 0.982 | -0.0007 / -0.0050 | **FAILED** | pass 0.906 / 0.742 | **FAILED** 0 | **FAILED** — / 0.000 | not valid | 0 | {} |
+| sae | 0.833 / 0.855 | -0.0290 / -0.0031 | **FAILED** | pass 0.948 / 0.940 | pass 35 | **FAILED** 0.833 / 0.250 | not valid | 24 | {"N": 21, "unnamed": 11, "T": 3} |
 
 ### Q1b (9.7)
 - Primary arm: **raw**.

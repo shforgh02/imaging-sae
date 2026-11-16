@@ -39,6 +39,10 @@
 |---|---|---|---|---|---|---|---|---|---|
 | raw | 1.000 / 1.000 | -0.0000 / -0.0000 | pass | pass — / — | pass 102 | pass 0.720 / 0.829 | **valid** | 76 | {"N": 55, "mixed": 26, "T": 21} |
 | pca | 1.000 / 0.999 | -0.0001 / -0.0003 | pass | pass — / — | **FAILED** 3 | **FAILED** 0.642 / 1.000 | not valid | 2 | {"unnamed": 1, "T": 1, "N": 1} |
+| ica | 1.000 / 0.999 | -0.0001 / -0.0003 | pass | pass 0.998 / 0.954 | **FAILED** 7 | **FAILED** 0.208 / 0.000 | not valid | 0 | {"unnamed": 7} |
+| nmf | 0.907 / 0.901 | -0.0000 / -0.0002 | **FAILED** | pass 0.999 / 0.953 | **FAILED** 10 | **FAILED** 0.675 / 1.000 | not valid | 4 | {"unnamed": 5, "T": 3, "mixed": 1, "N": 1} |
+| kmeans | 0.983 / 0.982 | -0.0007 / -0.0050 | **FAILED** | pass 0.906 / 0.742 | **FAILED** 0 | **FAILED** — / 0.000 | not valid | 0 | {} |
+| sae | 0.833 / 0.855 | -0.0290 / -0.0031 | **FAILED** | pass 0.948 / 0.940 | pass 35 | **FAILED** 0.833 / 0.250 | not valid | 24 | {"N": 21, "unnamed": 11, "T": 3} |
 
 ## Q1b (9.7)
 - Primary arm: **raw**.

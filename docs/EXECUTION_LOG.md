@@ -834,8 +834,18 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 - **Frozen analysis** `s6_frozen_analysis.py`: checks the SHA-256 of the frozen files and of Sybil's head weights and calibrator first; refits nothing. **Dev as if test** (`results/s5/s6_dev_as_if_test.json`): all five statistics equal the S4 dev values exactly (difference 0.0); secondary references equal S4 too (Sybil 0.969 / 0.851; U3 table).
 - **Two fixes before the final freeze commit:** (1) Python on Windows wrote the frozen JSON files with CRLF while git stores LF, so their SHA-256 would differ on another checkout: the files are now written with LF, and `results/s5/` is `-text` in `.gitattributes` (byte-exact). (2) `.gitignore` ignored `*.npz`, so the frozen dictionary was missing from the first freeze commit (`1b23e45`); an exception was added and it was committed (`c593005`).
 - **Hash check:** all 20 files listed in `HYPOTHESES_L2.md` match commit `c593005` (SHA-256 of the committed content and git blob ids; 0 mismatches). SHA-256 of `HYPOTHESES_L2.md` at the freeze: `914a1d1e3156fcdbeab025b1f46c916e126fc53fbecf95988b736b63ec01a6a0`. **Final freeze commit: `c593005`.**
-- **S6 run plan and money** (in the S5 file): shforghani2002 in December; order T1 → T2 → T4 → T3, all main runs with `--zfix-max 0.65` (T5 grows with its main tiers); fallbacks fixed; cost projection from the billed S3 rates ≈ \.9 (≈ \.8 with a 10% preemption reserve) against \.30 available (task \.30 left minus \.00): below, no extra decision needed, thin margin.
+- **S6 run plan and money** (in the S5 file): shforghani2002 in December; order T1 → T2 → T4 → T3, all main runs with `--zfix-max 0.65` (T5 grows with its main tiers); fallbacks fixed; cost projection from the billed S3 rates ≈ $18.9 (≈ $20.8 with a 10% preemption reserve) against $22.30 available (task $23.30 left minus $1.00): below, no extra decision needed, thin margin.
 - `docs/REVIEWER_BRIEF_L2.md` updated (file paths, hash check on Windows).
 - **Not done (by the rules):** no test manifest, no test activation, no test image measure, no new outcome analysis of the L1 test scores. P6 not started.
 - **Still running (dev only):** the K = 128 decomposition check (raw units valid; PCA and ICA not; NMF, k-means, SAE running). Its results will be added to `RESULTS_S4_dev.md`; they do not feed the freeze.
 - **Stop:** waiting for the external reviewer's note and the lead's OK.
+
+## 2026-11-16: K = 128 check finished (dev only; does not change the freeze)
+- The K = 128 decomposition check finished (exit 0; local GPU, $0; log `imgsae_data/lung_l2/logs/s4_decomp_128.txt`). Code unchanged since `a536192`.
+- **Result: raw units is again the only valid arm.** Raw: V1 to V4 pass, 102 families, 76 named (55 N, 26 mixed, 21 T).
+- SAE: V1 **failed** (logit correlation 0.833 / 0.855; AUROC change −0.029 at 1 year), V3 passed (35 families, 24 named), V4 **failed** (label agreement between halves 0.25). At K = 64 the SAE failed V1 and V3 and passed V4. So the SAE is not valid at either size.
+- PCA (3 families) and ICA (7): V3 and V4 **failed**. NMF (r 0.907; 10 families) and k-means (r 0.983; 0 families): V1, V3 and V4 **failed**.
+- `results/s4/RESULTS_S4_dev_tables.md` regenerated; `RESULTS_S4_dev.md` updated (point 4, failed marks, K = 128 table). I also corrected point 4 and the failed-marks list for K = 64: NMF and k-means fail V4 as well (the table already showed it; the text had left it out).
+- `HYPOTHESES_L2.md` cites only the raw K = 128 row (21 T families carrying 0.109), which was final before the freeze; it is unchanged, and so are all frozen files.
+- Fixed in this log: the dollar amounts in the P5 money line above had been lost when the entry was written.
+- **Stop:** still waiting for the external reviewer's note and the lead's OK.
