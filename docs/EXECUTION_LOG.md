@@ -853,3 +853,6 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 ## 2026-11-16: prompt for the S5 review
 - At the lead's request: `docs/PROMPT_REVIEW_FABLE_S5.md`, a prompt for Fable 5.2 as the external reviewer. It asks for answers to items 1 to 8 of `docs/REVIEWER_BRIEF_L2.md` on the freeze commit `c593005`, and for a note in `docs/REVIEW_S5_L2.md`. It also lists the weak points I see. It forbids changing frozen files, opening test data, and any cloud command.
 - GitHub checked: `origin/prostate-mri-plan` equals the local branch; every file in the brief is committed.
+
+## 2026-11-16: S5 review done (external reviewer, Fable 5.2)
+- Review in `docs/REVIEW_S5_L2.md`. **Verdict: approve with changes.** Hashes 22 of 22 match; the dev re-run of the frozen analysis is byte-identical to the committed file; no test data found; H1 to H4 approved; **H5 not approved as frozen** (any 6 of the 56 families pass its test; proposal H5′ = change of the T-family term under z-fix, dev −0.057 [−0.059, −0.054]); four small changes (wording of H3 and H4, `wald()` with SD 0, test-manifest script and its hash, three CRLF input hashes). No frozen file, analysis script, ledger or test data touched; no cloud command. Waiting for the lead's decision.
