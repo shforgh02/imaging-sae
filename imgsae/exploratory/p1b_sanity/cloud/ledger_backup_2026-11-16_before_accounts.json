@@ -1,0 +1,1205 @@
+{
+ "cap_usd": 29.0,
+ "project_cap_usd": 72.0,
+ "rule": "User, 2026-11-09: Modal free credit is $30/month; stop at $29; every task has its own budget and must not exceed it. Check usage before every launch. Using 'reserve' or moving money between tasks needs the user's OK. Updated by the user later on 2026-11-09: 2 Modal accounts, $29/month each. This ledger tracks account shforghani2002; cap_usd is its monthly cap and the project check stays as an extra limit.",
+ "budgets": {
+  "a3_sae": 3.0,
+  "stageC_encode": 0.0,
+  "stageC_fit": 0.0,
+  "stageD_dinov3": 0.0,
+  "reserve": 6.0,
+  "v2s1a_sae": 7.0,
+  "mri_fetch": 0.8,
+  "mri_prep": 0.8,
+  "mri_m1_encode": 5.0,
+  "lung_l1_sybil": 15.0,
+  "lung_l2_audit": 45.0
+ },
+ "budget_notes": {
+  "stageC_encode, stageC_fit, stageD_dinov3": "Phase 1b Stage C/D superseded by plan v2 and Stage 1a (2026-11-09); never used; set to 0",
+  "v2s1a_sae": "Stage 1a SAE rows (docs/STAGE1A_PROTOCOL.md section 7): 9 single jobs + 3 consensus jobs on L4, expected about $2.5. Raised $5 -> $7 with the user's OK (2026-11-09 evening) to rerun the 3 consensus jobs lost when the local client was stopped",
+  "mri_fetch, mri_prep, mri_m1_encode": "Prostate MRI plan revision 4 (docs/PLAN_PROSTATE_MRI_v1.md section 6), approved by the user 2026-11-10 ('OK'): PI-CAI fetch $0.80, dev-half preprocessing $0.80, M0 encoder checks + M1 encodes $5.00 (M0-M1 caps $6.60)",
+  "lung_l1_sybil": "Lung L1 (docs/LUNG_L1_PROTOCOL.md): Sybil on its own NLST test split, 6,715 series, T4 or L4. Cap $15.00 approved by the user on 2026-11-12 ('1.yes'). Run by a delegated agent under the protocol.",
+  "project_cap_usd": "All-time project limit for the guard's project check, separate from the monthly cap_usd (29, unchanged). Set to 72.00 by the lead on 2026-11-13 (hand-over prompt for the Sybil audit).",
+  "lung_l2_audit": "Lung L2, feature-level audit of Sybil (docs/LUNG_L2_PROTOCOL.md), steps S2 to S6, spread over months. $45.00 approved by the lead on 2026-11-13. S7 needs a new approval. Account shforghani2002 only; reserve and second account not used. Runs executed by a delegated agent under the protocol."
+ },
+ "runs": [
+  {
+   "id": "a3_sae-001",
+   "task": "a3_sae",
+   "opened": "2026-11-09T11:43:50",
+   "worst_usd": 0.4352,
+   "info": {
+    "app": "imgsae-p1b-a3sae",
+    "jobs": [
+     "sae_run:0"
+    ],
+    "timeout_min": 15,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T12:10:44",
+   "measured_usd": 0.1874,
+   "note": "ok 1, failed 0, unfinished 0"
+  },
+  {
+   "id": "a3_sae-002",
+   "task": "a3_sae",
+   "opened": "2026-11-09T12:11:52",
+   "worst_usd": 1.1241,
+   "info": {
+    "app": "imgsae-p1b-a3sae",
+    "jobs": [
+     "sae_run:1",
+     "sae_run:2",
+     "sae_cons_run:0",
+     "sae_cons_run:1",
+     "sae_cons_run:2"
+    ],
+    "timeout_min": 8,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T12:39:20",
+   "measured_usd": 0.6295,
+   "note": "ok 5, failed 0, unfinished 0"
+  },
+  {
+   "id": "a3_sae-003",
+   "task": "a3_sae",
+   "opened": "2026-11-09T12:39:52",
+   "worst_usd": 1.6641,
+   "info": {
+    "app": "imgsae-p1b-a3sae",
+    "jobs": [
+     "sae_best_k6:0",
+     "sae_best_k6:1",
+     "sae_best_k6:2",
+     "sae_best_k27:0",
+     "sae_best_k27:1",
+     "sae_best_k27:2"
+    ],
+    "timeout_min": 11,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T13:11:42",
+   "measured_usd": 0.8634,
+   "note": "ok 6, failed 0, unfinished 0"
+  },
+  {
+   "id": "v2s1a_sae-004",
+   "task": "v2s1a_sae",
+   "opened": "2026-11-09T18:35:54",
+   "worst_usd": 0.4352,
+   "info": {
+    "app": "imgsae-v2-s1a",
+    "jobs": [
+     "sae_M1024_k6_s12000:0"
+    ],
+    "timeout_min": 15,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T18:42:47",
+   "measured_usd": 0.4352,
+   "note": "ok 0, failed 1, unfinished 0"
+  },
+  {
+   "id": "v2s1a_sae-005",
+   "task": "v2s1a_sae",
+   "opened": "2026-11-09T18:43:28",
+   "worst_usd": 0.4352,
+   "info": {
+    "app": "imgsae-v2-s1a",
+    "jobs": [
+     "sae_M1024_k6_s12000:0"
+    ],
+    "timeout_min": 15,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T19:06:05",
+   "measured_usd": 0.235,
+   "note": "ok 1, failed 0, unfinished 0"
+  },
+  {
+   "id": "v2s1a_sae-006",
+   "task": "v2s1a_sae",
+   "opened": "2026-11-09T19:07:07",
+   "worst_usd": 2.7813,
+   "info": {
+    "app": "imgsae-v2-s1a",
+    "jobs": [
+     "sae_M1024_k6_s12000:1",
+     "sae_M1024_k6_s12000:2",
+     "nullsae_M1024_k6_s12000:0",
+     "nullsae_M1024_k6_s12000:1",
+     "nullsae_M1024_k6_s12000:2",
+     "physsae_M1024_k6_s12000:0",
+     "physsae_M1024_k6_s12000:1",
+     "physsae_M1024_k6_s12000:2"
+    ],
+    "timeout_min": 15,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T19:42:28",
+   "measured_usd": 1.0787,
+   "note": "ok 8, failed 0, unfinished 0"
+  },
+  {
+   "id": "v2s1a_sae-007",
+   "task": "v2s1a_sae",
+   "opened": "2026-11-09T19:43:06",
+   "worst_usd": 2.2227,
+   "info": {
+    "app": "imgsae-v2-s1a",
+    "jobs": [
+     "cons_M1024_k6_s12000:0",
+     "cons_M1024_k6_s12000:1",
+     "cons_M1024_k6_s12000:2"
+    ],
+    "timeout_min": 35,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T20:29:08",
+   "measured_usd": 2.2227,
+   "note": "local client killed by Claude Code memory guard ~20:0x; orphaned app stopped 20:29; no results collected; booked at worst case, reconcile with billing"
+  },
+  {
+   "id": "v2s1a_sae-008",
+   "task": "v2s1a_sae",
+   "opened": "2026-11-09T20:38:24",
+   "worst_usd": 2.2227,
+   "info": {
+    "app": "imgsae-v2-s1a",
+    "jobs": [
+     "cons_M1024_k6_s12000:0",
+     "cons_M1024_k6_s12000:1",
+     "cons_M1024_k6_s12000:2"
+    ],
+    "timeout_min": 35,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-09T21:21:11",
+   "measured_usd": 1.2515,
+   "note": "ok 3, failed 0, unfinished 0"
+  },
+  {
+   "id": "v2s1a_sae-009",
+   "task": "v2s1a_sae",
+   "opened": "2026-11-09T23:59:51",
+   "worst_usd": 1.6641,
+   "info": {
+    "app": "imgsae-v2-s1a",
+    "jobs": [
+     "physcons_M1024_k6_s12000:0",
+     "physcons_M1024_k6_s12000:1",
+     "physcons_M1024_k6_s12000:2"
+    ],
+    "timeout_min": 25,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16
+   },
+   "closed": "2026-11-10T00:52:26",
+   "measured_usd": 0.8353,
+   "note": "ok 3, failed 0, unfinished 0"
+  },
+  {
+   "id": "mri_fetch-010",
+   "task": "mri_fetch",
+   "opened": "2026-11-10T14:05:01",
+   "worst_usd": 0.6191,
+   "info": {
+    "app": "imgsae-mri-m0-fetch",
+    "jobs": [
+     "fetch"
+    ],
+    "timeout_min": 120,
+    "gpu": null,
+    "cpu": 4,
+    "mem_gib": 8
+   },
+   "closed": "2026-11-10T14:26:58",
+   "measured_usd": 0.2106,
+   "note": "cancelled at 14:27:36 (Modal cancelled the call when the local client raised a DNS error); container ran about 23.2 min (14:04:55-14:28:06, incl. the 30 s kill wait); measured from container minutes + 3 min start + $0.10 image; booked at worst case $0.62 first, reconciled 2026-11-10; check against Modal billing. Partial downloads kept (.part, 12.1 GiB)."
+  },
+  {
+   "id": "mri_fetch-011",
+   "task": "mri_fetch",
+   "opened": "2026-11-10T14:31:52",
+   "worst_usd": 0.4925,
+   "info": {
+    "app": "imgsae-mri-m0-fetch",
+    "jobs": [
+     "fetch"
+    ],
+    "timeout_min": 90,
+    "gpu": null,
+    "cpu": 4,
+    "mem_gib": 8,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-10T14:42:57",
+   "measured_usd": 0.1546,
+   "note": "collected; container 9.9 min"
+  },
+  {
+   "id": "mri_prep-012",
+   "task": "mri_prep",
+   "opened": "2026-11-10T14:43:40",
+   "worst_usd": 0.2519,
+   "info": {
+    "app": "imgsae-mri-m0-prep",
+    "jobs": [
+     "prep_smoke"
+    ],
+    "timeout_min": 15,
+    "gpu": null,
+    "cpu": 8,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-10T14:44:03",
+   "measured_usd": 0.1269,
+   "note": "collected; container 0.2 min"
+  },
+  {
+   "id": "mri_prep-013",
+   "task": "mri_prep",
+   "opened": "2026-11-10T14:44:42",
+   "worst_usd": 0.6317,
+   "info": {
+    "app": "imgsae-mri-m0-prep",
+    "jobs": [
+     "prep_full"
+    ],
+    "timeout_min": 60,
+    "gpu": null,
+    "cpu": 8,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-10T14:51:11",
+   "measured_usd": 0.1764,
+   "note": "collected; container 6.1 min"
+  },
+  {
+   "id": "mri_m1_encode-014",
+   "task": "mri_m1_encode",
+   "opened": "2026-11-10T15:00:20",
+   "worst_usd": 0.7145,
+   "info": {
+    "app": "imgsae-mri-m0-encoders",
+    "jobs": [
+     "m0_encoder_check"
+    ],
+    "timeout_min": 30,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-10T15:11:20",
+   "measured_usd": 0.2335,
+   "note": "collected; container 4.2 min"
+  },
+  {
+   "id": "mri_m1_encode-015",
+   "task": "mri_m1_encode",
+   "opened": "2026-11-10T15:17:46",
+   "worst_usd": 0.7145,
+   "info": {
+    "app": "imgsae-mri-m0-encoders",
+    "jobs": [
+     "m0_encoder_check"
+    ],
+    "timeout_min": 30,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-10T15:40:57",
+   "measured_usd": 0.1974,
+   "note": "collected; container 2.2 min"
+  },
+  {
+   "id": "mri_m1_encode-016",
+   "task": "mri_m1_encode",
+   "opened": "2026-11-10T16:12:51",
+   "worst_usd": 0.3421,
+   "info": {
+    "app": "imgsae-mri-m1-encode",
+    "jobs": [
+     "m1_encode_smoke"
+    ],
+    "timeout_min": 10,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-10T16:13:41",
+   "measured_usd": 0.169,
+   "note": "collected; 1 call(s), container 0.7 min"
+  },
+  {
+   "id": "mri_m1_encode-017",
+   "task": "mri_m1_encode",
+   "opened": "2026-11-10T16:15:03",
+   "worst_usd": 4.3454,
+   "info": {
+    "app": "imgsae-mri-m1-encode",
+    "jobs": [
+     "m1_encode(0,)",
+     "m1_encode(1,)",
+     "m1_encode(2,)",
+     "m1_encode(3,)"
+    ],
+    "timeout_min": 54,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-10T18:08:58",
+   "measured_usd": 3.8495,
+   "note": "collected; 4 call(s), container 189.4 min"
+  },
+  {
+   "id": "lung_l1_sybil-018",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T13:26:45",
+   "worst_usd": 0.1476,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "s1_index"
+    ],
+    "timeout_min": 15,
+    "gpu": null,
+    "cpu": 2,
+    "mem_gib": 8,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T13:27:04",
+   "measured_usd": 0.1082,
+   "note": "collected; 1 call(s), container 0.1 min"
+  },
+  {
+   "id": "lung_l1_sybil-019",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T13:27:22",
+   "worst_usd": 0.5234,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "smoke"
+    ],
+    "timeout_min": 25,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T13:31:27",
+   "measured_usd": 0.25,
+   "note": "manual close: smoke call failed in demo Serie (pydicom read error); conservative estimate ~4 min container on T4 + start + image allowance"
+  },
+  {
+   "id": "lung_l1_sybil-020",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T13:31:42",
+   "worst_usd": 0.5234,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "smoke"
+    ],
+    "timeout_min": 25,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T14:04:04",
+   "measured_usd": 0.57,
+   "note": "manual close: smoke hung after model load (Runner heartbeat timeout 900 s), retried once by Modal, app stopped by hand; ~26-28 container min on T4 (13:43-~14:10 UTC) + start + image allowance, conservative"
+  },
+  {
+   "id": "lung_l1_sybil-021",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T14:04:24",
+   "worst_usd": 0.3268,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "smoke"
+    ],
+    "timeout_min": 12,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T14:04:59",
+   "measured_usd": 0.152,
+   "note": "collected; 1 call(s), container 0.4 min"
+  },
+  {
+   "id": "lung_l1_sybil-022",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T14:05:33",
+   "worst_usd": 0.1291,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "dl_test"
+    ],
+    "timeout_min": 8,
+    "gpu": null,
+    "cpu": 2,
+    "mem_gib": 8,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T14:14:22",
+   "measured_usd": 0.13,
+   "note": "manual close: dl_test hung on 2 concurrent idc-index downloads, killed at 8 min timeout (CPU 2 core, 8 GiB)"
+  },
+  {
+   "id": "lung_l1_sybil-023",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T14:14:31",
+   "worst_usd": 0.1291,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "dl_test"
+    ],
+    "timeout_min": 8,
+    "gpu": null,
+    "cpu": 2,
+    "mem_gib": 8,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T14:14:46",
+   "measured_usd": 0.1084,
+   "note": "collected; 1 call(s), container 0.2 min"
+  },
+  {
+   "id": "lung_l1_sybil-024",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T14:14:59",
+   "worst_usd": 0.4478,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "run_P1_0_20('P1', 0, 20, 0, 1, 15.0)"
+    ],
+    "timeout_min": 20,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T14:22:16",
+   "measured_usd": 0.217,
+   "note": "collected; 1 call(s), container 4.7 min"
+  },
+  {
+   "id": "lung_l1_sybil-025",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T14:23:10",
+   "worst_usd": 3.6078,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "run_P1_0_800('P1', 0, 800, 0, 4, 50.0)",
+     "run_P1_0_800('P1', 0, 800, 1, 4, 50.0)",
+     "run_P1_0_800('P1', 0, 800, 2, 4, 50.0)",
+     "run_P1_0_800('P1', 0, 800, 3, 4, 50.0)"
+    ],
+    "timeout_min": 55,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T15:07:20",
+   "measured_usd": 1.0005,
+   "note": "collected; 4 call(s), container 47.6 min"
+  },
+  {
+   "id": "lung_l1_sybil-026",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T15:07:43",
+   "worst_usd": 3.9102,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "run_P1_0_2279('P1', 0, 2279, 0, 4, 55.0)",
+     "run_P1_0_2279('P1', 0, 2279, 1, 4, 55.0)",
+     "run_P1_0_2279('P1', 0, 2279, 2, 4, 55.0)",
+     "run_P1_0_2279('P1', 0, 2279, 3, 4, 55.0)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T16:36:54",
+   "measured_usd": 2.6958,
+   "note": "collected; 4 call(s), container 159.7 min"
+  },
+  {
+   "id": "lung_l1_sybil-027",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T18:32:17",
+   "worst_usd": 2.3982,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "run_P1_0_2279('P1', 0, 2279, 0, 4, 30.0)",
+     "run_P1_0_2279('P1', 0, 2279, 1, 4, 30.0)",
+     "run_P1_0_2279('P1', 0, 2279, 2, 4, 30.0)",
+     "run_P1_0_2279('P1', 0, 2279, 3, 4, 30.0)"
+    ],
+    "timeout_min": 35,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T19:01:50",
+   "measured_usd": 0.7289,
+   "note": "collected; 4 call(s), container 29.6 min"
+  },
+  {
+   "id": "lung_l1_sybil-028",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T19:02:19",
+   "worst_usd": 3.9102,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "run_P2_0_1600('P2', 0, 1600, 0, 4, 55.0)",
+     "run_P2_0_1600('P2', 0, 1600, 1, 4, 55.0)",
+     "run_P2_0_1600('P2', 0, 1600, 2, 4, 55.0)",
+     "run_P2_0_1600('P2', 0, 1600, 3, 4, 55.0)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T19:53:04",
+   "measured_usd": 3.2389,
+   "note": "collected; 4 call(s), container 195.6 min"
+  },
+  {
+   "id": "lung_l1_sybil-029",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T19:53:35",
+   "worst_usd": 3.6078,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "run_P2_1600_3200('P2', 1600, 3200, 0, 4, 50.0)",
+     "run_P2_1600_3200('P2', 1600, 3200, 1, 4, 50.0)",
+     "run_P2_1600_3200('P2', 1600, 3200, 2, 4, 50.0)",
+     "run_P2_1600_3200('P2', 1600, 3200, 3, 4, 50.0)"
+    ],
+    "timeout_min": 55,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T20:44:38",
+   "measured_usd": 3.2105,
+   "note": "collected; 4 call(s), container 193.7 min"
+  },
+  {
+   "id": "lung_l1_sybil-030",
+   "task": "lung_l1_sybil",
+   "opened": "2026-11-12T23:12:19",
+   "worst_usd": 0.1137,
+   "info": {
+    "app": "imgsae-lung-l1",
+    "jobs": [
+     "export"
+    ],
+    "timeout_min": 10,
+    "gpu": null,
+    "cpu": 1,
+    "mem_gib": 2,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-12T23:23:43",
+   "measured_usd": 0.12,
+   "note": "manual close: export call hit its 600 s timeout reading ~5.4k small files from the volume (CPU 1 core, 2 GiB); estimate 10 min + start + image allowance; export then done with modal volume get"
+  },
+  {
+   "id": "lung_l2_audit-031",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-13T10:25:33",
+   "worst_usd": 0.4478,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "smoke"
+    ],
+    "timeout_min": 20,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-13T10:38:15",
+   "measured_usd": 0.2,
+   "note": "manual close: smoke ran (demo exact, 1.25 container-min in smoke.json on the volume); local collect could not unpickle torch.__version__; 3 dev series failed in the verify step (files already deleted); conservative 0.20 vs formula 0.164",
+   "billed_usd": 0.1403,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+  },
+  {
+   "id": "lung_l2_audit-032",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-13T10:39:00",
+   "worst_usd": 0.4478,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "smoke"
+    ],
+    "timeout_min": 20,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-13T10:41:51",
+   "measured_usd": 0.1718,
+   "note": "collected; 1 call(s), container 1.7 min",
+   "billed_usd": 0.1205,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+  },
+  {
+   "id": "lung_l2_audit-033",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-13T10:42:09",
+   "worst_usd": 3.9102,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_dev_D1_0_300('D1', 0, 300, 0, 4, 25.0, 0.95, 'dev', False)",
+     "run_dev_D1_0_300('D1', 0, 300, 1, 4, 25.0, 0.95, 'dev', False)",
+     "run_dev_D1_0_300('D1', 0, 300, 2, 4, 25.0, 0.95, 'dev', False)",
+     "run_dev_D1_0_300('D1', 0, 300, 3, 4, 25.0, 0.95, 'dev', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-13T10:57:44",
+   "measured_usd": 1.0771,
+   "note": "collected; 4 call(s), container 52.6 min",
+   "billed_usd": 0.7557,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+  },
+  {
+   "id": "lung_l2_audit-034",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-13T10:58:06",
+   "worst_usd": 1.0526,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_rep_D1_0_20('D1', 0, 20, 0, 1, 10.0, 0.95, 'rep', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-13T11:03:50",
+   "measured_usd": 0.2018,
+   "note": "collected; 1 call(s), container 3.7 min",
+   "billed_usd": 0.1416,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+  },
+  {
+   "id": "lung_l2_audit-035",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-13T10:58:26",
+   "worst_usd": 1.2731,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_l4_l4_D1_0_50('D1', 0, 50, 0, 1, 20.0, 0.95, 'l4', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "L4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-13T11:08:58",
+   "measured_usd": 0.3053,
+   "note": "collected; 1 call(s), container 8.0 min",
+   "billed_usd": 0.2142,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+  },
+  {
+   "id": "lung_l2_audit-036",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-14T18:44:45",
+   "worst_usd": 3.9102,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_dev_D1_300_2484('D1', 300, 2484, 0, 4, 55.0, 0.65, 'dev', False)",
+     "run_dev_D1_300_2484('D1', 300, 2484, 1, 4, 55.0, 0.65, 'dev', False)",
+     "run_dev_D1_300_2484('D1', 300, 2484, 2, 4, 55.0, 0.65, 'dev', False)",
+     "run_dev_D1_300_2484('D1', 300, 2484, 3, 4, 55.0, 0.65, 'dev', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-14T19:40:47",
+   "measured_usd": 3.6134,
+   "note": "collected; 4 call(s), container 220.4 min",
+   "billed_usd": 4.0663,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+  },
+  {
+   "id": "lung_l2_audit-037",
+   "task": "lung_l2_audit",
+   "opened": "2026-11-15T05:54:15",
+   "worst_usd": 2.0051,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_dev_D1_300_2484('D1', 300, 2484, 0, 2, 55.0, 0.65, 'dev', False)",
+     "run_dev_D1_300_2484('D1', 300, 2484, 1, 2, 55.0, 0.65, 'dev', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-15T06:40:18",
+   "measured_usd": 0.9339,
+   "note": "collected; 2 call(s), container 49.2 min",
+   "billed_usd": 1.651,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+  }
+ ],
+ "checks": [
+  {
+   "time": "2026-11-09T11:39:17",
+   "month_used_usd": 0.0,
+   "open_worst_usd": 0,
+   "project_committed_usd": 0.0
+  },
+  {
+   "time": "2026-11-09T11:43:50",
+   "month_used_usd": 0.0005,
+   "open_worst_usd": 0,
+   "project_committed_usd": 0.0
+  },
+  {
+   "time": "2026-11-09T12:11:52",
+   "month_used_usd": 0.0505,
+   "open_worst_usd": 0,
+   "project_committed_usd": 0.1874
+  },
+  {
+   "time": "2026-11-09T12:39:52",
+   "month_used_usd": 0.3405,
+   "open_worst_usd": 0,
+   "project_committed_usd": 0.8169
+  },
+  {
+   "time": "2026-11-09T13:11:55",
+   "month_used_usd": 0.7305,
+   "open_worst_usd": 0,
+   "project_committed_usd": 1.6803
+  },
+  {
+   "time": "2026-11-09T18:34:25",
+   "month_used_usd": 0.7405,
+   "open_worst_usd": 0,
+   "project_committed_usd": 1.6803
+  },
+  {
+   "time": "2026-11-09T18:35:54",
+   "month_used_usd": 0.7405,
+   "open_worst_usd": 0,
+   "project_committed_usd": 1.6803
+  },
+  {
+   "time": "2026-11-09T18:43:28",
+   "month_used_usd": 0.8205,
+   "open_worst_usd": 0,
+   "project_committed_usd": 2.1155
+  },
+  {
+   "time": "2026-11-09T19:07:07",
+   "month_used_usd": 0.9605,
+   "open_worst_usd": 0,
+   "project_committed_usd": 2.3505
+  },
+  {
+   "time": "2026-11-09T19:43:06",
+   "month_used_usd": 1.6305,
+   "open_worst_usd": 0,
+   "project_committed_usd": 3.4292
+  },
+  {
+   "time": "2026-11-09T20:29:11",
+   "month_used_usd": 1.6305,
+   "open_worst_usd": 0,
+   "project_committed_usd": 5.6519
+  },
+  {
+   "time": "2026-11-09T20:38:02",
+   "month_used_usd": 1.6505,
+   "open_worst_usd": 0,
+   "project_committed_usd": 5.6519
+  },
+  {
+   "time": "2026-11-09T20:38:24",
+   "month_used_usd": 1.6505,
+   "open_worst_usd": 0,
+   "project_committed_usd": 5.6519
+  },
+  {
+   "time": "2026-11-09T23:33:21",
+   "month_used_usd": 2.6105,
+   "open_worst_usd": 0,
+   "project_committed_usd": 6.9034
+  },
+  {
+   "time": "2026-11-09T23:59:51",
+   "month_used_usd": 2.6105,
+   "open_worst_usd": 0,
+   "project_committed_usd": 6.9034
+  },
+  {
+   "time": "2026-11-10T03:35:45",
+   "month_used_usd": 3.2005,
+   "open_worst_usd": 0,
+   "project_committed_usd": 7.7387
+  },
+  {
+   "time": "2026-11-10T13:57:00",
+   "month_used_usd": 3.2005,
+   "open_worst_usd": 0,
+   "project_committed_usd": 7.7387
+  },
+  {
+   "time": "2026-11-10T14:05:01",
+   "month_used_usd": 3.2005,
+   "open_worst_usd": 0,
+   "project_committed_usd": 7.7387
+  },
+  {
+   "time": "2026-11-10T14:31:52",
+   "month_used_usd": 3.3134,
+   "open_worst_usd": 0,
+   "project_committed_usd": 7.9493
+  },
+  {
+   "time": "2026-11-10T14:43:40",
+   "month_used_usd": 3.3644,
+   "open_worst_usd": 0,
+   "project_committed_usd": 8.1039
+  },
+  {
+   "time": "2026-11-10T14:44:42",
+   "month_used_usd": 3.3744,
+   "open_worst_usd": 0,
+   "project_committed_usd": 8.2308
+  },
+  {
+   "time": "2026-11-10T15:00:20",
+   "month_used_usd": 3.4346,
+   "open_worst_usd": 0,
+   "project_committed_usd": 8.4072
+  },
+  {
+   "time": "2026-11-10T15:17:46",
+   "month_used_usd": 3.555,
+   "open_worst_usd": 0,
+   "project_committed_usd": 8.6407
+  },
+  {
+   "time": "2026-11-10T16:12:51",
+   "month_used_usd": 3.6153,
+   "open_worst_usd": 0,
+   "project_committed_usd": 8.8381
+  },
+  {
+   "time": "2026-11-10T16:15:03",
+   "month_used_usd": 3.6553,
+   "open_worst_usd": 0,
+   "project_committed_usd": 9.0071
+  },
+  {
+   "time": "2026-11-12T13:21:10",
+   "month_used_usd": 7.2553,
+   "open_worst_usd": 0,
+   "project_committed_usd": 12.8566
+  },
+  {
+   "time": "2026-11-12T13:26:45",
+   "month_used_usd": 7.2657,
+   "open_worst_usd": 0,
+   "project_committed_usd": 12.8566
+  },
+  {
+   "time": "2026-11-12T13:27:22",
+   "month_used_usd": 7.2558,
+   "open_worst_usd": 0,
+   "project_committed_usd": 12.9648
+  },
+  {
+   "time": "2026-11-12T13:31:42",
+   "month_used_usd": 7.2658,
+   "open_worst_usd": 0,
+   "project_committed_usd": 13.2148
+  },
+  {
+   "time": "2026-11-12T14:04:24",
+   "month_used_usd": 7.6658,
+   "open_worst_usd": 0,
+   "project_committed_usd": 13.7848
+  },
+  {
+   "time": "2026-11-12T14:05:33",
+   "month_used_usd": 7.6358,
+   "open_worst_usd": 0,
+   "project_committed_usd": 13.9368
+  },
+  {
+   "time": "2026-11-12T14:14:31",
+   "month_used_usd": 7.7059,
+   "open_worst_usd": 0,
+   "project_committed_usd": 14.0668
+  },
+  {
+   "time": "2026-11-12T14:14:59",
+   "month_used_usd": 7.7059,
+   "open_worst_usd": 0,
+   "project_committed_usd": 14.1752
+  },
+  {
+   "time": "2026-11-12T14:22:51",
+   "month_used_usd": 7.8068,
+   "open_worst_usd": 0,
+   "project_committed_usd": 14.3922
+  },
+  {
+   "time": "2026-11-12T14:23:10",
+   "month_used_usd": 7.8068,
+   "open_worst_usd": 0,
+   "project_committed_usd": 14.3922
+  },
+  {
+   "time": "2026-11-12T15:07:43",
+   "month_used_usd": 8.9362,
+   "open_worst_usd": 0,
+   "project_committed_usd": 15.3927
+  },
+  {
+   "time": "2026-11-12T18:31:03",
+   "month_used_usd": 12.9862,
+   "open_worst_usd": 0,
+   "project_committed_usd": 18.0885
+  },
+  {
+   "time": "2026-11-12T18:31:56",
+   "month_used_usd": 12.9862,
+   "open_worst_usd": 0,
+   "project_committed_usd": 18.0885
+  },
+  {
+   "time": "2026-11-12T18:32:17",
+   "month_used_usd": 12.9862,
+   "open_worst_usd": 0,
+   "project_committed_usd": 18.0885
+  },
+  {
+   "time": "2026-11-12T19:02:19",
+   "month_used_usd": 13.6571,
+   "open_worst_usd": 0,
+   "project_committed_usd": 18.8174
+  },
+  {
+   "time": "2026-11-12T19:53:14",
+   "month_used_usd": 17.6317,
+   "open_worst_usd": 0,
+   "project_committed_usd": 22.0563
+  },
+  {
+   "time": "2026-11-12T19:53:35",
+   "month_used_usd": 17.8119,
+   "open_worst_usd": 0,
+   "project_committed_usd": 22.0563
+  },
+  {
+   "time": "2026-11-12T23:11:30",
+   "month_used_usd": 21.1045,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.2668
+  },
+  {
+   "time": "2026-11-12T23:12:07",
+   "month_used_usd": 21.1045,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.2668
+  },
+  {
+   "time": "2026-11-12T23:12:19",
+   "month_used_usd": 21.1045,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.2668
+  },
+  {
+   "time": "2026-11-12T23:29:19",
+   "month_used_usd": 21.1245,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.3868
+  },
+  {
+   "time": "2026-11-12T23:29:49",
+   "month_used_usd": 21.1245,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.3868
+  },
+  {
+   "time": "2026-11-13T10:02:41",
+   "month_used_usd": 21.0745,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.3868
+  },
+  {
+   "time": "2026-11-13T10:23:20",
+   "month_used_usd": 21.0745,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.3868
+  },
+  {
+   "time": "2026-11-13T10:25:33",
+   "month_used_usd": 21.0847,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.3868
+  },
+  {
+   "time": "2026-11-13T10:28:30",
+   "month_used_usd": 21.1452,
+   "open_worst_usd": 0.4478,
+   "project_committed_usd": 25.8346
+  },
+  {
+   "time": "2026-11-13T10:38:50",
+   "month_used_usd": 21.1252,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.5868
+  },
+  {
+   "time": "2026-11-13T10:39:00",
+   "month_used_usd": 21.1252,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.5868
+  },
+  {
+   "time": "2026-11-13T10:42:09",
+   "month_used_usd": 21.2155,
+   "open_worst_usd": 0,
+   "project_committed_usd": 25.7586
+  },
+  {
+   "time": "2026-11-13T10:58:06",
+   "month_used_usd": 22.4541,
+   "open_worst_usd": 0,
+   "project_committed_usd": 26.8357
+  },
+  {
+   "time": "2026-11-13T10:58:26",
+   "month_used_usd": 22.4541,
+   "open_worst_usd": 1.0526,
+   "project_committed_usd": 27.8883
+  },
+  {
+   "time": "2026-11-13T11:09:51",
+   "month_used_usd": 22.5395,
+   "open_worst_usd": 0,
+   "project_committed_usd": 27.3428
+  },
+  {
+   "time": "2026-11-14T18:44:24",
+   "month_used_usd": 22.4495,
+   "open_worst_usd": 0,
+   "project_committed_usd": 27.3428
+  },
+  {
+   "time": "2026-11-14T18:44:45",
+   "month_used_usd": 22.4495,
+   "open_worst_usd": 0,
+   "project_committed_usd": 27.3428
+  },
+  {
+   "time": "2026-11-15T05:49:53",
+   "month_used_usd": 26.5179,
+   "open_worst_usd": 0,
+   "project_committed_usd": 30.9562
+  },
+  {
+   "time": "2026-11-15T05:54:15",
+   "month_used_usd": 26.5179,
+   "open_worst_usd": 0,
+   "project_committed_usd": 30.9562
+  },
+  {
+   "time": "2026-11-15T06:41:14",
+   "month_used_usd": 28.3076,
+   "open_worst_usd": 0,
+   "project_committed_usd": 31.8901
+  },
+  {
+   "time": "2026-11-15T08:52:21",
+   "month_used_usd": 28.1676,
+   "open_worst_usd": 0,
+   "project_committed_usd": 33.0601
+  },
+  {
+   "time": "2026-11-15T14:21:28",
+   "month_used_usd": 28.1676,
+   "open_worst_usd": 0,
+   "project_committed_usd": 33.0601
+  }
+ ]
+}

@@ -1,7 +1,8 @@
 """Lung L2 (docs/LUNG_L2_PROTOCOL.md): Sybil activations, image measures and variants for dev (S2, S3) and later test (S6).
 Task lung_l2_audit, app imgsae-lung-l2, volume imgsae-nlst-l2. Built on the L1 job (lung_l1/cloud/l1_sybil_modal.py).
-usage (from D:\\Shayan, miniconda python, PYTHONUTF8=1, always with --detach):
-  modal run --detach imgsae/exploratory/lung_l2/cloud/l2_sybil_modal.py --step smoke --n-series 3
+usage (from D:\\Shayan, miniconda python, PYTHONUTF8=1, always with --detach and always with the account as --profile; never
+`modal profile activate`):
+  modal run --detach --profile <shforghani2002|armanfo> imgsae/exploratory/lung_l2/cloud/l2_sybil_modal.py --step smoke --n-series 3
   ... --step run --tier D1 --lo 0 --hi 300 --nshard 4 --timeout-min 30 --zfix-max 0.95 --root dev     (T4)
   ... --step run_l4 --tier D1 --lo 0 --hi 50 --nshard 1 --timeout-min 20 --zfix-max 0.95 --root l4    (L4, timing)
   ... --step run --tier D1 --lo 0 --hi 20 --nshard 1 --timeout-min 15 --zfix-max 0.95 --root rep      (repeat, determinism)
@@ -340,13 +341,16 @@ def count(root: str = "dev"):
 @app.local_entrypoint()
 def main(step: str = "smoke", tier: str = "D1", lo: int = 0, hi: int = 100000, nshard: int = 4, timeout_min: int = 60,
          zfix_max: float = 0.65, root: str = "dev", n_series: int = 3, verify: bool = False):
+    """the account is modal run's own --profile option (amendment A4); it is required, checked, sent to the guard and stored per run.
+    On accounts other than shforghani2002 the result file gets the suffix __<profile>, so it never overwrites the main account's record."""
     sys.path.insert(0, str(Path(__file__).resolve().parent)); import launch as LN
+    profile = LN.client_profile(); sfx = "" if profile == "shforghani2002" else f"__{profile}"
     assert timeout_min <= 60 and nshard <= 4, "protocol: timeout <= 60 min, <= 4 containers"
-    if step == "smoke": LN.launch(smoke, TASK, APP, "smoke", 20, "T4", CPU, MEM_GIB, args=(n_series, zfix_max), result_name="smoke")
+    if step == "smoke": LN.launch(smoke, TASK, APP, "smoke", 20, "T4", CPU, MEM_GIB, args=(n_series, zfix_max), result_name="smoke" + sfx, profile=profile)
     elif step in ("run", "run_l4"):
         fn, gpu = (run_shard, "T4") if step == "run" else (run_shard_l4, "L4")
         name = f"{step}_{root}_{tier}_{lo}_{hi}"
         # the soft stop is timeout_min - 5; the guard's worst case uses the function's hard timeout (60 min), so it is a true bound
         LN.launch_many(fn, [(tier, lo, hi, s, nshard, timeout_min - 5.0, zfix_max, root, verify) for s in range(nshard)], TASK, APP, name,
-                       60, gpu, CPU, MEM_GIB, result_name=name)
-    elif step == "count": LN.launch(count, TASK, APP, f"count_{root}", 10, None, 1, 2, args=(root,), result_name=f"count_{root}")
+                       60, gpu, CPU, MEM_GIB, result_name=name + sfx, profile=profile)
+    elif step == "count": LN.launch(count, TASK, APP, f"count_{root}", 10, None, 1, 2, args=(root,), result_name=f"count_{root}" + sfx, profile=profile)

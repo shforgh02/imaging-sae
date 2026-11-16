@@ -1,4 +1,6 @@
 @echo off
+rem SUPERSEDED on 2026-11-15 by run_s3rest.cmd (amendment A4: D2, D3, D4 on account armanfo in November). Kept for the record only.
+rem It now fails on purpose: drive_plan.py requires --profile and a matching MODAL_PROFILE. Do not schedule it.
 rem Unattended December run of S3: tiers D2 (year-1), D3 (year-2), D4 (500 kernel partners), in that order; started by the
 rem scheduled task "imgsae_l2_dec" (2026-12-01 01:00 local, or as soon as the PC is on after that). See drive_runs.py / drive_plan.py.
 cd /d D:\Shayan

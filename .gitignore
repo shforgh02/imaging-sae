@@ -33,3 +33,9 @@ __pycache__/
 # Kept out of git by the lead's decision (2026-11-13)
 /New report .txt
 imgsae/exploratory/ucla_audit/
+
+# budget guard transient files (lock and atomic-save temp)
+imgsae/exploratory/p1b_sanity/cloud/ledger.json.lock
+imgsae/exploratory/p1b_sanity/cloud/ledger.json.tmp*
+# driver state temp files
+imgsae/exploratory/lung_l2/logs/*.json.tmp

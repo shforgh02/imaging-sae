@@ -1,7 +1,16 @@
 {
  "cap_usd": 29.0,
  "project_cap_usd": 72.0,
- "rule": "User, 2026-11-09: Modal free credit is $30/month; stop at $29; every task has its own budget and must not exceed it. Check usage before every launch. Using 'reserve' or moving money between tasks needs the user's OK. Updated by the user later on 2026-11-09: 2 Modal accounts, $29/month each. This ledger tracks account shforghani2002; cap_usd is its monthly cap and the project check stays as an extra limit.",
+ "accounts": {
+  "shforghani2002": {
+   "cap_usd": 29.0
+  },
+  "armanfo": {
+   "cap_usd": 29.5
+  }
+ },
+ "armanfo_project_limit_usd": 17.0,
+ "rule": "User, 2026-11-09: Modal free credit is $30/month; stop at $29; every task has its own budget and must not exceed it. Check usage before every launch. Using 'reserve' or moving money between tasks needs the user's OK. Updated by the user later on 2026-11-09: 2 Modal accounts, $29/month each. This ledger tracks account shforghani2002; cap_usd is its monthly cap and the project check stays as an extra limit. Updated 2026-11-15 (lead, lung L2 amendment A4): the ledger tracks two accounts; per-account monthly caps in 'accounts' (shforghani2002 29.00, armanfo 29.50); this project at most $17.00 on armanfo; profile forghanishayan and the reserve are not used.",
  "budgets": {
   "a3_sae": 3.0,
   "stageC_encode": 0.0,
@@ -21,7 +30,9 @@
   "mri_fetch, mri_prep, mri_m1_encode": "Prostate MRI plan revision 4 (docs/PLAN_PROSTATE_MRI_v1.md section 6), approved by the user 2026-11-10 ('OK'): PI-CAI fetch $0.80, dev-half preprocessing $0.80, M0 encoder checks + M1 encodes $5.00 (M0-M1 caps $6.60)",
   "lung_l1_sybil": "Lung L1 (docs/LUNG_L1_PROTOCOL.md): Sybil on its own NLST test split, 6,715 series, T4 or L4. Cap $15.00 approved by the user on 2026-11-12 ('1.yes'). Run by a delegated agent under the protocol.",
   "project_cap_usd": "All-time project limit for the guard's project check, separate from the monthly cap_usd (29, unchanged). Set to 72.00 by the lead on 2026-11-13 (hand-over prompt for the Sybil audit).",
-  "lung_l2_audit": "Lung L2, feature-level audit of Sybil (docs/LUNG_L2_PROTOCOL.md), steps S2 to S6, spread over months. $45.00 approved by the lead on 2026-11-13. S7 needs a new approval. Account shforghani2002 only; reserve and second account not used. Runs executed by a delegated agent under the protocol."
+  "lung_l2_audit": "Lung L2, feature-level audit of Sybil (docs/LUNG_L2_PROTOCOL.md), steps S2 to S6, spread over months. $45.00 approved by the lead on 2026-11-13. S7 needs a new approval. Account shforghani2002 only; reserve and second account not used. Runs executed by a delegated agent under the protocol. Amended 2026-11-15 (A4, A5, lead's OK): account armanfo for S3 D2, D3, D4 and the P2 smoke and identity runs; paid runs by the unattended driver (drive_runs.py, drive_plan.py).",
+  "accounts": "Per-account monthly caps (lead's OK 2026-11-15, lung L2 amendment A4): shforghani2002 29.00, armanfo 29.50. cap_usd stays as shforghani2002's cap for old scripts; budget.py uses 'accounts'. Every run records its profile.",
+  "armanfo_project_limit_usd": "This project may use at most $17.00 on account armanfo (lead's answer to review question 1, 2026-11-15). budget.py test 4: this project's runs on armanfo (all time = November 2026), worst case for open runs, + launch worst case <= 17.00."
  },
  "runs": [
   {
@@ -41,7 +52,8 @@
    },
    "closed": "2026-11-09T12:10:44",
    "measured_usd": 0.1874,
-   "note": "ok 1, failed 0, unfinished 0"
+   "note": "ok 1, failed 0, unfinished 0",
+   "profile": "shforghani2002"
   },
   {
    "id": "a3_sae-002",
@@ -64,7 +76,8 @@
    },
    "closed": "2026-11-09T12:39:20",
    "measured_usd": 0.6295,
-   "note": "ok 5, failed 0, unfinished 0"
+   "note": "ok 5, failed 0, unfinished 0",
+   "profile": "shforghani2002"
   },
   {
    "id": "a3_sae-003",
@@ -88,7 +101,8 @@
    },
    "closed": "2026-11-09T13:11:42",
    "measured_usd": 0.8634,
-   "note": "ok 6, failed 0, unfinished 0"
+   "note": "ok 6, failed 0, unfinished 0",
+   "profile": "shforghani2002"
   },
   {
    "id": "v2s1a_sae-004",
@@ -107,7 +121,8 @@
    },
    "closed": "2026-11-09T18:42:47",
    "measured_usd": 0.4352,
-   "note": "ok 0, failed 1, unfinished 0"
+   "note": "ok 0, failed 1, unfinished 0",
+   "profile": "shforghani2002"
   },
   {
    "id": "v2s1a_sae-005",
@@ -126,7 +141,8 @@
    },
    "closed": "2026-11-09T19:06:05",
    "measured_usd": 0.235,
-   "note": "ok 1, failed 0, unfinished 0"
+   "note": "ok 1, failed 0, unfinished 0",
+   "profile": "shforghani2002"
   },
   {
    "id": "v2s1a_sae-006",
@@ -152,7 +168,8 @@
    },
    "closed": "2026-11-09T19:42:28",
    "measured_usd": 1.0787,
-   "note": "ok 8, failed 0, unfinished 0"
+   "note": "ok 8, failed 0, unfinished 0",
+   "profile": "shforghani2002"
   },
   {
    "id": "v2s1a_sae-007",
@@ -173,7 +190,8 @@
    },
    "closed": "2026-11-09T20:29:08",
    "measured_usd": 2.2227,
-   "note": "local client killed by Claude Code memory guard ~20:0x; orphaned app stopped 20:29; no results collected; booked at worst case, reconcile with billing"
+   "note": "local client killed by Claude Code memory guard ~20:0x; orphaned app stopped 20:29; no results collected; booked at worst case, reconcile with billing",
+   "profile": "shforghani2002"
   },
   {
    "id": "v2s1a_sae-008",
@@ -194,7 +212,8 @@
    },
    "closed": "2026-11-09T21:21:11",
    "measured_usd": 1.2515,
-   "note": "ok 3, failed 0, unfinished 0"
+   "note": "ok 3, failed 0, unfinished 0",
+   "profile": "shforghani2002"
   },
   {
    "id": "v2s1a_sae-009",
@@ -215,7 +234,8 @@
    },
    "closed": "2026-11-10T00:52:26",
    "measured_usd": 0.8353,
-   "note": "ok 3, failed 0, unfinished 0"
+   "note": "ok 3, failed 0, unfinished 0",
+   "profile": "shforghani2002"
   },
   {
    "id": "mri_fetch-010",
@@ -234,7 +254,8 @@
    },
    "closed": "2026-11-10T14:26:58",
    "measured_usd": 0.2106,
-   "note": "cancelled at 14:27:36 (Modal cancelled the call when the local client raised a DNS error); container ran about 23.2 min (14:04:55-14:28:06, incl. the 30 s kill wait); measured from container minutes + 3 min start + $0.10 image; booked at worst case $0.62 first, reconciled 2026-11-10; check against Modal billing. Partial downloads kept (.part, 12.1 GiB)."
+   "note": "cancelled at 14:27:36 (Modal cancelled the call when the local client raised a DNS error); container ran about 23.2 min (14:04:55-14:28:06, incl. the 30 s kill wait); measured from container minutes + 3 min start + $0.10 image; booked at worst case $0.62 first, reconciled 2026-11-10; check against Modal billing. Partial downloads kept (.part, 12.1 GiB).",
+   "profile": "shforghani2002"
   },
   {
    "id": "mri_fetch-011",
@@ -254,7 +275,8 @@
    },
    "closed": "2026-11-10T14:42:57",
    "measured_usd": 0.1546,
-   "note": "collected; container 9.9 min"
+   "note": "collected; container 9.9 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "mri_prep-012",
@@ -274,7 +296,8 @@
    },
    "closed": "2026-11-10T14:44:03",
    "measured_usd": 0.1269,
-   "note": "collected; container 0.2 min"
+   "note": "collected; container 0.2 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "mri_prep-013",
@@ -294,7 +317,8 @@
    },
    "closed": "2026-11-10T14:51:11",
    "measured_usd": 0.1764,
-   "note": "collected; container 6.1 min"
+   "note": "collected; container 6.1 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "mri_m1_encode-014",
@@ -314,7 +338,8 @@
    },
    "closed": "2026-11-10T15:11:20",
    "measured_usd": 0.2335,
-   "note": "collected; container 4.2 min"
+   "note": "collected; container 4.2 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "mri_m1_encode-015",
@@ -334,7 +359,8 @@
    },
    "closed": "2026-11-10T15:40:57",
    "measured_usd": 0.1974,
-   "note": "collected; container 2.2 min"
+   "note": "collected; container 2.2 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "mri_m1_encode-016",
@@ -354,7 +380,8 @@
    },
    "closed": "2026-11-10T16:13:41",
    "measured_usd": 0.169,
-   "note": "collected; 1 call(s), container 0.7 min"
+   "note": "collected; 1 call(s), container 0.7 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "mri_m1_encode-017",
@@ -377,7 +404,8 @@
    },
    "closed": "2026-11-10T18:08:58",
    "measured_usd": 3.8495,
-   "note": "collected; 4 call(s), container 189.4 min"
+   "note": "collected; 4 call(s), container 189.4 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-018",
@@ -397,7 +425,8 @@
    },
    "closed": "2026-11-12T13:27:04",
    "measured_usd": 0.1082,
-   "note": "collected; 1 call(s), container 0.1 min"
+   "note": "collected; 1 call(s), container 0.1 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-019",
@@ -417,7 +446,8 @@
    },
    "closed": "2026-11-12T13:31:27",
    "measured_usd": 0.25,
-   "note": "manual close: smoke call failed in demo Serie (pydicom read error); conservative estimate ~4 min container on T4 + start + image allowance"
+   "note": "manual close: smoke call failed in demo Serie (pydicom read error); conservative estimate ~4 min container on T4 + start + image allowance",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-020",
@@ -437,7 +467,8 @@
    },
    "closed": "2026-11-12T14:04:04",
    "measured_usd": 0.57,
-   "note": "manual close: smoke hung after model load (Runner heartbeat timeout 900 s), retried once by Modal, app stopped by hand; ~26-28 container min on T4 (13:43-~14:10 UTC) + start + image allowance, conservative"
+   "note": "manual close: smoke hung after model load (Runner heartbeat timeout 900 s), retried once by Modal, app stopped by hand; ~26-28 container min on T4 (13:43-~14:10 UTC) + start + image allowance, conservative",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-021",
@@ -457,7 +488,8 @@
    },
    "closed": "2026-11-12T14:04:59",
    "measured_usd": 0.152,
-   "note": "collected; 1 call(s), container 0.4 min"
+   "note": "collected; 1 call(s), container 0.4 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-022",
@@ -477,7 +509,8 @@
    },
    "closed": "2026-11-12T14:14:22",
    "measured_usd": 0.13,
-   "note": "manual close: dl_test hung on 2 concurrent idc-index downloads, killed at 8 min timeout (CPU 2 core, 8 GiB)"
+   "note": "manual close: dl_test hung on 2 concurrent idc-index downloads, killed at 8 min timeout (CPU 2 core, 8 GiB)",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-023",
@@ -497,7 +530,8 @@
    },
    "closed": "2026-11-12T14:14:46",
    "measured_usd": 0.1084,
-   "note": "collected; 1 call(s), container 0.2 min"
+   "note": "collected; 1 call(s), container 0.2 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-024",
@@ -517,7 +551,8 @@
    },
    "closed": "2026-11-12T14:22:16",
    "measured_usd": 0.217,
-   "note": "collected; 1 call(s), container 4.7 min"
+   "note": "collected; 1 call(s), container 4.7 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-025",
@@ -540,7 +575,8 @@
    },
    "closed": "2026-11-12T15:07:20",
    "measured_usd": 1.0005,
-   "note": "collected; 4 call(s), container 47.6 min"
+   "note": "collected; 4 call(s), container 47.6 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-026",
@@ -563,7 +599,8 @@
    },
    "closed": "2026-11-12T16:36:54",
    "measured_usd": 2.6958,
-   "note": "collected; 4 call(s), container 159.7 min"
+   "note": "collected; 4 call(s), container 159.7 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-027",
@@ -586,7 +623,8 @@
    },
    "closed": "2026-11-12T19:01:50",
    "measured_usd": 0.7289,
-   "note": "collected; 4 call(s), container 29.6 min"
+   "note": "collected; 4 call(s), container 29.6 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-028",
@@ -609,7 +647,8 @@
    },
    "closed": "2026-11-12T19:53:04",
    "measured_usd": 3.2389,
-   "note": "collected; 4 call(s), container 195.6 min"
+   "note": "collected; 4 call(s), container 195.6 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-029",
@@ -632,7 +671,8 @@
    },
    "closed": "2026-11-12T20:44:38",
    "measured_usd": 3.2105,
-   "note": "collected; 4 call(s), container 193.7 min"
+   "note": "collected; 4 call(s), container 193.7 min",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l1_sybil-030",
@@ -652,7 +692,8 @@
    },
    "closed": "2026-11-12T23:23:43",
    "measured_usd": 0.12,
-   "note": "manual close: export call hit its 600 s timeout reading ~5.4k small files from the volume (CPU 1 core, 2 GiB); estimate 10 min + start + image allowance; export then done with modal volume get"
+   "note": "manual close: export call hit its 600 s timeout reading ~5.4k small files from the volume (CPU 1 core, 2 GiB); estimate 10 min + start + image allowance; export then done with modal volume get",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l2_audit-031",
@@ -674,7 +715,8 @@
    "measured_usd": 0.2,
    "note": "manual close: smoke ran (demo exact, 1.25 container-min in smoke.json on the volume); local collect could not unpickle torch.__version__; 3 dev series failed in the verify step (files already deleted); conservative 0.20 vs formula 0.164",
    "billed_usd": 0.1403,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l2_audit-032",
@@ -696,7 +738,8 @@
    "measured_usd": 0.1718,
    "note": "collected; 1 call(s), container 1.7 min",
    "billed_usd": 0.1205,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l2_audit-033",
@@ -721,7 +764,8 @@
    "measured_usd": 1.0771,
    "note": "collected; 4 call(s), container 52.6 min",
    "billed_usd": 0.7557,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l2_audit-034",
@@ -743,7 +787,8 @@
    "measured_usd": 0.2018,
    "note": "collected; 1 call(s), container 3.7 min",
    "billed_usd": 0.1416,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l2_audit-035",
@@ -765,7 +810,8 @@
    "measured_usd": 0.3053,
    "note": "collected; 1 call(s), container 8.0 min",
    "billed_usd": 0.2142,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l2_audit-036",
@@ -790,7 +836,8 @@
    "measured_usd": 3.6134,
    "note": "collected; 4 call(s), container 220.4 min",
    "billed_usd": 4.0663,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52",
+   "profile": "shforghani2002"
   },
   {
    "id": "lung_l2_audit-037",
@@ -813,7 +860,8 @@
    "measured_usd": 0.9339,
    "note": "collected; 2 call(s), container 49.2 min",
    "billed_usd": 1.651,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52",
+   "profile": "shforghani2002"
   }
  ],
  "checks": [
@@ -1191,6 +1239,12 @@
   },
   {
    "time": "2026-11-15T08:52:21",
+   "month_used_usd": 28.1676,
+   "open_worst_usd": 0,
+   "project_committed_usd": 33.0601
+  },
+  {
+   "time": "2026-11-15T14:21:28",
    "month_used_usd": 28.1676,
    "open_worst_usd": 0,
    "project_committed_usd": 33.0601
