@@ -1,0 +1,53 @@
+Note that running a local entrypoint in detached mode only keeps the last triggered Modal function alive after the parent process has been killed or disconnected.
+✓ Initialized. View run at 
+https://modal.com/apps/armanfo/main/ap-UKZFAVtgA5C0Rvo3spHmim
+✓ Created objects.
+├── 🔨 Created mount 
+│   D:\Shayan\imgsae\exploratory\lung_l2\cloud\l2_sybil_modal.py
+├── 🔨 Created mount 
+│   D:\Shayan\imgsae\exploratory\lung_l2\results\manifest_dev.csv
+├── 🔨 Created mount 
+│   D:\Shayan\imgsae\exploratory\lung_l2\cloud\image_measures.py
+├── 🔨 Created function smoke.
+├── 🔨 Created function run_shard.
+├── 🔨 Created function run_shard_l4.
+└── 🔨 Created function count.
+app check armanfo: ok []
+{
+ "status": {
+  "time": "2026-11-16T04:16:14",
+  "profile": "armanfo",
+  "month_used_usd": 1.7026,
+  "open_worst_usd": 0,
+  "lag_usd": 0.1715,
+  "open_worst_all_accounts_usd": 0,
+  "project_committed_usd": 33.2316,
+  "per_task_usd": {
+   "a3_sae": 1.6803,
+   "stageC_encode": 0.0,
+   "stageC_fit": 0.0,
+   "stageD_dinov3": 0.0,
+   "reserve": 0.0,
+   "v2s1a_sae": 6.0584,
+   "mri_fetch": 0.3652,
+   "mri_prep": 0.3033,
+   "mri_m1_encode": 4.4494,
+   "lung_l1_sybil": 12.5302,
+   "lung_l2_audit": 7.8448
+  },
+  "cap_usd": 29.5,
+  "project_cap_usd": 72.0,
+  "project_on_account_usd": 0.1715,
+  "project_on_account_limit_usd": 17.0
+ },
+ "tests": {
+  "task lung_l2_audit: 7.84 + 1.05 <= 45.00": true,
+  "project: 33.23 + 1.05 <= 72.00": true,
+  "month armanfo (Modal billing): 1.70 + lag 0.17 + open 0.00 + 1.05 <= 29.50": true,
+  "project on armanfo: 0.17 + 1.05 <= 17.00": true
+ }
+}
+SPAWNED lung_l2_audit-039: 1 calls on armanfo, worst case $1.05. Collect with: python imgsae/exploratory/lung_l2/cloud/collect.py lung_l2_audit-039 --profile armanfo
+[modal-client] 2026-11-16T04:16:25+0000 Timed out waiting for final app logs.
+✓ App completed. View run at 
+https://modal.com/apps/armanfo/main/ap-UKZFAVtgA5C0Rvo3spHmim

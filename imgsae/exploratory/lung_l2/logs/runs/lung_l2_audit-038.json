@@ -1,0 +1,13 @@
+{
+ "rid": "lung_l2_audit-038",
+ "task": "lung_l2_audit",
+ "profile": "armanfo",
+ "app": "imgsae-lung-l2",
+ "job": "smoke",
+ "call_id": "fc-01M7H8YMMD0586BHQW3B85H6BH",
+ "rate_h": 0.9072,
+ "timeout_min": 20,
+ "worst_usd": 0.44776000000000005,
+ "launched": "2026-11-16T04:13:26",
+ "result_name": "smoke__armanfo"
+}

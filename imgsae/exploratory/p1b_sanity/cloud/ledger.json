@@ -862,6 +862,48 @@
    "billed_usd": 1.651,
    "billed_note": "from modal billing report (hourly, app imgsae-lung-l2), 2026-11-15T08:52",
    "profile": "shforghani2002"
+  },
+  {
+   "id": "lung_l2_audit-038",
+   "task": "lung_l2_audit",
+   "profile": "armanfo",
+   "opened": "2026-11-16T04:13:25",
+   "worst_usd": 0.4478,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "smoke"
+    ],
+    "timeout_min": 20,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-16T04:15:42",
+   "measured_usd": 0.1715,
+   "note": "collected; 1 call(s), container 1.7 min"
+  },
+  {
+   "id": "lung_l2_audit-039",
+   "task": "lung_l2_audit",
+   "profile": "armanfo",
+   "opened": "2026-11-16T04:16:14",
+   "worst_usd": 1.0526,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_xacct_D1_0_20('D1', 0, 20, 0, 1, 55.0, 0.65, 'xacct', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-16T04:19:46",
+   "measured_usd": 0.1977,
+   "note": "collected; 1 call(s), container 3.5 min"
   }
  ],
  "checks": [
@@ -1248,6 +1290,22 @@
    "month_used_usd": 28.1676,
    "open_worst_usd": 0,
    "project_committed_usd": 33.0601
+  },
+  {
+   "time": "2026-11-16T04:13:25",
+   "profile": "armanfo",
+   "month_used_usd": 1.6321,
+   "open_worst_usd": 0,
+   "lag_usd": 0,
+   "project_committed_usd": 33.0601
+  },
+  {
+   "time": "2026-11-16T04:16:14",
+   "profile": "armanfo",
+   "month_used_usd": 1.7026,
+   "open_worst_usd": 0,
+   "lag_usd": 0.1715,
+   "project_committed_usd": 33.2316
   }
  ]
 }

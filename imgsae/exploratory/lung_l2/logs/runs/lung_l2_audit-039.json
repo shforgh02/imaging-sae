@@ -1,0 +1,15 @@
+{
+ "rid": "lung_l2_audit-039",
+ "task": "lung_l2_audit",
+ "profile": "armanfo",
+ "app": "imgsae-lung-l2",
+ "job": "run_xacct_D1_0_20",
+ "call_ids": [
+  "fc-01M7H93SC5J1WYZTKWFDYZ76QK"
+ ],
+ "rate_h": 0.9072,
+ "timeout_min": 60,
+ "worst_usd": 1.0525600000000002,
+ "launched": "2026-11-16T04:16:15",
+ "result_name": "run_xacct_D1_0_20__armanfo"
+}
