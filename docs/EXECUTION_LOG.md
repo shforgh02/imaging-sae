@@ -898,3 +898,7 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 - C2 "axis 0 carries the shift": [mean delta lbar_1 with axis 0 off] - [plain] = +0.408 [0.403, 0.412], halves 0.412 / 0.404; proposed null +0.20; gate 9.8 passes; 1 of 2,000 random axes passes (0.05%; largest 0.226).
 - SAE on `h`, K = 64, k = 8: V1 0.826 / 0.824, 8 families: not valid. `pooled` ICA K = 64: 5 families, not valid. Joint dictionary on `pooled`: 3 to 4 shared features, V1' fails. Shared axes with 50 PCs: 16 in one half (the count depends on the number of PCs; 11 is the count at the pre-set 30).
 - Results in plain words: `imgsae/exploratory/lung_l2/RESULTS_R_dev.md`. Still running: SAE k = 32 and the small-K and `pooled` SAE runs; remaining `pooled` arms.
+
+### Step R, note 5 (2026-11-17): plan files updated
+- `docs/HANDOVER_PROMPT_L2_N1.md` rewritten: STEP F is now "check step R, freeze the axes, H6" (no new discovery by the executor). Default: H6 enters and H2 stays (six hypotheses, Holm over six); the lead can choose five when pasting. This differs from the rule of 2026-11-16 ("in place of H2"); the reason is written at the top of the prompt.
+- `docs/PROJECT_GUIDE.md` (part 6b end, part 7, steps NF and N1, open questions) and `STATUS.md` updated.

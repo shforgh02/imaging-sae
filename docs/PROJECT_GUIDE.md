@@ -226,11 +226,24 @@ So the earlier layer holds somewhat more. It is still small and dense, so I do n
 | An SAE on the spatial map before pooling (N9b) | new extraction, about the cost of S3 again plus storage; new budget | after the test | The only place where many separate ideas can exist. Uncertain |
 | More outcome-free tests on the 11,432 people Sybil never used (old step S7) | paid, new approval | after the test | A second confirmation set for technical findings (it has only 34 cancers) |
 
+### What we found when we tried (step R, 16 to 17 Nov; dev only; full report `imgsae/exploratory/lung_l2/RESULTS_R_dev.md`)
+The lead asked the reviewer session to test more methods before the Opus session. Result:
+
+1. **The SAE is not rescued.** With more active features it keeps more of Sybil's score (0.72 → 0.83 → 0.978 for 4, 8, 16 active), but it still fails, and it finds no more shared features (8, 8, 9; 16 needed).
+2. **The last layer `h` holds only about 3 shared directions** (risk, "lung cut off in z", one without a name). No method finds more. The 56 valid raw-unit families are all copies of the risk direction.
+3. **The earlier layer `pooled` can be read with "shared axes".** Think of five people who each describe the same scan in their own private language. A dictionary made for one person does not fit the others. But we can ask: on which things do all five always agree? Those are the shared axes. There are **11**. They repeat in both halves of dev. A shuffle check gives 0.
+4. **Only 1 of the 11 is the cancer-risk direction.** The clearest others are technical: z-geometry (lung cut off, number of slices), field of view and body size, scanner maker, breathing and image quality.
+5. **One name is proven by an experiment.** The spacing fix moves the "z-geometry" axis by 2.74 SD; the kernel change does not move it; no random axis out of 2,000 moves by 2 SD.
+6. **That axis explains hypothesis H2.** The spacing fix lowers the score on average (−0.326). With this one axis switched off in all five members, the average drop is gone (+0.08), and the AUROC on dev stays the same. A random axis does this in 1 of 2,000 tries.
+7. **Limits:** the 11 axes are readings, not a full dictionary (the score rebuilt from them alone: r 0.95, mark 0.98). Switching the axis off removes the average drop, but only part of the exam-by-exam change (0.67 → 0.55). Dev only. It does not improve cancer prediction.
+
+**Why this matters for the goal:** the lead wanted features of the model that mean something. We now have a small set, found by a method that fits Sybil, with one of them tested by intervention. It becomes hypothesis **H6** for the test set.
+
 ---
 
 ## 7. Where we are today (16 Nov 2026)
 
-- **State:** S5 frozen at `c593005`; reviewed; the lead decided on 16 Nov (step N0 done). **Next: step NF and then N1, by the executor (Opus 5.5) with the prompt `docs/HANDOVER_PROMPT_L2_N1.md`.** The test split is closed. No test data exist on the PC or in the cloud.
+- **State (updated 17 Nov):** S5 frozen at `c593005`; reviewed; the lead decided on 16 Nov (step N0 done). Step NF was done on 16 to 17 Nov as "step R" by the reviewer session (part 6b, end). **Next: the executor (Opus 5.5) checks step R, freezes the shared axis and makes the new freeze (N1), with the prompt `docs/HANDOVER_PROMPT_L2_N1.md`.** The test split is closed. No test data exist on the PC or in the cloud.
 - **Money:**
 
 | | Used | Limit | Left |
@@ -263,7 +276,11 @@ So the earlier layer holds somewhat more. It is still small and dense, so I do n
   4. Optional now or later: request an outside dataset (step N9a); tell Sybil's authors (N9c).
 - **Done when:** the answers are written in `docs/EXECUTION_LOG.md` with the date and the lead's words.
 
-### NF. More feature work on dev, before the test opens (free, on the PC; amendment A6)
+### NF. More feature work on dev, before the test opens (free, on the PC; amendment A6). **DONE on 2026-11-17 as "step R"**
+- **What happened:** the lead asked the reviewer session (Fable 5.2) to do it at once. Report: `imgsae/exploratory/lung_l2/RESULTS_R_dev.md`. Short result: part 6b, end. F1, F1b and F2 of the list below were done (plus a joint dictionary, a removal test, a repair test and the random-choice tests). F3 (attention maps) was not done; it is descriptive and can be done after the test.
+- **What is left for the executor:** rerun the step R scripts and compare; read the code as an outsider; freeze the axes into `results/s5/`; add hypothesis H6. All in the prompt `docs/HANDOVER_PROMPT_L2_N1.md` ("STEP F").
+- **Changed since the plan below:** the recommendation is now that H6 enters and **H2 stays** (six hypotheses), because H6 explains H2. The lead chooses when pasting the prompt.
+- **The plan as it was written on 16 Nov (kept for the record):**
 - **Who:** the executor agent (Opus 5.5, xhigh). Prompt: `docs/HANDOVER_PROMPT_L2_N1.md`.
 - **Why now:** the test cannot run before 1 December (money). These two weeks are free. Anything we learn on dev **before** the test opens can still become a hypothesis. After the test opens, it cannot.
 - **Why it may help:** part 6b. One layer earlier, Sybil has more shared directions (about 14 against 6). And we never tested whether the SAE failed only because of its sparsity setting.
@@ -288,7 +305,7 @@ So the earlier layer holds somewhat more. It is still small and dense, so I do n
   4. **Test-list script** `s6_manifest_test.py` (new; write it, test it on dev, **do not run it on test yet**): main rows = the split file's 6,715 series, tiers T1, T2, T3 by study year; T4 = 500 soft-kernel partners of T1 exams, with the same pair rule as `s1_manifest.py` (same study, same thickness, other kernel class, slice count within 2%), seed 0, the same quota rule by maker. Metadata and the split file only. It must not read any outcome.
   5. Run `s5_freeze.py`, then the frozen analysis on dev ("dev as if test"). H1 to H4 must equal the old values exactly. H5′ must equal step 1.
   6. **`HYPOTHESES_L2.md`:** rewrite H5; add a section "Changes after the first freeze `c593005`" that says what changed, why, and that H5′ was chosen from dev after the first freeze, on the reviewer's advice. Add comment 3 of the review ("sensitivity, not harm") and the two-direction flag numbers. New hash table (run `s5_hashes.py`), including the two new scripts.
-  7. If step NF gave a hypothesis that meets its three conditions, it enters as the fifth hypothesis and H2 moves to the secondary list. The hypothesis file says so plainly, with the dev evidence and the random-choice test.
+  7. **H6 from step R** (updated 17 Nov): "with shared axis 0 of `pooled` switched off in every member, at least 0.20 of the average z-fix drop of ℓ̄_1 is removed" (dev +0.408 [0.403, 0.412]; random-choice 1 of 2,000). Frozen axes file `results/s5/frozen_axes_pooled.npz`. H2 stays unless the lead says "H6 replaces H2". The hypothesis file says plainly that H6 comes from exploratory dev work by the reviewer session, with the dev evidence and the random-choice test.
   8. Commit, push, log the new freeze commit, update `STATUS.md`. **Stop.**
 - **Done when:** one commit holds all of it, dev-as-if-test reproduces, the hash table matches.
 - **Can go wrong → prevention:**
@@ -455,4 +472,5 @@ Answered on 2026-11-16 (step N0): H5 → H5′; the new freeze; the test extract
 Still open:
 1. Request an outside dataset now, so it is ready after the test? (Duke DLCS or P-ELCAP; it needs your name.)
 2. Who is the clinical co-author?
-3. Step NF (more feature work on dev) starts when you paste the prompt. If you do not want it, delete the block marked "STEP F" in the prompt before pasting.
+3. Six hypotheses (H6 enters, H2 stays; my recommendation) or five (H6 replaces H2)? You choose when you paste the prompt `docs/HANDOVER_PROMPT_L2_N1.md`.
+4. The re-check of the new freeze (N2) should be done by a fresh session, because the first reviewer did step R.
