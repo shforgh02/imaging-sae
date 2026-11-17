@@ -6,7 +6,7 @@
 
 ## Short answer for the lead
 
-1. **The SAE is not rescued.** With more active features it comes closer (function kept 0.72 → 0.83 → 0.978 for k = 4, 8, 16), but it still fails. The reason is Sybil, not our settings.
+1. **The SAE is not rescued.** Function kept for k = 4, 8, 16, 32 active features: 0.72, 0.83, 0.978, 0.88 (mark 0.98). The best setting (k = 16) still fails, and no setting finds more than 9 shared families (16 needed). The reason is Sybil, not our settings.
 2. **The last layer `h` cannot be rescued by any method.** Every method finds the same 3 shared directions there: the risk score, "lung cut off in z", and one without a name. The 56 valid raw-unit families of S4 are all copies of the risk score (0 of 56 are anything else).
 3. **The earlier layer `pooled` can be read, with a different tool.** All five Sybil members share **11 directions** there ("shared axes"). They repeat in both halves of dev. A shuffle check gives 0. Only 1 of the 11 is the cancer-risk direction. The clearest others are technical: z-geometry (lung cut off in z, number of slices), field of view and body size, scanner maker, breathing and image quality.
 4. **One name is now proven by an experiment, not only by correlation.** The spacing fix (z-fix) moves the "z-geometry" axis by 2.74 SD. The kernel change does not move it (0.01 SD). No random axis out of 2,000 moves by 2 SD.
@@ -61,7 +61,7 @@ P = pass, F = fail. "Families" = found in ≥ 3 of 5 members. "Not risk" = famil
 | SAE k = 4 (S4) | 64 | 0.716 / 0.732 F | P | 8 F | 0.84 / 0.75 P | no | – |
 | SAE k = 8 | 64 | 0.826 / 0.824 F | P | 8 F | 0.77 / 0.75 P | no | 4 |
 | SAE k = 16 | 64 | 0.978 / 0.977 F (AUROC −0.007) | P | 9 F | 0.73 / 0.71 P | no | 3 |
-| SAE k = 32 | 64 | (running) | | | | | |
+| SAE k = 32 | 64 | 0.884 / 0.847 F | P | 9 F | 0.75 / 0.75 P | no | 2 |
 | SAE, K = 16 and 8 | | (running) | | | | | |
 
 Joint dictionary on `h` (R1b; "shared" = the five member parts of a feature agree at r ≥ 0.70 on the other half):
@@ -73,7 +73,7 @@ Joint dictionary on `h` (R1b; "shared" = the five member parts of a feature agre
 
 Shared axes on `h` (R1): 1 axis shared in both halves (2 in one half). It is the z-geometry axis (r 0.98 with `lung_cut_z`; r 0.12 with the risk score; held-out agreement of the members 0.977).
 
-**What this shows.** In `h` the five members agree on about 3 directions: risk, z-geometry, one unnamed. Raw units pass the marks only because they are many copies of the risk direction (effective dimension of the 56 families: 1.5). A less sparse SAE keeps more of the function, but then it finds no more shared families (8, 8, 9). The failure is a property of Sybil's last layer.
+**What this shows.** In `h` the five members agree on about 3 directions: risk, z-geometry, one unnamed. Raw units pass the marks only because they are many copies of the risk direction (effective dimension of the 56 families: 1.5). A less sparse SAE keeps more of the function up to k = 16 (then less again at k = 32), but it never finds more shared families (8, 8, 9, 9). The failure is a property of Sybil's last layer.
 
 ## 3. Layer `pooled`, the six arms (R4)
 
@@ -82,11 +82,20 @@ Shared axes on `h` (R1): 1 axis shared in both halves (2 in one half). It is the
 | raw | 64 | 0.983 / 0.982, AUROC 6 y −0.009 F | P | 46 P | 0.66 / 0.96 F | no | 11 (11, all T) |
 | PCA | 64 | 0.998 / 0.998 P | P | 4 F | 0.83 / 1.00 P | no | 3 (2) |
 | ICA | 64 | 0.998 / 0.998 P | P | 5 F | 0.56 / 0.50 F | no | 5 (2) |
-| NMF, k-means, SAE; K = 16 | | (running) | | | | | |
+| k-means | 64 | 0.954 / 0.952 F | P | 0 F | – | no | – |
+| raw | 16 | 0.980 / 0.979, AUROC 6 y −0.012 F | P | 15 P | 0.63 / 1.00 F | no | 0 of 15 |
+| **PCA** | 16 | r 0.993 / 0.993 but AUROC 6 y **−0.0053** F (mark 0.005) | P | 4 P | 0.83 / 1.00 P | **no, by a hair** | 3 (2) |
+| **ICA** | 16 | r 0.993 / 0.993 but AUROC 6 y **−0.0053** F | P | 6 P | 0.81 / 0.83 P | **no, by a hair** | 5 (5) |
+| **NMF** | 16 | r 0.993 / 0.992 but AUROC 6 y −0.0078 F | P | 7 P | 0.79 / 1.00 P | no (near) | 5 (4) |
+| k-means | 16 | 0.938 / 0.935 F | P | 2 F | 0.83 / 0.50 F | no | 1 |
+| NMF K = 64; SAE; K = 24 and 32 (added, log note 6) | | (running; section 7) | | | | | |
 
-Joint dictionary on `pooled` (R1b): V2′ and V4 pass at K = 4 to 12, 3 to 4 shared features, but V1′ fails (0.94 to 0.977). Not valid.
+Joint dictionary on `pooled` (R1b): joint PCA has 3 to 4 shared features at every K (4 to 32); V1′ passes only at K = 32 (0.990), where V3′ and V4 fail. Group ICA: 0 to 4 shared. Not valid.
 
-**What this shows.** Per-member dictionaries do not line up across members in `pooled` either (4 to 5 families). The members do share directions, but each member writes them in its own basis. That is the case the shared-axes method is made for.
+**What this shows.**
+- At K = 64 the per-member dictionaries do not line up across members (4 to 5 families; 16 needed).
+- At K = 16 they do much better: PCA, ICA and NMF pass three marks, with named families that are not copies of the risk score, and miss the fourth mark only by the AUROC change at 6 years (−0.0053 against 0.005). So in `pooled` a small dictionary is almost valid. This agrees with section 4: there are roughly 4 to 7 directions that line up member by member, and about 11 that are shared as a space.
+- The members share directions, but each member writes them in its own basis. That is the case the shared-axes method is made for.
 
 ## 4. Layer `pooled`, shared axes (R1): 11 axes
 Method: per member z-score, PCA to 30, whiten; multiset CCA (MAXVAR) on one half of the participants; an axis is shared if the five member variates agree at mean pairwise r ≥ 0.70 **on the other half**.
@@ -153,7 +162,7 @@ Note: with a 1 SD margin C1 would be near-automatic (6% of random axes move by �
 **My recommendation:** take **C2** as the one feature-level hypothesis. It says more than C1: not only "the axis moves", but "the axis carries the model's systematic reaction". C1 goes to the secondary list. My honest chance estimate on test for C2: high (about 0.9), because the effect is physical (slice spacing), outcome-free, and four times the random maximum is not needed, only 0.20 against 0.41. The main risk is that the test scanners differ from dev so that the frozen axis fits less well; the secondary number "agreement of the five members on axis 0 in test" will show that.
 
 ## 7. What is still running (will be added here)
-SAE with k = 32 on `h`; SAE at K = 16 and 8; the remaining arms on `pooled` (NMF, k-means, SAE, K = 16); joint dictionary on `pooled` at K = 16 and 32. None of them can change sections 4 to 6.
+SAE on `h` at K = 16 and 8; SAE on `pooled`; `pooled` at K = 24 and 32, all arms (added after K = 16 was seen: K = 16 fails V1 by a hair and K = 64 fails V3, so a K in between may pass; this is tuning K after seeing results, and any "valid" from it carries that caveat). None of them can change sections 4 to 6.
 
 ## 8. What can go wrong, and how it is guarded
 | Risk | Guard |

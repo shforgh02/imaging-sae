@@ -902,3 +902,8 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 ### Step R, note 5 (2026-11-17): plan files updated
 - `docs/HANDOVER_PROMPT_L2_N1.md` rewritten: STEP F is now "check step R, freeze the axes, H6" (no new discovery by the executor). Default: H6 enters and H2 stays (six hypotheses, Holm over six); the lead can choose five when pasting. This differs from the rule of 2026-11-16 ("in place of H2"); the reason is written at the top of the prompt.
 - `docs/PROJECT_GUIDE.md` (part 6b end, part 7, steps NF and N1, open questions) and `STATUS.md` updated.
+
+### Step R, note 6 (2026-11-17): more rows in; one setting added
+- SAE on `h`, K = 64, k = 32: V1 0.884 / 0.847, 9 families: not valid. So V1 over k = 4, 8, 16, 32 is 0.72, 0.83, 0.978, 0.88: best at k = 16, never 0.98. (My chat message said "more active features keep more of the score"; that holds up to k = 16 only.)
+- `pooled`, K = 16: PCA, ICA and NMF pass V2, V3 and V4 (4, 6, 7 families; naming 0.83 / 1.00, 0.81 / 0.83, 0.79 / 1.00) and fail V1 only on the AUROC change at 6 years (-0.0053, -0.0053, -0.0078; mark 0.005; r 0.993). Raw units K = 16: 15 families, all copies of the risk score, V1 and V4 fail. k-means: not valid. Joint dictionary on `pooled`, K = 16 and 32: 3 to 4 shared features (PCA), 0 to 2 (ICA): not valid.
+- **Added after seeing this (logged before it runs): `pooled` with K = 24 and 32, all arms** (SAE with k = K/4). Reason: K = 16 fails V1 by a hair and K = 64 passes V1 but fails V3; a K in between may pass all four marks. This is tuning K after seeing results; any "valid" result from it carries that caveat.

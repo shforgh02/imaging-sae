@@ -1,0 +1,44 @@
+{
+ "layer": "pooled",
+ "arm": "kmeans",
+ "K": 64,
+ "sae_k": null,
+ "n_exams": 7336,
+ "participants": 2492,
+ "V1": {
+  "r_y1": 0.954296911852062,
+  "r_y6": 0.9522646980172524,
+  "dAUROC_y1": -0.006436132607844924,
+  "dAUROC_y6": -0.019713845875215186,
+  "recon_r2_heldout": 0.570816355104037,
+  "pass_": false
+ },
+ "V2": {
+  "per_member": [
+   {
+    "member": 0,
+    "share": 0.6875,
+    "median_r": 0.8446938876498058
+   },
+   {
+    "member": 1,
+    "share": 0.6060606060606061,
+    "median_r": 0.8347880396183796
+   }
+  ],
+  "share": 0.646780303030303,
+  "median_r": 0.8397409636340927,
+  "pass_": true
+ },
+ "V3": {
+  "n_families": 0,
+  "pass_": false
+ },
+ "V4": {
+  "pass_": false,
+  "note": "no family"
+ },
+ "labels": {},
+ "valid": false,
+ "minutes": 4.2
+}
