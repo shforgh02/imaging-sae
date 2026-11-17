@@ -41,3 +41,4 @@ imgsae/exploratory/p1b_sanity/cloud/ledger.json.tmp*
 imgsae/exploratory/lung_l2/logs/*.json.tmp
 # S5 frozen dictionary (dev unit means, SDs and indices; no per-person data) is part of the freeze
 !imgsae/exploratory/lung_l2/results/s5/frozen_raw_arm_K64.npz
+!imgsae/exploratory/lung_l2/results/s5/frozen_axes_pooled.npz
