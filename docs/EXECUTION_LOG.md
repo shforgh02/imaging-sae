@@ -922,3 +922,9 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
   - **C. 3 of 5 members** (`r8_three.py`): shared axes for each set of 3 members; how many are new against the 11 five-member axes; naming of new ones seen in >= 2 sets. Exploratory only.
   - **D. Beyond the radiologist (outcome-free).** Residual of lbar_1 after the form (F1); share explained by the risk axis, the technical axes, the other axes; random-choice test with 2,000 sets of 5 random directions.
 - Any candidate must meet the four conditions (gate 9.8, random-choice or permutation test, no refit on test, honest chance >= 0.5). At most the lead decides what enters; all is dev and exploratory.
+
+### Step R2, results A, B, D (2026-11-17)
+- A (real follow-up): b = +0.246 [0.134, 0.355], halves 0.222 / 0.272; axis 0 off: -0.094 [-0.208, 0.014]; axis 0 jumps 2.29 SD per stretch change; permutation 2.5% above +0.10. Same-model subset (56 changed pairs) +0.216 [-0.057, 0.471]. Candidate C3 (null +0.10), honest chance about 0.7.
+- B (harm, with the form): no difference in false alarms (Sybil 10.9% vs 11.3%; Sybil-only 9.1% vs 7.6%, interval includes 0); z-fix reshuffles Sybil-only false alarms (80 -> 75; 31 lost, 26 new); misses 0 of 18 stretched. No harm hypothesis; harm through misses not testable (about 12 stretched 1-year cancers expected in test).
+- D (beyond the form): technical axes explain 14% of Sybil's residual after the form, but 33% of random 5-direction sets do as well: near-automatic, descriptive only.
+- C (3 of 5) running.

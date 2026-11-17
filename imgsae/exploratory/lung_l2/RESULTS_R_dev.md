@@ -187,7 +187,42 @@ SAE on `h` at K = 8 and the remaining SAE runs on `pooled` (GPU, slow); V2 on al
 | The reviewer did the analysis | Said at the top; the re-check must be done by a session that did not do this work; the executor reruns the scripts |
 | Over-reading the repair test | It removes the average shift, not the scatter; it is not a fix of Sybil and not a clinical result |
 
+## 9. Step R2: more candidate hypotheses (17 Nov; the lead asked "the harm? using the form?")
+Plan and code committed before the run (`52b5e83`; scripts `r7_more.py`, `r8_three.py`). Results `results/r/r7_more_pooled.json`, `r8_three_pooled.json`.
+
+### 9A. Real follow-up: does the slice-spacing effect happen in real repeated screening? (outcome-free) → **candidate C3**
+The z-fix is our own experiment. But in real life the same person is screened every year, and sometimes the reconstruction changes between years (stretched one year, not the next). Dev has 4,837 pairs of consecutive yearly screens; in 215 the stretch status changes.
+Model: change of ℓ̄_1 (later minus earlier) = a + b × (change of stretch: +1, 0, −1) + c × (change of the form's score F1). The form term removes real changes the radiologist saw (a new or growing nodule).
+
+| | Pairs (changed) | b: score change when a screen becomes stretched | 95% interval | Halves | b with axis 0 switched off |
+|---|---|---|---|---|---|
+| **all pairs** | 4,837 (215) | **+0.246** | [0.134, 0.355] | 0.222 / 0.272 | **−0.094** [−0.208, 0.014] |
+| same scanner model | 3,462 (56) | +0.216 | [−0.057, 0.471] | 0.256 / 0.184 | −0.126 |
+| both screens without cancer at 1 y (sensitivity) | 4,743 (205) | +0.279 | [0.171, 0.380] | 0.254 / 0.307 | −0.063 |
+
+- Axis 0 itself jumps by **2.29 SD** [2.14, 2.41] when the stretch status changes between screens (same size as under the z-fix, 2.74).
+- Raw group means of Δℓ̄_1: stretched → not −0.17 (146 pairs); unchanged +0.04 (4,622); not → stretched +0.22 (69).
+- Flag flips between the two screens: 12.3% (stretched → not), 10.1% (not → stretched), 9.2% (unchanged). Small difference; not tested.
+- Permutation test (2,000 shuffles of the stretch change): 2.5% of shuffles give b above +0.10 (largest 0.15). Below the 5% rule, but not by much.
+- **What this shows:** in real repeated screening, when the scanner reconstructs a person's scan with overlapping slices one year and not the next, Sybil's 1-year score jumps by about 0.25 logit, beyond what the radiologist's findings explain. With the shared z-geometry axis switched off, the jump is gone. This is our z-fix effect, seen again **without our intervention**, in real data, with the same mechanism.
+- **Proposed hypothesis C3:** b > +0.10 (the H2 margin), on test pairs of consecutive screens; needs only the main runs, the metadata, the frozen form model F1; the switched-off version needs the frozen axis. **Honest chance on test: about 0.7** (dev interval lower end 0.134, close to the null; test will have a similar number of pairs).
+- Limits: observational (a scanner change can bring other changes; the same-model subset agrees but is small); the form term adjusts only for what the radiologist recorded.
+
+### 9B. Harm through false alarms or misses, with the form → **no harm signal; not testable**
+- Sybil's false-alarm rate (people without cancer at 1 year): stretched 10.9%, other 11.3% (difference −0.5 points [−3.1, +2.5]).
+- Sybil-only false alarms (Sybil flags, the form does not): stretched 9.1%, other 7.6% (+1.5 points [−0.9, +4.1]). Not different. (The form itself flags fewer stretched exams: 7.2% against 10.4%; the stretched scans come from other sites and scanners.)
+- z-fix in the 906 stretched exams without cancer: Sybil-only false alarms 80 → 75 (31 lost, 26 new): a reshuffle, not a reduction.
+- Misses at 1 year: stretched 0 of 18 cancers missed; other 6 of 70. Expected stretched 1-year cancers in test: about 12. **No test of harm through misses can have power.**
+- **What this shows:** on dev there is no sign that the stretch makes Sybil worse for patients. "Sensitivity, not harm" stays the honest wording. No harm hypothesis is proposed.
+
+### 9D. What Sybil sees beyond the radiologist → **descriptive only (fails the random-choice test)**
+- The form explains 19% of the variance of Sybil's 1-year logit. Of the rest ("beyond the radiologist"): the risk axis explains 54%, the five technical axes 14%, the other five axes 7%, all 11 axes 75%.
+- Random-choice: 5 random directions explain a median 11%, and 33% of random sets explain as much as the technical axes. So "technical axes carry Sybil's disagreement with the radiologist" would be near-automatic. Not proposed.
+
+### 9C. 3 of 5 members
+(running; added below when done)
+
 ## Files
-- Scripts: `r1_arms.py`, `r2_shared.py`, `r3_joint.py`, `r4_axes_audit.py`, `r5_repair.py`, `r6_candidate.py`, `run_r_dev.ps1`
+- Scripts: `r1_arms.py`, `r2_shared.py`, `r3_joint.py`, `r4_axes_audit.py`, `r5_repair.py`, `r6_candidate.py`, `r7_more.py`, `r8_three.py`, `run_r_dev.ps1`
 - Results: `results/r/` (`r1_*.json` and family tables, `r2_shared_*.json`, `r2_axes_*.csv`, `r3_joint_*.json`, `r4_axes_audit_pooled.json`, `r4_axes_pooled.csv`, `r5_repair_pooled.json`, `r6_candidate_pooled.json`)
 - Fitted axes (outside git): `D:\Shayan\imgsae_data\lung_l2\r\r2_shared_pooled.pkl`
