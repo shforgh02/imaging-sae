@@ -23,7 +23,7 @@ You are the executing session of a research project. Repository `D:\Shayan`, git
 ## The lead's OK (given by pasting this prompt)
 1. **H5 is replaced by H5′** (review, section "What I propose instead").
 2. **A new freeze commit** with the four small changes of the review (wording of H3 and H4 with the flag numbers; `wald()` with SD 0; the test-list script and its hash; LF hashes of the three text inputs).
-3. **S6 in December** on account `shforghani2002`, with the thin margin and the frozen fallbacks. Not in this session.
+3. **S6 in November** (changed 2026-11-17; lead: "i dont need any other account for my other works, so we can use them all"): on `armanfo` (smoke, T1, T4) and `forghanishayan` (identity check, then T2, T3), as `docs/PROJECT_GUIDE.md` step N4. The ledger already holds both accounts and their limits. Not in this session. In the new hypothesis file, write the S6 run plan with this split (cost per account, the tier order inside each account, and the frozen fallbacks).
 4. **Amendment A6:** extra feature work on dev before the test opens. It is done (steps R and R2). Its results enter the freeze as **H6** (candidate C2 of `RESULTS_R_dev.md`, section 6) and **H7** (candidate C3, section 9A), with C1 and the other axis numbers as secondary items, unless the lead's lines above say otherwise.
 
 ## Step 0 (free)
@@ -84,7 +84,7 @@ Stop after step N1. Do not start S6. The next steps are the re-check (N2) and th
 - **No package install** without telling the lead first.
 - Do not change the meaning of H1 to H4, their statistics, nulls or thresholds.
 - Do not change the step R scripts or `results/r/` (a needed fix is a logged deviation, with the old result kept).
-- Do not touch the lead's other apps and volumes, the third Modal profile, or the "reserve".
+- Do not touch the lead's other apps and volumes on any account (including the deployed app on `forghanishayan`), or the "reserve".
 - Keep `New report .txt` and `imgsae/exploratory/ucla_audit/` out of git. Do not raise the lead's earlier prostate manuscript.
 - Privacy: no name, email or project name in any request to an outside service.
 

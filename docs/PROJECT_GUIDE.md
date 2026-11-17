@@ -254,7 +254,7 @@ The lead asked the reviewer session to test more methods before the Opus session
 | Second account `armanfo`, this project | $14.03 | $17.00 | $2.97 |
 
 - **Where the money went:** CT work $7.74; prostate MRI $5.12; lung L1 $12.53; lung L2 $21.70.
-- **Next paid step:** the test extraction (S6), about $18.9, or $20.8 with a reserve, against $22.30 allowed. It must wait for **1 December** on the main account, unless the lead decides otherwise.
+- **Next paid step:** the test extraction (S6), about $18.9, or $20.8 with a reserve, against $22.30 allowed. **Changed 17 Nov:** it runs in November on `armanfo` and `forghanishayan` (step N4), after the new freeze, the re-check and the lead's OK. Live on 17 Nov: `armanfo` $15.69 of $29.50 used; `forghanishayan` $5.02 of $29.50 used (the lead's own app; free storage not counted).
 
 ---
 
@@ -324,11 +324,12 @@ The lead asked the reviewer session to test more methods before the Opus session
 - **Who:** the lead.
 - **Done when:** "OK for the freeze `<commit>` and for S6" is in the log with the date. **Nothing on test happens before this line exists.**
 
-### N4. Test extraction, S6 part 1 (about $19 to $21; not before 1 December)
-- **Who:** the unattended driver (`cloud/drive_plan.py`), started by the executor agent. Account `shforghani2002`.
+### N4. Test extraction, S6 part 1 (about $19 to $21; **in November, changed 17 Nov**)
+- **Changed on 2026-11-17 (lead: "i dont need any other account for my other works, so we can use them all"):** S6 no longer waits for December. It runs on **`armanfo`** (already set up in S3; $13.81 left this month; project limit raised to $27) and **`forghanishayan`** (added to the ledger; $24.48 left; project limit $20; the lead's idle deployed app there is never touched). Split: `armanfo` smoke + **T1** + **T4** (about $7.4, $8.1 with the reserve); `forghanishayan` identity check first (a few series that ran on `armanfo` must give equal numbers to the last digit, as in S3), then **T2** + **T3** (about $12.0, $13.2 with the reserve). The task budget ($23.30 left) and the project cap ($24.91 left) still bind.
+- **Who:** the unattended driver (`cloud/drive_plan.py`), started by the executor agent, with `MODAL_PROFILE` set per command.
 - **Why:** the hypotheses need Sybil's inner numbers on the test scans.
 - **Do:**
-  1. Check the date and the budget: `budget.py status --no-log` (miniconda python). The month must be December.
+  1. Check the budget on both accounts: `budget.py status --profile armanfo --no-log` and `--profile forghanishayan` (miniconda python).
   2. Run `s6_manifest_test.py`; commit `manifest_test.csv` and its hash.
   3. Change `cloud/l2_sybil_modal.py` only so that it can read the test list (root `test`). Log the change. No analysis file changes.
   4. **Smoke run first:** demo case and 3 test series. The demo must equal the published scores (difference ≤ 0.005; we expect 0.0).
@@ -386,7 +387,7 @@ The lead asked the reviewer session to test more methods before the Opus session
 8. **Environment.** Windows and PowerShell, not Bash. Scripts: `D:\Shayan\imgsae\.venv\Scripts\python.exe`. Budget and Modal tools: `C:\Users\Arman\miniconda3\python.exe`. 4 BLAS threads. No package is installed without telling the lead.
 9. **Records.** Every decision, deviation and result goes into `docs/EXECUTION_LOG.md`; the state into `STATUS.md`. Commit and push after every finished step. Keep `New report .txt` and `imgsae/exploratory/ucla_audit/` out of git.
 10. **Privacy.** No name, email or project name in any request to an outside service.
-11. **Never touched:** the lead's other apps and volumes on both accounts; the third Modal profile; the "reserve" budget.
+11. **Never touched:** the lead's other apps and volumes on every account (including the deployed app on `forghanishayan`); the "reserve" budget. (`forghanishayan` itself may be used for S6 since 17 Nov.)
 12. **"Wait" means stop.** At a stop point, give the file path and stop.
 13. **Writing to the lead:** short plain sentences; the result first, then the numbers, then what is needed.
 

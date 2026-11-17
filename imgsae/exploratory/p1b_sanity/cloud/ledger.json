@@ -7,9 +7,13 @@
   },
   "armanfo": {
    "cap_usd": 29.5
+  },
+  "forghanishayan": {
+   "cap_usd": 29.5
   }
  },
- "armanfo_project_limit_usd": 17.0,
+ "armanfo_project_limit_usd": 27.0,
+ "forghanishayan_project_limit_usd": 20.0,
  "rule": "User, 2026-11-09: Modal free credit is $30/month; stop at $29; every task has its own budget and must not exceed it. Check usage before every launch. Using 'reserve' or moving money between tasks needs the user's OK. Updated by the user later on 2026-11-09: 2 Modal accounts, $29/month each. This ledger tracks account shforghani2002; cap_usd is its monthly cap and the project check stays as an extra limit. Updated 2026-11-15 (lead, lung L2 amendment A4): the ledger tracks two accounts; per-account monthly caps in 'accounts' (shforghani2002 29.00, armanfo 29.50); this project at most $17.00 on armanfo; profile forghanishayan and the reserve are not used.",
  "budgets": {
   "a3_sae": 3.0,
@@ -32,7 +36,9 @@
   "project_cap_usd": "All-time project limit for the guard's project check, separate from the monthly cap_usd (29, unchanged). Set to 72.00 by the lead on 2026-11-13 (hand-over prompt for the Sybil audit).",
   "lung_l2_audit": "Lung L2, feature-level audit of Sybil (docs/LUNG_L2_PROTOCOL.md), steps S2 to S6, spread over months. $45.00 approved by the lead on 2026-11-13. S7 needs a new approval. Account shforghani2002 only; reserve and second account not used. Runs executed by a delegated agent under the protocol. Amended 2026-11-15 (A4, A5, lead's OK): account armanfo for S3 D2, D3, D4 and the P2 smoke and identity runs; paid runs by the unattended driver (drive_runs.py, drive_plan.py).",
   "accounts": "Per-account monthly caps (lead's OK 2026-11-15, lung L2 amendment A4): shforghani2002 29.00, armanfo 29.50. cap_usd stays as shforghani2002's cap for old scripts; budget.py uses 'accounts'. Every run records its profile.",
-  "armanfo_project_limit_usd": "This project may use at most $17.00 on account armanfo (lead's answer to review question 1, 2026-11-15). budget.py test 4: this project's runs on armanfo (all time = November 2026), worst case for open runs, + launch worst case <= 17.00."
+  "armanfo_project_limit_usd": "This project may use at most $17.00 on account armanfo (lead's answer to review question 1, 2026-11-15). budget.py test 4: this project's runs on armanfo (all time = November 2026), worst case for open runs, + launch worst case <= 17.00. Raised to $27.00 on 2026-11-17 (lead: 'i dont need any other account for my other works, so we can use them all'); the monthly cap 29.50 still binds.",
+  "forghanishayan_project_limit_usd": "Account forghanishayan added on 2026-11-17 with the lead's OK (same words), cap 29.50 (the lead's figure), project limit $20.00 (leaves room for the lead's idle deployed app on that account; never touch that app). Month used on 2026-11-17: $5.02 (metered minus free storage). The project cap ($72) and the task budgets still bind.",
+  "accounts_2026_11_17": "forghanishayan added (cap 29.50). Plan: the S6 test run may start in November, split across armanfo and forghanishayan, after the new freeze, the re-check and the lead's OK."
  },
  "runs": [
   {

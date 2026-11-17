@@ -945,3 +945,9 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 - Code error found and fixed before reporting: `variant_dev_zfix.csv` repeats the main run's `resampled_T`; `r10_att_harm.py` now uses n_images x true spacing / 2.5 for the z-fix box.
 - Naive: stretched 27% vs other 40% attention near the nodule; z-fix 27% -> 34% (+0.063 [0.038, 0.088]). Shuffled nodule positions (500 and 300 shuffles): z-fix +0.110; stretched 0.157 vs other 0.237. So the naive effect is geometry (a +-1-bin window covers more of the lung in a shorter box). Corrected excess: main 0.115 -> z-fix 0.068; stretched 0.114 vs other 0.160 (not comparable groups). No harm signal. Descriptive only; nothing proposed.
 - `docs/HANDOVER_PROMPT_L2_N1.md`: harm estimates (T5 sensitivity and AUROC, main vs z-fix, with the detectable size stated before the test) and the attention check added as secondary items, on the lead's question.
+
+### 2026-11-17: the lead's money decision (S6 in November)
+- Live billing (read-only, 17 Nov): shforghani2002 $28.17 of $29.00 used ($0.83 left); armanfo $15.69 of $29.50 ($13.81 left; project $14.03); forghanishayan $5.02 of $29.50 (metered minus free storage; the lead's own deployed app, idle, 0 tasks).
+- Lead: "i dont need any other account for my other works, so we can use them all".
+- Ledger (`cloud/ledger.json`): account forghanishayan added (cap $29.50, project limit $20.00); armanfo project limit $17.00 -> $27.00. Project cap $72 and task budget lung_l2_audit ($23.30 left) unchanged. `budget.py status --profile forghanishayan` works (month used $5.02).
+- Plan: S6 in November after the new freeze, the re-check and the lead's OK: armanfo smoke + T1 + T4 (about $8.1 with reserve); forghanishayan identity check, then T2 + T3 (about $13.2 with reserve). `docs/PROJECT_GUIDE.md` N4 and `docs/HANDOVER_PROMPT_L2_N1.md` updated.
