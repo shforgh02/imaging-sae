@@ -944,3 +944,4 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 ### Step R3b result (2026-11-17)
 - Code error found and fixed before reporting: `variant_dev_zfix.csv` repeats the main run's `resampled_T`; `r10_att_harm.py` now uses n_images x true spacing / 2.5 for the z-fix box.
 - Naive: stretched 27% vs other 40% attention near the nodule; z-fix 27% -> 34% (+0.063 [0.038, 0.088]). Shuffled nodule positions (500 and 300 shuffles): z-fix +0.110; stretched 0.157 vs other 0.237. So the naive effect is geometry (a +-1-bin window covers more of the lung in a shorter box). Corrected excess: main 0.115 -> z-fix 0.068; stretched 0.114 vs other 0.160 (not comparable groups). No harm signal. Descriptive only; nothing proposed.
+- `docs/HANDOVER_PROMPT_L2_N1.md`: harm estimates (T5 sensitivity and AUROC, main vs z-fix, with the detectable size stated before the test) and the attention check added as secondary items, on the lead's question.
