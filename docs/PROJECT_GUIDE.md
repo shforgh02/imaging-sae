@@ -243,7 +243,8 @@ The lead asked the reviewer session to test more methods before the Opus session
 
 ## 7. Where we are today (16 Nov 2026)
 
-- **State (updated 17 Nov):** S5 frozen at `c593005`; reviewed; the lead decided on 16 Nov (step N0 done). Step NF was done on 16 to 17 Nov as "step R" by the reviewer session (part 6b, end). **Next: the executor (Opus 5.5) checks step R, freezes the shared axis and makes the new freeze (N1), with the prompt `docs/HANDOVER_PROMPT_L2_N1.md`.** The test split is closed. No test data exist on the PC or in the cloud.
+- **State (updated 17 Nov, evening):** the **second freeze is done: commit `c3578c3`** (step N1). Six hypotheses: H1, H2, H3, H4, H6, H7 (Holm over six). H5′ failed its random-choice test on dev and the lead moved it to the secondary list. The executor reran step R (0 differences) and froze the shared axes. **Next: N2, the re-check by a fresh session that did not do step R (`docs/PROMPT_REVIEW_S5b.md`), then N3, the lead's OK.** The test split is closed. No test data exist on the PC or in the cloud.
+- **State before (17 Nov, morning):** S5 frozen at `c593005`; reviewed; the lead decided on 16 Nov (step N0 done). Step NF was done on 16 to 17 Nov as "step R" by the reviewer session (part 6b, end).
 - **Money:**
 
 | | Used | Limit | Left |
@@ -295,7 +296,9 @@ The lead asked the reviewer session to test more methods before the Opus session
 - **Can go wrong → prevention:** fishing for a result → the list of analyses is fixed first, the test set is the final judge, and the random-choice test is required. The slow laptop GPU → the time limit.
 - **My honest expectation:** the SAE will fail again (the space is small and dense at both layers). The shared axes will give a handful of nameable directions. A new outcome-free hypothesis is possible. A feature that improves cancer prediction is unlikely.
 
-### N1. The new freeze (free, on the PC)
+### N1. The new freeze (free, on the PC). **DONE on 2026-11-17: freeze commit `c3578c3`**
+- **What happened:** step F first: all step R scripts behind H6 and H7 were rerun (0 differences), the code was read (no error; one edge case of H7, the 8 exams with a recorded ratio of 0, logged and frozen as a secondary number), and the 11 shared axes were frozen (`results/s5/frozen_axes_pooled.npz`). Then H5′: it reproduced (−0.0566) but **failed its random-choice test (59.7% of random sets of 6 families pass)**; the lead chose "move H5′ to secondary". The freeze has **six hypotheses (H1 to H4, H6, H7)**; H7 is labelled "partly seen". Dev as if test: H1 to H4 equal the first freeze exactly; H6 and H7 equal step R. Test-list script written and checked on dev only (byte-identical to `manifest_dev.csv`). Details: `docs/EXECUTION_LOG.md`, 17 Nov.
+- **The plan as it was written (kept for the record):**
 - **Who:** the executor agent (Opus 5.5), in a fresh session.
 - **Why:** H5 as written cannot fail and tests nothing; the review also found four small things. A hypothesis may only change **before** test data exist, and the change must be visible.
 - **Do, in this order:**
@@ -314,8 +317,8 @@ The lead asked the reviewer session to test more methods before the Opus session
   - The agent "improves" other things → not allowed; only the listed changes.
 - **Stop and ask if:** H5′ does not reproduce; any H1 to H4 value differs; anything about test data is unclear.
 
-### N2. Short re-check of the new freeze (free)
-- **Who:** the reviewer (Fable 5.2, fresh session). Prompt: adapt `docs/PROMPT_REVIEW_FABLE_S5.md` to the new commit.
+### N2. Short re-check of the new freeze (free). **NEXT**
+- **Who:** a fresh session that did **not** do step R (the reviewer of the first freeze did step R). Prompt: `docs/PROMPT_REVIEW_S5b.md` (written 17 Nov). Freeze to check: `c3578c3`.
 - **Why:** a freeze nobody checked is worth less.
 - **Do:** check the hashes, re-run dev as if test, read the H5′ code and the test-list script (no outcome read; same pair rule), read the diff from `c593005`.
 - **Done when:** a dated note is added to `docs/REVIEW_S5_L2.md` and logged.

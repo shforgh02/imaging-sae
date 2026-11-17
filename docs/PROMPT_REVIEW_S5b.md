@@ -15,7 +15,7 @@ You are the reviewer of a hypothesis freeze in a research project. Repository `D
 - `68f4637`, `52b5e83`: plan and code commits of step R and R2 (exploratory dev work after the first freeze; amendment A6).
 - `5cc5e5e`: the lead's OK recorded; amendment A6 in the protocol.
 - `292fd3a`: step F (the executor reran step R: 0 differences; the shared axes frozen; H5′ evidence).
-- **The second freeze commit** is named in `docs/EXECUTION_LOG.md` (entry "2026-11-17: second freeze …"). Review that commit. Check with `git diff --stat <freeze> HEAD` that later commits touch no frozen or analysis file.
+- **`c3578c3`: the second freeze commit. Review this commit** (log entry "2026-11-17: step N1 done: second freeze"). Check with `git diff --stat c3578c3 HEAD` that later commits touch no frozen or analysis file. Note: `git diff c593005 c3578c3` also shows the ledger change of commit `96d3c12` (the lead's money decision of 17 Nov, made by the reviewer session), the step R files, and the plan documents.
 
 ## Read, in this order
 1. `docs/REVIEWER_BRIEF_L2.md` (items 1 to 8) and `docs/REVIEW_S5_L2.md` (the first review and its changes 1 to 6).

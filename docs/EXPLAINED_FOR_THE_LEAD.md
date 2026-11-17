@@ -185,6 +185,8 @@ The maps are coarse (cells about 2 cm). Good for paper figures; a real helper fo
 
 ## Part I. The predictions for the test set (H1 to H7)
 
+**Update (17 Nov, second freeze `c3578c3`): H5′ is no longer a prediction.** It reproduced on dev (−0.057), but 59.7% of random sets of 6 units also pass its −0.02 line, so it could not fail (the old H5 mistake again). The lead chose to move it to the secondary list. **The frozen family is six: H1, H2, H3, H4, H6, H7.** H7 is labelled "partly seen" (a rough version could have been computed from the L1 test scores; nobody did). Details: `imgsae/exploratory/lung_l2/HYPOTHESES_L2.md`. The table below is the version of 17 Nov before the freeze.
+
 | | Claim | Dev | Line to beat | If it passes | If it fails |
 |---|---|---|---|---|---|
 | H1 | z-fix changes the 6-year score clearly in > 30% of stretched exams | 67% | 30% | strong spacing sensitivity (core finding) | smaller on test |
