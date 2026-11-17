@@ -1,0 +1,47 @@
+{
+ "root": "dev",
+ "script": "s6_manifest_test.py",
+ "rows_by_tier": {
+  "D1": 2484,
+  "D2": 2442,
+  "D3": 2410,
+  "D4": 500
+ },
+ "same_shape": true,
+ "differing_values_by_column": {
+  "series_uid": 0,
+  "pid": 0,
+  "study_yr": 0,
+  "tier": 0,
+  "variant": 0,
+  "order": 0,
+  "pos": 0,
+  "pilot": 0,
+  "partner_of": 0,
+  "Manufacturer": 0,
+  "ManufacturerModelName": 0,
+  "ConvolutionKernel": 0,
+  "kclass": 0,
+  "thick": 0,
+  "spacing_idc": 0,
+  "ratio_idc": 0,
+  "n_images": 0,
+  "size_mb": 0,
+  "url": 0,
+  "StudyInstanceUID": 0
+ },
+ "identical_to_manifest_dev": true,
+ "D4": {
+  "n_ref": 500,
+  "n_new": 500,
+  "same_pairs": true,
+  "pairs_available": 1316,
+  "by_maker": {
+   "GE MEDICAL SYSTEMS": 236,
+   "SIEMENS": 195,
+   "Philips": 50,
+   "TOSHIBA": 19
+  }
+ },
+ "manifest_devcheck_sha256": "8fe372a690c551767e6a9a6eedae9e48439dc14009f07ba201bff8b9dea4b2ac"
+}

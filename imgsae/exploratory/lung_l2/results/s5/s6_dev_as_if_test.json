@@ -3,6 +3,7 @@
  "frozen": "results\\s5",
  "n_exams": 7336,
  "participants": 2492,
+ "check_max_abs_lbar1_from_pooled_minus_saved": 2.630327955444045e-07,
  "zfix_descriptive": {
   "1.6": {
    "n": 333,
@@ -42,7 +43,9 @@
     "participants": 424,
     "cancers_y1": 16
    },
+   "halves": null,
    "evaluated": true,
+   "partly_seen": false,
    "confirmed_holm": true
   },
   {
@@ -61,12 +64,14 @@
     "participants": 424,
     "cancers_y1": 16
    },
+   "halves": null,
    "evaluated": true,
+   "partly_seen": false,
    "confirmed_holm": true
   },
   {
    "id": "H3",
-   "name": "z-fix changes the tau90 flag",
+   "name": "z-fix changes the tau90 flag (in both directions: flags are lost and gained)",
    "direction": ">",
    "null": 0.05,
    "est": 0.07467532467532467,
@@ -80,12 +85,14 @@
     "participants": 424,
     "cancers_y1": 16
    },
+   "halves": null,
    "evaluated": true,
+   "partly_seen": false,
    "confirmed_holm": true
   },
   {
    "id": "H4",
-   "name": "kernel change rarely changes the tau90 flag",
+   "name": "the kernel changes the tau90 flag in fewer than 5% of exams",
    "direction": "<",
    "null": 0.05,
    "est": 0.018,
@@ -98,29 +105,64 @@
     "pairs": 500,
     "participants": 500
    },
+   "halves": null,
    "evaluated": true,
+   "partly_seen": false,
    "confirmed_holm": true
   },
   {
-   "id": "H5",
-   "name": "technical-named features carry a part of Sybil's score",
+   "id": "H6",
+   "name": "shared axis 0 of `pooled` (z-geometry) carries the z-fix drop of Sybil's score",
    "direction": ">",
-   "null": 0.03,
-   "est": 0.05049736303699371,
+   "null": 0.2,
+   "est": 0.4077959035675144,
    "ci95": [
-    0.05008570106329477,
-    0.050912057735237194
+    0.40323887600303066,
+    0.41209956137132747
    ],
    "p_one_sided": 0.0,
    "counts": {
-    "exams": 7336,
-    "participants": 2492
+    "exams": 924,
+    "participants": 424,
+    "cancers_y1": 16
    },
+   "halves": [
+    0.41219624665698174,
+    0.4035637264559885
+   ],
    "evaluated": true,
+   "partly_seen": false,
+   "confirmed_holm": true
+  },
+  {
+   "id": "H7",
+   "name": "in real follow-up, Sybil's 1-year score jumps when a yearly screen changes between stretched and not stretched, beyond the form",
+   "direction": ">",
+   "null": 0.1,
+   "est": 0.24580462560423633,
+   "ci95": [
+    0.13373618425285422,
+    0.3550642322807202
+   ],
+   "p_one_sided": 0.005237044264108945,
+   "counts": {
+    "pairs": 4837,
+    "participants": 2441,
+    "changed": 215,
+    "stretched_to_not": 146,
+    "not_to_stretched": 69
+   },
+   "halves": [
+    0.2220058287164362,
+    0.2719796038092661
+   ],
+   "evaluated": true,
+   "partly_seen": true,
    "confirmed_holm": true
   }
  ],
- "n_confirmed": 5,
+ "n_confirmed": 6,
+ "n_family": 6,
  "secondary": {
   "y1": {
    "counts": {
@@ -205,5 +247,385 @@
    }
   }
  },
- "note": "secondary references are outside the Holm family; anything else is exploratory (protocol 11)"
+ "secondary_new_freeze": {
+  "H6_axes_member_agreement": {
+   "mean_pairwise_r": [
+    0.9953,
+    0.9656,
+    0.9467,
+    0.9382,
+    0.9084,
+    0.8669,
+    0.851,
+    0.8348,
+    0.8055,
+    0.7837,
+    0.7471
+   ],
+   "n_axes_ge_0p70": 11,
+   "n_axes": 11
+  },
+  "zfix_flags": {
+   "flagged_main": 112,
+   "flagged_variant": 105,
+   "lost": 38,
+   "gained": 31,
+   "changed": 69,
+   "flagged_in_either": 143,
+   "discordant_share_of_flagged_in_either": 0.4825174825174825
+  },
+  "zfix_term_changes_lbar1": {
+   "intercept": {
+    "est": 0.0,
+    "lo": 0.0,
+    "hi": 0.0,
+    "sd": 0.0,
+    "n_draws": 2000,
+    "part_of_mean_shift": -0.0
+   },
+   "residual": {
+    "est": -0.10102921248498972,
+    "lo": -0.10747290792638983,
+    "hi": -0.0938564500824572,
+    "sd": 0.0034176302188668795,
+    "n_draws": 2000,
+    "part_of_mean_shift": 0.30954943891556363
+   },
+   "N": {
+    "est": 0.005331521267673536,
+    "lo": -0.012867792532691612,
+    "hi": 0.024578812288218323,
+    "sd": 0.009618739133373888,
+    "n_draws": 2000,
+    "part_of_mean_shift": -0.016335566480040996
+   },
+   "mixed": {
+    "est": -0.19674117983919948,
+    "lo": -0.20628902338249233,
+    "hi": -0.18652616064174085,
+    "sd": 0.005038585242082765,
+    "n_draws": 2000,
+    "part_of_mean_shift": 0.6028070528596716
+   },
+   "unreplicated": {
+    "est": 0.02269025303471487,
+    "lo": 0.016733640485805466,
+    "hi": 0.02884864128082226,
+    "sd": 0.003064023380921146,
+    "n_draws": 2000,
+    "part_of_mean_shift": -0.06952202163103763
+   },
+   "T": {
+    "est": -0.05662641930114353,
+    "lo": -0.05901981095158024,
+    "hi": -0.0541006072230008,
+    "sd": 0.00123579064697944,
+    "n_draws": 2000,
+    "part_of_mean_shift": 0.17350106856539857
+   }
+  },
+  "zfix_terms_check_max_abs_sum_minus_delta_lbar1": 2.7737858573906315e-07,
+  "C1_zfix_moves_axis0_dev_sd": {
+   "est": -2.739791314035412,
+   "lo": -2.7651102108061787,
+   "hi": -2.7144745650003146,
+   "sd": 0.013215293738373312,
+   "n_draws": 2000,
+   "halves": [
+    -2.7626368508210972,
+    -2.71781885508867
+   ],
+   "null": -2.0,
+   "direction": "<",
+   "note": "secondary; dev -2.740"
+  },
+  "H6_axes_zfix_change_dev_sd": [
+   -2.7398,
+   -0.5504,
+   -0.2088,
+   -0.0564,
+   -0.244,
+   -0.1086,
+   0.2135,
+   0.0267,
+   0.0506,
+   0.2371,
+   0.5339
+  ],
+  "H6_share_ge_quarter_sd_lbar6": {
+   "axis0_off": {
+    "est": 0.5497835497835498,
+    "lo": 0.5114694234665684,
+    "hi": 0.5878471216482802,
+    "sd": 0.01916456241439172,
+    "n_draws": 2000
+   },
+   "plain_from_pooled": 0.6699134199134199,
+   "note": "dev: 0.550 off, 0.670 plain"
+  },
+  "harm_T5": {
+   "y1": {
+    "population": "T5 exams with known y1 (all screens)",
+    "counts": {
+     "exams": 922,
+     "participants": 422,
+     "cancers": 16
+    },
+    "threshold": 0.017993675365094892,
+    "sens_main": {
+     "k": 16,
+     "n": 16,
+     "est": 1.0,
+     "ci_exact": [
+      0.7940927857921772,
+      1.0
+     ]
+    },
+    "sens_zfix": {
+     "k": 15,
+     "n": 16,
+     "est": 0.9375,
+     "ci_exact": [
+      0.697679261565468,
+      0.9984188882772341
+     ]
+    },
+    "paired": {
+     "caught_main_only": 1,
+     "caught_zfix_only": 0,
+     "diff_zfix_minus_main": {
+      "est": -0.0625,
+      "lo": -0.2222222222222222,
+      "hi": 0.0,
+      "n_draws": 2000
+     }
+    },
+    "auroc_main": {
+     "est": 0.9944122516556292,
+     "lo": 0.9877489438568607,
+     "hi": 0.998863217970463,
+     "n_draws": 2000
+    },
+    "auroc_zfix": {
+     "est": 0.9837196467991169,
+     "lo": 0.9620893847774319,
+     "hi": 0.9961626793143373,
+     "n_draws": 2000
+    },
+    "dauroc_zfix_minus_main": {
+     "est": -0.010692604856512244,
+     "lo": -0.028218825515141058,
+     "hi": 0.00046949844715007076,
+     "n_draws": 2000
+    }
+   },
+   "y6": {
+    "population": "T5 exams with known y6 (baseline screens)",
+    "counts": {
+     "exams": 329,
+     "participants": 329,
+     "cancers": 27
+    },
+    "threshold": 0.12394902353743817,
+    "sens_main": {
+     "k": 16,
+     "n": 27,
+     "est": 0.5925925925925926,
+     "ci_exact": [
+      0.3879839302596819,
+      0.7761027086494185
+     ]
+    },
+    "sens_zfix": {
+     "k": 16,
+     "n": 27,
+     "est": 0.5925925925925926,
+     "ci_exact": [
+      0.3879839302596819,
+      0.7761027086494185
+     ]
+    },
+    "paired": {
+     "caught_main_only": 1,
+     "caught_zfix_only": 1,
+     "diff_zfix_minus_main": {
+      "est": 0.0,
+      "lo": -0.1111111111111111,
+      "hi": 0.10344827586206895,
+      "n_draws": 2000
+     }
+    },
+    "auroc_main": {
+     "est": 0.8700024527839098,
+     "lo": 0.7906344552211269,
+     "hi": 0.9296165467565433,
+     "n_draws": 2000
+    },
+    "auroc_zfix": {
+     "est": 0.8571253372577876,
+     "lo": 0.7622933076345014,
+     "hi": 0.9291541995581566,
+     "n_draws": 2000
+    },
+    "dauroc_zfix_minus_main": {
+     "est": -0.01287711552612214,
+     "lo": -0.06547862997658067,
+     "hi": 0.036136729730858096,
+     "n_draws": 2000
+    }
+   }
+  },
+  "kernel_flags": {
+   "flagged_main": 64,
+   "flagged_variant": 61,
+   "lost": 6,
+   "gained": 3,
+   "changed": 9,
+   "flagged_in_either": 67,
+   "discordant_share_of_flagged_in_either": 0.13432835820895522
+  },
+  "H6_axes_kernel_change_dev_sd": [
+   0.0094,
+   0.0389,
+   0.0015,
+   -0.0498,
+   -0.141,
+   0.0201,
+   -0.1261,
+   -0.0174,
+   0.1846,
+   0.0167,
+   0.1006
+  ],
+  "H6_axes_kernel_change_note": "pair (soft) minus main (sharp), in dev SD units of each axis; dev axis 0: +0.009",
+  "H7_followup": {
+   "b_axis0_off": {
+    "est": -0.09446385850394358,
+    "lo": -0.20761793696283673,
+    "hi": 0.0140182489620903,
+    "sd": 0.056505617229325025,
+    "n_draws": 2000
+   },
+   "axis0_jump_per_stretch_change_dev_sd": {
+    "est": 2.2851427161009545,
+    "lo": 2.1431756773874064,
+    "hi": 2.4054174784370352,
+    "sd": 0.06592128685575632,
+    "n_draws": 2000
+   },
+   "b_ratio0_not_stretched": {
+    "est": 0.22730928544357965,
+    "lo": 0.1151867605577289,
+    "hi": 0.3361046832959912,
+    "sd": 0.05634983848137788,
+    "n_draws": 2000,
+    "note": "stretched = 0 < ratio <= 0.65 (exams with a recorded ratio of 0, i.e. duplicated slice positions, counted as not stretched); dev +0.227"
+   },
+   "same_scanner_model": {
+    "est": 0.216254673276002,
+    "lo": -0.0568106411833546,
+    "hi": 0.47139044299373545,
+    "sd": 0.13340587207092539,
+    "n_draws": 2000,
+    "pairs": 3462,
+    "changed": 56
+   },
+   "groups": {
+    "stretched_to_not": {
+     "n": 146,
+     "mean_dl": -0.1741874179560436,
+     "mean_dl_off": 0.1672973489339579,
+     "mean_dax0": -2.2841879334428867,
+     "flag_flip": 0.1232876712328767
+    },
+    "unchanged": {
+     "n": 4622,
+     "mean_dl": 0.040735763006318516,
+     "mean_dl_off": 0.038654334246573,
+     "mean_dax0": 0.013579408241587433,
+     "flag_flip": 0.09195153613154479
+    },
+    "not_to_stretched": {
+     "n": 69,
+     "mean_dl": 0.21832278091190518,
+     "mean_dl_off": -0.11723877202589703,
+     "mean_dax0": 2.2729955885048554,
+     "flag_flip": 0.10144927536231885
+    }
+   }
+  },
+  "old_H5_share_T_lbar1": {
+   "est": 0.05049736303699371,
+   "lo": 0.05008570106329477,
+   "hi": 0.050912057735237194,
+   "sd": 0.0002154800230679087,
+   "n_draws": 2000,
+   "counts": {
+    "exams": 7336,
+    "participants": 2492
+   },
+   "note": "H5 of the first freeze; near-automatic (review): secondary"
+  },
+  "H6_auroc_axis0_off": {
+   "y1": {
+    "counts": {
+     "exams": 7289,
+     "participants": 2492,
+     "cancers": 88
+    },
+    "plain": 0.968516052063476,
+    "axis0_off": 0.9698526719773769,
+    "diff_off_minus_plain": {
+     "est": 0.0013366199139008828,
+     "lo": -0.00039372082911572905,
+     "hi": 0.0033892779592948562,
+     "n_draws": 2000
+    }
+   },
+   "y6": {
+    "counts": {
+     "exams": 2180,
+     "participants": 2180,
+     "cancers": 135
+    },
+    "plain": 0.8509173231911619,
+    "axis0_off": 0.8496350629357965,
+    "diff_off_minus_plain": {
+     "est": -0.001282260255365375,
+     "lo": -0.006727130072373036,
+     "hi": 0.004092420891844142,
+     "n_draws": 2000
+    }
+   }
+  },
+  "H5prime_not_in_family": {
+   "est": -0.05662641930114353,
+   "lo": -0.05901981095158024,
+   "hi": -0.0541006072230008,
+   "sd": 0.00123579064697944,
+   "n_draws": 2000,
+   "counts": {
+    "exams": 924,
+    "participants": 424,
+    "cancers_y1": 16
+   },
+   "halves": [
+    -0.05787414501637111,
+    -0.05542637737121128
+   ],
+   "share_exams_T_term_falls": 0.9632034632034632
+  },
+  "H5prime_detail": {
+   "halves": [
+    -0.05787414501637111,
+    -0.05542637737121128
+   ],
+   "share_exams_T_term_falls": 0.9632034632034632
+  },
+  "H6_detail": {
+   "mean_delta_lbar1_from_pooled": -0.3263750369129236,
+   "mean_delta_lbar1_axis0_off": 0.08142086665459076
+  }
+ },
+ "note": "secondary references and secondary_new_freeze are outside the Holm family (never called confirmed); anything else is exploratory (protocol 11)"
 }

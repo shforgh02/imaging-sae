@@ -1,0 +1,19 @@
+{
+ "note": "secondary sensitivity; uses outcomes; computed after the primary result was saved",
+ "pairs": 4743,
+ "changed": 205,
+ "b": {
+  "est": 0.27871135557151366,
+  "lo": 0.17107687796060936,
+  "hi": 0.3802353127252448,
+  "sd": 0.05376130309214075,
+  "n_draws": 2000
+ },
+ "b_axis0_off": {
+  "est": -0.06275534970490082,
+  "lo": -0.17121932689514271,
+  "hi": 0.035318118071159775,
+  "sd": 0.05280475480974572,
+  "n_draws": 2000
+ }
+}
