@@ -913,3 +913,12 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 - Defect not covered by the four marks: the held-out reconstruction of the layer by NMF is R² -2.8 (PCA 0.81, SAE 0.75), because part 2 of `pooled` is negative in 49% of its values and NMF uses max(x, 0). NMF keeps the function, not the vector. Reported as supporting evidence only (its families show the same themes as the shared axes); no hypothesis from it.
 - SAE near misses: `pooled` K = 64, k = 16: V1, V2, V4 pass, V3 12 of 16. `h` K = 16, k = 4 and k = 8: V1, V2, V3 pass, V4 fails (label agreement 0.67).
 - Started: V2 on all five members for NMF `pooled` K = 64 (separate output folder `results/r/v2full/`).
+
+### Step R2 (2026-11-17): more candidate hypotheses on dev; plan fixed before any run
+- The lead asked: "in dev can we develop more interesting hypotheses? try the things we discussed? the harm? somehow using the form?"
+- Plan (scripts `r7_more.py`, `r8_three.py`; headers hold the exact definitions), fixed before running:
+  - **A. Real follow-up (natural experiment, outcome-free).** 4,837 pairs of consecutive yearly screens; in 215 the stretch status changes (146 stretched -> not, 69 not -> stretched; 56 on the same scanner model). OLS delta lbar_1 = a + b * delta stretched + c * delta F1 (the form's change). Statistic b; proposed null +0.10 (direction >), the H2 margin. Bootstrap, halves, 2,000 permutations. The same with axis 0 switched off (real-world version of H6). Sensitivity: same scanner model; both screens without cancer.
+  - **B. Harm through false alarms, with the form (y1 = 0 only).** Sybil-only false alarms (Sybil flags, the form does not) in stretched against other exams; D5 main against z-fix. Missed cancers: counts and a power note.
+  - **C. 3 of 5 members** (`r8_three.py`): shared axes for each set of 3 members; how many are new against the 11 five-member axes; naming of new ones seen in >= 2 sets. Exploratory only.
+  - **D. Beyond the radiologist (outcome-free).** Residual of lbar_1 after the form (F1); share explained by the risk axis, the technical axes, the other axes; random-choice test with 2,000 sets of 5 random directions.
+- Any candidate must meet the four conditions (gate 9.8, random-choice or permutation test, no refit on test, honest chance >= 0.5). At most the lead decides what enters; all is dev and exploratory.
