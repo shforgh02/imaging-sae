@@ -892,3 +892,9 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 - SAE on `h`, K = 64, k = 16 (S4: k = 4): V1 0.978 / 0.977 (mark 0.98; AUROC change -0.007, fails), V3 9 families (16 needed, fails), V4 passes. Closer than k = 4, still not valid.
 - `pooled`, raw units K = 64: 46 families, V1 fails (AUROC change at 6 y -0.009), V4 fails (0.66). `pooled` PCA K = 64: V1, V2, V4 pass; V3 fails (4 families).
 - **Added after seeing this (logged before it runs): R7, `r6_candidate.py`**: gate numbers (9.8) and the random-choice test (2,000 random axes) for two possible hypotheses: C1 "the z-fix moves axis 0" (null -2.0 SD) and C2 "setting axis 0 to the dev mean removes at least 0.20 of the downward shift of lbar_1" (null +0.20).
+
+### Step R, note 4 (2026-11-17): R7 done; results file written
+- C1 "the z-fix moves axis 0": -2.740 SD [-2.765, -2.714], halves -2.763 / -2.718; proposed null -2.0; gate 9.8 passes; 0 of 2,000 random axes pass (largest -1.84).
+- C2 "axis 0 carries the shift": [mean delta lbar_1 with axis 0 off] - [plain] = +0.408 [0.403, 0.412], halves 0.412 / 0.404; proposed null +0.20; gate 9.8 passes; 1 of 2,000 random axes passes (0.05%; largest 0.226).
+- SAE on `h`, K = 64, k = 8: V1 0.826 / 0.824, 8 families: not valid. `pooled` ICA K = 64: 5 families, not valid. Joint dictionary on `pooled`: 3 to 4 shared features, V1' fails. Shared axes with 50 PCs: 16 in one half (the count depends on the number of PCs; 11 is the count at the pre-set 30).
+- Results in plain words: `imgsae/exploratory/lung_l2/RESULTS_R_dev.md`. Still running: SAE k = 32 and the small-K and `pooled` SAE runs; remaining `pooled` arms.
