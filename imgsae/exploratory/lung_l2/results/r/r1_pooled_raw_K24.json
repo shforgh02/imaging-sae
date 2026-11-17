@@ -1,0 +1,43 @@
+{
+ "layer": "pooled",
+ "arm": "raw",
+ "K": 24,
+ "sae_k": null,
+ "n_exams": 7336,
+ "participants": 2492,
+ "V1": {
+  "r_y1": 0.9801762167019644,
+  "r_y6": 0.9795756649264667,
+  "dAUROC_y1": -0.0028594513388291443,
+  "dAUROC_y6": -0.010642035678710582,
+  "recon_r2_heldout": 0.015590308771278302,
+  "pass_": false
+ },
+ "V2": {
+  "pass_": true,
+  "note": "deterministic arm"
+ },
+ "V3": {
+  "n_families": 20,
+  "pass_": true
+ },
+ "V4": {
+  "median_assoc_half_corr": 0.6372861927727962,
+  "label_agreement_named": 1.0,
+  "n_named": 20,
+  "pass_": false
+ },
+ "labels": {
+  "N": 19,
+  "T": 1
+ },
+ "valid": false,
+ "distinct": {
+  "family_effective_dims": 1.2243384833028885,
+  "median_abs_r_lbar6": 0.9624328711609976,
+  "n_non_risk": 1,
+  "n_non_risk_named": 1,
+  "n_non_risk_named_stable": 1
+ },
+ "minutes": 4.8
+}

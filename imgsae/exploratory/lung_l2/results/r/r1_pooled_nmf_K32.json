@@ -1,0 +1,57 @@
+{
+ "layer": "pooled",
+ "arm": "nmf",
+ "K": 32,
+ "sae_k": null,
+ "n_exams": 7336,
+ "participants": 2492,
+ "V1": {
+  "r_y1": 0.9962019175332593,
+  "r_y6": 0.9956527585130157,
+  "dAUROC_y1": -0.00025406824809681705,
+  "dAUROC_y6": -0.0019161459748257004,
+  "recon_r2_heldout": -2.8771631675510267,
+  "pass_": true
+ },
+ "V2": {
+  "per_member": [
+   {
+    "member": 0,
+    "share": 0.8620689655172413,
+    "median_r": 0.9852829138357437
+   },
+   {
+    "member": 1,
+    "share": 0.9666666666666667,
+    "median_r": 0.9840253140904935
+   }
+  ],
+  "share": 0.9143678160919539,
+  "median_r": 0.9846541139631186,
+  "pass_": true
+ },
+ "V3": {
+  "n_families": 8,
+  "pass_": true
+ },
+ "V4": {
+  "median_assoc_half_corr": 0.814116129225479,
+  "label_agreement_named": 0.8571428571428571,
+  "n_named": 7,
+  "pass_": true
+ },
+ "labels": {
+  "T": 5,
+  "N": 2,
+  "mixed": 1
+ },
+ "valid": true,
+ "distinct": {
+  "family_effective_dims": 5.980335122069509,
+  "median_abs_r_lbar6": 0.11619000548269143,
+  "n_non_risk": 6,
+  "n_non_risk_named": 5,
+  "n_non_risk_named_stable": 5
+ },
+ "minutes": 13.8
+}

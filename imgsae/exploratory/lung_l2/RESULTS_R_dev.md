@@ -11,6 +11,7 @@
 3. **The earlier layer `pooled` can be read, with a different tool.** All five Sybil members share **11 directions** there ("shared axes"). They repeat in both halves of dev. A shuffle check gives 0. Only 1 of the 11 is the cancer-risk direction. The clearest others are technical: z-geometry (lung cut off in z, number of slices), field of view and body size, scanner maker, breathing and image quality.
 4. **One name is now proven by an experiment, not only by correlation.** The spacing fix (z-fix) moves the "z-geometry" axis by 2.74 SD. The kernel change does not move it (0.01 SD). No random axis out of 2,000 moves by 2 SD.
 5. **This axis explains a known result.** S4 found that the z-fix lowers the 1-year score on average (−0.326; hypothesis H2). If we switch this one axis off in every member, the average drop is gone (+0.08), and the AUROC on dev stays the same (0.9685 → 0.9699). A random axis never does this (0 of 200; and 1 of 2,000 in the stricter test).
+5b. **New (17 Nov, later): a dictionary method other than raw units passes all four S4 marks at layer `pooled`.** NMF with K = 64 (the K of S4, planned before any run) is valid: 16 families, 14 of them not copies of the risk score; names T 7, N 3, mixed 3, unnamed 3; the same themes as the shared axes (z-geometry, field of view and body size, scanner maker, risk). K = 24 and 32 (added after seeing K = 16) are valid too, with 8 families. **But there is a defect the four marks do not see:** NMF cannot hold negative numbers, and half of the values in the second part of `pooled` are negative. So NMF keeps Sybil's score (r 0.997) but its rebuilt vector is worse than the plain dev mean (R² −2.8). It is a faithful copy of the function, not of the layer. Also, V2 was checked on 2 members only (the check on all five is running), and V3 is exactly at the mark (16 of 16 needed). The SAE comes close at `pooled` (K = 64, k = 16: passes V1, V2, V4; 12 families, 16 needed) and on `h` with K = 16 (passes V1, V2, V3; fails V4 by label agreement 0.67, 2 of 3 named families). **My reading:** this supports the shared-axes result (a second method finds the same themes); it is not strong enough to replace it or to build a hypothesis on.
 6. **Limits, said plainly.** (a) The 11 axes are a set of readings, not a full dictionary: rebuilt from them alone, Sybil's score is kept at r 0.95, below the 0.98 mark. (b) Switching the axis off removes the average drop, but only part of the exam-by-exam change (share of exams moving ≥ 0.25 SD: 0.67 → 0.55). (c) All of this is dev. (d) It does not improve cancer prediction.
 
 **What it means for the paper:** we now have a real feature-level result. It is not "SAE features of Sybil". It is "five separately trained Sybil members agree on a small set of directions; most are technical; one of them carries the model's systematic reaction to slice spacing, shown by intervention". Two candidate hypotheses for the test set pass the gate and the random-choice test (section 6).
@@ -62,7 +63,9 @@ P = pass, F = fail. "Families" = found in ≥ 3 of 5 members. "Not risk" = famil
 | SAE k = 8 | 64 | 0.826 / 0.824 F | P | 8 F | 0.77 / 0.75 P | no | 4 |
 | SAE k = 16 | 64 | 0.978 / 0.977 F (AUROC −0.007) | P | 9 F | 0.73 / 0.71 P | no | 3 |
 | SAE k = 32 | 64 | 0.884 / 0.847 F | P | 9 F | 0.75 / 0.75 P | no | 2 |
-| SAE, K = 16 and 8 | | (running) | | | | | |
+| SAE k = 4 | 16 | 0.983 / 0.984 P (AUROC −0.004) | P | 4 P | 0.69 / 0.67 F | no (near) | 2 |
+| SAE k = 8 | 16 | 0.988 / 0.985 P | P | 4 P | 0.76 / 0.67 F (2 of 3 named agree) | no (near) | – |
+| SAE, K = 8 | | (running) | | | | | |
 
 Joint dictionary on `h` (R1b; "shared" = the five member parts of a feature agree at r ≥ 0.70 on the other half):
 
@@ -88,7 +91,17 @@ Shared axes on `h` (R1): 1 axis shared in both halves (2 in one half). It is the
 | **ICA** | 16 | r 0.993 / 0.993 but AUROC 6 y **−0.0053** F | P | 6 P | 0.81 / 0.83 P | **no, by a hair** | 5 (5) |
 | **NMF** | 16 | r 0.993 / 0.992 but AUROC 6 y −0.0078 F | P | 7 P | 0.79 / 1.00 P | no (near) | 5 (4) |
 | k-means | 16 | 0.938 / 0.935 F | P | 2 F | 0.83 / 0.50 F | no | 1 |
-| NMF K = 64; SAE; K = 24 and 32 (added, log note 6) | | (running; section 7) | | | | | |
+| **NMF** | **64** (planned) | 0.998 / 0.997 P | P (2 members; all five running) | **16 P** (mark 16) | 0.81 / 0.90 P | **yes** | 14 (8 named, 7 stable) |
+| SAE k = 16 | 64 | 0.995 / 0.995 P | P | 12 F | 0.79 / 1.00 P | no (near) | – |
+| raw | 24 / 32 (added) | 0.980 / 0.982, AUROC 6 y −0.011 / −0.010 F | P | 20 / 28 P | 0.64 / 0.65 F | no | 1 / 3 |
+| PCA | 24 / 32 (added) | 0.996 / 0.997 P | P | 4 / 4 F | 0.83 / 1.00 P | no | 3 |
+| ICA | 24 / 32 (added) | 0.996 / 0.997 P | P | 5 / 3 F | 0.84 / 0.80 P; 0.85 / 0.67 F | no | 4 / 3 |
+| **NMF** | **24 / 32 (added)** | 0.995 / 0.996 P | P (2 members) | 8 / 8 P | 0.84 / 0.86 P; 0.81 / 0.86 P | **yes** (K chosen after seeing K = 16) | 6 / 6 (5 named, stable) |
+| k-means | 24 / 32 (added) | 0.944 / 0.948 F | P | 0 F | – | no | – |
+
+**The NMF defect (found 17 Nov; not covered by the four marks).** Held-out reconstruction of the layer itself (R² in z-units, all live units): PCA 0.70 to 0.81, ICA 0.70 to 0.81, SAE 0.75, k-means 0.51 to 0.57, raw units 0.01 to 0.04, **NMF −2.83 to −2.93**. Reason: part 2 of `pooled` (convolution + attention pool) is negative in 49% of its values, and NMF works on max(x, 0). On `h` (all values ≥ 0) this problem does not exist. So at `pooled` NMF keeps Sybil's score but not the vector. This is a caveat for any use of the NMF result; I recommend reporting it as supporting evidence only.
+
+The NMF K = 64 families, in short (full table `results/r/r1_pooled_nmf_K64_families.csv`): two risk families (r 0.86 and 0.81 with the 6-year score; nodule size, spiculation, attenuation); two z-geometry families (lung cut in z +1.00; number of real slices −0.95); four field-of-view / body-size families (reconstruction diameter, body area, sex); maker and model families; one breathing / emphysema family (mixed); three unnamed.
 
 Joint dictionary on `pooled` (R1b): joint PCA has 3 to 4 shared features at every K (4 to 32); V1′ passes only at K = 32 (0.990), where V3′ and V4 fail. Group ICA: 0 to 4 shared. Not valid.
 
@@ -162,7 +175,7 @@ Note: with a 1 SD margin C1 would be near-automatic (6% of random axes move by �
 **My recommendation:** take **C2** as the one feature-level hypothesis. It says more than C1: not only "the axis moves", but "the axis carries the model's systematic reaction". C1 goes to the secondary list. My honest chance estimate on test for C2: high (about 0.9), because the effect is physical (slice spacing), outcome-free, and four times the random maximum is not needed, only 0.20 against 0.41. The main risk is that the test scanners differ from dev so that the frozen axis fits less well; the secondary number "agreement of the five members on axis 0 in test" will show that.
 
 ## 7. What is still running (will be added here)
-SAE on `h` at K = 16 and 8; SAE on `pooled`; `pooled` at K = 24 and 32, all arms (added after K = 16 was seen: K = 16 fails V1 by a hair and K = 64 fails V3, so a K in between may pass; this is tuning K after seeing results, and any "valid" from it carries that caveat). None of them can change sections 4 to 6.
+SAE on `h` at K = 8 and the remaining SAE runs on `pooled` (GPU, slow); V2 on all five members for NMF on `pooled`, K = 64 (output `results/r/v2full/`). None of them can change sections 4 to 6.
 
 ## 8. What can go wrong, and how it is guarded
 | Risk | Guard |
