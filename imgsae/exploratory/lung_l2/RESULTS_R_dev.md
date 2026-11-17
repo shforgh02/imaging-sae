@@ -225,7 +225,29 @@ Model: change of ℓ̄_1 (later minus earlier) = a + b × (change of stretch: +1
 - New axes: 12 groups, 4 of them found in at least 2 sets. All four are near zero with the risk score (|r| ≤ 0.08) and weakly named (technical variables explain 12% to 33%): lung cut / image quality; lung cut / emphysema; scanner model / artefact; **kernel sharpness** (+0.50; found in members 0, 2, 4 and 0, 3, 4 only).
 - **What this shows:** the five members agree on about 11 directions, and three members do not agree on many more. "More axes" from a looser rule are weak technical leftovers. The kernel-sharpness axis that only some members have fits H4 (the kernel matters little to the ensemble score).
 
+## 10. Step R3: where Sybil looks (17 Nov; descriptive only; the lead asked "can we show the nodule Sybil sees?")
+Data: Sybil's saved attention (25 slice bins of its 200-slice box; 16 × 16 places per bin) and the radiologist's recorded nodules (NLST CT abnormality table: slice number and lobe of each nodule). The slice numbers fit our series (2.4% out of range; upper-lobe nodules at 29% of the scan length, lower-lobe at 58%). Box order and image side were chosen on participant half A and reported on half B.
+
+**10a. Does the stretched box cut off nodules?** Rarely. In stretched exams 8 of 588 recorded nodules (1.4%) fall in the cut-off part; 2 of 112 nodules of 8 mm or more; 1 in an exam with cancer within 1 year. Other exams: 0 of 4,359.
+
+**10b. Does Sybil look at the nodule?** Yes.
+
+| Exams (half B) | Attention within ±1 bin of the nodule | Shuffled nodule positions | Peak within ±1 bin | Attention on the nodule's lung side |
+|---|---|---|---|---|
+| cancer within 1 year (38) | **72%** | 26% (97.5th 39%) | 74% | **88%** |
+| no cancer, nodule ≥ 8 mm (425) | 51% | 22% | 56% | 77% |
+| no cancer, nodule 4 to 8 mm (1,033) | 32% | 23% | 35% | – |
+
+The maps are coarse: one bin is 8 resampled slices (20 mm of the box), one place is about 22 mm.
+
+**10c. Harm proxy: does the stretch move attention away from the nodule? → No evidence; the naive answer was an artefact.** (Step R3b, `r10_att_harm.py`, added after 10b and logged before it ran.)
+- Naive numbers: stretched 27% against other 40% near the nodule; z-fix raises the stretched exams from 27% to 34% (+0.063 [0.038, 0.088], halves 0.062 / 0.063). This looks like harm repaired by the fix.
+- **But it is geometry.** A ±1-bin window covers a different share of the lung in a stretched box (the lung fills twice as many bins). With **shuffled** nodule positions the same comparisons give: z-fix +0.110 [0.089, 0.133]; stretched 0.157 against other 0.237.
+- Corrected (attention near the nodule minus the shuffled value): main 0.115 → z-fix 0.068 (same 335 exams); stretched 0.114 against other 0.160 (different exams, sites and nodules: not comparable). So, if anything, Sybil focuses better on the nodule in the stretched picture it was trained on.
+- A code error was found and fixed before any result was reported: the z-fix table repeats the main run's `resampled_T`; the z-fix slice count is n_images × true spacing / 2.5.
+- **What this shows:** no sign that the stretch makes Sybil look away from nodules. The lesson of H5 again: always compare with a shuffled or random baseline.
+
 ## Files
-- Scripts: `r1_arms.py`, `r2_shared.py`, `r3_joint.py`, `r4_axes_audit.py`, `r5_repair.py`, `r6_candidate.py`, `r7_more.py`, `r8_three.py`, `run_r_dev.ps1`
+- Scripts: `r1_arms.py`, `r2_shared.py`, `r3_joint.py`, `r4_axes_audit.py`, `r5_repair.py`, `r6_candidate.py`, `r7_more.py`, `r8_three.py`, `r9_attention.py`, `r10_att_harm.py`, `run_r_dev.ps1`
 - Results: `results/r/` (`r1_*.json` and family tables, `r2_shared_*.json`, `r2_axes_*.csv`, `r3_joint_*.json`, `r4_axes_audit_pooled.json`, `r4_axes_pooled.csv`, `r5_repair_pooled.json`, `r6_candidate_pooled.json`)
 - Fitted axes (outside git): `D:\Shayan\imgsae_data\lung_l2\r\r2_shared_pooled.pkl`

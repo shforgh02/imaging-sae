@@ -1,0 +1,83 @@
+{
+ "n_exams": 2950,
+ "groups": {
+  "no_cancer_4to8mm": 2032,
+  "no_cancer_ge8mm": 842,
+  "cancer_1y": 76
+ },
+ "att_vol1": {
+  "order_chosen_on_half_A": "reversed",
+  "half_A_share": {
+   "same": 0.23886953255782836,
+   "reversed": 0.37233032601871224
+  },
+  "no_cancer_4to8mm": {
+   "n_half_B": 1033,
+   "share_near_nodule": 0.3214751911179271,
+   "peak_within_1_bin": 0.35237173281703776,
+   "shuffled_share_median": 0.2252242020890976,
+   "shuffled_share_p97_5": 0.239583413674624,
+   "uniform_share": 0.12
+  },
+  "no_cancer_ge8mm": {
+   "n_half_B": 425,
+   "share_near_nodule": 0.5148818744281872,
+   "peak_within_1_bin": 0.5647058823529412,
+   "shuffled_share_median": 0.22463802944830213,
+   "shuffled_share_p97_5": 0.2528685388158893,
+   "uniform_share": 0.12
+  },
+  "cancer_1y": {
+   "n_half_B": 38,
+   "share_near_nodule": 0.720273433331683,
+   "peak_within_1_bin": 0.7368421052631579,
+   "shuffled_share_median": 0.26108378974401864,
+   "shuffled_share_p97_5": 0.39443734110572337,
+   "uniform_share": 0.12
+  }
+ },
+ "att_vol2": {
+  "order_chosen_on_half_A": "reversed",
+  "half_A_share": {
+   "same": 0.2529657373349037,
+   "reversed": 0.36857592356636687
+  },
+  "no_cancer_4to8mm": {
+   "n_half_B": 1033,
+   "share_near_nodule": 0.32122516478435603,
+   "peak_within_1_bin": 0.36205227492739595,
+   "shuffled_share_median": 0.23732289541782392,
+   "shuffled_share_p97_5": 0.2507486234026602,
+   "uniform_share": 0.12
+  },
+  "no_cancer_ge8mm": {
+   "n_half_B": 425,
+   "share_near_nodule": 0.5037602193009879,
+   "peak_within_1_bin": 0.5505882352941176,
+   "shuffled_share_median": 0.23345554039899075,
+   "shuffled_share_p97_5": 0.26151863630091765,
+   "uniform_share": 0.12
+  },
+  "cancer_1y": {
+   "n_half_B": 38,
+   "share_near_nodule": 0.7256686435615382,
+   "peak_within_1_bin": 0.7368421052631579,
+   "shuffled_share_median": 0.26220300170886246,
+   "shuffled_share_p97_5": 0.39437433919538545,
+   "uniform_share": 0.12
+  }
+ },
+ "in_plane": {
+  "convention_chosen_on_half_A": "R_is_image_left",
+  "cancer_1y": {
+   "n_half_B": 38,
+   "share_on_nodule_side": 0.8811883234303323,
+   "share_nodule_side_gt_0p6": 0.868421052631579
+  },
+  "no_cancer_ge8mm": {
+   "n_half_B": 421,
+   "share_on_nodule_side": 0.7688205779692576,
+   "share_nodule_side_gt_0p6": 0.7482185273159145
+  }
+ }
+}

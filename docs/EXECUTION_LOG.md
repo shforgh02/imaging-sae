@@ -932,3 +932,15 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 ### Step R2, result C and plan files (2026-11-17)
 - C (3 of 5 members): 11 to 13 shared axes per set of 3 (five members: 11); 12 new axis groups, 4 in >= 2 sets, all |r| <= 0.08 with the risk score and weakly named (one is kernel sharpness, in members 0/2/4 and 0/3/4 only). Not proposed.
 - `docs/HANDOVER_PROMPT_L2_N1.md`: H7 (candidate C3) added as a default primary hypothesis (F4b), with a one-line opt-out for the lead; Holm over seven with the defaults. `docs/PROJECT_GUIDE.md` N1 item 7 and `STATUS.md` updated.
+
+### Step R3 (2026-11-17): where Sybil looks (descriptive only; never a hypothesis); plan fixed before the run
+- The lead asked whether we can show the nodule Sybil sees, and whether a stretched box cuts nodules off. Feasibility (dev): 5,069 recorded nodules with a slice number; 2.4% have a slice number above our series' image count; median relative position upper lobe 0.29, middle 0.53, lower 0.58 (numbering runs from the top: the mapping is usable). Nodules in the cut-off part of Sybil's box: stretched exams 8 of 588 (1.4%), other 0 of 4,359; of nodules >= 8 mm in stretched exams 2 of 112; in exams with cancer within 1 year: 1.
+- Plan (`r9_attention.py` header): slice attention near the largest recorded nodule against shuffled nodule bins; in-plane attention on the nodule's side (lobe); orientation chosen on half A, reported on half B.
+
+### Step R3 result and R3b added (2026-11-17)
+- R3 (descriptive): slice attention within +-1 bin of the largest recorded nodule (held-out half B; box order 'reversed' and side 'patient right = image left' chosen on half A): cancer within 1 year 72% (38 exams; shuffled 26%, 97.5th 39%); no cancer >= 8 mm 51% (425; shuffled 22%); 4-8 mm 32% (1,033; shuffled 23%). Peak within 1 bin: 74%, 56%, 35%. In-plane attention on the nodule's lung side: 88% (cancer), 77% (>= 8 mm).
+- **Added after seeing R3 (logged before it runs): R3b, `r10_att_harm.py`**: does the stretch move attention away from the nodule? (main stretched vs other; D5 main vs z-fix, paired). A harm proxy that needs nodules, not cancers.
+
+### Step R3b result (2026-11-17)
+- Code error found and fixed before reporting: `variant_dev_zfix.csv` repeats the main run's `resampled_T`; `r10_att_harm.py` now uses n_images x true spacing / 2.5 for the z-fix box.
+- Naive: stretched 27% vs other 40% attention near the nodule; z-fix 27% -> 34% (+0.063 [0.038, 0.088]). Shuffled nodule positions (500 and 300 shuffles): z-fix +0.110; stretched 0.157 vs other 0.237. So the naive effect is geometry (a +-1-bin window covers more of the lung in a shorter box). Corrected excess: main 0.115 -> z-fix 0.068; stretched 0.114 vs other 0.160 (not comparable groups). No harm signal. Descriptive only; nothing proposed.
