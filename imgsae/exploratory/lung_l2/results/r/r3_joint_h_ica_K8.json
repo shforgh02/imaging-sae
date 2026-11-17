@@ -1,0 +1,47 @@
+{
+ "layer": "h",
+ "arm": "ica",
+ "K": 8,
+ "n_exams": 7336,
+ "V1": {
+  "r_y1": 0.9086618138202809,
+  "r_y6": 0.9099705601279975,
+  "dAUROC_y1": -0.00066752092512401,
+  "dAUROC_y6": -0.0034012496604184372,
+  "r_lbar1": 0.9988009494843599,
+  "pass_": false
+ },
+ "V2": {
+  "n_matched": 3,
+  "median_r": 0.6041404223975937,
+  "pass_": false
+ },
+ "V3": {
+  "n_shared": 0,
+  "per_direction": [
+   0,
+   0
+  ],
+  "n_shared_at_0p5": 1,
+  "pass_": false
+ },
+ "V4": {
+  "median_assoc_half_corr": 0.5989941321368211,
+  "label_agreement_named": 0.6666666666666666,
+  "n_named": 3,
+  "pass_": false
+ },
+ "valid": false,
+ "labels": {
+  "unnamed": 3,
+  "mixed": 2,
+  "T": 2,
+  "N": 1
+ },
+ "good_features": {
+  "n_shared_stable_named": 0,
+  "of_these_non_risk": 0,
+  "labels": {}
+ },
+ "minutes": 2.3
+}
