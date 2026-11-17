@@ -2,10 +2,10 @@
 
 For a fresh session: **Opus 5.5, effort xhigh**, working folder `D:\Shayan`. Paste everything below the line. Pasting it gives the lead's OK for what it contains.
 
-**One choice for the lead before pasting (version of 2026-11-17, after step R):**
-- **Default in this prompt (the reviewer's recommendation):** the new feature-level hypothesis enters as **H6** and **H2 stays**. Six hypotheses, Holm over six.
-- If you want to keep five hypotheses, add one line at the top when you paste: "H6 replaces H2; H2 goes to the secondary list."
-(On 2026-11-16 the plan said "at most one new hypothesis, in place of H2". The recommendation changed because H6 explains H2, so the two belong together. The effects on dev are large, so six instead of five costs almost no power.)
+**Two choices for the lead before pasting (version of 2026-11-17, after steps R and R2). Pasting the prompt unchanged = the reviewer's recommendation for both:**
+1. **H6** (the shared z-geometry axis carries the z-fix drop) enters and **H2 stays**. If you want H2 out, add the line: "H6 replaces H2; H2 goes to the secondary list."
+2. **H7** (real follow-up: the score jumps when a person's yearly scan changes reconstruction) enters. If you do not want it, add the line: "H7 goes to the secondary list."
+With both defaults there are seven hypotheses, Holm over seven. (On 2026-11-16 the plan said "at most one new hypothesis, in place of H2". It changed because step R2 found a second, independent kind of evidence: real data, no intervention. Under Holm, extra strong hypotheses cost the weakest one, H3, almost nothing.)
 
 ---
 
@@ -24,7 +24,7 @@ You are the executing session of a research project. Repository `D:\Shayan`, git
 1. **H5 is replaced by H5′** (review, section "What I propose instead").
 2. **A new freeze commit** with the four small changes of the review (wording of H3 and H4 with the flag numbers; `wald()` with SD 0; the test-list script and its hash; LF hashes of the three text inputs).
 3. **S6 in December** on account `shforghani2002`, with the thin margin and the frozen fallbacks. Not in this session.
-4. **Amendment A6:** extra feature work on dev before the test opens. It is done (step R). Its result enters the freeze as **H6** (candidate C2 of `RESULTS_R_dev.md`, section 6), with C1 and the other axis numbers as secondary items.
+4. **Amendment A6:** extra feature work on dev before the test opens. It is done (steps R and R2). Its results enter the freeze as **H6** (candidate C2 of `RESULTS_R_dev.md`, section 6) and **H7** (candidate C3, section 9A), with C1 and the other axis numbers as secondary items, unless the lead's lines above say otherwise.
 
 ## Step 0 (free)
 1. `git status` and `git log -3`: the branch must equal `origin/prostate-mri-plan` and the tree must be clean.
@@ -34,12 +34,13 @@ You are the executing session of a research project. Repository `D:\Shayan`, git
 ## STEP F: check step R and freeze the axis (free, PC only, no cloud)
 Step R was done by the session that reviewed the first freeze. **You are its first independent reader. Check it; do not trust it.**
 
-**F1. Reproduce.** Run on dev: `r2_shared.py` (layer `pooled`), then `r4_axes_audit.py`, `r5_repair.py`, `r6_candidate.py` (outputs to a scratch folder, then compare with `results/r/`). These must come out again:
+**F1. Reproduce.** Run on dev: `r2_shared.py` (layer `pooled`), then `r4_axes_audit.py`, `r5_repair.py`, `r6_candidate.py`, `r7_more.py` (outputs to a scratch folder, then compare with `results/r/`). These must come out again:
 - shared axes in `pooled`: 12 and 11 in the two halves; shuffle null 0;
 - axis 0 under z-fix: **−2.740 SD [−2.765, −2.714]**, halves −2.763 / −2.718; kernel +0.009;
 - nothing removed: z-fix share 0.670, mean Δℓ̄_1 −0.326 (the S4 numbers);
 - axis 0 removed: mean Δℓ̄_1 **+0.081 [0.042, 0.125]**; share 0.550; AUROC 0.9699 / 0.8496;
 - C2: **+0.408 [0.403, 0.412]**, halves 0.412 / 0.404; random-choice 1 of 2,000 above +0.20.
+- `r7_more.py` (C3): b = **+0.246 [0.134, 0.355]**, halves 0.222 / 0.272; axis 0 off −0.094; 4,837 pairs, 215 changed; permutation 2.5% above +0.10.
 If a number differs, stop and tell the lead.
 
 **F2. Read the code with a critical eye.** At least: `Shared.fit` and `variates` in `r2_shared.py` (is the "other half" really untouched by the fit?); `remove` in `r4_axes_audit.py` (does it change only the one direction?); the D5 selection (ratio ≤ 0.65, same rows as S4); the SD reference; that the final axes are fitted on all dev and never see z-fix data. Write what you find into the log. A real error: stop and tell the lead.
@@ -53,16 +54,24 @@ If a number differs, stop and tell the lead.
 - Secondary (reported, never called confirmed): C1 (axis 0 shift, dev −2.74 SD); for each of the 11 frozen axes the agreement of the five members in test (how many reach 0.70) and the z-fix and kernel changes; the share of exams moving ≥ 0.25 SD with axis 0 off (dev 0.550); AUROC with axis 0 off (with the C6 caution).
 - The four conditions (gate 9.8; random-choice test; no refit on test; honest chance) are met on dev: see `RESULTS_R_dev.md`, section 6. Copy the evidence into the hypothesis file.
 
+**F4b. H7 (from C3), exactly** (unless the lead moved it to the secondary list):
+- Population: test participants with two consecutive yearly screens in the test list (pairs T0→T1 and T1→T2, main runs only). Stretched = spacing/thickness ≤ 0.65 from the series metadata.
+- Statistic: b in the OLS fit Δℓ̄_1 = a + b × Δstretched + c × ΔF1 (Δ = later minus earlier screen; ℓ̄_1 = mean member logit of the main run; F1 = the frozen form model's 1-year logit from `results/l2_form_params.json`). Participant bootstrap (2,000, seed 0), halves as S4.
+- Direction `>`, null **+0.10**. Dev: +0.246 [0.134, 0.355]. No outcomes, no refit.
+- Secondary (reported only): b with axis 0 switched off (dev −0.094); the jump of axis 0 per stretch change (dev 2.29 SD); the same-scanner-model subset; group means; flag flips by group; the "both screens without cancer" sensitivity (uses outcomes, after the primary result is saved).
+- Evidence for the four conditions: `RESULTS_R_dev.md`, section 9A (permutation test in place of the random-choice test, because the claim is about a metadata group, not a feature). Honest chance about 0.7.
+- Check that the S6 manifest keeps all test screens of a person (T1, T2, T3) in the main run; it does by design (6,715 series).
+
 **F5. No new discovery.** Do not search for more axes, features or hypotheses. If you see something interesting, write it down as "exploratory, after the test". The SAE and the other arms stay "not valid"; the paper reports that as a result.
 
 ## STEP N1: the new freeze (free)
 Follow `docs/PROJECT_GUIDE.md`, part 8, step N1, items 1 to 8. In short:
 1. `s5_h5prime_dev.py`: dev evidence for H5′ on the 924 D5 exams. It must give **−0.0566 [−0.0590, −0.0541], halves −0.0565 / −0.0567**. Also the N, mixed and residual terms, and the random-choice test for H5′ (random sets of 6 of the 56 families: how often is their mean z-fix change below −0.02?). Report that number honestly. If 5% or more of the random sets pass, stop and tell the lead before freezing H5′.
-2. `s5_freeze.py`: H5 → H5′ (statistic: mean of G_T(zfix) − G_T(main) for ℓ̄_1, frozen raw-unit dictionary and labels; population T5; direction `<`; null −0.02). **H6 as in F4.** H4 renamed "the kernel changes the flag in fewer than 5% of exams". New secondary items: flags lost, flags gained, share of discordant flags among exams flagged in either run (z-fix and kernel); the change of the N, mixed and residual terms; the old H5 share; the H6 secondary items. LF hashes for the three text inputs.
-3. `s6_frozen_analysis.py`: H5′ and H6 in the z-fix block (H6 needs `pooled` of the main and the z-fix run, `frozen_axes_pooled.npz` and `heads.npz`); `wald()` returns p = 0 when the SD is 0 and the estimate is on the right side of the null, else 1; the new secondary numbers. Holm over six (or five, by the lead's choice).
+2. `s5_freeze.py`: H5 → H5′ (statistic: mean of G_T(zfix) − G_T(main) for ℓ̄_1, frozen raw-unit dictionary and labels; population T5; direction `<`; null −0.02). **H6 as in F4; H7 as in F4b.** H4 renamed "the kernel changes the flag in fewer than 5% of exams". New secondary items: flags lost, flags gained, share of discordant flags among exams flagged in either run (z-fix and kernel); the change of the N, mixed and residual terms; the old H5 share; the H6 secondary items. LF hashes for the three text inputs.
+3. `s6_frozen_analysis.py`: H5′ and H6 in the z-fix block (H6 needs `pooled` of the main and the z-fix run, `frozen_axes_pooled.npz` and `heads.npz`); H7 in a new "follow-up" block (main runs, metadata, frozen F); `wald()` returns p = 0 when the SD is 0 and the estimate is on the right side of the null, else 1; the new secondary numbers. Holm over all primary hypotheses (seven with the defaults).
 4. `s6_manifest_test.py`: **write and test on dev only; do not run it on test.** Main rows = the split file's 6,715 series (tiers T1, T2, T3 by study year). T4 = 500 soft-kernel partners of T1 exams: same pair rule as `s1_manifest.py`, seed 0, same quota rule by maker. Metadata and the split file only; no outcome is read. Test: run its pair logic on dev and reproduce the D4 rows of `manifest_dev.csv`.
-5. Check that the S6 extraction saves `pooled` for the main and the z-fix run (it did on dev). Run `s5_freeze.py`, then the frozen analysis on dev. **H1 to H4 must equal the first freeze exactly.** H5′ must equal item 1. H6 must equal F1.
-6. `HYPOTHESES_L2.md`: the new H5′ and H6; a section "Changes after the first freeze `c593005`" (what, why, who proposed it, that it was chosen from dev, that H6 comes from exploratory work done by the reviewer session, with the steps that were added after seeing results); the note "the z-fix shows sensitivity, not harm" with the dev numbers; the two-direction flag numbers; the new hash table from `s5_hashes.py`, including the new scripts and files.
+5. Check that the S6 extraction saves `pooled` for the main and the z-fix run (it did on dev). Run `s5_freeze.py`, then the frozen analysis on dev. **H1 to H4 must equal the first freeze exactly.** H5′ must equal item 1. H6 and H7 must equal F1.
+6. `HYPOTHESES_L2.md`: the new H5′, H6 and H7; a section "Changes after the first freeze `c593005`" (what, why, who proposed it, that it was chosen from dev, that H6 comes from exploratory work done by the reviewer session, with the steps that were added after seeing results); the note "the z-fix shows sensitivity, not harm" with the dev numbers; the two-direction flag numbers; the new hash table from `s5_hashes.py`, including the new scripts and files.
 7. Update `docs/REVIEWER_BRIEF_L2.md` if file paths changed. Write `docs/PROMPT_REVIEW_S5b.md`: a short prompt for the re-check of the new freeze (hashes, dev as if test, the H5′ and H6 code, the frozen axes file, the test-list script, the diff from `c593005`). **It must say that the reviewer of the first freeze did step R, so the re-check has to be done by a fresh session that reads step R as an outsider.**
 8. Commit, push, log the new freeze commit, update `STATUS.md` and the step states in `docs/PROJECT_GUIDE.md`.
 

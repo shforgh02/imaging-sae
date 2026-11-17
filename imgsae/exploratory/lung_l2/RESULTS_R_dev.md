@@ -219,8 +219,11 @@ Model: change of ℓ̄_1 (later minus earlier) = a + b × (change of stretch: +1
 - The form explains 19% of the variance of Sybil's 1-year logit. Of the rest ("beyond the radiologist"): the risk axis explains 54%, the five technical axes 14%, the other five axes 7%, all 11 axes 75%.
 - Random-choice: 5 random directions explain a median 11%, and 33% of random sets explain as much as the technical axes. So "technical axes carry Sybil's disagreement with the radiologist" would be near-automatic. Not proposed.
 
-### 9C. 3 of 5 members
-(running; added below when done)
+### 9C. 3 of 5 members → **few extra axes, weak, technical; not proposed**
+- Each of the 10 sets of 3 members has **11 to 13** shared axes (all five members: 11). So a looser rule gives only 0 to 2 more per set.
+- Most axes of the 3-member sets are the same as the five-member axes (|r| 0.87 to 1.00 for the first six or seven).
+- New axes: 12 groups, 4 of them found in at least 2 sets. All four are near zero with the risk score (|r| ≤ 0.08) and weakly named (technical variables explain 12% to 33%): lung cut / image quality; lung cut / emphysema; scanner model / artefact; **kernel sharpness** (+0.50; found in members 0, 2, 4 and 0, 3, 4 only).
+- **What this shows:** the five members agree on about 11 directions, and three members do not agree on many more. "More axes" from a looser rule are weak technical leftovers. The kernel-sharpness axis that only some members have fits H4 (the kernel matters little to the ensemble score).
 
 ## Files
 - Scripts: `r1_arms.py`, `r2_shared.py`, `r3_joint.py`, `r4_axes_audit.py`, `r5_repair.py`, `r6_candidate.py`, `r7_more.py`, `r8_three.py`, `run_r_dev.ps1`

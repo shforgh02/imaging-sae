@@ -928,3 +928,7 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 - B (harm, with the form): no difference in false alarms (Sybil 10.9% vs 11.3%; Sybil-only 9.1% vs 7.6%, interval includes 0); z-fix reshuffles Sybil-only false alarms (80 -> 75; 31 lost, 26 new); misses 0 of 18 stretched. No harm hypothesis; harm through misses not testable (about 12 stretched 1-year cancers expected in test).
 - D (beyond the form): technical axes explain 14% of Sybil's residual after the form, but 33% of random 5-direction sets do as well: near-automatic, descriptive only.
 - C (3 of 5) running.
+
+### Step R2, result C and plan files (2026-11-17)
+- C (3 of 5 members): 11 to 13 shared axes per set of 3 (five members: 11); 12 new axis groups, 4 in >= 2 sets, all |r| <= 0.08 with the risk score and weakly named (one is kernel sharpness, in members 0/2/4 and 0/3/4 only). Not proposed.
+- `docs/HANDOVER_PROMPT_L2_N1.md`: H7 (candidate C3) added as a default primary hypothesis (F4b), with a one-line opt-out for the lead; Holm over seven with the defaults. `docs/PROJECT_GUIDE.md` N1 item 7 and `STATUS.md` updated.
