@@ -32,12 +32,27 @@ LOCAL = modal.is_local()
 HERE = Path(__file__).resolve().parent if LOCAL else Path("/root/l2")
 L2 = HERE.parent if LOCAL else Path("/root/l2")
 REMOTE = "/root/l2"
-MANIFESTS = ("manifest_dev.csv", "manifest_test.csv")
+# The image carries gzip copies of the two manifests (17 Nov: the PC's upload link ran at about 28 KB/s and Modal's upload of the 2 MB
+# CSV timed out). Each .gz holds exactly the committed CSV bytes with LF line ends (gzip level 9, mtime 0); the local entrypoint checks
+# this before every launch and refuses otherwise. pandas reads the .gz directly.
+MANIFESTS = ("manifest_dev.csv.gz", "manifest_test.csv.gz")
 
 
 def _manifest(root):
     """root 'test' reads the S6 test list; every other root (dev, l4, rep, xacct) the dev list, as before."""
-    return "manifest_test.csv" if root == "test" else "manifest_dev.csv"
+    return "manifest_test.csv.gz" if root == "test" else "manifest_dev.csv.gz"
+
+
+def _check_gz_manifests():
+    """local: every .gz must decompress to the LF bytes of its CSV (the CSV may have CRLF in a Windows checkout)."""
+    import gzip
+    import hashlib
+    out = {}
+    for g in MANIFESTS:
+        csv = (L2 / "results" / g[:-3]).read_bytes().replace(b"\r\n", b"\n"); z = gzip.decompress((L2 / "results" / g).read_bytes())
+        if z != csv: raise SystemExit(f"REFUSED: results/{g} does not hold the bytes of results/{g[:-3]}")
+        out[g[:-3]] = hashlib.sha256(z).hexdigest()
+    return out
 
 image = (modal.Image.debian_slim(python_version="3.10")
          .apt_install("git", "unzip", "wget", "libgl1", "libglib2.0-0")
@@ -361,6 +376,7 @@ def main(step: str = "smoke", tier: str = "D1", lo: int = 0, hi: int = 100000, n
     On accounts other than shforghani2002 the result file gets the suffix __<profile>, so it never overwrites the main account's record."""
     sys.path.insert(0, str(Path(__file__).resolve().parent)); import launch as LN
     profile = LN.client_profile(); sfx = "" if profile == "shforghani2002" else f"__{profile}"
+    print("manifests (sha256 of the LF bytes in the image):", json.dumps(_check_gz_manifests()))
     assert timeout_min <= 60 and nshard <= 4, "protocol: timeout <= 60 min, <= 4 containers"
     if step == "smoke":
         sname = "smoke" if root == "dev" else f"smoke_{root}"

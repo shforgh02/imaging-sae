@@ -1,0 +1,13 @@
+{
+ "rid": "lung_l2_audit-046",
+ "task": "lung_l2_audit",
+ "profile": "forghanishayan",
+ "app": "imgsae-lung-l2",
+ "job": "smoke_test",
+ "call_id": "fc-01M7NQA7XZV00JFRZFRE5HKWRS",
+ "rate_h": 0.9072,
+ "timeout_min": 20,
+ "worst_usd": 0.44776000000000005,
+ "launched": "2026-11-17T21:41:24",
+ "result_name": "smoke_test__forghanishayan"
+}
