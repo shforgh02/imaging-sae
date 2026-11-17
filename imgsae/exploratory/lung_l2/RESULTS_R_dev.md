@@ -174,8 +174,10 @@ Note: with a 1 SD margin C1 would be near-automatic (6% of random axes move by â
 
 **My recommendation:** take **C2** as the one feature-level hypothesis. It says more than C1: not only "the axis moves", but "the axis carries the model's systematic reaction". C1 goes to the secondary list. My honest chance estimate on test for C2: high (about 0.9), because the effect is physical (slice spacing), outcome-free, and four times the random maximum is not needed, only 0.20 against 0.41. The main risk is that the test scanners differ from dev so that the frozen axis fits less well; the secondary number "agreement of the five members on axis 0 in test" will show that.
 
-## 7. What is still running (will be added here)
-SAE on `h` at K = 8 and the remaining SAE runs on `pooled` (GPU, slow); V2 on all five members for NMF on `pooled`, K = 64 (output `results/r/v2full/`). None of them can change sections 4 to 6.
+## 7. Last runs (17 Nov) and what was stopped
+- NMF on `pooled`, K = 64, with V2 on **all five members** (`results/r/v2full/`): still valid (V1 0.998 / 0.997, 16 families, V4 0.81 / 0.90). The NMF defect of section 3 stays.
+- SAE on `pooled`, K = 64: k = 16 passes V1, V2, V4, fails V3 (12 families of 16); k = 4 fails V1 (AUROC 6 y âˆ’0.007) and V3 (11).
+- Stopped on 17 Nov to free the PC for the executor (they cannot change sections 4 to 10): SAE on `pooled` at K = 16, SAE on `h` at K = 8.
 
 ## 8. What can go wrong, and how it is guarded
 | Risk | Guard |

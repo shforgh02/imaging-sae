@@ -17,8 +17,9 @@ You are the executing session of a research project. Repository `D:\Shayan`, git
 3. **`imgsae/exploratory/lung_l2/RESULTS_R_dev.md`: step R (2026-11-16 and 17). The reviewer session did the extra feature work on dev. Read all of it.**
 4. `imgsae/exploratory/lung_l2/HYPOTHESES_L2.md` and `results/s5/`: the first freeze (commit `c593005`).
 5. `docs/LUNG_L2_PROTOCOL.md`: sections 9 (9.4 arms, 9.5 validity marks, 9.6 naming, 9.8 gate), 10, 11, 14, 16a.
-6. The code: `s4_common.py`, `s4_core.py`, `s4_decomp.py`, `s4_q1d.py`, `s5_freeze.py`, `s5_hashes.py`, `s6_frozen_analysis.py`, and the step R scripts `r1_arms.py`, `r2_shared.py`, `r4_axes_audit.py`, `r5_repair.py`, `r6_candidate.py`.
-7. `docs/EXECUTION_LOG.md`, entries from 2026-11-16.
+6. The code: `s4_common.py`, `s4_core.py`, `s4_decomp.py`, `s4_q1d.py`, `s5_freeze.py`, `s5_hashes.py`, `s6_frozen_analysis.py`, and the step R scripts `r1_arms.py`, `r2_shared.py`, `r4_axes_audit.py`, `r5_repair.py`, `r6_candidate.py`, `r7_more.py`, `r9_attention.py`.
+7. `docs/EXECUTION_LOG.md`, entries from 2026-11-16 and 2026-11-17.
+8. `docs/EXPLAINED_FOR_THE_LEAD.md`, Part A (how to write to the lead).
 
 ## The lead's OK (given by pasting this prompt)
 1. **H5 is replaced by H5′** (review, section "What I propose instead").
@@ -28,13 +29,13 @@ You are the executing session of a research project. Repository `D:\Shayan`, git
 
 ## Step 0 (free)
 1. `git status` and `git log -3`: the branch must equal `origin/prostate-mri-plan` and the tree must be clean.
-2. Write the lead's OK into `docs/EXECUTION_LOG.md` (date, the four points, and the lead's choice of six or five hypotheses).
-3. Add **amendment A6** to `docs/LUNG_L2_PROTOCOL.md` section 16a: "Step R: exploratory feature work on dev after the first freeze `c593005` (shared axes of the five members in layer `pooled`; plan and code commit `68f4637`; three steps added after seeing results, each logged before its run); approved by the lead; one hypothesis from it (H6) under the four conditions below." Commit and push.
+2. Write the lead's OK into `docs/EXECUTION_LOG.md` (date, the four points, and the lead's choices on H2 and H7: the defaults unless the lead added a line).
+3. Add **amendment A6** to `docs/LUNG_L2_PROTOCOL.md` section 16a: "Steps R, R2 and R3: exploratory work on dev after the first freeze `c593005` (shared axes of the five members in layer `pooled`; real follow-up pairs; harm checks; attention; plan and code commits `68f4637` and `52b5e83`; steps added after seeing results were each logged before their run); approved by the lead; two hypotheses from it (H6, H7) and two pre-stated measurements (harm, attention), under the four conditions below." Commit and push.
 
 ## STEP F: check step R and freeze the axis (free, PC only, no cloud)
 Step R was done by the session that reviewed the first freeze. **You are its first independent reader. Check it; do not trust it.**
 
-**F1. Reproduce.** Run on dev: `r2_shared.py` (layer `pooled`), then `r4_axes_audit.py`, `r5_repair.py`, `r6_candidate.py`, `r7_more.py` (outputs to a scratch folder, then compare with `results/r/`). These must come out again:
+**F1. Reproduce.** Run on dev: `r2_shared.py` (layer `pooled`), then `r4_axes_audit.py`, `r5_repair.py`, `r6_candidate.py`, `r7_more.py` (outputs to a scratch folder, then compare with `results/r/`). **Set the environment variable `L2_S4_DATA` to a scratch folder for these reruns**, so the saved axes `D:\Shayan\imgsae_data\lung_l2\r\r2_shared_pooled.pkl` are not overwritten (the scripts write and read the pickle under `L2_S4_DATA\r\`; the input arrays come from the assembled folder argument). Then also check that the scratch pickle gives the same axis activations as the original (|r| ≥ 0.999 per axis). These must come out again:
 - shared axes in `pooled`: 12 and 11 in the two halves; shuffle null 0;
 - axis 0 under z-fix: **−2.740 SD [−2.765, −2.714]**, halves −2.763 / −2.718; kernel +0.009;
 - nothing removed: z-fix share 0.670, mean Δℓ̄_1 −0.326 (the S4 numbers);
@@ -106,4 +107,4 @@ Stop after step N1. Do not start S6. The next steps are the re-check (N2) and th
 - Commit and push after every finished step (Step 0; F check and frozen axes; the new freeze).
 
 ## How to write to the lead
-The lead's first language is not English. Use short, plain sentences. Start with the result, then the numbers, then what you need from the lead. End with the paths of the files you changed.
+Read `docs/EXPLAINED_FOR_THE_LEAD.md`, Part A. In short: the lead's first language is not English. Use short, plain sentences. Start with the result, then the numbers, then what you need from the lead. End with the full paths of the files you changed. When you explain what happened, give a step-by-step walkthrough in simple words (what you wanted, what you did, what happened, what it shows, why), not only a short summary.

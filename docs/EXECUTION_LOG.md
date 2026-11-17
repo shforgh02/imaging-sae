@@ -951,3 +951,8 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 - Lead: "i dont need any other account for my other works, so we can use them all".
 - Ledger (`cloud/ledger.json`): account forghanishayan added (cap $29.50, project limit $20.00); armanfo project limit $17.00 -> $27.00. Project cap $72 and task budget lung_l2_audit ($23.30 left) unchanged. `budget.py status --profile forghanishayan` works (month used $5.02).
 - Plan: S6 in November after the new freeze, the re-check and the lead's OK: armanfo smoke + T1 + T4 (about $8.1 with reserve); forghanishayan identity check, then T2 + T3 (about $13.2 with reserve). `docs/PROJECT_GUIDE.md` N4 and `docs/HANDOVER_PROMPT_L2_N1.md` updated.
+
+### 2026-11-17: explanations file, CLAUDE.md, prompt final
+- The lead asked for the day's explanations in one simple file so that every new Claude session knows how to talk to the lead: `docs/EXPLAINED_FOR_THE_LEAD.md` (Part A how to talk to the lead; Parts B to L the explanations). `CLAUDE.md` (new, root) points every session to it. Memory: lead-communication-style.
+- Last step R runs: NMF `pooled` K = 64 with V2 on all five members stays valid; SAE `pooled` K = 64 not valid (k = 16: V3 12 of 16; k = 4: V1 and V3 fail). The remaining SAE runs (`pooled` K = 16, `h` K = 8) were stopped to free the PC; they cannot change the results.
+- `docs/HANDOVER_PROMPT_L2_N1.md` final: H7 in Step 0 and A6; `r7_more.py`, `r9_attention.py` and the explanations file in the reading list; reruns of step R with `L2_S4_DATA` set to a scratch folder so the saved axes are not overwritten.
