@@ -243,7 +243,7 @@ The lead asked the reviewer session to test more methods before the Opus session
 
 ## 7. Where we are today (16 Nov 2026)
 
-- **State (updated 17 Nov, evening):** the **second freeze is done: commit `c3578c3`** (step N1). Six hypotheses: H1, H2, H3, H4, H6, H7 (Holm over six). H5′ failed its random-choice test on dev and the lead moved it to the secondary list. The executor reran step R (0 differences) and froze the shared axes. **Next: N2, the re-check by a fresh session that did not do step R (`docs/PROMPT_REVIEW_S5b.md`), then N3, the lead's OK.** The test split is closed. No test data exist on the PC or in the cloud.
+- **State (updated 17 Nov, evening):** the **second freeze is done: commit `c3578c3`** (step N1). Six hypotheses: H1, H2, H3, H4, H6, H7 (Holm over six). H5′ failed its random-choice test on dev and the lead moved it to the secondary list. The executor reran step R (0 differences) and froze the shared axes. **N2 done (commit `29096f9`): approve with changes (four run rules for S6, no new freeze). N3 done (17 Nov): the lead's OK for the freeze `c3578c3` and for S6 is in the log. Next: N4, the test extraction.** No test data exist on the PC or in the cloud yet.
 - **State before (17 Nov, morning):** S5 frozen at `c593005`; reviewed; the lead decided on 16 Nov (step N0 done). Step NF was done on 16 to 17 Nov as "step R" by the reviewer session (part 6b, end).
 - **Money:**
 
@@ -317,17 +317,22 @@ The lead asked the reviewer session to test more methods before the Opus session
   - The agent "improves" other things → not allowed; only the listed changes.
 - **Stop and ask if:** H5′ does not reproduce; any H1 to H4 value differs; anything about test data is unclear.
 
-### N2. Short re-check of the new freeze (free). **NEXT**
+### N2. Short re-check of the new freeze (free). **DONE on 2026-11-17: commit `29096f9`, approve with changes**
+- **What happened:** a fresh Opus 5.5 session that did not do step R checked the freeze `c3578c3`. All 39 hashes match; all dev reruns are byte-identical. Findings: a hidden NaN weak point in the Holm step (closed by an input check), H6 outside the six arms of 9.4 (allowed by A6), H7 chance about 0.6 and mostly GE scanners. It proposed four run rules for S6 and no new freeze. Note: `docs/REVIEW_S5_L2.md`, last section.
+- **The plan as it was written (kept for the record):**
 - **Who:** a fresh session that did **not** do step R (the reviewer of the first freeze did step R). Prompt: `docs/PROMPT_REVIEW_S5b.md` (written 17 Nov). Freeze to check: `c3578c3`.
 - **Why:** a freeze nobody checked is worth less.
 - **Do:** check the hashes, re-run dev as if test, read the H5′ code and the test-list script (no outcome read; same pair rule), read the diff from `c593005`.
 - **Done when:** a dated note is added to `docs/REVIEW_S5_L2.md` and logged.
 
-### N3. The lead's OK (free)
+### N3. The lead's OK (free). **DONE on 2026-11-17**
+- **The lead's words:** "OK for the freeze c3578c3 and for S6, with the six hypotheses H1, H2, H3, H4, H6, H7 (Holm over six; H7 “partly seen”; H5 and H5′ secondary), and OK for the four run rules as log rules (no new freeze)."
+- **The four run rules** (NaN guard; frozen analysis first, attention after; input checks; wording) bind S6. Full text: `docs/EXECUTION_LOG.md`, entry "step N3 done".
 - **Who:** the lead.
 - **Done when:** "OK for the freeze `<commit>` and for S6" is in the log with the date. **Nothing on test happens before this line exists.**
 
-### N4. Test extraction, S6 part 1 (about $19 to $21; **in November, changed 17 Nov**)
+### N4. Test extraction, S6 part 1 (about $19 to $21; **in November, changed 17 Nov**). **NEXT**
+- **Added 17 Nov (after N3):** the four run rules of N3 apply. The two-account order of the frozen run plan rules; the one-account order in item 5 below is old.
 - **Changed on 2026-11-17 (lead: "i dont need any other account for my other works, so we can use them all"):** S6 no longer waits for December. It runs on **`armanfo`** (already set up in S3; $13.81 left this month; project limit raised to $27) and **`forghanishayan`** (added to the ledger; $24.48 left; project limit $20; the lead's idle deployed app there is never touched). Split: `armanfo` smoke + **T1** + **T4** (about $7.4, $8.1 with the reserve); `forghanishayan` identity check first (a few series that ran on `armanfo` must give equal numbers to the last digit, as in S3), then **T2** + **T3** (about $12.0, $13.2 with the reserve). The task budget ($23.30 left) and the project cap ($24.91 left) still bind.
 - **Who:** the unattended driver (`cloud/drive_plan.py`), started by the executor agent, with `MODAL_PROFILE` set per command.
 - **Why:** the hypotheses need Sybil's inner numbers on the test scans.

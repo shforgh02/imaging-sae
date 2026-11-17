@@ -1,8 +1,14 @@
 # Imaging SAE — status and handover
 
-**Updated:** 2026-11-17 · **Phase:** Lung L2 second freeze (commit `c3578c3`, six hypotheses); stopped for the re-check (N2) and the lead's OK (N3). First freeze: `c593005`. S3 is complete: all 7,336 dev exams + 998 z-fix + 500 kernel-pair series, 0 failures, S3 gate passed. · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA; capped at 210 MHz by a power setting on 16 Nov)
+**Updated:** 2026-11-17 · **Phase:** Lung L2 second freeze (commit `c3578c3`, six hypotheses); re-check (N2) done; the lead's OK (N3) logged; next the test extraction (N4). First freeze: `c593005`. S3 is complete: all 7,336 dev exams + 998 z-fix + 500 kernel-pair series, 0 failures, S3 gate passed. · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA; capped at 210 MHz by a power setting on 16 Nov)
 
-**Now (2026-11-17, evening; executor Opus 5.5): SECOND FREEZE DONE, commit `c3578c3`. STOPPED for the re-check (N2) and the lead's OK (N3).**
+**Now (2026-11-17, late evening): N2 AND N3 DONE. The lead's OK for the freeze `c3578c3` and for S6 is in the log. Next: N4, the test extraction (cloud, about $19 to $21).**
+- N2 (commit `29096f9`, a fresh Opus 5.5 session that did not do step R): **approve with changes.** 39 of 39 hashes match; all dev reruns byte-identical; H1 to H4 equal the first freeze; H6 and H7 equal step R. Note: `docs/REVIEW_S5_L2.md`, last section.
+- N3 (lead, 17 Nov): "OK for the freeze c3578c3 and for S6, with the six hypotheses H1, H2, H3, H4, H6, H7 (Holm over six; H7 “partly seen”; H5 and H5′ secondary), and OK for the four run rules as log rules (no new freeze)."
+- **Four run rules bind S6** (full text: `docs/EXECUTION_LOG.md`, entry "step N3 done"): (1) NaN guard: no missing input values before the analysis, else stop and ask; a non-finite estimate or p = "not evaluated"; (2) the frozen analysis first and committed, the attention script after; (3) input checks before and after N5 (hash table untouched since `c3578c3`, form hash `b4cba3aa…`, ℓ̄_1 rebuild ≤ 5e-3); (4) fixed wording for H6 and H7.
+- Test data still not opened. No cloud command. No money spent. N4 starts only on the lead's separate go (it spends money).
+
+**Earlier (2026-11-17, evening; executor Opus 5.5): SECOND FREEZE DONE, commit `c3578c3`. STOPPED for the re-check (N2) and the lead's OK (N3).**
 - Step F: all step R scripts behind H6 and H7 rerun on dev: **0 differences**; code read as an outsider: no error (one edge case of H7: 8 exams with a recorded ratio of 0 count as stretched; dev b +0.246 as coded, +0.227 if not; frozen as a secondary number); the 11 shared axes frozen in `imgsae/exploratory/lung_l2/results/s5/frozen_axes_pooled.npz`.
 - H5′ reproduced (−0.0566) but **failed its random-choice test** (59.7% of random sets of 6 families pass). The lead chose: H5′ to the secondary list.
 - **Family: six hypotheses, H1, H2, H3, H4, H6, H7 (Holm over six).** H7 labelled "partly seen". Dev as if test: H1 to H4 identical to the first freeze; H6 +0.408 and H7 +0.246 equal step R. Harm estimates and the attention check pre-stated as secondary. S6 run plan on `armanfo` (smoke, T1, T4; about $8.1 with reserve) and `forghanishayan` (identity, T2, T3; about $13.2).
