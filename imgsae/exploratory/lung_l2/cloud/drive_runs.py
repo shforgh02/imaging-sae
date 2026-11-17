@@ -33,7 +33,9 @@ import budget as B  # noqa: E402
 
 PY = r"C:\Users\Arman\miniconda3\python.exe"; MODAL = r"C:\Users\Arman\miniconda3\Scripts\modal.exe"
 TASK = "lung_l2_audit"; VOL = "imgsae-nlst-l2"
-PC_COPY = {"shforghani2002": r"D:\Shayan\imgsae_data\lung_l2_vol", "armanfo": r"D:\Shayan\imgsae_data\lung_l2_vol_armanfo"}
+PC_COPY = {"shforghani2002": r"D:\Shayan\imgsae_data\lung_l2_vol", "armanfo": r"D:\Shayan\imgsae_data\lung_l2_vol_armanfo",
+           "forghanishayan": r"D:\Shayan\imgsae_data\lung_l2_vol_forghanishayan"}   # S6 (lead's money decision, 17 Nov)
+APP_CHECK = ("armanfo", "forghanishayan")   # A4: the lead's other apps on these accounts must not be running (forghanishayan: S6, 17 Nov)
 APP_WAIT_S, APP_MAX_S = 30 * 60, 120 * 60
 
 
@@ -90,7 +92,7 @@ class Driver:
 
     def wait_apps(self):
         """A4: on armanfo, no other app with running containers; wait 30 min and look again; give up after 2 hours."""
-        if self.a.profile not in ("armanfo",): return True
+        if self.a.profile not in APP_CHECK: return True
         t0 = time.time()
         while True:
             ok, busy = B.app_check(self.a.profile); self.log(f"app check {self.a.profile}: {'ok' if ok else 'BUSY'} {json.dumps(busy)[:300]}")
@@ -180,7 +182,7 @@ if __name__ == "__main__":
     a = ap.parse_args(); require_profile(a.profile); d = Driver(a)
     if a.dry:
         d.log(f"DRY RUN on {a.profile}: tier {a.tier} rows {a.lo}-{a.hi}, copy folder {PC_COPY[a.profile]}")
-        ok, busy = B.app_check(a.profile) if a.profile == "armanfo" else (True, [])
+        ok, busy = B.app_check(a.profile) if a.profile in APP_CHECK else (True, [])
         d.log(f"app check {a.profile}: {'ok' if ok else 'BUSY'} {json.dumps(busy)[:300]}")
         for ns in [int(x) for x in a.nshards.split(",")]: d.precheck(ns)
     else:

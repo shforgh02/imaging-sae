@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT / "imgsae" / "exploratory" / "p1b_sanity" / "cloud")
 import budget as B  # noqa: E402
 
 IMAGE_USD = 0.10
-APP_CHECK_PROFILES = ("armanfo",)   # A4: the lead's other work on this account must not be running
+APP_CHECK_PROFILES = ("armanfo", "forghanishayan")   # A4: the lead's other work on these accounts must not be running (forghanishayan: S6, 17 Nov)
 
 
 def client_profile():

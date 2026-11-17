@@ -1,0 +1,31 @@
+{
+ "root": "test",
+ "script": "s6_manifest_test.py",
+ "split_test_series": 6715,
+ "found_in_idc": 6715,
+ "pid_mismatch": 0,
+ "duplicate_pid_year": 0,
+ "study_years": {
+  "0": 2279,
+  "1": 2243,
+  "2": 2193
+ },
+ "lead_ok": "c3578c3",
+ "rows_by_tier": {
+  "T1": 2279,
+  "T2": 2243,
+  "T3": 2193,
+  "T4": 500
+ },
+ "participants": 2347,
+ "pairs_available_T1": 1160,
+ "pairs_by_maker": {
+  "GE MEDICAL SYSTEMS": 215,
+  "SIEMENS": 211,
+  "Philips": 58,
+  "TOSHIBA": 16
+ },
+ "zfix_expected_ratio_le_0p65": 745,
+ "total_size_gb": 615.9,
+ "manifest_sha256": "677ad5487520baa1e7169e43459a7751dc6e6f87c8e7946f3e10d018caf723c0"
+}

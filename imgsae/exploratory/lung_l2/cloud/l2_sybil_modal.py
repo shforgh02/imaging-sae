@@ -7,6 +7,11 @@ usage (from D:\\Shayan, miniconda python, PYTHONUTF8=1, always with --detach and
   ... --step run_l4 --tier D1 --lo 0 --hi 50 --nshard 1 --timeout-min 20 --zfix-max 0.95 --root l4    (L4, timing)
   ... --step run --tier D1 --lo 0 --hi 20 --nshard 1 --timeout-min 15 --zfix-max 0.95 --root rep      (repeat, determinism)
   ... --step count --root dev                                                                          (CPU: files on the volume)
+S6 (test; step N4, after the lead's OK of the freeze c3578c3 was logged on 2026-11-17; the only change for test, logged):
+  ... --step smoke --n-series 3 --tier T1 --root test --zfix-max 0.65    (demo case + T1 rows 0-2; record run_info/smoke_test.json)
+  ... --step run --tier T1 --lo 0 --hi 2279 --nshard 4 --timeout-min 60 --zfix-max 0.65 --root test
+  Root 'test' reads manifest_test.csv (s6_manifest_test.py); every other root reads manifest_dev.csv. A tier must belong to its root
+  (T* only with root test, D* only with the other roots).
 Per series and variant: /vol/l2/<root>/<variant>/<uid>.npz (+ .json, written last = done). Errors: /vol/l2/<root>/errors/<uid>.json.
 Variants: 'main' (Sybil as published), 'zfix' (same images, z voxel size = true slice spacing; added to 'main' rows whose
 DICOM spacing/thickness <= zfix_max), 'pair' (manifest rows of tier D4). No DICOM is kept. The volume is committed every 25 series.
@@ -27,7 +32,12 @@ LOCAL = modal.is_local()
 HERE = Path(__file__).resolve().parent if LOCAL else Path("/root/l2")
 L2 = HERE.parent if LOCAL else Path("/root/l2")
 REMOTE = "/root/l2"
-MANIFEST = "manifest_dev.csv"
+MANIFESTS = ("manifest_dev.csv", "manifest_test.csv")
+
+
+def _manifest(root):
+    """root 'test' reads the S6 test list; every other root (dev, l4, rep, xacct) the dev list, as before."""
+    return "manifest_test.csv" if root == "test" else "manifest_dev.csv"
 
 image = (modal.Image.debian_slim(python_version="3.10")
          .apt_install("git", "unzip", "wget", "libgl1", "libglib2.0-0")
@@ -37,7 +47,8 @@ image = (modal.Image.debian_slim(python_version="3.10")
          .run_commands("python -c \"from sybil import Sybil; Sybil('sybil_ensemble')\"")   # checkpoints into /root/.sybil at build time
          .env({"PYTHONUNBUFFERED": "1"})
          .add_local_file(HERE / "image_measures.py", f"{REMOTE}/image_measures.py")
-         .add_local_file(L2 / "results" / MANIFEST, f"{REMOTE}/{MANIFEST}"))
+         .add_local_file(L2 / "results" / MANIFESTS[0], f"{REMOTE}/{MANIFESTS[0]}")
+         .add_local_file(L2 / "results" / MANIFESTS[1], f"{REMOTE}/{MANIFESTS[1]}"))
 app = modal.App(APP, image=image)
 vol = modal.Volume.from_name(VOL, create_if_missing=True)
 
@@ -210,9 +221,10 @@ def _done(root, row):
     return (not rec.get("geo", {}).get("zfix_needed")) or os.path.exists(f"/vol/l2/{root}/zfix/{row['series_uid']}.json")
 
 
-def _rows(tier, lo, hi, shard, nshard):
+def _rows(tier, lo, hi, shard, nshard, root="dev"):
     import pandas as pd
-    m = pd.read_csv(f"{REMOTE}/{MANIFEST}", dtype={"pid": str})
+    if (root == "test") != tier.startswith("T"): raise ValueError(f"tier {tier} does not belong to root {root}")
+    m = pd.read_csv(f"{REMOTE}/{_manifest(root)}", dtype={"pid": str})
     m = m[(m.tier == tier) & (m.pos >= lo) & (m.pos < hi)].sort_values("pos").iloc[shard::nshard]
     return m.to_dict("records")
 
@@ -270,9 +282,11 @@ def _score_rows(rows, root, zfix_max, tag, t0, limit_s, verify=False, model=None
 
 # ------------------------------------------------------------------ cloud functions
 @app.function(gpu="T4", cpu=CPU, memory=MEM_GIB * 1024, timeout=20 * 60, retries=0, volumes={"/vol": vol})
-def smoke(n_series: int = 3, zfix_max: float = 0.95):
+def smoke(n_series: int = 3, zfix_max: float = 0.95, tier: str = "D1", root: str = "dev"):
     """S2 step 0: demo case through the L2 path (must match the published scores within 0.005) and through Serie.get_volume;
-    head weights, calibrator, checkpoint hashes saved once; then the first n_series pilot rows scored (root 'dev') with volume verification."""
+    head weights, calibrator, checkpoint hashes saved once; then the first n_series rows of `tier` scored into `root` with volume
+    verification (dev: the pilot rows of D1; S6: rows 0-2 of T1, root test). The record is run_info/smoke.json for root dev and
+    run_info/smoke_<root>.json otherwise, so the dev record is kept."""
     import glob
     import os
     import shutil
@@ -302,17 +316,19 @@ def smoke(n_series: int = 3, zfix_max: float = 0.95):
     out["demo_scores"] = calib; out["demo_ref"] = DEMO_REF; out["demo_maxdiff"] = max(abs(a - b) for a, b in zip(calib, DEMO_REF))
     out["demo_official_predict"] = [float(x) for x in model.predict([Serie(paths, file_type="dicom")]).scores[0]]
     out["demo_pass"] = out["demo_maxdiff"] <= 0.005
-    json.dump(out, open("/vol/l2/run_info/smoke.json", "w"), indent=1, default=str); vol.commit()
+    out.update(tier=tier, root=root, zfix_max=zfix_max)
+    rec_p = "/vol/l2/run_info/smoke.json" if root == "dev" else f"/vol/l2/run_info/smoke_{root}.json"
+    json.dump(out, open(rec_p, "w"), indent=1, default=str); vol.commit()
     if out["demo_pass"] and n_series:
-        out["bench"] = _score_rows(_rows("D1", 0, n_series, 0, 1), "dev", zfix_max, "smoke", t0, 12 * 60, verify=True, model=model)
+        out["bench"] = _score_rows(_rows(tier, 0, n_series, 0, 1, root), root, zfix_max, "smoke", t0, 12 * 60, verify=True, model=model)
     out["container_min"] = (time.time() - t0) / 60
-    json.dump(out, open("/vol/l2/run_info/smoke.json", "w"), indent=1, default=str); vol.commit()
+    json.dump(out, open(rec_p, "w"), indent=1, default=str); vol.commit()
     return out
 
 
 def _run(tier, lo, hi, shard, nshard, limit_min, zfix_max, root, verify):
     t0 = time.time(); vol.reload()
-    out = _score_rows(_rows(tier, lo, hi, shard, nshard), root, zfix_max, f"{root}:{tier}[{lo}:{hi}] s{shard}", t0, limit_min * 60, verify=verify)
+    out = _score_rows(_rows(tier, lo, hi, shard, nshard, root), root, zfix_max, f"{root}:{tier}[{lo}:{hi}] s{shard}", t0, limit_min * 60, verify=verify)
     out.update(tier=tier, lo=lo, hi=hi, shard=shard, nshard=nshard, root=root, zfix_max=zfix_max, container_min=(time.time() - t0) / 60)
     return out
 
@@ -346,7 +362,9 @@ def main(step: str = "smoke", tier: str = "D1", lo: int = 0, hi: int = 100000, n
     sys.path.insert(0, str(Path(__file__).resolve().parent)); import launch as LN
     profile = LN.client_profile(); sfx = "" if profile == "shforghani2002" else f"__{profile}"
     assert timeout_min <= 60 and nshard <= 4, "protocol: timeout <= 60 min, <= 4 containers"
-    if step == "smoke": LN.launch(smoke, TASK, APP, "smoke", 20, "T4", CPU, MEM_GIB, args=(n_series, zfix_max), result_name="smoke" + sfx, profile=profile)
+    if step == "smoke":
+        sname = "smoke" if root == "dev" else f"smoke_{root}"
+        LN.launch(smoke, TASK, APP, sname, 20, "T4", CPU, MEM_GIB, args=(n_series, zfix_max, tier, root), result_name=sname + sfx, profile=profile)
     elif step in ("run", "run_l4"):
         fn, gpu = (run_shard, "T4") if step == "run" else (run_shard_l4, "L4")
         name = f"{step}_{root}_{tier}_{lo}_{hi}"
