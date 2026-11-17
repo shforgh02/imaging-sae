@@ -866,3 +866,10 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 - **Planned (not run):** step NF = amendment A6: the six arms and V1 to V4 on `pooled`; SAE sparsity check on `h` (k = 8, 16, 32); shared axes by multiset CCA at both layers; attention location (descriptive). Free, PC only, time limit 2026-11-26, code fixed before the full-dev run. An F result may enter the freeze only under gate 9.8, a random-choice test and no-refit computability on test; at most one, in place of H2. A6 is approved by the lead by pasting the execution prompt; the executor writes it into the protocol.
 - **Written:** `docs/HANDOVER_PROMPT_L2_N1.md` (for Opus 5.5, xhigh: Step 0, step F, step N1, then stop). `docs/PROJECT_GUIDE.md` updated (N0 done, step NF, part 6b "why the feature tools failed and what more we can try").
 - No frozen file, analysis script, ledger or test data touched; no cloud command.
+
+## 2026-11-16 (night): step R started (rescue scouting of the feature extraction; reviewer session, Fable 5.2)
+- The lead asked: before the Opus session, test more methods yourself and see if the extraction can be rescued. Dev only, PC only, no cloud, no money. No frozen file changed.
+- Plan fixed before any full-dev run: `imgsae/exploratory/lung_l2/RESULTS_R_dev.md` (R1 shared axes; R2 SAE with k = 8, 16, 32; R3 K = 8 and 16; R4 layer `pooled`; R5 z-fix change only if R1 to R4 give something). Same marks V1 to V4 as S4, from the S4 code (imported, not changed).
+- New scripts: `r1_arms.py`, `r2_shared.py`. Code test on 600 and 1,500 dev exams: runs; saved logits reproduced from `h` and from `pooled` within 1e-6.
+- Scouting simplification: V2 on fewer members (it was never the failing mark). SAE fits on the GPU (CPU needs about 7 minutes per fit).
+- Independence note: the reviewer now also does analysis work; the re-check N2 must say this for anything from step R.
