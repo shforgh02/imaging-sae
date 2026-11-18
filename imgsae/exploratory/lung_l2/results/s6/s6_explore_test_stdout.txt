@@ -1,0 +1,310 @@
+{
+ "root": "test",
+ "label": "EXPLORATORY (protocol 11): not a hypothesis, never confirmed",
+ "thresholds": {
+  "tau90_s1": 0.017993675365094892,
+  "tau90_s6": 0.12394902353743817,
+  "tau90_F1": -3.967785648312468
+ },
+ "A_misses_at_frozen_tau90": {
+  "y1_all_screens": {
+   "counts": {
+    "exams": 6674,
+    "participants": 2346,
+    "cancers": 86
+   },
+   "sybil_missed": {
+    "k": 14,
+    "n": 86,
+    "ci_exact": [
+     0.09195693682875507,
+     0.2580261279101414
+    ]
+   },
+   "radiologists_missed": {
+    "k": 5,
+    "n": 86,
+    "ci_exact": [
+     0.019145060553474914,
+     0.13048397920489888
+    ]
+   },
+   "form_missed": {
+    "k": 9,
+    "n": 86,
+    "ci_exact": [
+     0.048982337008414985,
+     0.18938554417315925
+    ]
+   },
+   "sybil_and_radiologists_missed": 3,
+   "by_sybil": {
+    "histology": {
+     "adeno": {
+      "cancers": 45,
+      "missed": 5,
+      "share": 0.1111111111111111,
+      "ci_exact": [
+       0.03707666130719137,
+       0.24053580849551418
+      ],
+      "note": ""
+     },
+     "other": {
+      "cancers": 13,
+      "missed": 4,
+      "share": 0.3076923076923077,
+      "ci_exact": [
+       0.09092039457209658,
+       0.6142616617507044
+      ],
+      "note": ""
+     },
+     "small_cell": {
+      "cancers": 8,
+      "missed": 1,
+      "share": 0.125,
+      "ci_exact": [
+       0.0031597235312519063,
+       0.5265096708752065
+      ],
+      "note": "n < 10: no claim"
+     },
+     "squamous": {
+      "cancers": 20,
+      "missed": 4,
+      "share": 0.2,
+      "ci_exact": [
+       0.05733399705003276,
+       0.43661400299666825
+      ],
+      "note": ""
+     }
+    },
+    "location": {
+     "central": {
+      "cancers": 4,
+      "missed": 1,
+      "share": 0.25,
+      "ci_exact": [
+       0.006309463209709865,
+       0.8058795503167565
+      ],
+      "note": "n < 10: no claim"
+     },
+     "not_central": {
+      "cancers": 82,
+      "missed": 13,
+      "share": 0.15853658536585366,
+      "ci_exact": [
+       0.08720490466392347,
+       0.2558332729123665
+      ],
+      "note": ""
+     }
+    },
+    "stage": {
+     "I": {
+      "cancers": 51,
+      "missed": 5,
+      "share": 0.09803921568627451,
+      "ci_exact": [
+       0.03260648955189094,
+       0.2141449825456809
+      ],
+      "note": ""
+     },
+     "II_III": {
+      "cancers": 21,
+      "missed": 5,
+      "share": 0.23809523809523808,
+      "ci_exact": [
+       0.08217587559302258,
+       0.47165982765462133
+      ],
+      "note": ""
+     },
+     "IV": {
+      "cancers": 11,
+      "missed": 4,
+      "share": 0.36363636363636365,
+      "ci_exact": [
+       0.1092634438190981,
+       0.6920952849883228
+      ],
+      "note": ""
+     },
+     "unknown": {
+      "cancers": 3,
+      "missed": 0,
+      "share": 0.0,
+      "ci_exact": [
+       0.0,
+       0.7075982261787133
+      ],
+      "note": "n < 10: no claim"
+     }
+    },
+    "stretch": {
+     "not_stretched": {
+      "cancers": 77,
+      "missed": 12,
+      "share": 0.15584415584415584,
+      "ci_exact": [
+       0.08320474776819468,
+       0.2564083758750092
+      ],
+      "note": ""
+     },
+     "stretched": {
+      "cancers": 9,
+      "missed": 2,
+      "share": 0.2222222222222222,
+      "ci_exact": [
+       0.0281449734778982,
+       0.600093573716312
+      ],
+      "note": "n < 10: no claim"
+     }
+    },
+    "maker": {
+     "GE MEDICAL SYSTEMS": {
+      "cancers": 42,
+      "missed": 9,
+      "share": 0.21428571428571427,
+      "ci_exact": [
+       0.10295964989721887,
+       0.36811563393197627
+      ],
+      "note": ""
+     },
+     "Philips": {
+      "cancers": 9,
+      "missed": 2,
+      "share": 0.2222222222222222,
+      "ci_exact": [
+       0.0281449734778982,
+       0.600093573716312
+      ],
+      "note": "n < 10: no claim"
+     },
+     "SIEMENS": {
+      "cancers": 26,
+      "missed": 3,
+      "share": 0.11538461538461539,
+      "ci_exact": [
+       0.02445807531796222,
+       0.3015404001075677
+      ],
+      "note": ""
+     },
+     "TOSHIBA": {
+      "cancers": 9,
+      "missed": 0,
+      "share": 0.0,
+      "ci_exact": [
+       0.0,
+       0.3362671168799428
+      ],
+      "note": "n < 10: no claim"
+     }
+    }
+   }
+  },
+  "y6_baseline": {
+   "counts": {
+    "exams": 2002,
+    "participants": 2002,
+    "cancers": 131
+   },
+   "sybil_missed": {
+    "k": 70,
+    "n": 131,
+    "ci_exact": [
+     0.4451872922029845,
+     0.6219273743342155
+    ]
+   },
+   "by_sybil": {
+    "histology": {
+     "adeno": {
+      "cancers": 58,
+      "missed": 20,
+      "share": 0.3448275862068966,
+      "ci_exact": [
+       0.2249009343663367,
+       0.4811973151235634
+      ],
+      "note": ""
+     },
+     "other": {
+      "cancers": 25,
+      "missed": 16,
+      "share": 0.64,
+      "ci_exact": [
+       0.4252063495538494,
+       0.8202831794163445
+      ],
+      "note": ""
+     },
+     "small_cell": {
+      "cancers": 15,
+      "missed": 10,
+      "share": 0.6666666666666666,
+      "ci_exact": [
+       0.3838037325411542,
+       0.881758896633119
+      ],
+      "note": ""
+     },
+     "squamous": {
+      "cancers": 33,
+      "missed": 24,
+      "share": 0.7272727272727273,
+      "ci_exact": [
+       0.5447615722392182,
+       0.8670036112891851
+      ],
+      "note": ""
+     }
+    },
+    "location": {
+     "central": {
+      "cancers": 13,
+      "missed": 10,
+      "share": 0.7692307692307693,
+      "ci_exact": [
+       0.461868460765959,
+       0.9496189265088485
+      ],
+      "note": ""
+     },
+     "not_central": {
+      "cancers": 118,
+      "missed": 60,
+      "share": 0.5084745762711864,
+      "ci_exact": [
+       0.41483938580208046,
+       0.6016743079661677
+      ],
+      "note": ""
+     }
+    },
+    "stage": {
+     "I": {
+      "cancers": 71,
+      "missed": 30,
+      "share": 0.4225352112676056,
+      "ci_exact": [
+       0.3061224218881992,
+       0.5456173849844173
+      ],
+      "note": ""
+     },
+     "II_III": {
+      "cancers": 32,
+      "missed": 20,
+      "share": 0.625,
+      "ci_exact": [
+       0.4369224550969266,
+       0.78899968357600

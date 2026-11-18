@@ -1,0 +1,60 @@
+{
+ "mode": "post",
+ "s6": "results\\s6\\s6_test.json",
+ "rule3c": {
+  "check_max_abs_lbar1_from_pooled_minus_saved": 2.651399704234336e-07,
+  "tol": 0.005,
+  "pass_": true,
+  "consequence": null
+ },
+ "reading_rule": [
+  {
+   "id": "H1",
+   "est_finite": true,
+   "p_finite": true,
+   "confirmed_holm": true,
+   "evaluated": true,
+   "counts_as": "confirmed"
+  },
+  {
+   "id": "H2",
+   "est_finite": true,
+   "p_finite": true,
+   "confirmed_holm": true,
+   "evaluated": true,
+   "counts_as": "confirmed"
+  },
+  {
+   "id": "H3",
+   "est_finite": true,
+   "p_finite": true,
+   "confirmed_holm": false,
+   "evaluated": true,
+   "counts_as": "not confirmed"
+  },
+  {
+   "id": "H4",
+   "est_finite": true,
+   "p_finite": true,
+   "confirmed_holm": true,
+   "evaluated": true,
+   "counts_as": "confirmed"
+  },
+  {
+   "id": "H6",
+   "est_finite": true,
+   "p_finite": true,
+   "confirmed_holm": true,
+   "evaluated": true,
+   "counts_as": "confirmed"
+  },
+  {
+   "id": "H7",
+   "est_finite": true,
+   "p_finite": true,
+   "confirmed_holm": true,
+   "evaluated": true,
+   "counts_as": "confirmed"
+  }
+ ]
+}

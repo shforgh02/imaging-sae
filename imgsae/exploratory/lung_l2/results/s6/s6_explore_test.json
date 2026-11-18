@@ -1,0 +1,730 @@
+{
+ "root": "test",
+ "label": "EXPLORATORY (protocol 11): not a hypothesis, never confirmed",
+ "thresholds": {
+  "tau90_s1": 0.017993675365094892,
+  "tau90_s6": 0.12394902353743817,
+  "tau90_F1": -3.967785648312468
+ },
+ "A_misses_at_frozen_tau90": {
+  "y1_all_screens": {
+   "counts": {
+    "exams": 6674,
+    "participants": 2346,
+    "cancers": 86
+   },
+   "sybil_missed": {
+    "k": 14,
+    "n": 86,
+    "ci_exact": [
+     0.09195693682875507,
+     0.2580261279101414
+    ]
+   },
+   "radiologists_missed": {
+    "k": 5,
+    "n": 86,
+    "ci_exact": [
+     0.019145060553474914,
+     0.13048397920489888
+    ]
+   },
+   "form_missed": {
+    "k": 9,
+    "n": 86,
+    "ci_exact": [
+     0.048982337008414985,
+     0.18938554417315925
+    ]
+   },
+   "sybil_and_radiologists_missed": 3,
+   "by_sybil": {
+    "histology": {
+     "adeno": {
+      "cancers": 45,
+      "missed": 5,
+      "share": 0.1111111111111111,
+      "ci_exact": [
+       0.03707666130719137,
+       0.24053580849551418
+      ],
+      "note": ""
+     },
+     "other": {
+      "cancers": 13,
+      "missed": 4,
+      "share": 0.3076923076923077,
+      "ci_exact": [
+       0.09092039457209658,
+       0.6142616617507044
+      ],
+      "note": ""
+     },
+     "small_cell": {
+      "cancers": 8,
+      "missed": 1,
+      "share": 0.125,
+      "ci_exact": [
+       0.0031597235312519063,
+       0.5265096708752065
+      ],
+      "note": "n < 10: no claim"
+     },
+     "squamous": {
+      "cancers": 20,
+      "missed": 4,
+      "share": 0.2,
+      "ci_exact": [
+       0.05733399705003276,
+       0.43661400299666825
+      ],
+      "note": ""
+     }
+    },
+    "location": {
+     "central": {
+      "cancers": 4,
+      "missed": 1,
+      "share": 0.25,
+      "ci_exact": [
+       0.006309463209709865,
+       0.8058795503167565
+      ],
+      "note": "n < 10: no claim"
+     },
+     "not_central": {
+      "cancers": 82,
+      "missed": 13,
+      "share": 0.15853658536585366,
+      "ci_exact": [
+       0.08720490466392347,
+       0.2558332729123665
+      ],
+      "note": ""
+     }
+    },
+    "stage": {
+     "I": {
+      "cancers": 51,
+      "missed": 5,
+      "share": 0.09803921568627451,
+      "ci_exact": [
+       0.03260648955189094,
+       0.2141449825456809
+      ],
+      "note": ""
+     },
+     "II_III": {
+      "cancers": 21,
+      "missed": 5,
+      "share": 0.23809523809523808,
+      "ci_exact": [
+       0.08217587559302258,
+       0.47165982765462133
+      ],
+      "note": ""
+     },
+     "IV": {
+      "cancers": 11,
+      "missed": 4,
+      "share": 0.36363636363636365,
+      "ci_exact": [
+       0.1092634438190981,
+       0.6920952849883228
+      ],
+      "note": ""
+     },
+     "unknown": {
+      "cancers": 3,
+      "missed": 0,
+      "share": 0.0,
+      "ci_exact": [
+       0.0,
+       0.7075982261787133
+      ],
+      "note": "n < 10: no claim"
+     }
+    },
+    "stretch": {
+     "not_stretched": {
+      "cancers": 77,
+      "missed": 12,
+      "share": 0.15584415584415584,
+      "ci_exact": [
+       0.08320474776819468,
+       0.2564083758750092
+      ],
+      "note": ""
+     },
+     "stretched": {
+      "cancers": 9,
+      "missed": 2,
+      "share": 0.2222222222222222,
+      "ci_exact": [
+       0.0281449734778982,
+       0.600093573716312
+      ],
+      "note": "n < 10: no claim"
+     }
+    },
+    "maker": {
+     "GE MEDICAL SYSTEMS": {
+      "cancers": 42,
+      "missed": 9,
+      "share": 0.21428571428571427,
+      "ci_exact": [
+       0.10295964989721887,
+       0.36811563393197627
+      ],
+      "note": ""
+     },
+     "Philips": {
+      "cancers": 9,
+      "missed": 2,
+      "share": 0.2222222222222222,
+      "ci_exact": [
+       0.0281449734778982,
+       0.600093573716312
+      ],
+      "note": "n < 10: no claim"
+     },
+     "SIEMENS": {
+      "cancers": 26,
+      "missed": 3,
+      "share": 0.11538461538461539,
+      "ci_exact": [
+       0.02445807531796222,
+       0.3015404001075677
+      ],
+      "note": ""
+     },
+     "TOSHIBA": {
+      "cancers": 9,
+      "missed": 0,
+      "share": 0.0,
+      "ci_exact": [
+       0.0,
+       0.3362671168799428
+      ],
+      "note": "n < 10: no claim"
+     }
+    }
+   }
+  },
+  "y6_baseline": {
+   "counts": {
+    "exams": 2002,
+    "participants": 2002,
+    "cancers": 131
+   },
+   "sybil_missed": {
+    "k": 70,
+    "n": 131,
+    "ci_exact": [
+     0.4451872922029845,
+     0.6219273743342155
+    ]
+   },
+   "by_sybil": {
+    "histology": {
+     "adeno": {
+      "cancers": 58,
+      "missed": 20,
+      "share": 0.3448275862068966,
+      "ci_exact": [
+       0.2249009343663367,
+       0.4811973151235634
+      ],
+      "note": ""
+     },
+     "other": {
+      "cancers": 25,
+      "missed": 16,
+      "share": 0.64,
+      "ci_exact": [
+       0.4252063495538494,
+       0.8202831794163445
+      ],
+      "note": ""
+     },
+     "small_cell": {
+      "cancers": 15,
+      "missed": 10,
+      "share": 0.6666666666666666,
+      "ci_exact": [
+       0.3838037325411542,
+       0.881758896633119
+      ],
+      "note": ""
+     },
+     "squamous": {
+      "cancers": 33,
+      "missed": 24,
+      "share": 0.7272727272727273,
+      "ci_exact": [
+       0.5447615722392182,
+       0.8670036112891851
+      ],
+      "note": ""
+     }
+    },
+    "location": {
+     "central": {
+      "cancers": 13,
+      "missed": 10,
+      "share": 0.7692307692307693,
+      "ci_exact": [
+       0.461868460765959,
+       0.9496189265088485
+      ],
+      "note": ""
+     },
+     "not_central": {
+      "cancers": 118,
+      "missed": 60,
+      "share": 0.5084745762711864,
+      "ci_exact": [
+       0.41483938580208046,
+       0.6016743079661677
+      ],
+      "note": ""
+     }
+    },
+    "stage": {
+     "I": {
+      "cancers": 71,
+      "missed": 30,
+      "share": 0.4225352112676056,
+      "ci_exact": [
+       0.3061224218881992,
+       0.5456173849844173
+      ],
+      "note": ""
+     },
+     "II_III": {
+      "cancers": 32,
+      "missed": 20,
+      "share": 0.625,
+      "ci_exact": [
+       0.4369224550969266,
+       0.7889996835760071
+      ],
+      "note": ""
+     },
+     "IV": {
+      "cancers": 25,
+      "missed": 17,
+      "share": 0.68,
+      "ci_exact": [
+       0.4649992825026277,
+       0.8505045773864304
+      ],
+      "note": ""
+     },
+     "unknown": {
+      "cancers": 3,
+      "missed": 3,
+      "share": 1.0,
+      "ci_exact": [
+       0.2924017738212866,
+       1.0
+      ],
+      "note": "n < 10: no claim"
+     }
+    },
+    "time_to_diagnosis": {
+     "0-1y": {
+      "cancers": 41,
+      "missed": 5,
+      "share": 0.12195121951219512,
+      "ci_exact": [
+       0.04080672624742719,
+       0.26204467554830974
+      ],
+      "note": ""
+     },
+     "1-2y": {
+      "cancers": 16,
+      "missed": 8,
+      "share": 0.5,
+      "ci_exact": [
+       0.2465101114905753,
+       0.7534898885094247
+      ],
+      "note": ""
+     },
+     "2-4y": {
+      "cancers": 34,
+      "missed": 24,
+      "share": 0.7058823529411765,
+      "ci_exact": [
+       0.5252189396595142,
+       0.8490163355769715
+      ],
+      "note": ""
+     },
+     "4-6y": {
+      "cancers": 40,
+      "missed": 33,
+      "share": 0.825,
+      "ci_exact": [
+       0.6722098666384142,
+       0.9266172706479148
+      ],
+      "note": ""
+     }
+    },
+    "stretch": {
+     "not_stretched": {
+      "cancers": 114,
+      "missed": 59,
+      "share": 0.5175438596491229,
+      "ci_exact": [
+       0.4220402975070038,
+       0.612113806781295
+      ],
+      "note": ""
+     },
+     "stretched": {
+      "cancers": 17,
+      "missed": 11,
+      "share": 0.6470588235294118,
+      "ci_exact": [
+       0.3832836634434029,
+       0.857902516889779
+      ],
+      "note": ""
+     }
+    },
+    "maker": {
+     "GE MEDICAL SYSTEMS": {
+      "cancers": 62,
+      "missed": 37,
+      "share": 0.5967741935483871,
+      "ci_exact": [
+       0.46449661014227156,
+       0.7194889187329874
+      ],
+      "note": ""
+     },
+     "Philips": {
+      "cancers": 16,
+      "missed": 10,
+      "share": 0.625,
+      "ci_exact": [
+       0.35434609430207814,
+       0.8480163249188779
+      ],
+      "note": ""
+     },
+     "SIEMENS": {
+      "cancers": 40,
+      "missed": 17,
+      "share": 0.425,
+      "ci_exact": [
+       0.27042903126886286,
+       0.5910994195730366
+      ],
+      "note": ""
+     },
+     "TOSHIBA": {
+      "cancers": 13,
+      "missed": 6,
+      "share": 0.46153846153846156,
+      "ci_exact": [
+       0.19223244180128798,
+       0.7486545177296964
+      ],
+      "note": ""
+     }
+    }
+   }
+  }
+ },
+ "B_zfix_by_subgroup": {
+  "counts": {
+   "exams": 759,
+   "participants": 342,
+   "cancers_y1": 9
+  },
+  "stretch_class": {
+   "1.6": {
+    "n": 345,
+    "participants": 128,
+    "mean_delta_lbar1": {
+     "n": 345,
+     "participants": 128,
+     "est": -0.33863562120799573,
+     "lo": -0.39396823757684063,
+     "hi": -0.2829589407716199,
+     "n_draws": 2000
+    },
+    "h6": {
+     "n": 345,
+     "participants": 128,
+     "est": 0.3901080632113457,
+     "lo": 0.38042677008447084,
+     "hi": 0.3984440574063451,
+     "n_draws": 2000
+    },
+    "share_abs_delta_lbar6_ge_quarter_sd": 0.6521739130434783,
+    "share_flag_changed": 0.034782608695652174
+   },
+   "2.0": {
+    "n": 414,
+    "participants": 216,
+    "mean_delta_lbar1": {
+     "n": 414,
+     "participants": 216,
+     "est": -0.3896464629215751,
+     "lo": -0.4567547400157972,
+     "hi": -0.3195297414501165,
+     "n_draws": 2000
+    },
+    "h6": {
+     "n": 414,
+     "participants": 216,
+     "est": 0.42027333823164487,
+     "lo": 0.41670521455952575,
+     "hi": 0.4238252094623386,
+     "n_draws": 2000
+    },
+    "share_abs_delta_lbar6_ge_quarter_sd": 0.6618357487922706,
+    "share_flag_changed": 0.05314009661835749
+   }
+  },
+  "maker": {
+   "GE MEDICAL SYSTEMS": {
+    "n": 352,
+    "participants": 183,
+    "mean_delta_lbar1": {
+     "n": 352,
+     "participants": 183,
+     "est": -0.4048101971836084,
+     "lo": -0.47953693281366105,
+     "hi": -0.32704811632597525,
+     "n_draws": 2000
+    },
+    "h6": {
+     "n": 352,
+     "participants": 183,
+     "est": 0.421018034454397,
+     "lo": 0.4171590452435866,
+     "hi": 0.4247501334519312,
+     "n_draws": 2000
+    },
+    "share_abs_delta_lbar6_ge_quarter_sd": 0.6903409090909091,
+    "share_flag_changed": 0.05965909090909091
+   },
+   "Philips": {
+    "n": 353,
+    "participants": 134,
+    "mean_delta_lbar1": {
+     "n": 353,
+     "participants": 134,
+     "est": -0.34179645793528296,
+     "lo": -0.3980341465446655,
+     "hi": -0.2866654679761021,
+     "n_draws": 2000
+    },
+    "h6": {
+     "n": 353,
+     "participants": 134,
+     "est": 0.3909406754089373,
+     "lo": 0.38216848251393,
+     "hi": 0.3992813917030475,
+     "n_draws": 2000
+    },
+    "share_abs_delta_lbar6_ge_quarter_sd": 0.6515580736543909,
+    "share_flag_changed": 0.0339943342776204
+   },
+   "SIEMENS": {
+    "n": 54,
+    "participants": 25,
+    "mean_delta_lbar1": {
+     "n": 54,
+     "participants": 25,
+     "est": -0.277696035305659,
+     "lo": -0.42764690025397895,
+     "hi": -0.13574109128940728,
+     "n_draws": 2000
+    },
+    "h6": {
+     "n": 54,
+     "participants": 25,
+     "est": 0.4144451349724565,
+     "lo": 0.40336145639122933,
+     "hi": 0.4230836126348749,
+     "n_draws": 2000
+    },
+    "share_abs_delta_lbar6_ge_quarter_sd": 0.48148148148148145,
+    "share_flag_changed": 0.018518518518518517
+   }
+  },
+  "study_yr": {
+   "0": {
+    "n": 285,
+    "participants": 285,
+    "mean_delta_lbar1": {
+     "n": 285,
+     "participants": 285,
+     "est": -0.38371460675408964,
+     "lo": -0.44226815284716725,
+     "hi": -0.32281388492346336,
+     "n_draws": 2000
+    },
+    "h6": {
+     "n": 285,
+     "participants": 285,
+     "est": 0.40505743187966875,
+     "lo": 0.39704248890623967,
+     "hi": 0.4122054320967708,
+     "n_draws": 2000
+    },
+    "share_abs_delta_lbar6_ge_quarter_sd": 0.6736842105263158,
+    "share_flag_changed": 0.028070175438596492
+   },
+   "1": {
+    "n": 246,
+    "participants": 246,
+    "mean_delta_lbar1": {
+     "n": 246,
+     "participants": 246,
+     "est": -0.3485744270912516,
+     "lo": -0.40576510728575377,
+     "hi": -0.29326835968175796,
+     "n_draws": 2000
+    },
+    "h6": {
+     "n": 246,
+     "participants": 246,
+     "est": 0.4075204839472734,
+     "lo": 0.40157119049121753,
+     "hi": 0.41314292023006305,
+     "n_draws": 2000
+    },
+    "share_abs_delta_lbar6_ge_quarter_sd": 0.6422764227642277,
+    "share_flag_changed": 0.044715447154471545
+   },
+   "2": {
+    "n": 228,
+    "participants": 228,
+    "mean_delta_lbar1": {
+     "n": 228,
+     "participants": 228,
+     "est": -0.3641883902496806,
+     "lo": -0.42938510280984793,
+     "hi": -0.30439274183164045,
+     "n_draws": 2000
+    },
+    "h6": {
+     "n": 228,
+     "participants": 228,
+     "est": 0.40740805569772115,
+     "lo": 0.4005188328954572,
+     "hi": 0.41414358637534654,
+     "n_draws": 2000
+    },
+    "share_abs_delta_lbar6_ge_quarter_sd": 0.6535087719298246,
+    "share_flag_changed": 0.06578947368421052
+   }
+  },
+  "lung_cut": {
+   "lung_cut_z": {
+    "n": 618,
+    "participants": 322,
+    "mean_delta_lbar1": {
+     "n": 618,
+     "participants": 322,
+     "est": -0.35433488277820896,
+     "lo": -0.40381713641968564,
+     "hi": -0.29973332914612244,
+     "n_draws": 2000
+    },
+    "h6": {
+     "n": 618,
+     "participants": 322,
+     "est": 0.41789442846543357,
+     "lo": 0.41481674520914763,
+     "hi": 0.4206798368529657,
+     "n_draws": 2000
+    },
+    "share_abs_delta_lbar6_ge_quarter_sd": 0.6359223300970874,
+    "share_flag_changed": 0.04854368932038835
+   },
+   "no_lung_cut_z": {
+    "n": 141,
+    "participants": 85,
+    "mean_delta_lbar1": {
+     "n": 141,
+     "participants": 85,
+     "est": -0.4196026057401236,
+     "lo": -0.49776610978599634,
+     "hi": -0.3398305730580721,
+     "n_draws": 2000
+    },
+    "h6": {
+     "n": 141,
+     "participants": 85,
+     "est": 0.35689139747643484,
+     "lo": 0.3389434070083016,
+     "hi": 0.3737089170992379,
+     "n_draws": 2000
+    },
+    "share_abs_delta_lbar6_ge_quarter_sd": 0.75177304964539,
+    "share_flag_changed": 0.028368794326241134
+   }
+  },
+  "h6_share_exams_above_null_0p20": 0.9789196310935442
+ },
+ "C_H7_by_maker": {
+  "both_GE": {
+   "pairs": 2183,
+   "participants": 1132,
+   "changed": 88,
+   "b": {
+    "est": 0.40730503743778534,
+    "lo": 0.2795351451520489,
+    "hi": 0.5313276489285532,
+    "n_draws": 2000
+   },
+   "note": ""
+  },
+  "one_GE": {
+   "pairs": 89,
+   "participants": 81,
+   "changed": 33,
+   "b": {
+    "est": 0.2138923863266358,
+    "lo": -0.11836426512658929,
+    "hi": 0.5359551442570376,
+    "n_draws": 2000
+   },
+   "note": ""
+  },
+  "neither_GE": {
+   "pairs": 2081,
+   "participants": 1080,
+   "changed": 13,
+   "b": {
+    "est": -0.31764863699895496,
+    "lo": -0.8517759126311718,
+    "hi": 0.2627044141273875,
+    "n_draws": 1999
+   },
+   "note": "fewer than 20 changed pairs: no claim"
+  },
+  "without_both_GE": {
+   "pairs": 2170,
+   "changed": 46,
+   "b": {
+    "est": 0.1140368519859565,
+    "lo": -0.17525471593266795,
+    "hi": 0.39309904318606514,
+    "n_draws": 2000
+   }
+  },
+  "changed_pairs_involving_GE": 121,
+  "changed_pairs": 134
+ }
+}

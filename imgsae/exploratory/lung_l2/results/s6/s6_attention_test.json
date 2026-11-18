@@ -1,0 +1,82 @@
+{
+ "root": "test",
+ "frozen_conventions": {
+  "order": {
+   "att_vol1": "reversed",
+   "att_vol2": "reversed"
+  },
+  "side": "R_is_image_left"
+ },
+ "dev_check_half_B": false,
+ "n_exams": 2848,
+ "participants": 1398,
+ "groups": {
+  "cancer_1y": 78,
+  "no_cancer_ge8mm": 813,
+  "no_cancer_4to8mm": 1957
+ },
+ "att_vol1": {
+  "cancer_1y": {
+   "n": 78,
+   "share_near_nodule": 0.7253694462197731,
+   "peak_within_1_bin": 0.7435897435897436,
+   "shuffled_share_median": 0.2657451352333407,
+   "shuffled_share_p97_5": 0.35338457793276445,
+   "uniform_share": 0.12
+  },
+  "no_cancer_ge8mm": {
+   "n": 813,
+   "share_near_nodule": 0.4591227920466451,
+   "peak_within_1_bin": 0.5006150061500615,
+   "shuffled_share_median": 0.20654786773935985,
+   "shuffled_share_p97_5": 0.22554633916275033,
+   "uniform_share": 0.12
+  },
+  "no_cancer_4to8mm": {
+   "n": 1957,
+   "share_near_nodule": 0.3163047174481549,
+   "peak_within_1_bin": 0.35053653551354114,
+   "shuffled_share_median": 0.22229145294010155,
+   "shuffled_share_p97_5": 0.2328562317602546,
+   "uniform_share": 0.12
+  }
+ },
+ "att_vol2": {
+  "cancer_1y": {
+   "n": 78,
+   "share_near_nodule": 0.7311466782339436,
+   "peak_within_1_bin": 0.7051282051282052,
+   "shuffled_share_median": 0.2702636579275767,
+   "shuffled_share_p97_5": 0.35823493730429434,
+   "uniform_share": 0.12
+  },
+  "no_cancer_ge8mm": {
+   "n": 813,
+   "share_near_nodule": 0.45352134381155085,
+   "peak_within_1_bin": 0.4981549815498155,
+   "shuffled_share_median": 0.2123631836048973,
+   "shuffled_share_p97_5": 0.23076851879695645,
+   "uniform_share": 0.12
+  },
+  "no_cancer_4to8mm": {
+   "n": 1957,
+   "share_near_nodule": 0.3117904762436602,
+   "peak_within_1_bin": 0.3571793561573838,
+   "shuffled_share_median": 0.23234745348954927,
+   "shuffled_share_p97_5": 0.2420590042408509,
+   "uniform_share": 0.12
+  }
+ },
+ "in_plane": {
+  "cancer_1y": {
+   "n": 78,
+   "share_on_nodule_side": 0.891640957091648,
+   "share_nodule_side_gt_0p6": 0.8717948717948718
+  },
+  "no_cancer_ge8mm": {
+   "n": 808,
+   "share_on_nodule_side": 0.7483183847957949,
+   "share_nodule_side_gt_0p6": 0.7252475247524752
+  }
+ }
+}
