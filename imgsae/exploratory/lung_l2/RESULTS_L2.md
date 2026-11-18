@@ -84,6 +84,45 @@ In-plane, at the nodule's slice bin: 89% of attention on the nodule's lung side 
 - **Z-fix by subgroup (T5):** H6 per exam +0.39 (class 1.6) and +0.42 (2.0); GE +0.42 (352 exams), Philips +0.39 (353), Siemens +0.41 (54); years 0, 1, 2: +0.405, +0.408, +0.407; with or without a lung cut: +0.418 / +0.357. Mean Δℓ̄_1 between −0.28 (Siemens) and −0.42 (no lung cut).
 - **H7 by scanner maker of the pair:** both screens GE: b +0.407 [0.280, 0.531] (2,183 pairs, 88 changed); one GE: +0.214 [−0.118, +0.536] (89 pairs, 33 changed); neither GE: −0.318 [−0.852, +0.263] (2,081 pairs, 13 changed); all pairs except both-GE: +0.114 [−0.175, +0.393] (46 changed). **121 of the 134 changed pairs involve a GE scanner** (dev 195 of 215). Outside GE the test cannot say anything.
 
+## 3b. Plan X1: the added value of Sybil beyond the radiologists' record (EXPLORATORY; 18 Nov)
+Plan written and committed before it ran on test (`0d39e6a`; log 18 Nov); script `s7_added_value.py` and its dev check committed before the test run (`1bdb0be`); test output committed before reading (`352670c`): `results/s7/s7_added_value_test.json` (dev: `s7_added_value_dev.json`). Comparators fitted on Sybil's **train** participants only (or not fitted); combination weights and scenario cuts from dev. Every cell is in the file; about 140 cells, so some nominal intervals that exclude 0 are expected by chance.
+
+**Comparators:** C1 the frozen form (all the radiologist recorded, including the call); C2 findings only (no call); C3 the call only; C4 gradient boosting on findings only; C5 largest nodule size.
+
+**AUROC on test (Sybil minus comparator, 95% CI):**
+| Endpoint (test) | Cancers | Sybil | C1 full form | C2 findings only | C3 call only | C4 boosted findings | C5 size |
+|---|---|---|---|---|---|---|---|
+| E1 1 year, all screens | 86 | 0.914 | 0.947 (−0.033 [−0.067, −0.003]) | 0.938 (−0.023 [−0.062, +0.011]) | 0.881 (+0.034 [−0.004, +0.067]) | 0.950 (−0.036) | 0.900 (+0.014) |
+| E2 1 year, baseline | 41 | 0.927 | 0.927 (0.000 [−0.055, +0.053]) | 0.925 (+0.001) | 0.771 (**+0.155** [0.103, 0.201]) | 0.935 (−0.009) | 0.908 (+0.019) |
+| E3 2 years, baseline | 57 | 0.877 | 0.882 (−0.005) | 0.889 (−0.012) | 0.738 (**+0.139**) | 0.898 (−0.021) | 0.840 (+0.037) |
+| E4 6 years, baseline | 131 | 0.724 | 0.742 (−0.019 [−0.061, +0.028]) | 0.747 (−0.024 [−0.069, +0.023]) | 0.592 (**+0.132**) | 0.757 (−0.033) | 0.653 (**+0.071**) |
+| E5 1–6 years after a negative baseline | 51 | 0.580 | 0.625 (−0.045) | 0.637 (−0.057) | 0.505 (+0.075) | 0.632 (−0.052) | 0.497 (**+0.083**) |
+| E6 1 year after a negative call | 5 | (no claim: 5 cancers) | | | | | |
+| E7 1 year after a positive call | 81 | 0.896 | 0.936 (−0.039 [−0.078, −0.005]) | 0.931 (−0.034) | 0.740 (**+0.157**) | 0.944 (−0.047) | 0.860 (+0.036) |
+
+**Does adding Sybil help? (AUROC of comparator + Sybil minus comparator)**
+| | E1 | E2 | E4 | E5 |
+|---|---|---|---|---|
+| C1 + Sybil, weights from dev (M2) | −0.005 [−0.030, +0.018] | +0.017 [−0.024, +0.060] | +0.005 [−0.026, +0.038] | −0.019 |
+| C1 + Sybil, cross-fitted on test (M3) | +0.002 [−0.020, +0.019] | +0.026 [0.000, +0.054] | +0.013 [−0.011, +0.038] | −0.005 |
+| C2 + Sybil (M2 / M3) | +0.003 / +0.007 | +0.019 / +0.026 | +0.004 / +0.013 | −0.017 / −0.004 |
+| C3 + Sybil (M2 / M3) | **+0.056 / +0.080** | **+0.165 / +0.217** | **+0.133 / +0.145** | +0.058 / **+0.138** |
+| C5 + Sybil (M2 / M3) | +0.021 / +0.035 | +0.029 / +0.039 | **+0.070 / +0.079** | **+0.086 / +0.123** |
+
+Likelihood-ratio tests of Sybil given each comparator are very small p in E1 to E4 and E7 (Sybil carries some statistically detectable extra signal), but the gain in discrimination over C1, C2 and C4 stays within ±0.03.
+
+**Decision curve (E1, 6,674 exams, 86 cancers; net benefit per 1,000 exams):** at risk thresholds 0.5% to 5%, form + Sybil minus form between −0.78 and +0.06 (all intervals include 0); Sybil alone minus the form −0.8 to −2.4 (intervals exclude 0 at 0.5%, 1%, 3%, 5%). Adding Sybil gives no net benefit.
+
+**Scenarios (cuts fixed on dev):**
+- **Rule-out among positive calls** (2,507 exams, 81 one-year cancers, 2,426 false-positive calls): Sybil's dev cut (keeping 95% of dev cancers) removes 88% of the false-positive calls on test but **loses 22 of 81 cancers (27%)**; the dev cut does not transfer (dev flatters Sybil). The findings-only model at its dev cut removes **57% [55%, 59%] of the false-positive calls and loses 1 of 81 cancers**. (Known context: Lung-RADS applied to NLST also lowered the false-positive rate; this is a re-weighting of what the radiologist recorded, not new imaging information.)
+- **Rule-in among negative calls:** 1 year (E6): 5 cancers, no claim (Sybil flagged 2, findings 0). Cancers 1 to 6 years after a negative baseline (E5, 1,140 exams, 51 cancers): Sybil flags 6, the findings model 7, **none by both** (13 of 51 by either); false alarms per 1,000: Sybil 62, findings 101.
+
+**What X1 shows (exploratory):**
+1. **Sybil carries about the same information as the radiologists' structured findings, not more.** Removing the radiologist's final call from the form changes little (E1 0.947 → 0.938; E4 0.742 → 0.747), so the work-up bias of section 2.1b does not explain the result.
+2. **Sybil is much better than the coarse screening call and than nodule size alone** (+0.13 to +0.16 over the call at baseline; +0.07 over size at 6 years) and adds to them. This is where an AI's advantage shows when the comparator is a category (as Lung-RADS in Sybil's paper).
+3. **Thresholds tuned on dev are unsafe on test:** the rule-out cut lost 27% of the cancers it was set to keep at 5%.
+4. **Sybil and the findings catch different late cancers** (no overlap in E5), but both catch few; with 51 cancers this is a hint, not a result.
+
 ## 4. What the results allow us to say, and what not (run rule 4)
 **Can say (test, frozen, Holm):**
 - Sybil's output depends on its slice-spacing step: in about 1 test exam in 9 the chest is stretched along z (759 of 6,715); giving Sybil the true spacing lowers its 1-year logit by 0.37 on average and moves 66% of these exams by at least a quarter SD (H1, H2).
@@ -109,7 +148,7 @@ In-plane, at the nodule's slice bin: 89% of attention on the nodule's lung side 
 **Working title:** "Auditing a deployed lung-screening AI at the feature level, with rules fixed in advance: a slice-spacing shortcut inside Sybil."
 
 **Main messages (each with its test evidence):**
-1. On its own held-out NLST test split, Sybil did not add information beyond what the trial radiologists recorded, including their screening call (L1 primary; L2 frozen secondary; section 2.1b for what the form contains and the work-up bias of the 1-year comparison), although our dev data suggested a large gain. *Lesson: a development split used for tuning gives a misleading picture.*
+1. On its own held-out NLST test split, Sybil did not add information beyond what the trial radiologists recorded (L1 primary; L2 frozen secondary; section 2.1b), also when the radiologists' final call is removed from the comparator (section 3b, exploratory); it does beat the coarse screening call and nodule size, the kind of comparator used in Sybil's own paper. Its dev-tuned thresholds do not transfer (a rule-out cut lost 27% of cancers). *Lesson: a development split used for tuning, and a categorical comparator, both give a misleading picture of an AI's added value.*
 2. A preprocessing step of Sybil (slices placed at the slice thickness, not the true spacing) stretches the chest in about 1 exam in 9; correcting it lowers the score in a large majority of these exams (H1, H2). The alarm changes less than predicted (H3 failed: 4.5%).
 3. The effect is localised: one direction shared by all five ensemble members ("z-geometry axis") carries the whole average change, on new scans (H6), and the same axis carries the score jump in real yearly screening when the reconstruction changes (H7, mostly GE).
 4. The kernel matters little (H4). On dev, the sparse dictionaries gave no valid and useful features (the SAE failed the validity marks; NMF at `pooled` passed them but rebuilt the vector worse than the dev mean; S4 and step R): Sybil's last layers are close to one risk dial plus a few shared technical axes.
