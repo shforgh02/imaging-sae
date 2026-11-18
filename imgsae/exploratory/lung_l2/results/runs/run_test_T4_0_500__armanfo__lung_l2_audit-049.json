@@ -1,0 +1,24 @@
+{
+ "n_rows": 500,
+ "n_todo": 500,
+ "n_done": 398,
+ "errors": {},
+ "mean_sec": {
+  "download": 6.917370037816877,
+  "infer_main": 7.96547529925054,
+  "load": 4.261099757261611,
+  "volumes_measures": 2.4916179383819426
+ },
+ "gpu": "Tesla T4",
+ "verify": [],
+ "torch": "1.13.1+cu117",
+ "cuda": "11.7",
+ "tier": "T4",
+ "lo": 0,
+ "hi": 500,
+ "shard": 0,
+ "nshard": 1,
+ "root": "test",
+ "zfix_max": 0.65,
+ "container_min": 55.17851175864538
+}

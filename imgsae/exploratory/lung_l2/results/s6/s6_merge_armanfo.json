@@ -1,0 +1,33 @@
+{
+ "source": "D:\\Shayan\\imgsae_data\\lung_l2_vol_armanfo\\l2\\test",
+ "destination": "D:\\Shayan\\imgsae_data\\lung_l2_vol\\l2\\test",
+ "tiers": [
+  "T1",
+  "T4"
+ ],
+ "n_to_copy": 3064,
+ "n_skipped_equal": 0,
+ "skipped": [],
+ "stops": [],
+ "n_stops": 0,
+ "to_copy_by_variant_tier": [
+  {
+   "variant": "main",
+   "tier": "T1",
+   "n": 2279
+  },
+  {
+   "variant": "pair",
+   "tier": "T4",
+   "n": 500
+  },
+  {
+   "variant": "zfix",
+   "tier": "T1",
+   "n": 285
+  }
+ ],
+ "dry": false,
+ "sha256_mismatch": [],
+ "status": "merged"
+}

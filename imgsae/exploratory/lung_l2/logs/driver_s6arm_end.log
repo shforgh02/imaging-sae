@@ -1,0 +1,4 @@
+2026-11-17T21:51:32 PLAN START on armanfo: T1:0:2279,T4:0:500, zfix-max 0.65, root test, copy folder D:\Shayan\imgsae_data\lung_l2_vol_armanfo
+2026-11-17T23:31:57 plan step T1 finished
+2026-11-18T00:39:18 plan step T4 finished
+2026-11-18T00:39:18 PLAN END; no reconcile

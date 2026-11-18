@@ -1,0 +1,77 @@
+{
+ "calls": [
+  {
+   "n_rows": 167,
+   "n_todo": 34,
+   "n_done": 34,
+   "errors": {},
+   "mean_sec": {
+    "download": 2.1650509904412663,
+    "infer_main": 7.011607752126806,
+    "load": 3.4870873900020825,
+    "volumes_measures": 2.184700748499702
+   },
+   "gpu": "Tesla T4",
+   "verify": [],
+   "torch": "1.13.1+cu117",
+   "cuda": "11.7",
+   "tier": "T4",
+   "lo": 0,
+   "hi": 500,
+   "shard": 0,
+   "nshard": 3,
+   "root": "test",
+   "zfix_max": 0.65,
+   "container_min": 4.7855895558993025
+  },
+  {
+   "n_rows": 167,
+   "n_todo": 34,
+   "n_done": 34,
+   "errors": {},
+   "mean_sec": {
+    "download": 2.5377293123918423,
+    "infer_main": 7.259664907174952,
+    "load": 3.471212345011094,
+    "volumes_measures": 2.2282006600323845
+   },
+   "gpu": "Tesla T4",
+   "verify": [],
+   "torch": "1.13.1+cu117",
+   "cuda": "11.7",
+   "tier": "T4",
+   "lo": 0,
+   "hi": 500,
+   "shard": 1,
+   "nshard": 3,
+   "root": "test",
+   "zfix_max": 0.65,
+   "container_min": 4.943171413739522
+  },
+  {
+   "n_rows": 166,
+   "n_todo": 34,
+   "n_done": 34,
+   "errors": {},
+   "mean_sec": {
+    "download": 7.003310280687669,
+    "infer_main": 8.337634696679956,
+    "load": 4.712391678024741,
+    "volumes_measures": 2.691012978553772
+   },
+   "gpu": "Tesla T4",
+   "verify": [],
+   "torch": "1.13.1+cu117",
+   "cuda": "11.7",
+   "tier": "T4",
+   "lo": 0,
+   "hi": 500,
+   "shard": 2,
+   "nshard": 3,
+   "root": "test",
+   "zfix_max": 0.65,
+   "container_min": 5.456191714604696
+  }
+ ],
+ "container_min": 15.18495268424352
+}

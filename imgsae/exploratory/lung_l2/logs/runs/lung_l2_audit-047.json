@@ -1,0 +1,18 @@
+{
+ "rid": "lung_l2_audit-047",
+ "task": "lung_l2_audit",
+ "profile": "armanfo",
+ "app": "imgsae-lung-l2",
+ "job": "run_test_T1_0_2279",
+ "call_ids": [
+  "fc-01M7NQXJJZ3MWMMHN970G99HDD",
+  "fc-01M7NQXK1EABSNHXCD7555Z4PQ",
+  "fc-01M7NQXKG56R2GP012EACEXXZK",
+  "fc-01M7NQXKXNVG7N0PX11SX74GKD"
+ ],
+ "rate_h": 0.9072,
+ "timeout_min": 60,
+ "worst_usd": 3.9102400000000004,
+ "launched": "2026-11-17T21:51:59",
+ "result_name": "run_test_T1_0_2279__armanfo"
+}
