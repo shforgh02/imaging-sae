@@ -1,0 +1,54 @@
+{
+ "tag": "s6fgs_T3",
+ "profile": "forghanishayan",
+ "args": {
+  "profile": "forghanishayan",
+  "tag": "s6fgs_T3",
+  "tier": "T3",
+  "lo": 0,
+  "hi": 2193,
+  "zfix_max": 0.65,
+  "root": "test",
+  "nshards": "4,3,2,1",
+  "max_launches": 6,
+  "copy": true,
+  "dry": false
+ },
+ "started": "2026-11-18T02:08:08",
+ "launches": [
+  {
+   "rid": "lung_l2_audit-053",
+   "launched": "2026-11-18T02:08:49",
+   "collect": "ok",
+   "n_todo": 2193,
+   "n_done": 1688,
+   "n_err": 0,
+   "container_min": 220.38334613641103
+  },
+  {
+   "rid": "lung_l2_audit-054",
+   "launched": "2026-11-18T03:05:29",
+   "collect": "ok",
+   "n_todo": 505,
+   "n_done": 505,
+   "n_err": 0,
+   "container_min": 69.2647767663002
+  }
+ ],
+ "status": "finished",
+ "pc_counts": {
+  "main": 4439,
+  "zfix": 474,
+  "pair": 0,
+  "errors": 0
+ },
+ "budget_after": {
+  "profile": "forghanishayan",
+  "month_used_usd": 16.8688,
+  "open_worst_usd": 0,
+  "project_committed_usd": 64.7188,
+  "project_on_account_usd": 10.4944
+ },
+ "task_usd": 39.332,
+ "ended": "2026-11-18T03:28:23"
+}

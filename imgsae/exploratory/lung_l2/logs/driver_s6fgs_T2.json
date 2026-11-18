@@ -1,0 +1,48 @@
+{
+ "tag": "s6fgs_T2",
+ "profile": "forghanishayan",
+ "args": {
+  "profile": "forghanishayan",
+  "tag": "s6fgs_T2",
+  "tier": "T2",
+  "lo": 0,
+  "hi": 2243,
+  "zfix_max": 0.65,
+  "root": "test",
+  "nshards": "4,3,2,1",
+  "max_launches": 6,
+  "copy": false,
+  "dry": false
+ },
+ "started": "2026-11-18T00:39:24",
+ "launches": [
+  {
+   "rid": "lung_l2_audit-051",
+   "launched": "2026-11-18T00:40:07",
+   "collect": "ok",
+   "n_todo": 2243,
+   "n_done": 1542,
+   "n_err": 0,
+   "container_min": 220.54324905474982
+  },
+  {
+   "rid": "lung_l2_audit-052",
+   "launched": "2026-11-18T01:36:51",
+   "collect": "ok",
+   "n_todo": 701,
+   "n_done": 701,
+   "n_err": 0,
+   "container_min": 98.31008296410243
+  }
+ ],
+ "status": "finished",
+ "budget_after": {
+  "profile": "forghanishayan",
+  "month_used_usd": 11.3561,
+  "open_worst_usd": 0,
+  "project_committed_usd": 59.7765,
+  "project_on_account_usd": 5.5521
+ },
+ "task_usd": 34.3897,
+ "ended": "2026-11-18T02:08:08"
+}

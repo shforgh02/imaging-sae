@@ -1,0 +1,125 @@
+{
+ "copy": "D:\\Shayan\\imgsae_data\\lung_l2_vol\\l2",
+ "root": "test",
+ "tiers": {
+  "T1": {
+   "variant": "main",
+   "manifest_rows": 2279,
+   "done": 2279,
+   "logged_failures": 0,
+   "silently_missing": 0,
+   "failure_share": 0.0,
+   "pass_failures": true,
+   "pass_counts": true,
+   "missing_examples": [],
+   "failure_messages": []
+  },
+  "T2": {
+   "variant": "main",
+   "manifest_rows": 2243,
+   "done": 2243,
+   "logged_failures": 0,
+   "silently_missing": 0,
+   "failure_share": 0.0,
+   "pass_failures": true,
+   "pass_counts": true,
+   "missing_examples": [],
+   "failure_messages": []
+  },
+  "T3": {
+   "variant": "main",
+   "manifest_rows": 2193,
+   "done": 2193,
+   "logged_failures": 0,
+   "silently_missing": 0,
+   "failure_share": 0.0,
+   "pass_failures": true,
+   "pass_counts": true,
+   "missing_examples": [],
+   "failure_messages": []
+  },
+  "T4": {
+   "variant": "pair",
+   "manifest_rows": 500,
+   "done": 500,
+   "logged_failures": 0,
+   "silently_missing": 0,
+   "failure_share": 0.0,
+   "pass_failures": true,
+   "pass_counts": true,
+   "missing_examples": [],
+   "failure_messages": []
+  }
+ },
+ "files_not_in_manifest": {
+  "main": 0,
+  "zfix": 0,
+  "pair": 0
+ },
+ "zfix": {
+  "needed": 759,
+  "present": 759,
+  "needed_but_missing": 0,
+  "zfix_without_main": 0,
+  "by_tier": {
+   "T1": 285,
+   "T2": 246,
+   "T3": 228,
+   "T4": 0
+  },
+  "pass_": true
+ },
+ "G2b": {
+  "n_files": 7974,
+  "max_abs": {
+   "relu_vs_h": 0.0,
+   "hidden_fc": 1.6151033745970267e-06,
+   "logits": 7.577776761635846e-07,
+   "raw_hazards": 3.427008055112424e-07
+  },
+  "n_fail": 0,
+  "pass_": true
+ },
+ "G2c": {
+  "n_files": 7974,
+  "max_abs_mean_prob": 2.220446049250313e-16,
+  "max_abs_calib": 1.0901002323038256e-14,
+  "n_fail": 0,
+  "pass_": true
+ },
+ "files_checked_by_tier_variant": {
+  "T1_main": 2279,
+  "T3_main": 2193,
+  "T2_main": 2243,
+  "T1_zfix": 285,
+  "T2_zfix": 246,
+  "T3_zfix": 228,
+  "T4_pair": 500
+ },
+ "failing_files": [],
+ "identity_L1": {
+  "n_l1": 5412,
+  "n_found": 5412,
+  "n_within_1e4": 5412,
+  "share_within_1e4": 1.0,
+  "max_abs": 9.094914747431737e-07,
+  "median_abs": 0.0,
+  "n_exact_0": 4778,
+  "by_year": {
+   "0": {
+    "n": 2279,
+    "within": 2279
+   },
+   "1": {
+    "n": 1584,
+    "within": 1584
+   },
+   "2": {
+    "n": 1549,
+    "within": 1549
+   }
+  },
+  "pass_": true
+ },
+ "gate_S6_extraction_pass": true
+}

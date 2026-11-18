@@ -1199,7 +1199,81 @@
     "mem_gib": 16,
     "launch": "spawn"
    },
-   "closed": null
+   "closed": "2026-11-18T01:36:09",
+   "measured_usd": 3.6161,
+   "note": "collected; 4 call(s), container 220.5 min"
+  },
+  {
+   "id": "lung_l2_audit-052",
+   "task": "lung_l2_audit",
+   "profile": "forghanishayan",
+   "opened": "2026-11-18T01:36:37",
+   "worst_usd": 3.9102,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_test_T2_0_2243('T2', 0, 2243, 0, 4, 55.0, 0.65, 'test', False)",
+     "run_test_T2_0_2243('T2', 0, 2243, 1, 4, 55.0, 0.65, 'test', False)",
+     "run_test_T2_0_2243('T2', 0, 2243, 2, 4, 55.0, 0.65, 'test', False)",
+     "run_test_T2_0_2243('T2', 0, 2243, 3, 4, 55.0, 0.65, 'test', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-18T02:08:04",
+   "measured_usd": 1.7679,
+   "note": "collected; 4 call(s), container 98.3 min"
+  },
+  {
+   "id": "lung_l2_audit-053",
+   "task": "lung_l2_audit",
+   "profile": "forghanishayan",
+   "opened": "2026-11-18T02:08:35",
+   "worst_usd": 3.9102,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_test_T3_0_2193('T3', 0, 2193, 0, 4, 55.0, 0.65, 'test', False)",
+     "run_test_T3_0_2193('T3', 0, 2193, 1, 4, 55.0, 0.65, 'test', False)",
+     "run_test_T3_0_2193('T3', 0, 2193, 2, 4, 55.0, 0.65, 'test', False)",
+     "run_test_T3_0_2193('T3', 0, 2193, 3, 4, 55.0, 0.65, 'test', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-18T03:04:50",
+   "measured_usd": 3.6136,
+   "note": "collected; 4 call(s), container 220.4 min"
+  },
+  {
+   "id": "lung_l2_audit-054",
+   "task": "lung_l2_audit",
+   "profile": "forghanishayan",
+   "opened": "2026-11-18T03:05:16",
+   "worst_usd": 3.9102,
+   "info": {
+    "app": "imgsae-lung-l2",
+    "jobs": [
+     "run_test_T3_0_2193('T3', 0, 2193, 0, 4, 55.0, 0.65, 'test', False)",
+     "run_test_T3_0_2193('T3', 0, 2193, 1, 4, 55.0, 0.65, 'test', False)",
+     "run_test_T3_0_2193('T3', 0, 2193, 2, 4, 55.0, 0.65, 'test', False)",
+     "run_test_T3_0_2193('T3', 0, 2193, 3, 4, 55.0, 0.65, 'test', False)"
+    ],
+    "timeout_min": 60,
+    "gpu": "T4",
+    "cpu": 4,
+    "mem_gib": 16,
+    "launch": "spawn"
+   },
+   "closed": "2026-11-18T03:25:54",
+   "measured_usd": 1.3287,
+   "note": "collected; 4 call(s), container 69.3 min"
   }
  ],
  "checks": [
@@ -1738,6 +1812,46 @@
    "open_worst_usd": 0,
    "lag_usd": 0,
    "project_committed_usd": 54.3925
+  },
+  {
+   "time": "2026-11-18T01:36:37",
+   "profile": "forghanishayan",
+   "month_used_usd": 9.5109,
+   "open_worst_usd": 0,
+   "lag_usd": 3.6161,
+   "project_committed_usd": 58.0086
+  },
+  {
+   "time": "2026-11-18T02:08:08",
+   "profile": "forghanishayan",
+   "month_used_usd": 11.3561,
+   "open_worst_usd": 0,
+   "lag_usd": 5.384,
+   "project_committed_usd": 59.7765
+  },
+  {
+   "time": "2026-11-18T02:08:35",
+   "profile": "forghanishayan",
+   "month_used_usd": 11.3561,
+   "open_worst_usd": 0,
+   "lag_usd": 5.384,
+   "project_committed_usd": 59.7765
+  },
+  {
+   "time": "2026-11-18T03:05:16",
+   "profile": "forghanishayan",
+   "month_used_usd": 15.6271,
+   "open_worst_usd": 0,
+   "lag_usd": 8.9976,
+   "project_committed_usd": 63.3901
+  },
+  {
+   "time": "2026-11-18T03:28:23",
+   "profile": "forghanishayan",
+   "month_used_usd": 16.8688,
+   "open_worst_usd": 0,
+   "lag_usd": 6.7102,
+   "project_committed_usd": 64.7188
   }
  ]
 }

@@ -1,0 +1,18 @@
+{
+ "rid": "lung_l2_audit-052",
+ "task": "lung_l2_audit",
+ "profile": "forghanishayan",
+ "app": "imgsae-lung-l2",
+ "job": "run_test_T2_0_2243",
+ "call_ids": [
+  "fc-01M7P4RZH10D8P8NSA6N63FQE5",
+  "fc-01M7P4RZZR9JXG29A9VBQDV5WE",
+  "fc-01M7P4S0E77GCZ12YS9E6WJPWC",
+  "fc-01M7P4S0WP71RC0DBA3E24GGNB"
+ ],
+ "rate_h": 0.9072,
+ "timeout_min": 60,
+ "worst_usd": 3.9102400000000004,
+ "launched": "2026-11-18T01:36:40",
+ "result_name": "run_test_T2_0_2243__forghanishayan"
+}

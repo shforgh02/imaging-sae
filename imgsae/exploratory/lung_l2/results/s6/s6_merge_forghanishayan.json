@@ -1,0 +1,57 @@
+{
+ "source": "D:\\Shayan\\imgsae_data\\lung_l2_vol_forghanishayan\\l2\\test",
+ "destination": "D:\\Shayan\\imgsae_data\\lung_l2_vol\\l2\\test",
+ "tiers": [
+  "T2",
+  "T3"
+ ],
+ "n_to_copy": 4910,
+ "n_skipped_equal": 3,
+ "skipped": [
+  {
+   "variant": "main",
+   "uid": "1.2.840.113654.2.55.166859898486506850823146884746778478426",
+   "tier": "T1",
+   "check": "arrays 0.00e+00, calib 0.00e+00"
+  },
+  {
+   "variant": "main",
+   "uid": "1.2.840.113654.2.55.290744663365284404009923298300651332009",
+   "tier": "T1",
+   "check": "arrays 0.00e+00, calib 0.00e+00"
+  },
+  {
+   "variant": "main",
+   "uid": "1.3.6.1.4.1.14519.5.2.1.7009.9004.166895024175902830394442697684",
+   "tier": "T1",
+   "check": "arrays 0.00e+00, calib 0.00e+00"
+  }
+ ],
+ "stops": [],
+ "n_stops": 0,
+ "to_copy_by_variant_tier": [
+  {
+   "variant": "main",
+   "tier": "T2",
+   "n": 2243
+  },
+  {
+   "variant": "main",
+   "tier": "T3",
+   "n": 2193
+  },
+  {
+   "variant": "zfix",
+   "tier": "T2",
+   "n": 246
+  },
+  {
+   "variant": "zfix",
+   "tier": "T3",
+   "n": 228
+  }
+ ],
+ "dry": false,
+ "sha256_mismatch": [],
+ "status": "merged"
+}
