@@ -1,0 +1,139 @@
+{
+ "root": "test",
+ "hypotheses": [
+  {
+   "id": "H1",
+   "name": "z-fix moves Sybil's score materially",
+   "direction": ">",
+   "null": 0.3,
+   "est": 0.6574440052700923,
+   "ci95": [
+    0.6196636481241915,
+    0.6945298460745323
+   ],
+   "p_one_sided": 6.792878258849963e-80,
+   "counts": {
+    "exams": 759,
+    "participants": 342,
+    "cancers_y1": 9
+   },
+   "halves": null,
+   "evaluated": true,
+   "partly_seen": false,
+   "confirmed_holm": true
+  },
+  {
+   "id": "H2",
+   "name": "z-fix lowers Sybil's score",
+   "direction": "<",
+   "null": -0.1,
+   "est": -0.3664597166881299,
+   "ci95": [
+    -0.4111755932950002,
+    -0.32003463623283923
+   ],
+   "p_one_sided": 1.0484200328847653e-29,
+   "counts": {
+    "exams": 759,
+    "participants": 342,
+    "cancers_y1": 9
+   },
+   "halves": null,
+   "evaluated": true,
+   "partly_seen": false,
+   "confirmed_holm": true
+  },
+  {
+   "id": "H3",
+   "name": "z-fix changes the tau90 flag (in both directions: flags are lost and gained)",
+   "direction": ">",
+   "null": 0.05,
+   "est": 0.04479578392621871,
+   "ci95": [
+    0.028719690496696294,
+    0.062580346843476
+   ],
+   "p_one_sided": 0.7249740004994664,
+   "counts": {
+    "exams": 759,
+    "participants": 342,
+    "cancers_y1": 9
+   },
+   "halves": null,
+   "evaluated": true,
+   "partly_seen": false,
+   "confirmed_holm": false
+  },
+  {
+   "id": "H4",
+   "name": "the kernel changes the tau90 flag in fewer than 5% of exams",
+   "direction": "<",
+   "null": 0.05,
+   "est": 0.018,
+   "ci95": [
+    0.008,
+    0.03
+   ],
+   "p_one_sided": 2.7808028519653312e-08,
+   "counts": {
+    "pairs": 500,
+    "participants": 500
+   },
+   "halves": null,
+   "evaluated": true,
+   "partly_seen": false,
+   "confirmed_holm": true
+  },
+  {
+   "id": "H6",
+   "name": "shared axis 0 of `pooled` (z-geometry) carries the z-fix drop of Sybil's score",
+   "direction": ">",
+   "null": 0.2,
+   "est": 0.4065618495860544,
+   "ci95": [
+    0.4014155279408585,
+    0.41127994760474834
+   ],
+   "p_one_sided": 0.0,
+   "counts": {
+    "exams": 759,
+    "participants": 342,
+    "cancers_y1": 9
+   },
+   "halves": [
+    0.4070356893362634,
+    0.40612288636568317
+   ],
+   "evaluated": true,
+   "partly_seen": false,
+   "confirmed_holm": true
+  },
+  {
+   "id": "H7",
+   "name": "in real follow-up, Sybil's 1-year score jumps when a yearly screen changes between stretched and not stretched, beyond the form",
+   "direction": ">",
+   "null": 0.1,
+   "est": 0.310760167755309,
+   "ci95": [
+    0.1845835409666082,
+    0.4350816955807512
+   ],
+   "p_one_sided": 0.00039836304506533427,
+   "counts": {
+    "pairs": 4353,
+    "participants": 2224,
+    "changed": 134,
+    "stretched_to_not": 92,
+    "not_to_stretched": 42
+   },
+   "halves": [
+    0.41946661283702275,
+    0.22572881857068847
+   ],
+   "evaluated": true,
+   "partly_seen": true,
+   "confirmed_holm": true
+  }
+ ],
+ "n_confirmed": 5
+}
