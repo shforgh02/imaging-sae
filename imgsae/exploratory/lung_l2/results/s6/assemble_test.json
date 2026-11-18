@@ -1,0 +1,134 @@
+{
+ "root": "test",
+ "form_params_sha256": "b4cba3aa14c79a2cc6a45a315348e289ada862fb7fce47cebb4b219af3826806",
+ "n_main": 6715,
+ "n_zfix": 759,
+ "n_pair": 500,
+ "n_exams": 6715,
+ "participants": 2347,
+ "groups": {
+  "N": 28,
+  "B": 14,
+  "D": 6,
+  "I": 7,
+  "T": 24
+ },
+ "outcomes": {
+  "y1": {
+   "pos": 86,
+   "neg": 6588
+  },
+  "y2": {
+   "pos": 136,
+   "neg": 6477
+  },
+  "y6": {
+   "pos": 318,
+   "neg": 2242
+  },
+  "late": {
+   "pos": 51,
+   "neg": 1089
+  }
+ },
+ "missing_I": 149,
+ "unmatched_table": 0,
+ "nonmissing_share": {
+  "N": {
+   "N_max_dia": 1.0,
+   "N_perp_dia": 1.0,
+   "N_big_spic": 1.0,
+   "N_big_poor": 1.0,
+   "N_big_soft": 1.0,
+   "N_big_gg": 1.0,
+   "N_big_mixed": 1.0,
+   "N_big_upper": 1.0,
+   "N_n_nod": 1.0,
+   "N_sum_dia": 1.0,
+   "N_any_spic": 1.0,
+   "N_gw1": 1.0,
+   "N_gw2": 1.0,
+   "N_gw9": 1.0,
+   "N_pre1": 1.0,
+   "N_pre2": 1.0,
+   "N_pre9": 1.0,
+   "N_att1": 1.0,
+   "N_att2": 1.0,
+   "N_att9": 1.0,
+   "N_log_dia": 1.0,
+   "N_res1": 1.0,
+   "N_res2": 1.0,
+   "N_res3": 1.0,
+   "N_res4": 1.0,
+   "N_res5": 1.0,
+   "N_res6": 1.0,
+   "N_iso_pos": 1.0
+  },
+  "B": {
+   "B_ab52": 1.0,
+   "B_ab53": 1.0,
+   "B_ab54": 1.0,
+   "B_ab55": 1.0,
+   "B_ab56": 1.0,
+   "B_ab57": 1.0,
+   "B_ab58": 1.0,
+   "B_ab59": 1.0,
+   "B_ab60": 1.0,
+   "B_ab61": 1.0,
+   "B_ab62": 1.0,
+   "B_ab63": 1.0,
+   "B_ab64": 1.0,
+   "B_ab65": 1.0
+  },
+  "D": {
+   "D_age": 1.0,
+   "D_male": 1.0,
+   "D_current_smoker": 1.0,
+   "D_race_black": 1.0,
+   "D_race_other": 1.0,
+   "D_study_yr": 1.0
+  },
+  "I": {
+   "I_lung_vol_ml": 0.9778108711839166,
+   "I_laa950_pct": 0.9778108711839166,
+   "I_lung_p15_hu": 0.9778108711839166,
+   "I_lung_mean_hu": 0.9778108711839166,
+   "I_body_area_cm2": 0.9778108711839166,
+   "I_air_noise_sd_hu": 0.958897989575577,
+   "I_lung_z_extent_mm": 0.9778108711839166
+  },
+  "T": {
+   "T_lung_at_edge": 1.0,
+   "T_maker": 1.0,
+   "T_model": 1.0,
+   "T_kclass_sharp": 1.0,
+   "T_sharp_rank": 1.0,
+   "T_thickness": 1.0,
+   "T_zstretch": 1.0,
+   "T_thick_gt_2p5": 1.0,
+   "T_kvp": 1.0,
+   "T_exposure": 1.0,
+   "T_tube_current": 1.0,
+   "T_recon_diameter": 1.0,
+   "T_n_images": 1.0,
+   "T_scan_length_mm": 1.0,
+   "T_tilt": 1.0,
+   "T_regular_3d": 1.0,
+   "T_n_real_slices": 1.0,
+   "T_lung_cut_z": 1.0,
+   "T_lung_cut_xy": 1.0,
+   "T_q_limited": 1.0,
+   "T_q_breath": 1.0,
+   "T_q_motion": 1.0,
+   "T_q_artifact": 1.0,
+   "T_q_graininess": 1.0
+  }
+ },
+ "empty_columns": [],
+ "constant_columns": [
+  "T_tilt"
+ ],
+ "grp_values": {
+  "test": 6715
+ }
+}

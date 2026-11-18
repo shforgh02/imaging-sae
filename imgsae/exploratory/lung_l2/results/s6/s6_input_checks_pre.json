@@ -1,0 +1,52 @@
+{
+ "mode": "pre",
+ "assembled": "D:\\Shayan\\imgsae_data\\lung_l2\\test",
+ "rule1_nan_guard": {
+  "G2b_pass": true,
+  "G2c_pass": true,
+  "main_exams": 6715,
+  "main_missing": {
+   "ratio": 0,
+   "F1": 0,
+   "s1": 0
+  },
+  "main_arrays_nonfinite": {
+   "logit": 0,
+   "pooled": 0,
+   "h": 0
+  },
+  "zfix": {
+   "rows": 759,
+   "missing": {
+    "v_l1": 0,
+    "v_l6": 0,
+    "s1": 0
+   },
+   "pooled_nonfinite": 0,
+   "h_nonfinite": 0
+  },
+  "pair": {
+   "rows": 500,
+   "missing": {
+    "v_l1": 0,
+    "v_l6": 0,
+    "s1": 0
+   },
+   "pooled_nonfinite": 0,
+   "h_nonfinite": 0
+  },
+  "pass": true
+ },
+ "rule3a_hash_table_untouched": {
+  "n_files": 36,
+  "changed_since_freeze": [],
+  "uncommitted": [],
+  "pass_": true
+ },
+ "rule3b_form_hash": {
+  "form_params_sha256": "b4cba3aa14c79a2cc6a45a315348e289ada862fb7fce47cebb4b219af3826806",
+  "expected": "b4cba3aa14c79a2cc6a45a315348e289ada862fb7fce47cebb4b219af3826806",
+  "pass_": true
+ },
+ "pass": true
+}
