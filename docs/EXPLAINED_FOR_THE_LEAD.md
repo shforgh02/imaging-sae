@@ -243,3 +243,50 @@ Lead, 17 Nov: "i dont need any other account for my other works, so we can use t
 | Steps added after seeing results | Write them in the log **before** they run; mark them in the report |
 | The reviewer did analysis | The next check must be done by a fresh session |
 | A data table repeated a column (z-fix `resampled_T`) | Check geometry and counts against physics before trusting a result |
+
+---
+
+## Part M. The test night (17 to 18 Nov 2026), step by step
+
+**The whole story in three sentences.** We fixed six predictions on dev, then opened the test split once. Five came true and one failed. The strongest result: one shared direction inside Sybil carries the slice-spacing problem, on new scans and in real yearly screening.
+
+**Words you need**
+| Word | Meaning |
+|---|---|
+| test split | the final exam: scans Sybil and we never used for choosing anything |
+| frozen | written down and locked (hashes) before the test was opened |
+| Holm | a rule that makes six tests together as strict as one test |
+| z-fix | the same scan, given to Sybil with the true slice spacing |
+| axis 0 | the "z-geometry" direction shared by all five Sybil members |
+
+**Step 1. Build the test list (free).** *Wanted:* the exact scans to score. *Did:* `s6_manifest_test.py`, from metadata and split names only (no outcome). *Happened:* 6,715 scans plus 500 kernel partners, 2,347 people. *Shows:* the list follows the frozen rules.
+
+**Step 2. Small test runs on both accounts ($0.34).** *Wanted:* proof that both accounts compute the same as the main account. *Problem:* the laptop's upload through the VPN was very slow (28 KB/s); Modal gave up uploading the 2 MB list. *Fix:* the job now carries a compressed copy; before every launch it checks that the copy holds exactly the same bytes. *Happened:* the demo case equals the published scores exactly; the two accounts give identical numbers (difference 0.0).
+
+**Step 3. The big run (about $17.6, 5.5 hours, unattended).** *Did:* armanfo scored year 0 and the kernel pairs; then forghanishayan scored years 1 and 2 (never both at once, by our rule of at most 4 machines). *Happened:* 7,215 scans and 759 z-fix scans, **0 errors**. The guard once allowed only 1 machine (its month safety rule); the run simply took a little longer.
+
+**Step 4. Checks before any analysis (free).** All files complete; Sybil's numbers rebuild exactly; **all 5,412 scans that L1 scored give the same score again** (largest difference 0.0000009). The data are clean.
+
+**Step 5. The frozen analysis, once, saved before reading (free).** *Did:* checked again that no frozen file had changed and that no number was missing (your four run rules); ran the frozen script one time; committed the output to GitHub **before** looking at it. Nobody can say we changed it after seeing it.
+
+**Step 6. The result.**
+| | Prediction | Test | Result |
+|---|---|---|---|
+| H1 | the true spacing moves the score in more than 30% of stretched scans | 66% | ✅ |
+| H2 | it lowers the score by more than 0.10 | −0.37 | ✅ |
+| H3 | it changes the alarm in more than 5% | 4.5% | ❌ failed |
+| H4 | the kernel changes the alarm in fewer than 5% | 1.8% | ✅ |
+| H6 | axis 0 carries at least 0.20 of the drop | 0.41 (the whole drop) | ✅ |
+| H7 | in real yearly screening the score jumps when the stretch changes | +0.31 | ✅ (mostly GE scanners) |
+
+**What it shows, simply.** Think of one knob inside Sybil. When the slices are placed too far apart, the knob turns, and Sybil's score follows. On new scans the knob turned the same way (−2.73, dev −2.74). Put the knob back to the middle, and the whole drop disappears (−0.37 → +0.04). In real screening, when a hospital changed its reconstruction from one year to the next, the same knob turned, and Sybil's score jumped; with the knob in the middle, the jump disappears too.
+
+**What failed or is weak, honestly.**
+- H3 failed: the alarm changed in 4.5%, not more than 5%. On test the fix mostly removed alarms (27 lost, 7 gained).
+- H7 is a GE result: 121 of the 134 changed pairs involve a GE scanner. Without GE there are only 13 changed pairs: no conclusion.
+- No harm shown: only 9 one-year cancers among the stretched scans; both runs catch the same 7. "No difference" does not mean "no harm".
+- Dev flattered Sybil: on dev it looked far better than the radiologists' recorded findings; on test it is not better (0.914 against 0.947), and it adds nothing to the findings plus image measures.
+
+**What can go wrong next, and how we prevent it.** A reader may say "you looked many times on dev" → the six were frozen and hashed before the test, and the test was analysed once. A reader may say "this is only NLST and GE" → we say it plainly; an outside dataset (N9a) is the best answer.
+
+**What we need from you.** Read `imgsae/exploratory/lung_l2/RESULTS_L2.md`. Choose the journal (my suggestion: *Radiology: Artificial Intelligence*; higher with an outside dataset and a clinical co-author). Decide on the outside dataset request (needs your name).

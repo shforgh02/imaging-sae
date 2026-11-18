@@ -1,8 +1,15 @@
 # Imaging SAE — status and handover
 
-**Updated:** 2026-11-17 · **Phase:** Lung L2 second freeze (commit `c3578c3`, six hypotheses); re-check (N2) done; the lead's OK (N3) logged; next the test extraction (N4). First freeze: `c593005`. S3 is complete: all 7,336 dev exams + 998 z-fix + 500 kernel-pair series, 0 failures, S3 gate passed. · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA; capped at 210 MHz by a power setting on 16 Nov)
+**Updated:** 2026-11-18 · **Phase:** Lung L2 **test done** (N4 extraction, N5 frozen analysis once, N6 extra looks); results file drafted (N7); next: the lead reads `imgsae/exploratory/lung_l2/RESULTS_L2.md`, figures and manuscript (N7, N8). First freeze: `c593005`. S3 is complete: all 7,336 dev exams + 998 z-fix + 500 kernel-pair series, 0 failures, S3 gate passed. · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA; capped at 210 MHz by a power setting on 16 Nov)
 
-**Now (2026-11-17, late evening): N2 AND N3 DONE. The lead's OK for the freeze `c3578c3` and for S6 is in the log. Next: N4, the test extraction (cloud, about $19 to $21).**
+**Now (2026-11-18, morning UTC; Opus 5.5, unattended overnight on the lead's go): TEST DONE. 5 OF 6 FROZEN HYPOTHESES CONFIRMED ON TEST; H3 FAILED.**
+- Results: `imgsae/exploratory/lung_l2/RESULTS_L2.md`; frozen output `lung_l2/results/s6/s6_test.json`, run once, committed before reading (`1c93259`).
+- H1 0.657 [0.620, 0.695] ✓; H2 −0.367 [−0.411, −0.320] ✓; **H3 0.045 [0.029, 0.063] ✗ (null 0.05)**; H4 0.018 [0.008, 0.030] ✓; H6 +0.407 [0.401, 0.411] ✓ (the shared z-geometry axis carries the whole z-fix drop: −0.366 → +0.040 with it off); H7 +0.311 [0.185, 0.435] ✓ (real follow-up; with axis 0 off −0.046; **121 of 134 changed pairs involve GE**).
+- Secondary: dev flattered Sybil. On test, AUROC 1 year: Sybil 0.914 against the recorded-findings form 0.947; Sybil adds nothing to form + image measures (−0.004 [−0.029, +0.020]). No harm shown (9 stretched 1-year cancers; 7 of 9 caught by both runs).
+- Extraction (N4): 7,215 rows + 759 z-fix variants on `armanfo` and `forghanishayan`, 0 errors; gate passed (G2b/G2c on 7,974 files; identity with L1 5,412 of 5,412 within 1e-4). Cost about $17.6 measured (allowed $22.30); billing reconcile in the log.
+- Next (lead): read the results; choose the journal; clinical co-author; optional outside dataset (N9a). Next (agent): figures, manuscript draft, checklists (N7, N8).
+
+**Earlier (2026-11-17, late evening): N2 AND N3 DONE. The lead's OK for the freeze `c3578c3` and for S6 is in the log. Next: N4, the test extraction (cloud, about $19 to $21).**
 - N2 (commit `29096f9`, a fresh Opus 5.5 session that did not do step R): **approve with changes.** 39 of 39 hashes match; all dev reruns byte-identical; H1 to H4 equal the first freeze; H6 and H7 equal step R. Note: `docs/REVIEW_S5_L2.md`, last section.
 - N3 (lead, 17 Nov): "OK for the freeze c3578c3 and for S6, with the six hypotheses H1, H2, H3, H4, H6, H7 (Holm over six; H7 “partly seen”; H5 and H5′ secondary), and OK for the four run rules as log rules (no new freeze)."
 - **Four run rules bind S6** (full text: `docs/EXECUTION_LOG.md`, entry "step N3 done"): (1) NaN guard: no missing input values before the analysis, else stop and ask; a non-finite estimate or p = "not evaluated"; (2) the frozen analysis first and committed, the attention script after; (3) input checks before and after N5 (hash table untouched since `c3578c3`, form hash `b4cba3aa…`, ℓ̄_1 rebuild ≤ 5e-3); (4) fixed wording for H6 and H7.

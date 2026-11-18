@@ -243,7 +243,7 @@ The lead asked the reviewer session to test more methods before the Opus session
 
 ## 7. Where we are today (16 Nov 2026)
 
-- **State (updated 17 Nov, evening):** the **second freeze is done: commit `c3578c3`** (step N1). Six hypotheses: H1, H2, H3, H4, H6, H7 (Holm over six). H5′ failed its random-choice test on dev and the lead moved it to the secondary list. The executor reran step R (0 differences) and froze the shared axes. **N2 done (commit `29096f9`): approve with changes (four run rules for S6, no new freeze). N3 done (17 Nov): the lead's OK for the freeze `c3578c3` and for S6 is in the log. Next: N4, the test extraction.** No test data exist on the PC or in the cloud yet.
+- **State (updated 17 Nov, evening):** the **second freeze is done: commit `c3578c3`** (step N1). Six hypotheses: H1, H2, H3, H4, H6, H7 (Holm over six). H5′ failed its random-choice test on dev and the lead moved it to the secondary list. The executor reran step R (0 differences) and froze the shared axes. **N2 done (commit `29096f9`): approve with changes (four run rules for S6, no new freeze). N3 done (17 Nov): the lead's OK for the freeze `c3578c3` and for S6 is in the log. N4 to N6 done (18 Nov): the test is extracted and analysed once; 5 of 6 frozen hypotheses confirmed, H3 failed (`imgsae/exploratory/lung_l2/RESULTS_L2.md`). Next: N7 (figures, manuscript).**
 - **State before (17 Nov, morning):** S5 frozen at `c593005`; reviewed; the lead decided on 16 Nov (step N0 done). Step NF was done on 16 to 17 Nov as "step R" by the reviewer session (part 6b, end).
 - **Money:**
 
@@ -331,7 +331,8 @@ The lead asked the reviewer session to test more methods before the Opus session
 - **Who:** the lead.
 - **Done when:** "OK for the freeze `<commit>` and for S6" is in the log with the date. **Nothing on test happens before this line exists.**
 
-### N4. Test extraction, S6 part 1 (about $19 to $21; **in November, changed 17 Nov**). **NEXT**
+### N4. Test extraction, S6 part 1 (about $19 to $21; **in November, changed 17 Nov**). **DONE on 2026-11-18**
+- **What happened:** smoke on both accounts (demo 0.0), identity across accounts (0.0), T1 and T4 on `armanfo`, T2 and T3 on `forghanishayan`: 7,215 rows and 759 z-fix variants, 0 errors; gate passed (identity with L1 5,412 of 5,412). Cost about $17.6 measured. Details: `docs/EXECUTION_LOG.md`, 17 and 18 Nov.
 - **Added 17 Nov (after N3):** the four run rules of N3 apply. The two-account order of the frozen run plan rules; the one-account order in item 5 below is old.
 - **Changed on 2026-11-17 (lead: "i dont need any other account for my other works, so we can use them all"):** S6 no longer waits for December. It runs on **`armanfo`** (already set up in S3; $13.81 left this month; project limit raised to $27) and **`forghanishayan`** (added to the ledger; $24.48 left; project limit $20; the lead's idle deployed app there is never touched). Split: `armanfo` smoke + **T1** + **T4** (about $7.4, $8.1 with the reserve); `forghanishayan` identity check first (a few series that ran on `armanfo` must give equal numbers to the last digit, as in S3), then **T2** + **T3** (about $12.0, $13.2 with the reserve). The task budget ($23.30 left) and the project cap ($24.91 left) still bind.
 - **Who:** the unattended driver (`cloud/drive_plan.py`), started by the executor agent, with `MODAL_PROFILE` set per command.
@@ -355,19 +356,20 @@ The lead asked the reviewer session to test more methods before the Opus session
   - Someone looks at test numbers too early → the driver only extracts; nothing is analysed in this step.
 - **Stop and ask if:** the guard refuses; a check fails; cost goes above $22.00; identity fails; anything touches another app or volume.
 
-### N5. The frozen analysis, once (free)
+### N5. The frozen analysis, once (free). **DONE on 2026-11-18: 5 of 6 confirmed (H3 failed)**
+- **What happened:** run once, output committed before reading (`1c93259`). H1, H2, H4, H6, H7 confirmed; H3 not (0.045 against 0.05). Results: `imgsae/exploratory/lung_l2/RESULTS_L2.md`.
 - **Who:** the executor agent.
 - **Do:** `l2_data.py` for root `test`; then `s6_frozen_analysis.py` **one time**; write `results/s6/s6_test.json`; **commit it before reading or commenting**; then write the result as it is.
 - **Why commit first:** so nobody can say the result was edited after it was seen.
 - **Can go wrong → prevention:** a code error on test → the same script already ran on dev end to end; a hash mismatch → the script refuses to run.
 - **Never:** re-run with a changed setting, drop a hypothesis that failed, or change a margin. A failed hypothesis is reported as failed.
 
-### N6. Extra looks at test (free). Labelled "exploratory"
+### N6. Extra looks at test (free). Labelled "exploratory". **DONE on 2026-11-18** (attention, misses, subgroups, H7 by maker; `results/s6/`)
 - **Who:** the executor agent, after N5 is committed.
 - **Do:** the secondary references (AUROC of Sybil, form, size-only, form + image measures; Sybil + form at the radiologists' sensitivity), the miss patterns (small-cell, central, stage, time to diagnosis), the z-fix numbers by stretch class and scanner maker.
 - **Rule:** every such number carries the word "exploratory" and its counts of exams, people and cancers.
 
-### N7. Results file and paper outline (free)
+### N7. Results file and paper outline (free). **NEXT** (results file and outline drafted 18 Nov: `RESULTS_L2.md`; figures and manuscript open)
 - **Who:** the executor agent drafts; the lead and a clinical co-author judge.
 - **Do:** `imgsae/exploratory/lung_l2/RESULTS_L2.md`; figures; a manuscript outline; a target journal with reasons. Every failed gate and every negative result is written as clearly as a positive one.
 
