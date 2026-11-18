@@ -234,3 +234,125 @@ Tue 11/17/2026 16:51:32.67 run_s6 start
 2026-11-18T03:28:23 plan step T3 finished
 2026-11-18T03:28:23 PLAN END; no reconcile
 Tue 11/17/2026 22:28:23.96 run_s6 drivers done; reconcile in 70 min 
+{
+ "profile": "armanfo",
+ "billing_hours": {
+  "2026-11-16T04:00:00": 2.78062216,
+  "2026-11-16T05:00:00": 4.10256649,
+  "2026-11-16T06:00:00": 3.82156467,
+  "2026-11-16T07:00:00": 2.31017177,
+  "2026-11-16T08:00:00": 1.01449711,
+  "2026-11-17T21:00:00": 0.16685322,
+  "2026-11-17T22:00:00": 4.23332893,
+  "2026-11-17T23:00:00": 2.34337381,
+  "2026-11-18T00:00:00": 0.9180226
+ },
+ "runs": [
+  {
+   "id": "lung_l2_audit-038",
+   "measured": 0.1715,
+   "billed": 0.1945
+  },
+  {
+   "id": "lung_l2_audit-039",
+   "measured": 0.1977,
+   "billed": 0.2242
+  },
+  {
+   "id": "lung_l2_audit-040",
+   "measured": 3.6128,
+   "billed": 4.097
+  },
+  {
+   "id": "lung_l2_audit-041",
+   "measured": 2.028,
+   "billed": 2.2998
+  },
+  {
+   "id": "lung_l2_audit-042",
+   "measured": 3.3798,
+   "billed": 3.8328
+  },
+  {
+   "id": "lung_l2_audit-043",
+   "measured": 1.6049,
+   "billed": 1.82
+  },
+  {
+   "id": "lung_l2_audit-044",
+   "measured": 1.3766,
+   "billed": 1.5611
+  },
+  {
+   "id": "lung_l2_audit-045",
+   "measured": 0.1743,
+   "billed": 0.1872
+  },
+  {
+   "id": "lung_l2_audit-047",
+   "measured": 3.6153,
+   "billed": 3.8822
+  },
+  {
+   "id": "lung_l2_audit-048",
+   "measured": 1.8999,
+   "billed": 2.0401
+  },
+  {
+   "id": "lung_l2_audit-049",
+   "measured": 0.9797,
+   "billed": 1.052
+  },
+  {
+   "id": "lung_l2_audit-050",
+   "measured": 0.4657,
+   "billed": 0.5001
+  }
+ ],
+ "total_billed": 21.691,
+ "total_measured": 19.5062,
+ "billed_hours_without_run": []
+}
+ledger updated
+{
+ "profile": "forghanishayan",
+ "billing_hours": {
+  "2026-11-17T21:00:00": 0.05015837,
+  "2026-11-18T00:00:00": 1.46985991,
+  "2026-11-18T01:00:00": 4.31658571,
+  "2026-11-18T02:00:00": 3.9882351799999998,
+  "2026-11-18T03:00:00": 1.66243312
+ },
+ "runs": [
+  {
+   "id": "lung_l2_audit-046",
+   "measured": 0.1681,
+   "billed": 0.0502
+  },
+  {
+   "id": "lung_l2_audit-051",
+   "measured": 3.6161,
+   "billed": 4.0051
+  },
+  {
+   "id": "lung_l2_audit-052",
+   "measured": 1.7679,
+   "billed": 1.9581
+  },
+  {
+   "id": "lung_l2_audit-053",
+   "measured": 3.6136,
+   "billed": 4.0023
+  },
+  {
+   "id": "lung_l2_audit-054",
+   "measured": 1.3287,
+   "billed": 1.4716
+  }
+ ],
+ "total_billed": 11.4873,
+ "total_measured": 10.4944,
+ "billed_hours_without_run": []
+}
+ledger updated
+Tue 11/17/2026 23:38:31.33 run_s6 end 

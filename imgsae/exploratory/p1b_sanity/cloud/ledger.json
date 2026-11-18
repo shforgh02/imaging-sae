@@ -890,7 +890,7 @@
    "measured_usd": 0.1715,
    "note": "collected; 1 call(s), container 1.7 min",
    "billed_usd": 0.1945,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-16T09:26"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-039",
@@ -913,7 +913,7 @@
    "measured_usd": 0.1977,
    "note": "collected; 1 call(s), container 3.5 min",
    "billed_usd": 0.2242,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-16T09:26"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-040",
@@ -939,7 +939,7 @@
    "measured_usd": 3.6128,
    "note": "collected; 4 call(s), container 220.3 min",
    "billed_usd": 4.097,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-16T09:26"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-041",
@@ -965,7 +965,7 @@
    "measured_usd": 2.028,
    "note": "collected; 4 call(s), container 115.5 min",
    "billed_usd": 2.2998,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-16T09:26"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-042",
@@ -991,7 +991,7 @@
    "measured_usd": 3.3798,
    "note": "collected; 4 call(s), container 204.9 min",
    "billed_usd": 3.8328,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-16T09:26"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-043",
@@ -1017,7 +1017,7 @@
    "measured_usd": 1.6049,
    "note": "collected; 4 call(s), container 87.5 min",
    "billed_usd": 1.82,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-16T09:26"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-044",
@@ -1043,7 +1043,7 @@
    "measured_usd": 1.3766,
    "note": "collected; 4 call(s), container 72.4 min",
    "billed_usd": 1.5611,
-   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-16T09:26"
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-045",
@@ -1064,7 +1064,9 @@
    },
    "closed": "2026-11-17T21:41:57",
    "measured_usd": 0.1743,
-   "note": "collected; 1 call(s), container 1.9 min"
+   "note": "collected; 1 call(s), container 1.9 min",
+   "billed_usd": 0.1872,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-046",
@@ -1085,7 +1087,9 @@
    },
    "closed": "2026-11-17T21:45:22",
    "measured_usd": 0.1681,
-   "note": "collected; 1 call(s), container 1.5 min"
+   "note": "collected; 1 call(s), container 1.5 min",
+   "billed_usd": 0.0502,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account forghanishayan), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-047",
@@ -1109,7 +1113,9 @@
    },
    "closed": "2026-11-17T22:55:36",
    "measured_usd": 3.6153,
-   "note": "collected; 4 call(s), container 220.5 min"
+   "note": "collected; 4 call(s), container 220.5 min",
+   "billed_usd": 3.8822,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-048",
@@ -1133,7 +1139,9 @@
    },
    "closed": "2026-11-17T23:31:53",
    "measured_usd": 1.8999,
-   "note": "collected; 4 call(s), container 107.0 min"
+   "note": "collected; 4 call(s), container 107.0 min",
+   "billed_usd": 2.0401,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-049",
@@ -1154,7 +1162,9 @@
    },
    "closed": "2026-11-18T00:28:37",
    "measured_usd": 0.9797,
-   "note": "collected; 1 call(s), container 55.2 min"
+   "note": "collected; 1 call(s), container 55.2 min",
+   "billed_usd": 1.052,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-050",
@@ -1177,7 +1187,9 @@
    },
    "closed": "2026-11-18T00:34:45",
    "measured_usd": 0.4657,
-   "note": "collected; 3 call(s), container 15.2 min"
+   "note": "collected; 3 call(s), container 15.2 min",
+   "billed_usd": 0.5001,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account armanfo), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-051",
@@ -1201,7 +1213,9 @@
    },
    "closed": "2026-11-18T01:36:09",
    "measured_usd": 3.6161,
-   "note": "collected; 4 call(s), container 220.5 min"
+   "note": "collected; 4 call(s), container 220.5 min",
+   "billed_usd": 4.0051,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account forghanishayan), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-052",
@@ -1225,7 +1239,9 @@
    },
    "closed": "2026-11-18T02:08:04",
    "measured_usd": 1.7679,
-   "note": "collected; 4 call(s), container 98.3 min"
+   "note": "collected; 4 call(s), container 98.3 min",
+   "billed_usd": 1.9581,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account forghanishayan), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-053",
@@ -1249,7 +1265,9 @@
    },
    "closed": "2026-11-18T03:04:50",
    "measured_usd": 3.6136,
-   "note": "collected; 4 call(s), container 220.4 min"
+   "note": "collected; 4 call(s), container 220.4 min",
+   "billed_usd": 4.0023,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account forghanishayan), 2026-11-18T04:38"
   },
   {
    "id": "lung_l2_audit-054",
@@ -1273,7 +1291,9 @@
    },
    "closed": "2026-11-18T03:25:54",
    "measured_usd": 1.3287,
-   "note": "collected; 4 call(s), container 69.3 min"
+   "note": "collected; 4 call(s), container 69.3 min",
+   "billed_usd": 1.4716,
+   "billed_note": "from modal billing report (hourly, app imgsae-lung-l2, account forghanishayan), 2026-11-18T04:38"
   }
  ],
  "checks": [

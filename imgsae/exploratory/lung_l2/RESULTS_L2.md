@@ -98,7 +98,7 @@ In-plane, at the nodule's slice bin: 89% of attention on the nodule's lung side 
 - Test list `results/manifest_test.csv` (SHA-256 `677ad548…`): 6,715 split-file series + 500 kernel partners; built after N3 from metadata and split names only.
 - Cloud runs (`armanfo`: smoke 045, T1 047 + 048, T4 049 + 050; `forghanishayan`: smoke 046, T2 051 + 052, T3 053 + 054): **7,215 rows and 759 z-fix variants, 0 errors.** Smoke on both accounts: demo case equal to the published scores (0.0). Identity across accounts: all arrays equal (0.0).
 - Gate (`results/s6/s6_checks_test.json`): 0 failures in every tier; z-fix 759 of 759; G2b and G2c on all 7,974 files; **identity with L1: 5,412 of 5,412 series within 1e-4** (largest 9.1e-7).
-- **Cost:** S6 about $17.6 measured (task `lung_l2_audit` $39.33 of $45; allowed for S6 $22.30); the billed cost is reconciled into the ledger 70 minutes after the end (see the log).
+- **Cost:** S6 $19.27 as booked after the billing reconcile (measured $17.63, billed $19.15; `armanfo` $7.66, `forghanishayan` $11.61); allowed $22.30. Task `lung_l2_audit` $40.97 of $45; project $66.36 of $72.
 
 ## 6. Toward the paper (N7 draft; the lead and a clinical co-author judge)
 **Working title:** "Auditing a deployed lung-screening AI at the feature level, with rules fixed in advance: a slice-spacing shortcut inside Sybil."

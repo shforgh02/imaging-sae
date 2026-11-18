@@ -263,7 +263,7 @@ Lead, 17 Nov: "i dont need any other account for my other works, so we can use t
 
 **Step 2. Small test runs on both accounts ($0.34).** *Wanted:* proof that both accounts compute the same as the main account. *Problem:* the laptop's upload through the VPN was very slow (28 KB/s); Modal gave up uploading the 2 MB list. *Fix:* the job now carries a compressed copy; before every launch it checks that the copy holds exactly the same bytes. *Happened:* the demo case equals the published scores exactly; the two accounts give identical numbers (difference 0.0).
 
-**Step 3. The big run (about $17.6, 5.5 hours, unattended).** *Did:* armanfo scored year 0 and the kernel pairs; then forghanishayan scored years 1 and 2 (never both at once, by our rule of at most 4 machines). *Happened:* 7,215 scans and 759 z-fix scans, **0 errors**. The guard once allowed only 1 machine (its month safety rule); the run simply took a little longer.
+**Step 3. The big run ($19.27 as billed, 5.5 hours, unattended).** *Did:* armanfo scored year 0 and the kernel pairs; then forghanishayan scored years 1 and 2 (never both at once, by our rule of at most 4 machines). *Happened:* 7,215 scans and 759 z-fix scans, **0 errors**. The guard once allowed only 1 machine (its month safety rule); the run simply took a little longer.
 
 **Step 4. Checks before any analysis (free).** All files complete; Sybil's numbers rebuild exactly; **all 5,412 scans that L1 scored give the same score again** (largest difference 0.0000009). The data are clean.
 
