@@ -123,6 +123,21 @@ Likelihood-ratio tests of Sybil given each comparator are very small p in E1 to 
 3. **Thresholds tuned on dev are unsafe on test:** the rule-out cut lost 27% of the cancers it was set to keep at 5%.
 4. **Sybil and the findings catch different late cancers** (no overlap in E5), but both catch few; with 51 cancers this is a hint, not a result.
 
+## 3c. Plan X3: do age, sex and smoking change Sybil's added value? (EXPLORATORY; 19 Nov)
+Plan committed before the test run (`dcfba8f`), script and dev check (`8120231`), test output committed before reading (`474696d`): `results/s8/s8_demographics_test.json`. Models fitted on train only; combinations weighted on dev (M2) or cross-fitted on test (M3).
+
+| Test, AUROC | Demographics only | Sybil | Sybil + demographics (M2 / M3) | Findings only (no call, no demographics) | Findings + demographics | Full form |
+|---|---|---|---|---|---|---|
+| E1 1 year, all screens (86 cancers) | 0.607 | 0.914 | 0.914 / 0.909 | 0.939 | 0.938 | 0.947 |
+| E2 1 year, baseline (41) | 0.584 | 0.927 | 0.928 / 0.921 | 0.929 | 0.925 | 0.927 |
+| E4 6 years, baseline (131) | 0.623 | 0.724 | 0.745 / 0.741 | 0.727 | 0.747 | 0.742 |
+| E5 1–6 years after a negative baseline (51) | 0.590 | 0.580 | 0.592 / 0.576 | 0.659 | 0.637 | 0.625 |
+
+- **Adding age, sex and smoking to Sybil:** no change at 1 year (+0.000 [−0.004, +0.005]); +0.022 [+0.002, +0.042] at 6 years (M3 +0.026 [+0.007, +0.047]). Sybil's ranking barely moves (Spearman 0.985 at 1 year, 0.91 at 6 years). Sybil's score already correlates with age (Spearman 0.24): part of age is read from the image.
+- **Like for like (Sybil + demographics against findings + demographics):** 1 year −0.023 [−0.060, +0.010]; baseline 1 year +0.003; 6 years −0.002 [−0.036, +0.034]; late cancers −0.044 (M3 −0.061 [−0.105, −0.017]). **With the same demographics on both sides, Sybil equals the radiologists' findings and is never better.**
+- **Sybil against the findings alone (no call, no demographics):** −0.025 (1 year), −0.002 (baseline 1 year), −0.003 (6 years), −0.079 (late). The radiologists' findings, without their decision and without any personal data, are as good as Sybil.
+- Demographics alone are weak in NLST (0.58 to 0.62): everyone was a heavy smoker aged 55 to 74.
+
 ## 4. What the results allow us to say, and what not (run rule 4)
 **Can say (test, frozen, Holm):**
 - Sybil's output depends on its slice-spacing step: in about 1 test exam in 9 the chest is stretched along z (759 of 6,715); giving Sybil the true spacing lowers its 1-year logit by 0.37 on average and moves 66% of these exams by at least a quarter SD (H1, H2).
