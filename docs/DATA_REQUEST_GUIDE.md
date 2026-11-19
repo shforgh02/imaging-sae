@@ -4,7 +4,11 @@
 - **Who does what:** every request below must be sent **by the lead**, with the lead's own name and email. No agent sends a request or puts the lead's name into an outside service.
 - **Rule before any new data is opened:** when access is granted, we first write and freeze the hypotheses for the new data (as for NLST), the lead gives an OK, and only then the data are downloaded. This keeps the new data a true test.
 
-## 1. Which data, in which order
+## 0. Update 2026-11-19: DLCS access declined
+- The DLCS owner declined the request: "Due to new U.S. government data sharing rules we are no longer permitted to share this data with individuals, institutions, or companies in your country." This follows the 2025 US Department of Justice rule on bulk sensitive personal data (health data included) and its list of countries of concern. NIH also bars institutions in those countries from its controlled-access data (NOT-OD-25-083, April 2025), so the CDAS route (section 3) is very likely closed too.
+- New plan: see section 7.
+
+## 1. Which data, in which order (written before the decline)
 | Priority | Data | What it adds to the paper | What you must do | Cost |
 |---|---|---|---|---|
 | **1 (do now)** | **Duke Lung Cancer Screening (DLCS)**, Zenodo, 3 parts | an outside, modern clinical screening cohort (Duke, 2015 to 2021): 1,613 CTs, **144 cancer patients** confirmed by pathology and follow-up, **the radiologists' Lung-RADS category**, smoking status. Tests: is the slice-spacing problem there too (modern scanners), and does Sybil add to Lung-RADS? | a free Zenodo account and 3 online request forms | free to request; scoring about $4 to $6 in the cloud (needs a new budget line, see 4) |
@@ -65,3 +69,14 @@ Be honest in the form: the text says the data will be processed in the cloud, be
 3. **Meanwhile (me, free):** the manuscript draft, the remaining figures and the checklists (TRIPOD+AI, CLAIM), and a polite report of the slice-spacing bug to Sybil's authors (when you decide).
 4. **When DLCS access comes:** the frozen DLCS plan (H1, H2, H6 again, plus Sybil against Lung-RADS), your OK, the budget, then one run.
 5. **Journal:** with DLCS and a clinical co-author: *The Lancet Digital Health* or *npj Digital Medicine*; without: *Radiology: Artificial Intelligence*.
+
+## 7. New plan after the decline (2026-11-19)
+| Option | What it tests | Needs | Chance | Cost |
+|---|---|---|---|---|
+| **A. The lead's own hospital data (recommended)** | Level 1, no outcomes needed: how often modern clinical scans are stretched for Sybil, and whether the z-fix and axis 0 behave as in NLST (H1, H2, H6; kernel and thickness pairs, H4), using scans that usually have several reconstructions. Level 2, with outcomes: Sybil's accuracy in a new population, against the radiologists' reading | ethics approval of the hospital or university; de-identified DICOM; processing **locally** (no upload abroad) | high (the lead is a physician in a radiology research centre) | $0 cloud |
+| B. Open non-US public data, outcome-free | the slice-spacing mechanism on other scanners (for example LNDb, Portugal, 294 CTs, CC BY-NC-ND, openly downloadable; to be checked) | licence check; a frozen plan | high | about $1, or local |
+| C. European cohort with outcomes (Pamplona P-ELCAP) | Sybil in a European screening cohort | an institutional agreement with the university | medium, slow | small |
+| D. Collaboration (federated) | the frozen code runs at a partner's site on its own data; only aggregate results come back | a partner group outside the restricted setting (for example European or Asian groups that published Sybil validations) | medium | $0 |
+| E. Publish NLST now | everything already found | nothing new | — | $0 |
+
+Rules for any new data: the frozen plan and the lead's OK come before the data are opened; patient data stay inside the hospital; nothing is uploaded to a foreign cloud service.
