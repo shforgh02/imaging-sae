@@ -1,0 +1,52 @@
+{
+ "label": "public metadata only (no image, no outcome); for the plan-choice review",
+ "unseen_participants_with_ct": 11235,
+ "exams_selected": 28661,
+ "participants_selected": 11226,
+ "stretched": {
+  "exams": 4295,
+  "share": 0.1499,
+  "participants": 2093,
+  "by_maker": {
+   "GE MEDICAL SYSTEMS": 2214,
+   "Philips": 1699,
+   "SIEMENS": 382
+  },
+  "by_thickness": {
+   "0.75": 2,
+   "1.25": 43,
+   "2.0": 378,
+   "2.5": 2170,
+   "3.2": 1698,
+   "4.0": 1,
+   "5.0": 2,
+   "6.5": 1
+  },
+  "by_year": {
+   "0": 1714,
+   "1": 1331,
+   "2": 1250
+  },
+  "size_gb": 492.0,
+  "mean_mb": 117.3
+ },
+ "pairs": {
+  "consecutive": 16916,
+  "change_status": 823,
+  "change_stretched_to_not": 532,
+  "change_not_to_stretched": 291,
+  "change_by_ge": {
+   "both_ge": 549,
+   "one_ge": 200,
+   "neither_ge": 74
+  },
+  "unchanged_by_ge": {
+   "both_ge": 8766,
+   "neither_ge": 7081
+  },
+  "not_stretched_partner_exams": 810,
+  "partner_size_gb": 86.0
+ },
+ "all_selected_size_gb": 2579.7,
+ "note_test_for_comparison": "NLST test (H7): 134 changed pairs; both GE 88, one GE 33, neither GE 13"
+}

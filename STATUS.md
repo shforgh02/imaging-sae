@@ -1,8 +1,16 @@
 # Imaging SAE — status and handover
 
-**Updated:** 2026-11-18 · **Phase:** Lung L2 **test done** (N4 extraction, N5 frozen analysis once, N6 extra looks); results file drafted (N7); next: the lead reads `imgsae/exploratory/lung_l2/RESULTS_L2.md`, figures and manuscript (N7, N8). First freeze: `c593005`. S3 is complete: all 7,336 dev exams + 998 z-fix + 500 kernel-pair series, 0 failures, S3 gate passed. · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA; capped at 210 MHz by a power setting on 16 Nov)
+**Updated:** 2026-11-20 · **Phase:** Lung L2 **test done** (N4 to N6), exploratory X1, X3, X4, X5 done; **waiting for an outside review of the next plan** (`docs/PROMPT_REVIEW_PLAN_CHOICE.md`). First freeze: `c593005`. S3 is complete: all 7,336 dev exams + 998 z-fix + 500 kernel-pair series, 0 failures, S3 gate passed. · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA; capped at 210 MHz by a power setting on 16 Nov)
 
-**Now (2026-11-18, morning UTC; Opus 5.5, unattended overnight on the lead's go): TEST DONE. 5 OF 6 FROZEN HYPOTHESES CONFIRMED ON TEST; H3 FAILED.**
+**Now (2026-11-20): OUTSIDE REVIEW OF THE PLAN CHOICE REQUESTED.** Prompt: `docs/PROMPT_REVIEW_PLAN_CHOICE.md` (fresh AI session or a human reviewer; the reviewer writes `docs/REVIEW_PLAN_CHOICE.md`).
+- **X3 (19 Nov, exploratory):** age, sex and smoking do not change the conclusion; like for like (Sybil + demographics vs findings + demographics) Sybil is never better (1 year −0.023 [−0.060, +0.010]). `RESULTS_L2.md` 3c.
+- **X4 (20 Nov, code audit):** Sybil is the only checked open lung AI tool that takes z from the slice thickness (grt123, DSB 2nd place, MONAI, ITK, pylidc are correct). `lung_l2/results/x4_code_audit.md`.
+- **X5 (20 Nov, exploratory external replication on LIDC-IDRI, 7 centres, 197 stretched scans):** H1 0.650, H2 −0.177 (weaker; GE-driven), H6 +0.395, axis-0 shift −2.76 SD (NLST −2.73). Cost $1.45 as billed. `RESULTS_L2.md` 3d.
+- **Options under review:** O1 paper now; O2 December study on the NLST participants Sybil never used (z-fix replication on 4,295 exams, a false-alarm measure, H7 on 823 changed pairs incl. 74 without GE; a small "form" test possible but weak: 29 to 34 cancers); O3 LIDC "form-like" test (needs TCIA access); O4 telling Sybil's authors; O5 preprint first; O6 one paper or two.
+- **Money:** project $67.81 of $72 ($4.19 left); task `lung_l2_audit` $42.42 of $45. O2 needs the lead's OK to raise the cap (about $18 to $21; $25 to $29 with the "form" sample).
+- Not possible: DLCS (declined, US data rule); TCIA website (blocked from this PC, not worked around); reader study (no radiologists).
+
+**Earlier (2026-11-18, morning UTC; Opus 5.5, unattended overnight on the lead's go): TEST DONE. 5 OF 6 FROZEN HYPOTHESES CONFIRMED ON TEST; H3 FAILED.**
 - Results: `imgsae/exploratory/lung_l2/RESULTS_L2.md`; frozen output `lung_l2/results/s6/s6_test.json`, run once, committed before reading (`1c93259`).
 - H1 0.657 [0.620, 0.695] ✓; H2 −0.367 [−0.411, −0.320] ✓; **H3 0.045 [0.029, 0.063] ✗ (null 0.05)**; H4 0.018 [0.008, 0.030] ✓; H6 +0.407 [0.401, 0.411] ✓ (the shared z-geometry axis carries the whole z-fix drop: −0.366 → +0.040 with it off); H7 +0.311 [0.185, 0.435] ✓ (real follow-up; with axis 0 off −0.046; **121 of 134 changed pairs involve GE**).
 - Secondary: dev flattered Sybil. On test, AUROC 1 year: Sybil 0.914 against the recorded-findings form 0.947; Sybil adds nothing to form + image measures (−0.004 [−0.029, +0.020]). No harm shown (9 stretched 1-year cancers; 7 of 9 caught by both runs).
