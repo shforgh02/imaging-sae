@@ -157,6 +157,49 @@ Plan committed before scoring (`41ca595`); list, job change and analysis script 
 - Alarms at the frozen τ90 (descriptive): 64 → 61 flagged; 19 of 197 exams (9.6%) change their alarm (11 lost, 8 gained); in LIDC most exams have known nodules.
 - No outcome and no annotation was used. The "Sybil against the radiologists' findings" test is not possible on LIDC from here (its diagnosis file is on the TCIA website, which refuses the connection from this PC).
 
+## 3e. Plan X7: free checks after the outside review (EXPLORATORY, post hoc; 20 Nov)
+Plan committed before anything was computed (`413dc07`); scripts and dev check (`59b8d7c`; the dev check reproduces the dev U3 table, the dev z-fix flags and R3b exactly); test output committed before reading (`749720e`): `results/x7/x7_sensitivity_test.json`, `results/x7/x7_att_zfix_test.json`. **Post hoc:** the checks were chosen after the outside review, which had read the test results. Participant bootstrap 2,000, seed 0. Comparators as X1 (fitted on Sybil's train participants only).
+
+**1. Work-up bias (the form's weak point).** Form against Sybil where the radiologist's record did not lead to the diagnosis:
+| Test | Cancers | Sybil | Form (C1) | Findings only (C2) | Sybil − form | Findings + Sybil − findings (cross-fitted) |
+|---|---|---|---|---|---|---|
+| W1 6 years, baseline; only cancers 1 to 6 years after the scan | 90 | 0.629 | 0.669 | 0.669 | −0.040 [−0.102, +0.020] | +0.006 [−0.022, +0.035] |
+| W2 6 years, baseline; only cancers **not** found after a positive screen | 50 | 0.573 | 0.620 | 0.621 | −0.047 [−0.131, +0.036] | −0.006 [−0.030, +0.014] |
+| W3 after a negative baseline; not found after a positive screen | 29 | 0.534 | 0.586 | 0.586 | −0.052 [−0.174, +0.074] | −0.008 [−0.060, +0.037] |
+
+1 year, all screens: 83 of 86 cancers were found after a positive screen, 3 after a negative one (no claim). **Reading:** where the record did not lead to the diagnosis, the radiologists' record still scores higher than Sybil (by 0.04 to 0.05), and Sybil adds nothing to it. The intervals include 0 (50 and 29 cancers): work-up bias does not explain the form result away, but small differences in either direction cannot be excluded.
+
+**2. Censoring at 6 years (audit D2).** 277 of 2,279 baseline exams (12.2%) have less than 6 years of follow-up; their median follow-up is 5.84 years (almost all end just short of 6 years). IPCW: Sybil 0.721, form 0.735, findings 0.740; Sybil − form −0.014 [−0.061, +0.033]. Censored counted as cancer-free: −0.017 [−0.063, +0.030]. Unchanged from the complete-case result (0.724 vs 0.742).
+
+**3. Calibration and decision curves with calibrated scores (audit S1).** As given, on test all three predict about 15% too many 1-year cancers (O/E: Sybil 0.86, form 0.84, findings 0.85). Calibration slope at 1 year: Sybil 0.84 [0.73, 1.04], form 1.10 [0.99, 1.24]; at 6 years Sybil 0.77 [0.63, 0.93] (scores too spread), form 0.86 [0.72, 1.03]. Recalibrating on dev makes Sybil's slope worse (0.64: dev flatters Sybil). Decision curve with every score recalibrated on dev, net benefit per 1,000 exams: **E1** form + Sybil minus form −0.1 to −0.8 (all intervals include 0); Sybil alone minus form −0.9 to −2.4 (intervals exclude 0 at 1% to 5%). **E2** (baseline, 41 cancers): form + Sybil minus form −1.2 to +0.1 (all include 0). The small AUROC gain at baseline (+0.026, section 3b) gives no net benefit.
+
+**4. Repeated screens of one person (audit S2).** With participant-clustered intervals, Sybil's coefficient given the form is 0.44 [0.27, 0.64] (p 3e-6; given findings only 0.46): Sybil carries some extra statistical signal, as X1's LR test said, but it brings no gain in AUROC or net benefit. Rule-out among positive calls with clustered intervals: Sybil's dev cut removes 88% [87%, 90%] of false-positive calls but loses **27% [18%, 38%] of the cancers** (22 of 81); the findings model removes 57% [55%, 59%] and loses **1.2% [0%, 4.2%]** (1 of 81); difference in cancers lost 26 points [17, 36].
+
+**5. Harm at cuts fixed on dev (audit D1; replaces the in-sample row of section 2.1 as the harm comparison).** 1-year cancer, all screens (6,674 exams, 86 cancers):
+| Test | Cut | Cancers caught | Sensitivity | False alarms per 1,000 exams |
+|---|---|---|---|---|
+| Radiologists' call | (their actual call) | 81 | 94.2% | 364 |
+| Sybil | dev cut matched to the radiologists' dev sensitivity (τ_rad) | **61** | **70.9%** | 65 |
+| Form | the same rule, dev | **82** | **95.3%** | **216** |
+| Findings only (no call) | the same rule, dev | 82 | 95.3% | 280 |
+| Sybil | frozen τ90 | 72 | 83.7% | 115 |
+| Form | frozen τ90 | 77 | 89.5% | 113 |
+
+**Reading:** the cut chosen on dev to give Sybil the radiologists' sensitivity catches only 61 of 86 cancers on test (25 missed; the radiologists missed 5): Sybil − radiologists −23 points [−34, −13]. The form's dev cut transfers: the radiologists' sensitivity (82 vs 81 caught) with 148 fewer false alarms per 1,000 exams; findings only: +1.2 points [0.0, +3.9] sensitivity and −83 [−94, −73] false alarms per 1,000 against the radiologists. At τ90, Sybil and the form raise the same number of false alarms (115 vs 113), and Sybil catches 5 fewer cancers (−5.8 points [−14.4, +2.4]).
+
+**6. Z-fix alarm changes on test (outcome-free; the measure planned for O2a).** At τ90: 27 alarms lost, 7 gained; net −26 per 1,000 stretched exams [−44, −10] (the stretch adds about 26 alarms per 1,000 stretched exams). At τ_rad: 14 lost, 5 gained; net −12 [−25, 0]; discordant 2.5% [1.4%, 3.8%].
+
+**7. Attention under the z-fix on test (audit 6.4; the dev analysis R3b repeated).** 301 stretched exams with a recorded nodule of 4 mm or more: share of attention within ±1 bin of the nodule **30.8% (as published) → 40.6% (z-fix), +9.8 points [+7.0, +12.5]** (dev +6.3 [+3.8, +8.8]); nodule outside Sybil's box 11 → 0; attention peak at the nodule 34% → 45%; nodules ≥ 8 mm 42% → 54%. Stretched exams draw less attention to the nodule than other exams (−7.1 points [−12.4, −2.0]). The stretch moves Sybil's attention away from the nodule: a mechanism, not shown harm.
+
+**8. Crop and pad (audit C1).** Sybil pads every z-fix exam (759 of 759), and also 99.9% of ordinary test scans (5,946 of 5,952). The drop is −0.36 [−0.41, −0.30] when the main run was cropped (627 exams) and −0.42 [−0.50, −0.34] when it was not (132). So cropping does not explain the drop, and the z-fix puts stretched scans into the same crop/pad state as ordinary scans. The padding itself cannot be separated with these data.
+
+**9. Data notes (audit D3, S5).** Missing age, sex or smoking on test: 0. Sybil's calibrated 1-year score takes 209 distinct values on test, and 1,098 of 6,715 exams (16%) tie at 0.0; at τ90, 11.6% of cancer-free test exams are flagged (nominal 10%).
+
+**What X7 shows (exploratory):**
+1. **The form result holds** under the work-up check, the censoring check, calibration and clustered intervals: Sybil is never better than the radiologists' record, also where the record did not lead to the diagnosis (by 0.04 to 0.05; intervals include 0).
+2. **The clearest harm is in the thresholds:** Sybil's dev-chosen cut misses 25 of 86 cancers on test, against 5 for the radiologists and 4 for the form's dev cut (which also raises 148 fewer false alarms per 1,000 than the radiologists).
+3. **The stretch moves Sybil's attention away from the nodule** (replicated on test) and adds about 26 alarms per 1,000 stretched exams at τ90.
+
 ## 4. What the results allow us to say, and what not (run rule 4)
 **Can say (test, frozen, Holm):**
 - Sybil's output depends on its slice-spacing step: in about 1 test exam in 9 the chest is stretched along z (759 of 6,715); giving Sybil the true spacing lowers its 1-year logit by 0.37 on average and moves 66% of these exams by at least a quarter SD (H1, H2).
