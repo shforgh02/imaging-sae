@@ -1,0 +1,131 @@
+{
+ "att_vol1": {
+  "main_stretched": {
+   "n": 303,
+   "share_near": 0.306035953759846
+  },
+  "main_other": {
+   "n": 2547,
+   "share_near": 0.3773174558809254
+  },
+  "diff_stretched_minus_other": {
+   "est": -0.07128150212107942,
+   "lo": -0.123938247625803,
+   "hi": -0.02034658995579053,
+   "n_draws": 2000
+  },
+  "D5_paired": {
+   "n": 301,
+   "participants": 172,
+   "nodule_outside_box_main": 11,
+   "nodule_outside_box_zfix": 0,
+   "share_near_main": 0.3079592399434961,
+   "share_near_zfix": 0.40607171464893305,
+   "diff": {
+    "est": 0.09811247470543696,
+    "lo": 0.07000635517669382,
+    "hi": 0.1254836795803424,
+    "n_draws": 2000,
+    "halves": [
+     0.07265328327541912,
+     0.1190970203689668
+    ]
+   },
+   "peak_hit_main": 0.3388704318936877,
+   "peak_hit_zfix": 0.44518272425249167,
+   "cancer_1y_exams": 9,
+   "ge8mm": {
+    "n": 86,
+    "share_near_main": 0.41780099433806345,
+    "share_near_zfix": 0.5430634121388663
+   },
+   "rows_with_zfix_variant": 312
+  }
+ },
+ "att_vol2": {
+  "main_stretched": {
+   "n": 303,
+   "share_near": 0.30486100882775313
+  },
+  "main_other": {
+   "n": 2547,
+   "share_near": 0.3719945720757949
+  },
+  "diff_stretched_minus_other": {
+   "est": -0.06713356324804176,
+   "lo": -0.11725890994195508,
+   "hi": -0.01712851058894103,
+   "n_draws": 2000
+  },
+  "D5_paired": {
+   "n": 301,
+   "participants": 172,
+   "nodule_outside_box_main": 11,
+   "nodule_outside_box_zfix": 0,
+   "share_near_main": 0.3068518238046268,
+   "share_near_zfix": 0.4104934278926291,
+   "diff": {
+    "est": 0.10364160408800237,
+    "lo": 0.07763248089530535,
+    "hi": 0.13024096973990912,
+    "n_draws": 2000,
+    "halves": [
+     0.07896791743080814,
+     0.12397870339332609
+    ]
+   },
+   "peak_hit_main": 0.36212624584717606,
+   "peak_hit_zfix": 0.43853820598006643,
+   "cancer_1y_exams": 9,
+   "ge8mm": {
+    "n": 86,
+    "share_near_main": 0.43604094983941033,
+    "share_near_zfix": 0.556119427636851
+   },
+   "rows_with_zfix_variant": 312
+  }
+ },
+ "P9_zfix_change_by_crop_and_pad": {
+  "all": {
+   "n": 759,
+   "mean_d1": -0.3664597166881299
+  },
+  "main_cropped_zfix_padded": {
+   "n": 627,
+   "participants": 324,
+   "mean_d1": {
+    "est": -0.3556425243081373,
+    "lo": -0.4056277742084088,
+    "hi": -0.303000242945926,
+    "n_draws": 2000
+   }
+  },
+  "main_cropped_zfix_not_padded": {
+   "n": 0,
+   "participants": 0
+  },
+  "main_not_cropped_zfix_padded": {
+   "n": 132,
+   "participants": 82,
+   "mean_d1": {
+    "est": -0.41784138049309455,
+    "lo": -0.4962176208017358,
+    "hi": -0.3353114920197764,
+    "n_draws": 2000
+   }
+  },
+  "main_not_cropped_zfix_not_padded": {
+   "n": 0,
+   "participants": 0
+  },
+  "not_stretched_main_exams": {
+   "n": 5952,
+   "padded": 5946,
+   "share_padded": 0.998991935483871,
+   "cropped": 6,
+   "note": "Sybil pads every scan shorter than 200 resampled slices; ordinary scans are padded too"
+  },
+  "note": "cropped: main resampled slices > 200 (Sybil crops to 200); padded: z-fix slices n_images x true spacing / 2.5 < 200 (Sybil pads to 200 with its padding value)"
+ },
+ "label": "EXPLORATORY, post hoc (plan X7 part P7, committed 413dc07); the R3b analysis (r10_att_harm.py) on root test"
+}
