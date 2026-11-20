@@ -1,0 +1,417 @@
+{
+ "label": "DRY CHECK on dev (code check before the O2 freeze; not a result)",
+ "files": {
+  "list_rows": 1117,
+  "list_U1": 908,
+  "list_U2": 209,
+  "main": 1117,
+  "zfix": 920,
+  "errors": 2
+ },
+ "G2b_G2c": {
+  "n_files": 2037,
+  "G2b_fail": 0,
+  "G2c_fail": 0,
+  "pass_": true
+ },
+ "check_max_abs_lbar1_from_pooled_minus_saved": 2.1374459668876966e-07,
+ "geometry": {
+  "main": 1117,
+  "stretched_ratio_gt0": 916,
+  "ratio_zero": 2,
+  "ratio_missing": 0,
+  "stretched_by_tier": {
+   "U1": 908,
+   "U2": 8
+  },
+  "zfix_files": 920,
+  "stretched_without_zfix": 0
+ },
+ "F1_missing": 0,
+ "hypotheses": [
+  {
+   "id": "O2-H1",
+   "frozen_source": "H1",
+   "direction": ">",
+   "null": 0.3,
+   "est": 0.6692139737991266,
+   "ci95": [
+    0.636460400952759,
+    0.7017363198676356
+   ],
+   "p_one_sided": 2.4628336225164594e-108,
+   "counts": {
+    "exams": 916,
+    "participants": 416
+   },
+   "null_rejected_holm_over_6": true
+  },
+  {
+   "id": "O2-H2",
+   "frozen_source": "H2",
+   "direction": "<",
+   "null": -0.1,
+   "est": -0.32421302960811416,
+   "ci95": [
+    -0.3677132283200615,
+    -0.2809071992097097
+   ],
+   "p_one_sided": 1.4651661517650257e-23,
+   "counts": {
+    "exams": 916,
+    "participants": 416
+   },
+   "null_rejected_holm_over_6": true
+  },
+  {
+   "id": "O2-H3",
+   "frozen_source": "H3",
+   "direction": ">",
+   "null": 0.05,
+   "est": 0.07532751091703056,
+   "ci95": [
+    0.05717290799815072,
+    0.09716541865713195
+   ],
+   "p_one_sided": 0.0071096141052773955,
+   "counts": {
+    "exams": 916,
+    "participants": 416
+   },
+   "null_rejected_holm_over_6": true
+  },
+  {
+   "id": "O2-H6",
+   "frozen_source": "H6",
+   "direction": ">",
+   "null": 0.2,
+   "est": 0.4075281206959678,
+   "ci95": [
+    0.40252506481384104,
+    0.4120609286541497
+   ],
+   "p_one_sided": 0.0,
+   "counts": {
+    "exams": 916,
+    "participants": 416
+   },
+   "null_rejected_holm_over_6": true
+  },
+  {
+   "id": "O2-H7",
+   "frozen_source": "H7",
+   "direction": ">",
+   "null": 0.1,
+   "est": 0.20539548893441625,
+   "ci95": [
+    0.09557671041116102,
+    0.3125056437002603
+   ],
+   "p_one_sided": 0.029979803196393047,
+   "counts": {
+    "pairs": 701,
+    "participants": 406,
+    "changed": 202,
+    "stretched_to_not": 137,
+    "not_to_stretched": 65
+   },
+   "null_rejected_holm_over_6": false
+  },
+  {
+   "id": "O2-H7x",
+   "frozen_source": "H7",
+   "direction": ">",
+   "null": 0.0,
+   "est": 0.06710306921214901,
+   "ci95": [
+    -0.12146063225337916,
+    0.24120464112315557
+   ],
+   "p_one_sided": 0.2339072287803416,
+   "counts": {
+    "pairs": 323,
+    "participants": 185,
+    "changed": 64,
+    "stretched_to_not": 49,
+    "not_to_stretched": 15
+   },
+   "null_rejected_holm_over_6": false
+  }
+ ],
+ "n_rejected": 4,
+ "secondary": {
+  "axes_member_agreement_main": [
+   0.9922,
+   0.9471,
+   0.9337,
+   0.9253,
+   0.8745,
+   0.868,
+   0.8361,
+   0.8611,
+   0.7983,
+   0.7422,
+   0.7624
+  ],
+  "alarm_changes": {
+   "tau90": {
+    "flagged_main": 112,
+    "flagged_variant": 105,
+    "lost": 38,
+    "gained": 31,
+    "changed": 69,
+    "flagged_in_either": 143,
+    "discordant_share_of_flagged_in_either": 0.4825174825174825,
+    "threshold": 0.017993675365094892,
+    "discordant_share": {
+     "est": 0.07532751091703056,
+     "lo": 0.05717290799815072,
+     "hi": 0.09716541865713195,
+     "n_draws": 2000
+    },
+    "net_change_per_1000": {
+     "est": -7.641921397379912,
+     "lo": -30.373621006840953,
+     "hi": 15.591070434298436,
+     "n_draws": 2000
+    }
+   },
+   "tau_rad": {
+    "flagged_main": 63,
+    "flagged_variant": 61,
+    "lost": 16,
+    "gained": 14,
+    "changed": 30,
+    "flagged_in_either": 77,
+    "discordant_share_of_flagged_in_either": 0.38961038961038963,
+    "threshold": 0.03388673708469479,
+    "discordant_share": {
+     "est": 0.03275109170305677,
+     "lo": 0.02083276286966046,
+     "hi": 0.046610287063338286,
+     "n_draws": 2000
+    },
+    "net_change_per_1000": {
+     "est": -2.1834061135371177,
+     "lo": -15.021862596405176,
+     "hi": 9.98973548321711,
+     "n_draws": 2000
+    }
+   }
+  },
+  "C1_axis0_shift_dev_sd": {
+   "est": -2.7383700566137454,
+   "lo": -2.764279219012353,
+   "hi": -2.7095201188168487,
+   "sd": 0.013700757835242647,
+   "n_draws": 2000
+  },
+  "by_maker": {
+   "GE MEDICAL SYSTEMS": {
+    "n": 495,
+    "mean_d1": -0.361155219710987,
+    "mean_h6": 0.4222969057125238,
+    "flag_change_tau90": 0.07474747474747474,
+    "share_quarter_sd": 0.7252525252525253
+   },
+   "Philips": {
+    "n": 343,
+    "mean_d1": -0.28175929771090036,
+    "mean_h6": 0.3864666952923722,
+    "flag_change_tau90": 0.0728862973760933,
+    "share_quarter_sd": 0.60932944606414
+   },
+   "SIEMENS": {
+    "n": 77,
+    "mean_d1": -0.28179860111180843,
+    "mean_h6": 0.4116069246431713,
+    "flag_change_tau90": 0.09090909090909091,
+    "share_quarter_sd": 0.5844155844155844
+   },
+   "TOSHIBA": {
+    "n": 1,
+    "mean_d1": 0.13463003635406467,
+    "mean_h6": 0.006980546999298509,
+    "flag_change_tau90": 0.0,
+    "share_quarter_sd": 0.0
+   }
+  },
+  "by_stretch_class": {
+   "1.6": {
+    "n": 333,
+    "mean_d1": -0.28192092495055887
+   },
+   "2.0": {
+    "n": 583,
+    "mean_d1": -0.3483695833833559
+   }
+  },
+  "crop_pad": {
+   "main_cropped": {
+    "n": 765,
+    "mean_d1": {
+     "est": -0.3096007034362726,
+     "lo": -0.35761514822442836,
+     "hi": -0.26378100795402487,
+     "n_draws": 2000
+    }
+   },
+   "main_not_cropped": {
+    "n": 151,
+    "mean_d1": {
+     "est": -0.3982423641873116,
+     "lo": -0.4720360229989822,
+     "hi": -0.32305882887646803,
+     "n_draws": 2000
+    }
+   },
+   "zfix_padded": {
+    "n": 916,
+    "mean_d1": {
+     "est": -0.32421302960811416,
+     "lo": -0.3677132283200615,
+     "hi": -0.2809071992097097,
+     "n_draws": 2000
+    }
+   },
+   "zfix_not_padded": {
+    "n": 0,
+    "mean_d1": null
+   }
+  },
+  "H7_details": {
+   "b_axis0_off": {
+    "est": -0.13279999121130837,
+    "lo": -0.24262585492442218,
+    "hi": -0.024897618311782062,
+    "sd": 0.055405256409874655,
+    "n_draws": 2000
+   },
+   "axis0_jump_dev_sd": {
+    "est": 2.272161602026389,
+    "lo": 2.1216467757724864,
+    "hi": 2.407324502294191,
+    "sd": 0.0720020410438338,
+    "n_draws": 2000
+   },
+   "b_ratio0_counted_stretched": {
+    "est": 0.19919037818195381,
+    "lo": 0.08683017861501038,
+    "hi": 0.3101944103550394,
+    "sd": 0.05655102951709419,
+    "n_draws": 2000
+   },
+   "b_changed_pairs_only": {
+    "est": 0.21573645273252678,
+    "lo": 0.09013462910389847,
+    "hi": 0.3321349311598617,
+    "sd": 0.06372603613037743,
+    "n_draws": 2000
+   },
+   "by_ge": {
+    "both_ge": {
+     "est": 0.26288169233607583,
+     "lo": 0.12428323310722963,
+     "hi": 0.40210888262201416,
+     "sd": 0.07263240588973614,
+     "n_draws": 2000,
+     "counts": {
+      "pairs": 378,
+      "participants": 222,
+      "changed": 138,
+      "stretched_to_not": 88,
+      "not_to_stretched": 50
+     }
+    },
+    "one_ge": {
+     "est": 0.24620571796841037,
+     "lo": 0.06435303252677155,
+     "hi": 0.395977905367598,
+     "sd": 0.08361041899747268,
+     "n_draws": 2000,
+     "counts": {
+      "pairs": 44,
+      "participants": 44,
+      "changed": 44,
+      "stretched_to_not": 41,
+      "not_to_stretched": 3
+     }
+    },
+    "neither_ge": {
+     "est": -0.17929052883222718,
+     "lo": -0.5442148575827765,
+     "hi": 0.13417627722525538,
+     "sd": 0.17376499495936898,
+     "n_draws": 2000,
+     "counts": {
+      "pairs": 279,
+      "participants": 144,
+      "changed": 20,
+      "stretched_to_not": 8,
+      "not_to_stretched": 12
+     }
+    }
+   },
+   "axis0_off_not_both_ge": {
+    "est": -0.2378415748874844,
+    "lo": -0.43067893381405686,
+    "hi": -0.053323824710660286,
+    "sd": 0.09768094600147732,
+    "n_draws": 2000
+   },
+   "same_scanner_model": {
+    "est": 0.13952608390070445,
+    "lo": -0.14453700451331114,
+    "hi": 0.3711056636485818,
+    "sd": 0.13190349327017317,
+    "n_draws": 2000,
+    "counts": {
+     "pairs": 539,
+     "participants": 323,
+     "changed": 52,
+     "stretched_to_not": 14,
+     "not_to_stretched": 38
+    }
+   },
+   "groups": {
+    "stretched_to_not": {
+     "n": 137,
+     "mean_dl": -0.12394627049347778,
+     "mean_dl_off": 0.21617247792852726,
+     "flag_flip_tau90": 0.11678832116788321
+    },
+    "unchanged": {
+     "n": 499,
+     "mean_dl": 0.04002195121664441,
+     "mean_dl_off": 0.035977161174601126,
+     "flag_flip_tau90": 0.10420841683366733
+    },
+    "not_to_stretched": {
+     "n": 65,
+     "mean_dl": 0.20897608751287822,
+     "mean_dl_off": -0.12643500739749305,
+     "flag_flip_tau90": 0.1076923076923077
+    }
+   }
+  },
+  "attention_zfix": {
+   "n": 334,
+   "participants": 187,
+   "nodule_outside_box_main": 4,
+   "nodule_outside_box_zfix": 0,
+   "share_near_main": 0.27322752482619406,
+   "share_near_zfix": 0.33527601565477294,
+   "diff_zfix_minus_main": {
+    "est": 0.062048490828578835,
+    "lo": 0.037586885040110464,
+    "hi": 0.08658692243362012,
+    "n_draws": 2000
+   },
+   "note": "att_vol1; nodule bins as r10_att_harm.py (box order reversed); mechanistic displacement, never patient harm"
+  }
+ },
+ "O2-H6_detail": {
+  "mean_delta_lbar1_from_pooled": -0.32421301955350956,
+  "mean_delta_lbar1_axis0_off": 0.08331510114245823
+ }
+}

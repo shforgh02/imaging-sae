@@ -33,6 +33,10 @@ import budget as B  # noqa: E402
 
 PY = r"C:\Users\Arman\miniconda3\python.exe"; MODAL = r"C:\Users\Arman\miniconda3\Scripts\modal.exe"
 TASK = "lung_l2_audit"; VOL = "imgsae-nlst-l2"
+TASK_OF_ROOT = {"unseen": "o2_unseen"}   # O2 (20 Nov): root unseen is booked to its own task budget, as in l2_sybil_modal.py
+
+
+def task_of(root): return TASK_OF_ROOT.get(root, TASK)
 PC_COPY = {"shforghani2002": r"D:\Shayan\imgsae_data\lung_l2_vol", "armanfo": r"D:\Shayan\imgsae_data\lung_l2_vol_armanfo",
            "forghanishayan": r"D:\Shayan\imgsae_data\lung_l2_vol_forghanishayan"}   # S6 (lead's money decision, 17 Nov)
 APP_CHECK = ("armanfo", "forghanishayan")   # A4: the lead's other apps on these accounts must not be running (forghanishayan: S6, 17 Nov)
@@ -86,7 +90,7 @@ class Driver:
     def precheck(self, ns):
         """the guard's tests for this account without logging (the guard runs again, logged, inside launch.py)."""
         worst = B.worst_case(ns, 60, "T4", 4, 16) + 0.10
-        ok, rep = B.evaluate(TASK, worst, self.a.profile, log_check=False)
+        ok, rep = B.evaluate(task_of(self.a.root), worst, self.a.profile, log_check=False)
         self.log(f"precheck nshard {ns} on {self.a.profile}: " + " | ".join(f"{k} {'ok' if v else 'NO'}" for k, v in rep["tests"].items()))
         return ok
 
@@ -111,7 +115,7 @@ class Driver:
             if "<=" in ln or "SPAWNED" in ln or "FAILED" in ln or "REFUSED" in ln or "app check" in ln: self.log("  " + ln.strip()[:300])
         if "APP CHECK FAILED" in out: return None, "app_busy"
         if "BUDGET CHECK FAILED" in out: return None, "refused"
-        rid = next((w for ln in out.splitlines() if ln.startswith("SPAWNED") for w in ln.split() if w.startswith(TASK + "-")), None)
+        rid = next((w for ln in out.splitlines() if ln.startswith("SPAWNED") for w in ln.split() if w.startswith(task_of(self.a.root) + "-")), None)
         if rid: rid = rid.rstrip(":")
         return (rid, "spawned") if rid else (None, "error: " + out[-500:])
 
@@ -166,7 +170,7 @@ class Driver:
                 self.state.setdefault("pc_counts", {})[sub] = len(list(d.glob("*.json"))) if d.exists() else 0
         s = B.status(log_check=True, profile=a.profile)
         self.state["budget_after"] = {k: s[k] for k in ("profile", "month_used_usd", "open_worst_usd", "project_committed_usd", "project_on_account_usd")}
-        self.state["task_usd"] = s["per_task_usd"].get(TASK)
+        self.state["task_usd"] = s["per_task_usd"].get(task_of(self.a.root))
         self.stop("finished", f"budget after: {self.state['budget_after']}, task {self.state['task_usd']}")
 
 

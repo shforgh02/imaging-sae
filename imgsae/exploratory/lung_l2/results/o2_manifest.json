@@ -1,0 +1,52 @@
+{
+ "label": "O2 scoring list; U1 and U2 from public metadata only (no image, no outcome)",
+ "unseen_participants_with_ct": 11235,
+ "exams_selected": 28661,
+ "participants_selected": 11226,
+ "idc_ratio": {
+  "le_0p65": 4295,
+  "between_0p65_and_0p70": 3,
+  "blank": 876,
+  "zero": 0
+ },
+ "U1": {
+  "rows": 4298,
+  "participants": 2095,
+  "gb": 492.5,
+  "by_maker": {
+   "GE MEDICAL SYSTEMS": 2215,
+   "Philips": 1699,
+   "SIEMENS": 384
+  }
+ },
+ "U2": {
+  "rows": 811,
+  "participants": 795,
+  "gb": 84.6,
+  "by_maker": {
+   "GE MEDICAL SYSTEMS": 606,
+   "SIEMENS": 181,
+   "Philips": 24
+  }
+ },
+ "pairs_with_both_scored_starting_at_a_U1_exam": 2964,
+ "random_sample_for_U3": {
+  "n": 800,
+  "seed": 1,
+  "already_in_U1_or_U2": 152,
+  "sha256_of_uids": "dbb8ee4651ae032af900b77ec0d966b02ceb5ae5e3057b10e4c1947d22a44e34"
+ },
+ "cost_estimate_usd": {
+  "U1": [
+   16.01,
+   18.03
+  ],
+  "U2": [
+   1.95,
+   2.96
+  ],
+  "basis": "cost per GB of S6 and X5 (x6 estimate: z-fix part $16-18 for 492 GB, pairs $2-3 for 86 GB); measured, billing about 5-10% more"
+ },
+ "not_selected_exams": 23552,
+ "manifest_sha256": "fb62526557c132d3faf92eded8ae24c090f1fb2e1152d081edce501d15abf16a"
+}

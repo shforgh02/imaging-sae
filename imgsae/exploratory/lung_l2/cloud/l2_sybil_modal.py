@@ -12,6 +12,9 @@ S6 (test; step N4, after the lead's OK of the freeze c3578c3 was logged on 2026-
   ... --step run --tier T1 --lo 0 --hi 2279 --nshard 4 --timeout-min 60 --zfix-max 0.65 --root test
   Root 'test' reads manifest_test.csv (s6_manifest_test.py); every other root reads manifest_dev.csv. A tier must belong to its root
   (T* only with root test, D* only with the other roots).
+X5 (20 Nov): root 'lidc' reads manifest_lidc.csv (tiers L*). O2 (20 Nov, docs/O2_PLAN.md): root 'unseen' reads manifest_unseen.csv
+  (tiers U*; o2_manifest.py) and its runs are booked to task o2_unseen, e.g.
+  ... --step smoke --n-series 3 --tier U1 --root unseen --zfix-max 0.65
 Per series and variant: /vol/l2/<root>/<variant>/<uid>.npz (+ .json, written last = done). Errors: /vol/l2/<root>/errors/<uid>.json.
 Variants: 'main' (Sybil as published), 'zfix' (same images, z voxel size = true slice spacing; added to 'main' rows whose
 DICOM spacing/thickness <= zfix_max), 'pair' (manifest rows of tier D4). No DICOM is kept. The volume is committed every 25 series.
@@ -35,8 +38,13 @@ REMOTE = "/root/l2"
 # The image carries gzip copies of the two manifests (17 Nov: the PC's upload link ran at about 28 KB/s and Modal's upload of the 2 MB
 # CSV timed out). Each .gz holds exactly the committed CSV bytes with LF line ends (gzip level 9, mtime 0); the local entrypoint checks
 # this before every launch and refuses otherwise. pandas reads the .gz directly.
-MANIFESTS = ("manifest_dev.csv.gz", "manifest_test.csv.gz", "manifest_lidc.csv.gz")
-ROOT_LIST = {"test": ("manifest_test.csv.gz", "T"), "lidc": ("manifest_lidc.csv.gz", "L")}   # X5 (20 Nov): root lidc reads the LIDC-IDRI list
+MANIFESTS = ("manifest_dev.csv.gz", "manifest_test.csv.gz", "manifest_lidc.csv.gz", "manifest_unseen.csv.gz")
+ROOT_LIST = {"test": ("manifest_test.csv.gz", "T"), "lidc": ("manifest_lidc.csv.gz", "L"),   # X5 (20 Nov): root lidc reads the LIDC-IDRI list
+             "unseen": ("manifest_unseen.csv.gz", "U")}                                    # O2 (20 Nov): root unseen reads the O2 list (docs/O2_PLAN.md)
+TASK_OF_ROOT = {"unseen": "o2_unseen"}   # O2 runs are booked to their own task budget (lead, 20 Nov); every other root stays lung_l2_audit
+
+
+def _task(root): return TASK_OF_ROOT.get(root, TASK)
 
 
 def _manifest(root):
@@ -69,7 +77,8 @@ image = (modal.Image.debian_slim(python_version="3.10")
          .add_local_file(HERE / "image_measures.py", f"{REMOTE}/image_measures.py")
          .add_local_file(L2 / "results" / MANIFESTS[0], f"{REMOTE}/{MANIFESTS[0]}")
          .add_local_file(L2 / "results" / MANIFESTS[1], f"{REMOTE}/{MANIFESTS[1]}")
-         .add_local_file(L2 / "results" / MANIFESTS[2], f"{REMOTE}/{MANIFESTS[2]}"))
+         .add_local_file(L2 / "results" / MANIFESTS[2], f"{REMOTE}/{MANIFESTS[2]}")
+         .add_local_file(L2 / "results" / MANIFESTS[3], f"{REMOTE}/{MANIFESTS[3]}"))
 app = modal.App(APP, image=image)
 vol = modal.Volume.from_name(VOL, create_if_missing=True)
 
@@ -386,11 +395,11 @@ def main(step: str = "smoke", tier: str = "D1", lo: int = 0, hi: int = 100000, n
     assert timeout_min <= 60 and nshard <= 4, "protocol: timeout <= 60 min, <= 4 containers"
     if step == "smoke":
         sname = "smoke" if root == "dev" else f"smoke_{root}"
-        LN.launch(smoke, TASK, APP, sname, 20, "T4", CPU, MEM_GIB, args=(n_series, zfix_max, tier, root), result_name=sname + sfx, profile=profile)
+        LN.launch(smoke, _task(root), APP, sname, 20, "T4", CPU, MEM_GIB, args=(n_series, zfix_max, tier, root), result_name=sname + sfx, profile=profile)
     elif step in ("run", "run_l4"):
         fn, gpu = (run_shard, "T4") if step == "run" else (run_shard_l4, "L4")
         name = f"{step}_{root}_{tier}_{lo}_{hi}"
         # the soft stop is timeout_min - 5; the guard's worst case uses the function's hard timeout (60 min), so it is a true bound
-        LN.launch_many(fn, [(tier, lo, hi, s, nshard, timeout_min - 5.0, zfix_max, root, verify) for s in range(nshard)], TASK, APP, name,
+        LN.launch_many(fn, [(tier, lo, hi, s, nshard, timeout_min - 5.0, zfix_max, root, verify) for s in range(nshard)], _task(root), APP, name,
                        60, gpu, CPU, MEM_GIB, result_name=name + sfx, profile=profile)
-    elif step == "count": LN.launch(count, TASK, APP, f"count_{root}", 10, None, 1, 2, args=(root,), result_name=f"count_{root}" + sfx, profile=profile)
+    elif step == "count": LN.launch(count, _task(root), APP, f"count_{root}", 10, None, 1, 2, args=(root,), result_name=f"count_{root}" + sfx, profile=profile)
