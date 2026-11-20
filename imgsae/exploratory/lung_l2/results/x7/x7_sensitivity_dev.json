@@ -1,0 +1,1349 @@
+{
+ "root": "dev",
+ "label": "EXPLORATORY, post hoc (plan X7, committed 413dc07 before anything was computed); nothing here is confirmed",
+ "P1_work_up_bias": {
+  "W1_E4_without_cancers_within_1_year": {
+   "counts": {
+    "exams": 2142,
+    "participants": 2142,
+    "cancers": 97
+   },
+   "note": "cases: cancer 1 to 6 years after the baseline scan; controls: baseline exams without cancer within 6 years",
+   "cancers_by_can_scr": {
+    "1": 48,
+    "4": 43,
+    "2": 5,
+    "3": 1
+   },
+   "auroc": {
+    "sybil": {
+     "est": 0.8017845890151992,
+     "lo": 0.7594188879823703,
+     "hi": 0.8433583857888655,
+     "n_draws": 2000,
+     "sd": 0.021368381977815345
+    },
+    "C1_form": {
+     "est": 0.7331031179895646,
+     "lo": 0.6828681029632424,
+     "hi": 0.7835228067231591,
+     "n_draws": 2000,
+     "sd": 0.026133563809493318
+    },
+    "C2_findings_only": {
+     "est": 0.7155849066115494,
+     "lo": 0.6623178332338561,
+     "hi": 0.7686713564663032,
+     "n_draws": 2000,
+     "sd": 0.027460928756383902
+    }
+   },
+   "differences": {
+    "sybil_minus_C1": {
+     "est": 0.0686814710256346,
+     "lo": 0.009591584305377751,
+     "hi": 0.12295027671820451,
+     "n_draws": 2000,
+     "sd": 0.029569826113594256
+    },
+    "sybil_minus_C2": {
+     "est": 0.08619968240364984,
+     "lo": 0.02359618813762791,
+     "hi": 0.14262994826295086,
+     "n_draws": 2000,
+     "sd": 0.030810503901743617
+    },
+    "M3_crossfit_C2_plus_sybil_minus_C2": {
+     "est": 0.10752904998361623,
+     "lo": 0.0644618684101364,
+     "hi": 0.14862683439339844,
+     "n_draws": 2000
+    }
+   }
+  },
+  "W2_E4_without_cancers_after_a_positive_screen": {
+   "counts": {
+    "exams": 2095,
+    "participants": 2095,
+    "cancers": 50
+   },
+   "note": "cases: 6-year cancers with can_scr 2, 3 or 4 (not after a positive screen)",
+   "cancers_by_can_scr": {
+    "4": 43,
+    "2": 6,
+    "3": 1
+   },
+   "auroc": {
+    "sybil": {
+     "est": 0.7453545232273839,
+     "lo": 0.6882543102713029,
+     "hi": 0.8024863682651514,
+     "n_draws": 2000,
+     "sd": 0.028488550439562266
+    },
+    "C1_form": {
+     "est": 0.7263374083129585,
+     "lo": 0.642835268380444,
+     "hi": 0.8039120799650097,
+     "n_draws": 2000,
+     "sd": 0.04020844961687098
+    },
+    "C2_findings_only": {
+     "est": 0.708997555012225,
+     "lo": 0.6252710493055429,
+     "hi": 0.7897631182402751,
+     "n_draws": 2000,
+     "sd": 0.04163039015633874
+    }
+   },
+   "differences": {
+    "sybil_minus_C1": {
+     "est": 0.01901711491442548,
+     "lo": -0.06793664322988659,
+     "hi": 0.11265065000894514,
+     "n_draws": 2000,
+     "sd": 0.045789935505604985
+    },
+    "sybil_minus_C2": {
+     "est": 0.03635696821515899,
+     "lo": -0.05179519183167142,
+     "hi": 0.13241264639347636,
+     "n_draws": 2000,
+     "sd": 0.04740989748589955
+    },
+    "M3_crossfit_C2_plus_sybil_minus_C2": {
+     "est": 0.07276772616136917,
+     "lo": 0.029876000094894238,
+     "hi": 0.12082667573034842,
+     "n_draws": 2000
+    }
+   }
+  },
+  "W3_E5_without_cancers_after_a_positive_screen": {
+   "counts": {
+    "exams": 1282,
+    "participants": 1282,
+    "cancers": 30
+   },
+   "note": "cases: cancer 1 to 6 years after a negative baseline, can_scr 2, 3 or 4",
+   "cancers_by_can_scr": {
+    "4": 25,
+    "2": 5
+   },
+   "auroc": {
+    "sybil": {
+     "est": 0.7905484558040469,
+     "lo": 0.7286563618932704,
+     "hi": 0.8491531551945628,
+     "n_draws": 2000,
+     "sd": 0.030970883153721845
+    },
+    "C1_form": {
+     "est": 0.685223642172524,
+     "lo": 0.5718755501097165,
+     "hi": 0.7909564347990166,
+     "n_draws": 2000,
+     "sd": 0.05516868028654261
+    },
+    "C2_findings_only": {
+     "est": 0.6761847710330138,
+     "lo": 0.5638327205882353,
+     "hi": 0.7815014019332948,
+     "n_draws": 2000,
+     "sd": 0.05498934963181947
+    }
+   },
+   "differences": {
+    "sybil_minus_C1": {
+     "est": 0.1053248136315229,
+     "lo": -0.013820571128553075,
+     "hi": 0.22296121571680158,
+     "n_draws": 2000,
+     "sd": 0.0587253667777066
+    },
+    "sybil_minus_C2": {
+     "est": 0.11436368477103309,
+     "lo": -0.0038254522905438156,
+     "hi": 0.23153220309693093,
+     "n_draws": 2000,
+     "sd": 0.05930003277094372
+    },
+    "M3_crossfit_C2_plus_sybil_minus_C2": {
+     "est": 0.12051384451544189,
+     "lo": 0.04849665313733543,
+     "hi": 0.19512798254828911,
+     "n_draws": 2000
+    }
+   }
+  },
+  "W4_E1_cancers_by_can_scr": {
+   "cancers": 88,
+   "by_can_scr": {
+    "1": 82,
+    "2": 6
+   },
+   "note": "counts only; cancers not after a positive screen are too few for any claim"
+  },
+  "can_scr_codes": "NLST prsn can_scr: 1 positive screen, 2 negative screen, 3 missed screen, 4 post-screening, 0 no cancer"
+ },
+ "P2_censoring_E4": {
+  "description": {
+   "baseline_exams": 2484,
+   "observed": 2180,
+   "censored": 304,
+   "censored_share": 0.12238325281803543,
+   "cancers": 135,
+   "censored_follow_up_years_median": 5.8507871321013,
+   "censored_follow_up_missing": 0,
+   "mean_logit_s6": {
+    "censored": -3.2229945891239455,
+    "other_controls": -3.382109269454014
+   },
+   "mean_F6": {
+    "censored": -2.829467827814482,
+    "other_controls": -3.0039285098666513
+   },
+   "mean_age": {
+    "censored": 61.8125,
+    "other_controls": 61.33251833740831
+   }
+  },
+  "ipcw": {
+   "sybil": {
+    "est": 0.8489932438723484,
+    "lo": 0.8128796103103451,
+    "hi": 0.8807731827720224,
+    "n_draws": 2000,
+    "sd": 0.01751536308778521
+   },
+   "C1_form": {
+    "est": 0.7737871264700558,
+    "lo": 0.728942982546826,
+    "hi": 0.8155800579781833,
+    "n_draws": 2000,
+    "sd": 0.021818865426003246
+   },
+   "C2_findings_only": {
+    "est": 0.7660926630010618,
+    "lo": 0.7206320705517987,
+    "hi": 0.8094736901529815,
+    "n_draws": 2000,
+    "sd": 0.022175275897836015
+   },
+   "sybil_minus_C1": {
+    "est": 0.07520611740229266,
+    "lo": 0.028873311095274648,
+    "hi": 0.1184682719146754,
+    "n_draws": 2000,
+    "sd": 0.023287161270895147
+   },
+   "sybil_minus_C2": {
+    "est": 0.0829005808712866,
+    "lo": 0.035925854538705365,
+    "hi": 0.12872237181305063,
+    "n_draws": 2000,
+    "sd": 0.023427709499629714
+   }
+  },
+  "bound_censored_as_cancer_free": {
+   "sybil": {
+    "est": 0.847407092064393,
+    "lo": 0.8116034891135478,
+    "hi": 0.8792171292068267,
+    "n_draws": 2000,
+    "sd": 0.01761414537802058
+   },
+   "C1_form": {
+    "est": 0.7746842628068682,
+    "lo": 0.7297098127194693,
+    "hi": 0.8164868961811457,
+    "n_draws": 2000,
+    "sd": 0.021842104486453708
+   },
+   "C2_findings_only": {
+    "est": 0.7669315547987323,
+    "lo": 0.7209231617315474,
+    "hi": 0.810426195747716,
+    "n_draws": 2000,
+    "sd": 0.02214857043218601
+   },
+   "sybil_minus_C1": {
+    "est": 0.07272282925752482,
+    "lo": 0.026237282389503538,
+    "hi": 0.11675730855175788,
+    "n_draws": 2000,
+    "sd": 0.023396044644841702
+   },
+   "sybil_minus_C2": {
+    "est": 0.0804755372656607,
+    "lo": 0.03317480779708801,
+    "hi": 0.12587812171104745,
+    "n_draws": 2000,
+    "sd": 0.023518550596891622
+   }
+  },
+  "note": "IPCW: logistic model of censoring (age, sex, current smoking, F6, C2, logit s6; standardised) among baseline exams without a 6-year cancer, refitted in every draw; controls weighted 1/(1-p), cases 1"
+ },
+ "P3_calibration": {
+  "E1": {
+   "counts": {
+    "exams": 7289,
+    "participants": 2492,
+    "cancers": 88
+   },
+   "as_given": {
+    "sybil": {
+     "observed": 88,
+     "expected": 106.03904204441243,
+     "o_over_e": 0.8298830157588832,
+     "calibration_intercept": -0.24042068096726538,
+     "calibration_slope": 1.3718355699219091,
+     "brier": 0.007767533181596209,
+     "ece_10_bins": 0.0024748308470863545,
+     "o_over_e_ci": [
+      0.6908554742210253,
+      0.9804080754496672
+     ],
+     "calibration_slope_ci": [
+      1.1705109890842245,
+      1.6832458421450576
+     ]
+    },
+    "C1_form": {
+     "observed": 88,
+     "expected": 88.88379138542679,
+     "o_over_e": 0.9900567767007777,
+     "calibration_intercept": -0.012466319702589471,
+     "calibration_slope": 1.0534209442368005,
+     "brier": 0.009749537324159578,
+     "ece_10_bins": 0.001777725176504055,
+     "o_over_e_ci": [
+      0.8057633763981584,
+      1.1902201871101583
+     ],
+     "calibration_slope_ci": [
+      0.9234824350029066,
+      1.2213202647425185
+     ]
+    },
+    "C2_findings_only": {
+     "observed": 88,
+     "expected": 89.51870509811329,
+     "o_over_e": 0.9830347736101771,
+     "calibration_intercept": -0.021421310770970016,
+     "calibration_slope": 1.0471334107309969,
+     "brier": 0.009762994812837706,
+     "ece_10_bins": 0.001954093913100149,
+     "o_over_e_ci": [
+      0.8027319870484625,
+      1.1817476396648205
+     ],
+     "calibration_slope_ci": [
+      0.917255865888513,
+      1.2133153078823475
+     ]
+    }
+   },
+   "recalibrated_on_dev": {
+    "sybil": {
+     "observed": 88,
+     "expected": 88.00000021755064,
+     "o_over_e": 0.9999999975278338,
+     "calibration_intercept": -3.776166201109367e-09,
+     "calibration_slope": 1.0000000163402627,
+     "brier": 0.0074970109526549,
+     "ece_10_bins": 0.0005612441049002917,
+     "dev_recalibration": {
+      "intercept": 0.5135871258424223,
+      "slope": 1.3718368552087785
+     }
+    },
+    "C1_form": {
+     "observed": 88,
+     "expected": 88.00000000000001,
+     "o_over_e": 0.9999999999999999,
+     "calibration_intercept": -3.692603378611784e-15,
+     "calibration_slope": 1.0000000000000002,
+     "brier": 0.009765235137656944,
+     "ece_10_bins": 0.0013704453551719859,
+     "dev_recalibration": {
+      "intercept": 0.1339126055866118,
+      "slope": 1.0534209442368005
+     }
+    },
+    "C2_findings_only": {
+     "observed": 88,
+     "expected": 88.00000000000003,
+     "o_over_e": 0.9999999999999997,
+     "calibration_intercept": -4.062449718019547e-15,
+     "calibration_slope": 1.0000000000000002,
+     "brier": 0.009778959178336858,
+     "ece_10_bins": 0.0016780296738014794,
+     "dev_recalibration": {
+      "intercept": 0.11032955429892723,
+      "slope": 1.0471334107309969
+     }
+    }
+   }
+  },
+  "E2": {
+   "counts": {
+    "exams": 2484,
+    "participants": 2484,
+    "cancers": 38
+   },
+   "as_given": {
+    "sybil": {
+     "observed": 38,
+     "expected": 41.39136794309814,
+     "o_over_e": 0.9180658163373497,
+     "calibration_intercept": -0.11854275527686348,
+     "calibration_slope": 1.4208529007161046,
+     "brier": 0.009019825158057812,
+     "ece_10_bins": 0.0031849770330341096,
+     "o_over_e_ci": [
+      0.6970016385029401,
+      1.1310232113758085
+     ],
+     "calibration_slope_ci": [
+      1.1234184307768744,
+      2.0257404552078646
+     ]
+    },
+    "C1_form": {
+     "observed": 38,
+     "expected": 39.14831459672423,
+     "o_over_e": 0.9706675853468207,
+     "calibration_intercept": -0.03591766038002647,
+     "calibration_slope": 1.0706852201496826,
+     "brier": 0.012657710484687593,
+     "ece_10_bins": 0.006043996801343403,
+     "o_over_e_ci": [
+      0.6933006781635112,
+      1.249289713179876
+     ],
+     "calibration_slope_ci": [
+      0.8571332256234458,
+      1.3654858596232868
+     ]
+    },
+    "C2_findings_only": {
+     "observed": 38,
+     "expected": 38.56125537469317,
+     "o_over_e": 0.9854450958808383,
+     "calibration_intercept": -0.01784227140174333,
+     "calibration_slope": 1.0601428507490334,
+     "brier": 0.012651029428151035,
+     "ece_10_bins": 0.006024038499830009,
+     "o_over_e_ci": [
+      0.7041677233926767,
+      1.2687893240338377
+     ],
+     "calibration_slope_ci": [
+      0.860920455448945,
+      1.330286293359474
+     ]
+    }
+   },
+   "recalibrated_on_dev": {
+    "sybil": {
+     "observed": 38,
+     "expected": 38.00000168994541,
+     "o_over_e": 0.9999999555277544,
+     "calibration_intercept": -7.687281072591992e-08,
+     "calibration_slope": 1.0000003510956057,
+     "brier": 0.008639755892110244,
+     "ece_10_bins": 0.0007826739487548877,
+     "dev_recalibration": {
+      "intercept": 0.6655442705134639,
+      "slope": 1.4208536456366734
+     }
+    },
+    "C1_form": {
+     "observed": 38,
+     "expected": 37.99999999999999,
+     "o_over_e": 1.0000000000000002,
+     "calibration_intercept": 2.6765892335486163e-16,
+     "calibration_slope": 1.0,
+     "brier": 0.012708418184040919,
+     "ece_10_bins": 0.005408511968538784,
+     "dev_recalibration": {
+      "intercept": 0.16596366236838062,
+      "slope": 1.0706852201496826
+     }
+    },
+    "C2_findings_only": {
+     "observed": 38,
+     "expected": 38.00000000000001,
+     "o_over_e": 0.9999999999999998,
+     "calibration_intercept": -3.2502433382316223e-16,
+     "calibration_slope": 1.0,
+     "brier": 0.012701502269077786,
+     "ece_10_bins": 0.0053557786965588005,
+     "dev_recalibration": {
+      "intercept": 0.15401543157633682,
+      "slope": 1.0601428507490334
+     }
+    }
+   }
+  },
+  "E4": {
+   "counts": {
+    "exams": 2180,
+    "participants": 2180,
+    "cancers": 135
+   },
+   "as_given": {
+    "sybil": {
+     "observed": 135,
+     "expected": 154.734186465564,
+     "o_over_e": 0.8724639530776489,
+     "calibration_intercept": -0.1780703510277798,
+     "calibration_slope": 1.1930946991515046,
+     "brier": 0.044467509789325496,
+     "ece_10_bins": 0.012584064603464467,
+     "o_over_e_ci": [
+      0.7577392666711056,
+      1.0054452792373862
+     ],
+     "calibration_slope_ci": [
+      1.0328412692997124,
+      1.3703543517529628
+     ]
+    },
+    "C1_form": {
+     "observed": 135,
+     "expected": 152.7517788194696,
+     "o_over_e": 0.8837867620484497,
+     "calibration_intercept": -0.14990359710769735,
+     "calibration_slope": 1.1013047369318003,
+     "brier": 0.050457465868560133,
+     "ece_10_bins": 0.017738529562912168,
+     "o_over_e_ci": [
+      0.7586974144838857,
+      1.0198302247273128
+     ],
+     "calibration_slope_ci": [
+      0.931640139456803,
+      1.2900690262400487
+     ]
+    },
+    "C2_findings_only": {
+     "observed": 135,
+     "expected": 151.56586937283993,
+     "o_over_e": 0.8907018483687168,
+     "calibration_intercept": -0.13939984218121632,
+     "calibration_slope": 1.130695062633565,
+     "brier": 0.05043923670324363,
+     "ece_10_bins": 0.01547489082137252,
+     "o_over_e_ci": [
+      0.7656371324026034,
+      1.0291758388125773
+     ],
+     "calibration_slope_ci": [
+      0.953255679472114,
+      1.330992774288198
+     ]
+    }
+   },
+   "recalibrated_on_dev": {
+    "sybil": {
+     "observed": 135,
+     "expected": 135.0,
+     "o_over_e": 1.0,
+     "calibration_intercept": -1.1305876950291876e-16,
+     "calibration_slope": 0.9999999999999998,
+     "brier": 0.044245588478547,
+     "ece_10_bins": 0.006893339631085872,
+     "dev_recalibration": {
+      "intercept": 0.21929323612243737,
+      "slope": 1.193095004537584
+     }
+    },
+    "C1_form": {
+     "observed": 135,
+     "expected": 135.00000000000003,
+     "o_over_e": 0.9999999999999998,
+     "calibration_intercept": -2.6580231951132914e-16,
+     "calibration_slope": 1.0000000000000002,
+     "brier": 0.05044195178792791,
+     "ece_10_bins": 0.013464452098651207,
+     "dev_recalibration": {
+      "intercept": 0.07677301259582102,
+      "slope": 1.1013047369318003
+     }
+    },
+    "C2_findings_only": {
+     "observed": 135,
+     "expected": 135.0,
+     "o_over_e": 1.0,
+     "calibration_intercept": -4.251594283628045e-18,
+     "calibration_slope": 1.0000000000000002,
+     "brier": 0.05039802034623561,
+     "ece_10_bins": 0.013552578552346149,
+     "dev_recalibration": {
+      "intercept": 0.15806034164415916,
+      "slope": 1.130695062633565
+     }
+    }
+   }
+  },
+  "decision_curves_recalibrated": {
+   "E1": {
+    "counts": {
+     "exams": 7289,
+     "cancers": 88
+    },
+    "net_benefit": {
+     "0.005": {
+      "sybil": 0.010691404615339007,
+      "C1_form": 0.009917884111185644,
+      "C2_findings_only": 0.009588345072874318,
+      "C1_form_plus_sybil": 0.010849280012354268,
+      "C2_findings_only_plus_sybil": 0.010834112943645377,
+      "treat_all": 0.0071085293389708875,
+      "C1_form_plus_sybil_minus_C1_form": {
+       "est": 0.0009313959011686239,
+       "lo": 0.00037015365888761083,
+       "hi": 0.001589999121415887,
+       "n_draws": 2000,
+       "sd": 0.0003067125055985297
+      },
+      "C2_findings_only_plus_sybil_minus_C2_findings_only": {
+       "est": 0.0012457678707710595,
+       "lo": 0.0005675156658879481,
+       "hi": 0.002031575870895445,
+       "n_draws": 2000,
+       "sd": 0.00036403343756663005
+      },
+      "sybil_minus_C1_form": {
+       "est": 0.0007735205041533629,
+       "lo": 9.7960603700631e-05,
+       "hi": 0.0014573532782611945,
+       "n_draws": 2000,
+       "sd": 0.0003385190363334382
+      },
+      "sybil_minus_C2_findings_only": {
+       "est": 0.0011030595424646895,
+       "lo": 0.00031748211307448576,
+       "hi": 0.001922251914563185,
+       "n_draws": 2000,
+       "sd": 0.0003933624596881798
+      }
+     },
+     "0.010": {
+      "sybil": 0.010400340349578928,
+      "C1_form": 0.009068597901085211,
+      "C2_findings_only": 0.008960506422435356,
+      "C1_form_plus_sybil": 0.01067472641076702,
+      "C2_findings_only_plus_sybil": 0.010680269563518295,
+      "treat_all": 0.0020939259517939717,
+      "C1_form_plus_sybil_minus_C1_form": {
+       "est": 0.001606128509681809,
+       "lo": 0.0008804999960142497,
+       "hi": 0.0024314808493969206,
+       "n_draws": 2000,
+       "sd": 0.0003919501761256746
+      },
+      "C2_findings_only_plus_sybil_minus_C2_findings_only": {
+       "est": 0.0017197631410829396,
+       "lo": 0.0009777575764520878,
+       "hi": 0.002555714390717381,
+       "n_draws": 2000,
+       "sd": 0.00041431620455963005
+      },
+      "sybil_minus_C1_form": {
+       "est": 0.0013317424484937165,
+       "lo": 0.00047308170478795156,
+       "hi": 0.002178248403299515,
+       "n_draws": 2000,
+       "sd": 0.0004407585481283798
+      },
+      "sybil_minus_C2_findings_only": {
+       "est": 0.0014398339271435717,
+       "lo": 0.0006024182451930893,
+       "hi": 0.0023085118442589024,
+       "n_draws": 2000,
+       "sd": 0.0004576990754025147
+      }
+     },
+     "0.020": {
+      "sybil": 0.009788302754220086,
+      "C1_form": 0.008265180128849454,
+      "C2_findings_only": 0.008346376004098991,
+      "C1_form_plus_sybil": 0.010283877579018986,
+      "C2_findings_only_plus_sybil": 0.009880698060538526,
+      "treat_all": -0.008088789089514253,
+      "C1_form_plus_sybil_minus_C1_form": {
+       "est": 0.0020186974501695317,
+       "lo": 0.0011862637371461689,
+       "hi": 0.002995017215559724,
+       "n_draws": 2000,
+       "sd": 0.00046359878555515875
+      },
+      "C2_findings_only_plus_sybil_minus_C2_findings_only": {
+       "est": 0.0015343220564395348,
+       "lo": 0.0008003458529917111,
+       "hi": 0.0023987373311939015,
+       "n_draws": 2000,
+       "sd": 0.00039302367865332597
+      },
+      "sybil_minus_C1_form": {
+       "est": 0.001523122625370632,
+       "lo": 0.0005226581167323551,
+       "hi": 0.002567089424901672,
+       "n_draws": 2000,
+       "sd": 0.0005214837381203678
+      },
+      "sybil_minus_C2_findings_only": {
+       "est": 0.001441926750121095,
+       "lo": 0.0004462012423742632,
+       "hi": 0.002481391281742197,
+       "n_draws": 2000,
+       "sd": 0.0005213796523052366
+      }
+     },
+     "0.030": {
+      "sybil": 0.008892088488090371,
+      "C1_form": 0.007869505383765681,
+      "C2_findings_only": 0.0077705001039555435,
+      "C1_form_plus_sybil": 0.009443689332746846,
+      "C2_findings_only_plus_sybil": 0.009418230832224239,
+      "treat_all": -0.01848145701827213,
+      "C1_form_plus_sybil_minus_C1_form": {
+       "est": 0.0015741839489811643,
+       "lo": 0.0006313917748580158,
+       "hi": 0.002546419035669466,
+       "n_draws": 2000,
+       "sd": 0.0004791854029167234
+      },
+      "C2_findings_only_plus_sybil_minus_C2_findings_only": {
+       "est": 0.0016477307282686954,
+       "lo": 0.00067537143040308,
+       "hi": 0.0026724328191840676,
+       "n_draws": 2000,
+       "sd": 0.0004966726563759896
+      },
+      "sybil_minus_C1_form": {
+       "est": 0.00102258310432469,
+       "lo": -7.08827295720288e-05,
+       "hi": 0.002157264575029915,
+       "n_draws": 2000,
+       "sd": 0.0005736331442936512
+      },
+      "sybil_minus_C2_findings_only": {
+       "est": 0.0011215883841348279,
+       "lo": -4.523049608349536e-05,
+       "hi": 0.002286159704215762,
+       "n_draws": 2000,
+       "sd": 0.00058577910069855
+      }
+     },
+     "0.050": {
+      "sybil": 0.008188257720718314,
+      "C1_form": 0.006809106728957116,
+      "C2_findings_only": 0.006939079073730423,
+      "C1_form_plus_sybil": 0.008989753846820372,
+      "C2_findings_only_plus_sybil": 0.008946429731895935,
+      "treat_all": -0.03992317190286733,
+      "C1_form_plus_sybil_minus_C1_form": {
+       "est": 0.0021806471178632564,
+       "lo": 0.001059946711548379,
+       "hi": 0.0032971999685265743,
+       "n_draws": 2000,
+       "sd": 0.000574243529624926
+      },
+      "C2_findings_only_plus_sybil_minus_C2_findings_only": {
+       "est": 0.0020073506581655123,
+       "lo": 0.000905105397993472,
+       "hi": 0.0031347748646750333,
+       "n_draws": 2000,
+       "sd": 0.0005754526952555281
+      },
+      "sybil_minus_C1_form": {
+       "est": 0.0013791509917611983,
+       "lo": 0.00018031664976948675,
+       "hi": 0.0025895803773517,
+       "n_draws": 2000,
+       "sd": 0.0006085880049541977
+      },
+      "sybil_minus_C2_findings_only": {
+       "est": 0.0012491786469878913,
+       "lo": 3.616135258099958e-05,
+       "hi": 0.002455483075367443,
+       "n_draws": 2000,
+       "sd": 0.0006096512675733325
+      }
+     }
+    },
+    "note": "net benefit per exam (TP/n - FP/n * t/(1-t)); single scores recalibrated on dev (logistic on their logit); combinations fitted on dev (X1 M2)"
+   },
+   "E2": {
+    "counts": {
+     "exams": 2484,
+     "cancers": 38
+    },
+    "net_benefit": {
+     "0.005": {
+      "sybil": 0.014365304784793533,
+      "C1_form": 0.01190938589889868,
+      "C2_findings_only": 0.011941753857856108,
+      "C1_form_plus_sybil": 0.014351143802749659,
+      "C2_findings_only_plus_sybil": 0.014336982820705783,
+      "treat_all": 0.010349654876637616,
+      "C1_form_plus_sybil_minus_C1_form": {
+       "est": 0.0024417579038509794,
+       "lo": 0.0012501618397947874,
+       "hi": 0.004050091439484055,
+       "n_draws": 2000,
+       "sd": 0.0006877890088650712
+      },
+      "C2_findings_only_plus_sybil_minus_C2_findings_only": {
+       "est": 0.0023952289628496742,
+       "lo": 0.0011976144814248371,
+       "hi": 0.0040014889261120404,
+       "n_draws": 2000,
+       "sd": 0.0006874978898104973
+      },
+      "sybil_minus_C1_form": {
+       "est": 0.0024559188858948536,
+       "lo": 0.0012703918141431794,
+       "hi": 0.004064252421527928,
+       "n_draws": 2000,
+       "sd": 0.0006878594151418847
+      },
+      "sybil_minus_C2_findings_only": {
+       "est": 0.0024235509269374244,
+       "lo": 0.0012400468526205905,
+       "hi": 0.00403390746000534,
+       "n_draws": 2000,
+       "sd": 0.0006872596946406955
+      }
+     },
+     "0.010": {
+      "sybil": 0.01377706208624083,
+      "C1_form": 0.011121683826997837,
+      "C2_findings_only": 0.0112436767026139,
+      "C1_form_plus_sybil": 0.014151173571463426,
+      "C2_findings_only_plus_sybil": 0.014143040713089023,
+      "treat_all": 0.005351420810358009,
+      "C1_form_plus_sybil_minus_C1_form": {
+       "est": 0.0030294897444655897,
+       "lo": 0.0018663893361960998,
+       "hi": 0.004619870199580342,
+       "n_draws": 2000,
+       "sd": 0.0006890879482858546
+      },
+      "C2_findings_only_plus_sybil_minus_C2_findings_only": {
+       "est": 0.0028993640104751223,
+       "lo": 0.0017360602807462706,
+       "hi": 0.004501638770962443,
+       "n_draws": 2000,
+       "sd": 0.0006895718669217718
+      },
+      "sybil_minus_C1_form": {
+       "est": 0.0026553782592429933,
+       "lo": 0.001203358057222792,
+       "hi": 0.004318547796808665,
+       "n_draws": 2000,
+       "sd": 0.0007977455499401603
+      },
+      "sybil_minus_C2_findings_only": {
+       "est": 0.0025333853836269297,
+       "lo": 0.0010974275768961758,
+       "hi": 0.00419269181346476,
+       "n_draws": 2000,
+       "sd": 0.0007985518678594591
+      }
+     },
+     "0.020": {
+      "sybil": 0.01304676459955963,
+      "C1_form": 0.010171218245752407,
+      "C2_findings_only": 0.01067238489598738,
+      "C1_form_plus_sybil": 0.013506852016168787,
+      "C2_findings_only_plus_sybil": 0.013523283709619114,
+      "treat_all": -0.004798054487495483,
+      "C1_form_plus_sybil_minus_C1_form": {
+       "est": 0.0033356337704163793,
+       "lo": 0.0015034999507049195,
+       "hi": 0.005356732064806597,
+       "n_draws": 2000,
+       "sd": 0.0010054716146481709
+      },
+      "C2_findings_only_plus_sybil_minus_C2_findings_only": {
+       "est": 0.002850898813631734,
+       "lo": 0.001207729468599034,
+       "hi": 0.004781622794045152,
+       "n_draws": 2000,
+       "sd": 0.0009186572595703574
+      },
+      "sybil_minus_C1_form": {
+       "est": 0.0028755463538072228,
+       "lo": 0.0007885158894475645,
+       "hi": 0.0049952348088994035,
+       "n_draws": 2000,
+       "sd": 0.001085663846431266
+      },
+      "sybil_minus_C2_findings_only": {
+       "est": 0.00237437970357225,
+       "lo": 0.00041880278681520974,
+       "hi": 0.004379251700680272,
+       "n_draws": 2000,
+       "sd": 0.001012947607525969
+      }
+     },
+     "0.030": {
+      "sybil": 0.012442518717731627,
+      "C1_form": 0.009753141756727592,
+      "C2_findings_only": 0.009753141756727592,
+      "C1_form_plus_sybil": 0.0129447017613759,
+      "C2_findings_only_plus_sybil": 0.012542125271842888,
+      "treat_all": -0.015156797317263477,
+      "C1_form_plus_sybil_minus_C1_form": {
+       "est": 0.0031915600046483073,
+       "lo": 0.000991603997543039,
+       "hi": 0.005495584109434398,
+       "n_draws": 2000,
+       "sd": 0.00116615102373194
+      },
+      "C2_findings_only_plus_sybil_minus_C2_findings_only": {
+       "est": 0.002788983515115296,
+       "lo": 0.000477177648289258,
+       "hi": 0.005353956040307451,
+       "n_draws": 2000,
+       "sd": 0.0012257241891265403
+      },
+      "sybil_minus_C1_form": {
+       "est": 0.0026893769610040353,
+       "lo": 0.00037352457791722625,
+       "hi": 0.005229966631804371,
+       "n_draws": 2000,
+       "sd": 0.0012271366580101394
+      },
+      "sybil_minus_C2_findings_only": {
+       "est": 0.0026893769610040353,
+       "lo": 0.00037321330743562866,
+       "hi": 0.005254556999850588,
+       "n_draws": 2000,
+       "sd": 0.001227353279910332
+      }
+     },
+     "0.050": {
+      "sybil": 0.011865412323078226,
+      "C1_form": 0.008284600389863547,
+      "C2_findings_only": 0.008369353335028392,
+      "C1_form_plus_sybil": 0.012056106449699127,
+      "C2_findings_only_plus_sybil": 0.012098482922281549,
+      "treat_all": -0.03652851936604798,
+      "C1_form_plus_sybil_minus_C1_form": {
+       "est": 0.00377150605983558,
+       "lo": 0.0014619883040935676,
+       "hi": 0.006314624120688191,
+       "n_draws": 2000,
+       "sd": 0.001242889197542979
+      },
+      "C2_findings_only_plus_sybil_minus_C2_findings_only": {
+       "est": 0.003729129587253157,
+       "lo": 0.0014196118315111458,
+       "hi": 0.006229341469616069,
+       "n_draws": 2000,
+       "sd": 0.0012407412503540143
+      },
+      "sybil_minus_C1_form": {
+       "est": 0.003580811933214679,
+       "lo": 0.0012924824137638784,
+       "hi": 0.006123400288160013,
+       "n_draws": 2000,
+       "sd": 0.0012446019363507581
+      },
+      "sybil_minus_C2_findings_only": {
+       "est": 0.0034960589880498345,
+       "lo": 0.001207729468599034,
+       "hi": 0.005996800576320024,
+       "n_draws": 2000,
+       "sd": 0.0012429979555634968
+      }
+     }
+    },
+    "note": "net benefit per exam (TP/n - FP/n * t/(1-t)); single scores recalibrated on dev (logistic on their logit); combinations fitted on dev (X1 M2)"
+   }
+  }
+ },
+ "P4_repeated_screens": {
+  "a_sybil_coefficient_given_comparator": {
+   "E1": {
+    "counts": {
+     "exams": 7289,
+     "participants": 2492,
+     "cancers": 88
+    },
+    "C1": {
+     "est": 1.054834113088739,
+     "lo": 0.8554445544251452,
+     "hi": 1.3467099651056629,
+     "n_draws": 2000,
+     "sd": 0.12343010567546057,
+     "wald_p_two_sided_bootstrap_sd": 1.274241736859164e-17
+    },
+    "C2": {
+     "est": 1.0670940047418909,
+     "lo": 0.8660987718803058,
+     "hi": 1.3639445611106036,
+     "n_draws": 2000,
+     "sd": 0.12465961411297032,
+     "wald_p_two_sided_bootstrap_sd": 1.1280700438647892e-17
+    },
+    "note": "logistic y1 ~ C + logit(s1); Sybil's coefficient per logit unit; participant-bootstrap interval; replaces X1's in-sample LR test"
+   },
+   "E7": {
+    "counts": {
+     "exams": 2548,
+     "participants": 1393,
+     "cancers": 80
+    },
+    "C1": {
+     "est": 1.0986816495653922,
+     "lo": 0.9054499261422568,
+     "hi": 1.4138389883603635,
+     "n_draws": 2000,
+     "sd": 0.12945891821207486,
+     "wald_p_two_sided_bootstrap_sd": 2.1255023559257783e-17
+    },
+    "C2": {
+     "est": 1.105547579539769,
+     "lo": 0.9110362789632113,
+     "hi": 1.4187437110134458,
+     "n_draws": 2000,
+     "sd": 0.13163885644906384,
+     "wald_p_two_sided_bootstrap_sd": 4.528430517123712e-17
+    },
+    "note": "logistic y1 ~ C + logit(s1); Sybil's coefficient per logit unit; participant-bootstrap interval; replaces X1's in-sample LR test"
+   }
+  },
+  "b_rule_out_positive_calls": {
+   "counts": {
+    "exams": 2548,
+    "participants": 1393,
+    "cancers": 80,
+    "false_positive_calls": 2468
+   },
+   "cuts_from_dev": {
+    "sybil": 0.033598516533316344,
+    "C2_findings_only": -4.515555035755532
+   },
+   "cancers_lost": {
+    "sybil": 4,
+    "C2_findings_only": 4
+   },
+   "participant_bootstrap": {
+    "sybil_removed_share": {
+     "est": 0.8885737439222042,
+     "lo": 0.8720974073958772,
+     "hi": 0.9033191598543888,
+     "n_draws": 2000,
+     "sd": 0.007962134288358865
+    },
+    "sybil_cancers_lost_share": {
+     "est": 0.05,
+     "lo": 0.01098901098901099,
+     "hi": 0.10295385395537518,
+     "n_draws": 2000,
+     "sd": 0.025202629462514076
+    },
+    "C2_removed_share": {
+     "est": 0.5907617504051864,
+     "lo": 0.570901615270427,
+     "hi": 0.6116072341140054,
+     "n_draws": 2000,
+     "sd": 0.010303524805929642
+    },
+    "C2_cancers_lost_share": {
+     "est": 0.05,
+     "lo": 0.011624565624164663,
+     "hi": 0.10526315789473684,
+     "n_draws": 2000,
+     "sd": 0.02448990527868734
+    },
+    "C2_minus_sybil_removed_share": {
+     "est": -0.2978119935170178,
+     "lo": -0.31996960395795054,
+     "hi": -0.2755754562588253,
+     "n_draws": 2000,
+     "sd": 0.011226724214909558
+    },
+    "C2_minus_sybil_cancers_lost_share": {
+     "est": 0.0,
+     "lo": -0.060240963855421686,
+     "hi": 0.06578947368421052,
+     "n_draws": 2000,
+     "sd": 0.031431671423419516
+    }
+   }
+  }
+ },
+ "P5_harm_at_dev_cuts": {
+  "counts": {
+   "exams": 7289,
+   "participants": 2492,
+   "cancers": 88,
+   "cancer_free": 7201
+  },
+  "dev_target_sensitivity": 0.9090909090909091,
+  "radiologists_test_sensitivity": 0.9090909090909091,
+  "radiologists_fa_per_1000_exams": 338.5923995061051,
+  "rad": {
+   "table": {
+    "sybil": {
+     "threshold": 0.03388673708469479,
+     "flagged": 518,
+     "sensitivity": 0.9090909090909091,
+     "cancers_caught": 80,
+     "fa_per_1000_exams": 60.090547400192065,
+     "fa_per_1000_cancer_free": 60.82488543257881
+    },
+    "C1_form": {
+     "threshold": -4.953260170563334,
+     "flagged": 1485,
+     "sensitivity": 0.9090909090909091,
+     "cancers_caught": 80,
+     "fa_per_1000_exams": 192.7562079846344,
+     "fa_per_1000_cancer_free": 195.11179002916262
+    },
+    "C2_findings_only": {
+     "threshold": -5.450643435908439,
+     "flagged": 1934,
+     "sensitivity": 0.9090909090909091,
+     "cancers_caught": 80,
+     "fa_per_1000_exams": 254.35587872136094,
+     "fa_per_1000_cancer_free": 257.4642410776281
+    },
+    "radiologists": {
+     "threshold": null,
+     "flagged": 2548,
+     "sensitivity": 0.9090909090909091,
+     "cancers_caught": 80,
+     "fa_per_1000_exams": 338.5923995061051,
+     "fa_per_1000_cancer_free": 342.73017636439386
+    }
+   },
+   "differences": {
+    "sybil_minus_radiologists_sensitivity": {
+     "est": 0.0,
+     "lo": -0.06595238095238105,
+     "hi": 0.05971497932026613,
+     "n_draws": 2000,
+     "sd": 0.03220008241294325
+    },
+    "sybil_minus_radiologists_fa_per_1000_exams": {
+     "est": -278.501852105913,
+     "lo": -293.06535191928424,
+     "hi": -263.7932390226325,
+     "n_draws": 2000,
+     "sd": 7.538629246238145
+    },
+    "sybil_minus_C1_form_sensitivity": {
+     "est": 0.0,
+     "lo": -0.06523169336384446,
+     "hi": 0.06123708742756362,
+     "n_draws": 2000,
+     "sd": 0.032640101857648846
+    },
+    "sybil_minus_C1_form_fa_per_1000_exams": {
+     "est": -132.66566058444232,
+     "lo": -143.17227487922355,
+     "hi": -122.44151676632289,
+     "n_draws": 2000,
+     "sd": 5.300194147967517
+    },
+    "sybil_minus_C2_findings_only_sensitivity": {
+     "est": 0.0,
+     "lo": -0.06523169336384446,
+     "hi": 0.06123708742756362,
+     "n_draws": 2000,
+     "sd": 0.032640101857648846
+    },
+    "sybil_minus_C2_findings_only_fa_per_1000_exams": {
+     "est": -194.26533132116887,
+     "lo": -206.83151978178898,
+     "hi": -181.8782655242188,
+     "n_draws": 2000,
+     "sd": 6.307748820236563
+    },
+    "C2_findings_only_minus_radiologists_sensitivity": {
+     "est": 0.0,
+     "lo": -0.043010752688172116,
+     "hi": 0.04705882352941171,
+     "n_draws": 2000,
+     "sd": 0.022675873929050388
+    },
+    "C2_findings_only_minus_radiologists_fa_per_1000_exams": {
+     "est": -84.23652078474414,
+     "lo": -93.36684395493491,
+     "hi": -74.71843502560385,
+     "n_draws": 2000,
+     "sd": 4.885069032584443
+    }
+   }
+  },
+  "tau90": {
+   "table": {
+    "sybil": {
+     "threshold": 0.017993675365094892,
+     "flagged": 892,
+     "sensitivity": 0.9318181818181818,
+     "cancers_caught": 82,
+     "fa_per_1000_exams": 111.12635478117711,
+     "fa_per_1000_cancer_free": 112.48437716983753
+    },
+    "C1_form": {
+     "threshold": -3.967785648312468,
+     "flagged": 795,
+     "sensitivity": 0.8409090909090909,
+     "cancers_caught": 74,
+     "fa_per_1000_exams": 98.91617505830703,
+     "fa_per_1000_cancer_free": 100.12498264129982
+    },
+    "C2_findings_only": {
+     "threshold": -4.011817076362107,
+     "flagged": 795,
+     "sensitivity": 0.8409090909090909,
+     "cancers_caught": 74,
+     "fa_per_1000_exams": 98.91617505830703,
+     "fa_per_1000_cancer_free": 100.12498264129982
+    },
+    "radiologists": {
+     "threshold": null,
+     "flagged": 2548,
+     "sensitivity": 0.9090909090909091,
+     "cancers_caught": 80,
+     "fa_per_1000_exams": 338.5923995061051,
+     "fa_per_1000_cancer_free": 342.73017636439386
+    }
+   },
+   "differences": {
+    "sybil_minus_radiologists_sensitivity": {
+     "est": 0.022727272727272707,
+     "lo": -0.03226683029453024,
+     "hi": 0.07692307692307698,
+     "n_draws": 2000,
+     "sd": 0.028030931503102055
+    },
+    "sybil_minus_radiologists_fa_per_1000_exams": {
+     "est": -227.466044724928,
+     "lo": -242.42392242668458,
+     "hi": -212.71260901832517,
+     "n_draws": 2000,
+     "sd": 7.830661415855282
+    },
+    "sybil_minus_C1_form_sensitivity": {
+     "est": 0.09090909090909083,
+     "lo": 0.02631578947368418,
+     "hi": 0.16091954022988497,
+     "n_draws": 2000,
+     "sd": 0.0340871909339385
+    },
+    "sybil_minus_C1_form_fa_per_1000_exams": {
+     "est": 12.210179722870079,
+     "lo": 1.7824459548435856,
+     "hi": 22.155891808464265,
+     "n_draws": 2000,
+     "sd": 5.194260406322613
+    },
+    "sybil_minus_C2_findings_only_sensitivity": {
+     "est": 0.09090909090909083,
+     "lo": 0.02631578947368418,
+     "hi": 0.16091954022988497,
+     "n_draws": 2000,
+     "sd": 0.0340871909339385
+    },
+    "sybil_minus_C2_findings_only_fa_per_1000_exams": {
+     "est": 12.210179722870079,
+     "lo": 1.9183337900794737,
+     "hi": 22.008707560489366,
+     "n_draws": 2000,
+     "sd": 5.170683052184193
+    },
+    "C2_findings_only_minus_radiologists_sensitivity": {
+     "est": -0.06818181818181812,
+     "lo": -0.1226618914511996,
+     "hi": -0.022222222222222254,
+     "n_draws": 2000,
+     "sd": 0.02622435999577042
+    },
+    "C2_findings_only_minus_radiologists_fa_per_1000_exams": {
+     "est": -239.67622444779803,
+     "lo": -252.16488941503698,
+     "hi": -226.7352469596986,
+     "n_draws": 2000,
+     "sd": 6.408028369392335
+    }
+   }
+  },
+  "note": "rad: cuts matched on dev to the dev radiologists' sensitivity (s4_u3_dev.json; C2 by the same rule here); tau90: the frozen 90th percentiles (C2: dev 90th percentile among y1 = 0)"
+ },
+ "P6_zfix_alarm_changes": {
+  "counts": {
+   "exams": 924,
+   "participants": 424,
+   "ratio_zero": 0
+  },
+  "tau90": {
+   "threshold": 0.017993675365094892,
+   "flagged_main": 112,
+   "flagged_zfix": 105,
+   "lost": 38,
+   "gained": 31,
+   "discordant_share": {
+    "est": 0.07467532467532467,
+    "lo": 0.05579552663516172,
+    "hi": 0.09708999979030802,
+    "n_draws": 2000,
+    "sd": 0.010395588864590648
+   },
+   "net_change_per_1000": {
+    "est": -7.575757575757576,
+    "lo": -29.034606952709055,
+    "hi": 15.13677847228335,
+    "n_draws": 2000,
+    "sd": 11.126415539046793
+   },
+   "discordant_share_of_flagged_in_either": 0.4825174825174825
+  },
+  "tau_rad": {
+   "threshold": 0.03388673708469479,
+   "flagged_main": 63,
+   "flagged_zfix": 61,
+   "lost": 16,
+   "gained": 14,
+   "discordant_share": {
+    "est": 0.032467532467532464,
+    "lo": 0.02038517475255259,
+    "hi": 0.04570394458981904,
+    "n_draws": 2000,
+    "sd": 0.006548503258066959
+   },
+   "net_change_per_1000": {
+    "est": -2.1645021645021645,
+    "lo": -14.402124153085516,
+    "hi": 10.035987074030539,
+    "n_draws": 2000,
+    "sd": 6.269175912439641
+   },
+   "discordant_share_of_flagged_in_either": 0.38961038961038963
+  }
+ },
+ "P8_data_notes": {
+  "missing": {
+   "age": 0,
+   "gender": 0,
+   "cigsmok": 0,
+   "age_scan": 0
+  },
+  "s1_distinct_values": 227,
+  "s1_lowest": 0.0,
+  "s1_ties_at_lowest": 1199,
+  "exams": 7336,
+  "share_of_cancer_free_E1_exams_flagged_at_tau90": 0.11248437716983753,
+  "note": "median imputation of reading items (nlst_l0.py, frozen) is not visible in the assembled table; only the demographics are counted"
+ }
+}
