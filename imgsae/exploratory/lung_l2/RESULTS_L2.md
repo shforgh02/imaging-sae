@@ -138,6 +138,21 @@ Plan committed before the test run (`dcfba8f`), script and dev check (`8120231`)
 - **Sybil against the findings alone (no call, no demographics):** −0.025 (1 year), −0.002 (baseline 1 year), −0.003 (6 years), −0.079 (late). The radiologists' findings, without their decision and without any personal data, are as good as Sybil.
 - Demographics alone are weak in NLST (0.58 to 0.62): everyone was a heavy smoker aged 55 to 74.
 
+## 3d. Plan X5: the slice-spacing tests repeated on LIDC-IDRI (EXPLORATORY external replication; 20 Nov)
+Plan committed before scoring (`41ca595`); list, job change and analysis script committed before the run (`05aea53`); output committed before reading (`d6b3d53`): `results/x5/x5_lidc.json`. LIDC-IDRI: an open collection from 7 US academic centres (clinical CT, not screening), different from NLST. 197 stretched scans (one per patient; GE 134, Philips 46, Siemens 17; mostly 1.25 mm slices), 0 errors; Sybil's own volume check equal for 197 of 197; G2b and G2c pass; cost $1.45 measured.
+
+| | Null | NLST test | **LIDC** [95% CI] | Holm over 3 |
+|---|---|---|---|---|
+| H1 share of exams moving ≥ ¼ SD | > 0.30 | 0.657 | **0.650 [0.584, 0.716]** | rejected |
+| H2 mean change of ℓ̄_1 | < −0.10 | −0.367 | **−0.177 [−0.260, −0.095]** (p 0.037) | rejected, weakly |
+| H6 axis 0 carries the drop | > +0.20 | +0.407 | **+0.395 [0.387, 0.403]** | rejected |
+| C1 axis-0 shift under the z-fix (dev SD) | (secondary) | −2.729 | **−2.760 [−2.797, −2.717]** | — |
+
+- **The mechanism replicates almost exactly at other centres:** the z-fix moves axis 0 by −2.76 SD (NLST −2.73), and axis 0 carries +0.40 of the 1-year logit (NLST +0.41); 98% of the LIDC exams are above +0.20 one by one. The frozen axes fit LIDC (member agreement 0.72 to 0.94; axis 0 0.80).
+- **The size of the score change replicates (H1, 65%); its average direction is weaker:** mean −0.18 (NLST −0.37), driven by GE (−0.28, 134 scans); Philips −0.01 (46), Siemens +0.18 (17). With axis 0 off, the remaining z-fix change is +0.22 in LIDC: other parts of Sybil move the other way in these clinical scans.
+- Alarms at the frozen τ90 (descriptive): 64 → 61 flagged; 19 of 197 exams (9.6%) change their alarm (11 lost, 8 gained); in LIDC most exams have known nodules.
+- No outcome and no annotation was used. The "Sybil against the radiologists' findings" test is not possible on LIDC from here (its diagnosis file is on the TCIA website, which refuses the connection from this PC).
+
 ## 4. What the results allow us to say, and what not (run rule 4)
 **Can say (test, frozen, Holm):**
 - Sybil's output depends on its slice-spacing step: in about 1 test exam in 9 the chest is stretched along z (759 of 6,715); giving Sybil the true spacing lowers its 1-year logit by 0.37 on average and moves 66% of these exams by at least a quarter SD (H1, H2).
