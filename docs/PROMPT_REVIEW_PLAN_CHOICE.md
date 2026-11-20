@@ -1,5 +1,11 @@
 # Prompt for an outside review: which plan comes next? (Lung L2, after the test and the LIDC replication)
 
+> **Corrections (20 Nov, after the review `docs/REVIEW_PLAN_CHOICE.md`; the text below is kept as it was sent):**
+> - **Correction:** O2a, dev flag changes: 38 lost and 31 gained over **924** exams (7.6 per 1,000), not 998 (998 included 74 pilot scans with ratio 0.65 to 0.95).
+> - **Correction:** H2 on test is **−0.366**, not −0.367.
+> - **Correction:** the L1 numbers in the first table row (0.914 vs 0.945) are L1's all-screens analysis A3, which was **not** an L1 primary endpoint. L1's primary endpoints were A1 (1 year, baseline: 0.927 vs 0.929) and A2 (6 years, baseline: 0.724 vs 0.745).
+> - **Correction:** "SAE, NMF: failed the validity marks" is true for the SAE. NMF at `pooled` passed the four marks and was rejected only because it rebuilt the vector worse than the dev mean (`RESULTS_R_dev.md`).
+
 **How to use it (for the lead):**
 - **AI reviewer:** use a **fresh session** that did not do this work (working folder `D:\Shayan`; Fable 5.2 or Opus 5.5, effort high or xhigh). Paste everything below the line, or give the short prompt: "Read `docs/PROMPT_REVIEW_PLAN_CHOICE.md` and do what it says below its line."
 - **Human reviewer** (a methodologist, a radiologist or a senior AI researcher): the GitHub repository is **private**. Add the person as a collaborator (GitHub: repository Settings → Collaborators), then send the link to this file on branch `prostate-mri-plan`: `https://github.com/shforgh02/imaging-sae/blob/prostate-mri-plan/docs/PROMPT_REVIEW_PLAN_CHOICE.md`. A human reviewer can just answer the questions of section 5 by email; the lead (or a session) copies the answer into `docs/REVIEW_PLAN_CHOICE.md`.

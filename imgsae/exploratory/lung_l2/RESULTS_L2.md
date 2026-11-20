@@ -5,6 +5,10 @@
 - **Rules:** `HYPOTHESES_L2.md` (frozen family of six, Holm, one-sided, α = 0.05), protocol sections 10 and 11, the four run rules of N3 (`docs/EXECUTION_LOG.md`, entry "step N3 done").
 - **Dev vs test:** dev is Sybil's own development split (it was used to build and tune Sybil, so it flatters Sybil; caution C6). Test is Sybil's held-out test split, opened once.
 - **Population:** 6,715 test exams (one series per exam, the series of Sybil's split file), 2,347 participants; 86 cancers within 1 year (all screens), 131 cancers within 6 years (baseline screens). Z-fix population T5: 759 exams, 342 participants, 9 one-year cancers. Kernel pairs T4: 500 pairs, 500 participants.
+- **Corrections (20 Nov, after the outside review `docs/REVIEW_PLAN_CHOICE.md` and `docs/INDEPENDENT_AUDIT_R2.md`; no number in any result file changed):**
+  - **Correction:** H2 on test is **−0.366** (−0.36646), not −0.367 (sections 1 and 3d; a rounding typo).
+  - **Correction:** section 3b point 1 said that removing the radiologist's call shows that work-up bias does not explain the result. That was wrong. In NLST, a nodule of 4 mm or more made the screen positive, so the findings themselves carry most of the call (83 of the 86 one-year cancers were found after a positive screen). Section 3b is corrected; section 3e tests it.
+  - **Correction (label):** the "radiologists' sensitivity" row of section 2.1 uses a cut matched on test (94.2%), so it is descriptive. The dev-fixed cut is in section 3e.
 
 ## 0. In simple words
 1. **Five of the six frozen predictions came true on new data. One failed (H3).**
@@ -19,7 +23,7 @@
 | | Statement | Null (direction) | Dev | **Test** [95% CI] | One-sided p | **Holm** | Test counts |
 |---|---|---|---|---|---|---|---|
 | H1 | the z-fix moves the score materially (share with \|Δℓ̄_6\| ≥ 0.25 dev SD) | > 0.30 | 0.670 | **0.657 [0.620, 0.695]** | 7e-80 | **confirmed** | 759 exams, 342 participants, 9 one-year cancers |
-| H2 | the z-fix lowers the score (mean Δℓ̄_1) | < −0.10 | −0.326 | **−0.367 [−0.411, −0.320]** | 1e-29 | **confirmed** | same |
+| H2 | the z-fix lowers the score (mean Δℓ̄_1) | < −0.10 | −0.326 | **−0.366 [−0.411, −0.320]** | 1e-29 | **confirmed** | same |
 | H3 | the z-fix changes the screening flag (share of exams) | > 0.05 | 0.075 | **0.045 [0.029, 0.063]** | 0.73 | **not confirmed (failed)** | same |
 | H4 | the kernel changes the flag in fewer than 5% of exams | < 0.05 | 0.018 | **0.018 [0.008, 0.030]** | 3e-8 | **confirmed** | 500 pairs, 500 participants |
 | H6 | shared axis 0 of `pooled` carries the z-fix drop (Δℓ̄_1 with axis 0 off minus Δℓ̄_1) | > +0.20 | +0.408 | **+0.407 [0.401, 0.411]**; halves 0.407 / 0.406 | < 1e-15 | **confirmed** | 759 exams, 342 participants |
@@ -118,7 +122,7 @@ Likelihood-ratio tests of Sybil given each comparator are very small p in E1 to 
 - **Rule-in among negative calls:** 1 year (E6): 5 cancers, no claim (Sybil flagged 2, findings 0). Cancers 1 to 6 years after a negative baseline (E5, 1,140 exams, 51 cancers): Sybil flags 6, the findings model 7, **none by both** (13 of 51 by either); false alarms per 1,000: Sybil 62, findings 101.
 
 **What X1 shows (exploratory):**
-1. **Sybil carries about the same information as the radiologists' structured findings, not more.** Removing the radiologist's final call from the form changes little (E1 0.947 → 0.938; E4 0.742 → 0.747), so the work-up bias of section 2.1b does not explain the result.
+1. **Sybil carries about the same information as the radiologists' structured findings, not more.** Removing the radiologist's final call from the form changes little (E1 0.947 → 0.938; E4 0.742 → 0.747). **Correction (20 Nov):** this does *not* rule out work-up bias. In NLST, a nodule of 4 mm or more made the screen positive, so the findings still carry most of the call; 83 of the 86 E1 cancers were found after a positive screen (E4 81 of 131; E5 22 of 51). The cleaner comparisons are later cancers (E4, E5) and cancers not found by a positive screen (section 3e). At 1 year on baseline screens (E2), cross-fitted form + Sybil adds +0.026 [0.000, +0.054]: a small gain at baseline, where the form has no earlier scan, cannot be excluded.
 2. **Sybil is much better than the coarse screening call and than nodule size alone** (+0.13 to +0.16 over the call at baseline; +0.07 over size at 6 years) and adds to them. This is where an AI's advantage shows when the comparator is a category (as Lung-RADS in Sybil's paper).
 3. **Thresholds tuned on dev are unsafe on test:** the rule-out cut lost 27% of the cancers it was set to keep at 5%.
 4. **Sybil and the findings catch different late cancers** (no overlap in E5), but both catch few; with 51 cancers this is a hint, not a result.
@@ -133,7 +137,7 @@ Plan committed before the test run (`dcfba8f`), script and dev check (`8120231`)
 | E4 6 years, baseline (131) | 0.623 | 0.724 | 0.745 / 0.741 | 0.727 | 0.747 | 0.742 |
 | E5 1–6 years after a negative baseline (51) | 0.590 | 0.580 | 0.592 / 0.576 | 0.659 | 0.637 | 0.625 |
 
-- **Adding age, sex and smoking to Sybil:** no change at 1 year (+0.000 [−0.004, +0.005]); +0.022 [+0.002, +0.042] at 6 years (M3 +0.026 [+0.007, +0.047]). Sybil's ranking barely moves (Spearman 0.985 at 1 year, 0.91 at 6 years). Sybil's score already correlates with age (Spearman 0.24): part of age is read from the image.
+- **Adding age, sex and smoking to Sybil:** no change at 1 year (+0.000 [−0.004, +0.005]); +0.022 [+0.002, +0.042] at 6 years (M3 +0.026 [+0.007, +0.047]). Sybil's ranking barely moves (Spearman 0.985 at 1 year, 0.91 at 6 years). Sybil's score already correlates with age (Spearman 0.24). Sybil sees only the image, so this link comes through the image; which image features carry it is not known (wording softened 20 Nov after the outside audit).
 - **Like for like (Sybil + demographics against findings + demographics):** 1 year −0.023 [−0.060, +0.010]; baseline 1 year +0.003; 6 years −0.002 [−0.036, +0.034]; late cancers −0.044 (M3 −0.061 [−0.105, −0.017]). **With the same demographics on both sides, Sybil equals the radiologists' findings and is never better.**
 - **Sybil against the findings alone (no call, no demographics):** −0.025 (1 year), −0.002 (baseline 1 year), −0.003 (6 years), −0.079 (late). The radiologists' findings, without their decision and without any personal data, are as good as Sybil.
 - Demographics alone are weak in NLST (0.58 to 0.62): everyone was a heavy smoker aged 55 to 74.
@@ -144,7 +148,7 @@ Plan committed before scoring (`41ca595`); list, job change and analysis script 
 | | Null | NLST test | **LIDC** [95% CI] | Holm over 3 |
 |---|---|---|---|---|
 | H1 share of exams moving ≥ ¼ SD | > 0.30 | 0.657 | **0.650 [0.584, 0.716]** | rejected |
-| H2 mean change of ℓ̄_1 | < −0.10 | −0.367 | **−0.177 [−0.260, −0.095]** (p 0.037) | rejected, weakly |
+| H2 mean change of ℓ̄_1 | < −0.10 | −0.366 | **−0.177 [−0.260, −0.095]** (p 0.037) | rejected, weakly |
 | H6 axis 0 carries the drop | > +0.20 | +0.407 | **+0.395 [0.387, 0.403]** | rejected |
 | C1 axis-0 shift under the z-fix (dev SD) | (secondary) | −2.729 | **−2.760 [−2.797, −2.717]** | — |
 
@@ -178,7 +182,7 @@ Plan committed before scoring (`41ca595`); list, job change and analysis script 
 **Working title:** "Auditing a deployed lung-screening AI at the feature level, with rules fixed in advance: a slice-spacing shortcut inside Sybil."
 
 **Main messages (each with its test evidence):**
-1. On its own held-out NLST test split, Sybil did not add information beyond what the trial radiologists recorded (L1 primary; L2 frozen secondary; section 2.1b), also when the radiologists' final call is removed from the comparator (section 3b, exploratory); it does beat the coarse screening call and nodule size, the kind of comparator used in Sybil's own paper. Its dev-tuned thresholds do not transfer (a rule-out cut lost 27% of cancers). *Lesson: a development split used for tuning, and a categorical comparator, both give a misleading picture of an AI's added value.*
+1. On its own held-out NLST test split, Sybil did not add information beyond what the trial radiologists recorded (L1 primary; L2 frozen secondary; section 2.1b), also when the radiologists' final call is removed from the comparator (section 3b, exploratory; work-up bias favours the radiologists' record at 1 year, so the later-cancer endpoints and section 3e carry this message); it does beat the coarse screening call and nodule size, the kind of comparator used in Sybil's own paper. Its dev-tuned thresholds do not transfer (a rule-out cut lost 27% of cancers). *Lesson: a development split used for tuning, and a categorical comparator, both give a misleading picture of an AI's added value.*
 2. A preprocessing step of Sybil (slices placed at the slice thickness, not the true spacing) stretches the chest in about 1 exam in 9; correcting it lowers the score in a large majority of these exams (H1, H2). The alarm changes less than predicted (H3 failed: 4.5%).
 3. The effect is localised: one direction shared by all five ensemble members ("z-geometry axis") carries the whole average change, on new scans (H6), and the same axis carries the score jump in real yearly screening when the reconstruction changes (H7, mostly GE).
 4. The kernel matters little (H4). On dev, the sparse dictionaries gave no valid and useful features (the SAE failed the validity marks; NMF at `pooled` passed them but rebuilt the vector worse than the dev mean; S4 and step R): Sybil's last layers are close to one risk dial plus a few shared technical axes.
