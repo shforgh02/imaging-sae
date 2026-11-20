@@ -1,0 +1,27 @@
+{
+ "lidc_ct_series": 1018,
+ "lidc_patients": 1010,
+ "licence": [
+  "CC BY 3.0"
+ ],
+ "rows": 197,
+ "patients": 197,
+ "ratio_le_0p65": 197,
+ "by_maker": {
+  "GE MEDICAL SYSTEMS": 134,
+  "Philips": 46,
+  "SIEMENS": 17
+ },
+ "thickness_counts": {
+  "0.9": 2,
+  "1.0": 1,
+  "1.25": 129,
+  "1.5": 5,
+  "2.0": 51,
+  "2.5": 6,
+  "3.0": 2,
+  "4.0": 1
+ },
+ "total_gb": 43.24,
+ "manifest_sha256": "3d6d535d19b2a6d663e2a563eb7e6ef76dc7d50dd9a82a94918152b4ddc7f476"
+}

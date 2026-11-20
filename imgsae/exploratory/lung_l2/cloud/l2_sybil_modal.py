@@ -35,12 +35,17 @@ REMOTE = "/root/l2"
 # The image carries gzip copies of the two manifests (17 Nov: the PC's upload link ran at about 28 KB/s and Modal's upload of the 2 MB
 # CSV timed out). Each .gz holds exactly the committed CSV bytes with LF line ends (gzip level 9, mtime 0); the local entrypoint checks
 # this before every launch and refuses otherwise. pandas reads the .gz directly.
-MANIFESTS = ("manifest_dev.csv.gz", "manifest_test.csv.gz")
+MANIFESTS = ("manifest_dev.csv.gz", "manifest_test.csv.gz", "manifest_lidc.csv.gz")
+ROOT_LIST = {"test": ("manifest_test.csv.gz", "T"), "lidc": ("manifest_lidc.csv.gz", "L")}   # X5 (20 Nov): root lidc reads the LIDC-IDRI list
 
 
 def _manifest(root):
-    """root 'test' reads the S6 test list; every other root (dev, l4, rep, xacct) the dev list, as before."""
-    return "manifest_test.csv.gz" if root == "test" else "manifest_dev.csv.gz"
+    """root 'test' reads the S6 test list, root 'lidc' the X5 LIDC-IDRI list; every other root (dev, l4, rep, xacct) the dev list, as before."""
+    return ROOT_LIST.get(root, ("manifest_dev.csv.gz", "D"))[0]
+
+
+def _tier_prefix(root):
+    return ROOT_LIST.get(root, ("manifest_dev.csv.gz", "D"))[1]
 
 
 def _check_gz_manifests():
@@ -63,7 +68,8 @@ image = (modal.Image.debian_slim(python_version="3.10")
          .env({"PYTHONUNBUFFERED": "1"})
          .add_local_file(HERE / "image_measures.py", f"{REMOTE}/image_measures.py")
          .add_local_file(L2 / "results" / MANIFESTS[0], f"{REMOTE}/{MANIFESTS[0]}")
-         .add_local_file(L2 / "results" / MANIFESTS[1], f"{REMOTE}/{MANIFESTS[1]}"))
+         .add_local_file(L2 / "results" / MANIFESTS[1], f"{REMOTE}/{MANIFESTS[1]}")
+         .add_local_file(L2 / "results" / MANIFESTS[2], f"{REMOTE}/{MANIFESTS[2]}"))
 app = modal.App(APP, image=image)
 vol = modal.Volume.from_name(VOL, create_if_missing=True)
 
@@ -238,7 +244,7 @@ def _done(root, row):
 
 def _rows(tier, lo, hi, shard, nshard, root="dev"):
     import pandas as pd
-    if (root == "test") != tier.startswith("T"): raise ValueError(f"tier {tier} does not belong to root {root}")
+    if not tier.startswith(_tier_prefix(root)): raise ValueError(f"tier {tier} does not belong to root {root}")
     m = pd.read_csv(f"{REMOTE}/{_manifest(root)}", dtype={"pid": str})
     m = m[(m.tier == tier) & (m.pos >= lo) & (m.pos < hi)].sort_values("pos").iloc[shard::nshard]
     return m.to_dict("records")
