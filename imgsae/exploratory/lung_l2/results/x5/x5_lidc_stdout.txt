@@ -1,0 +1,1 @@
+{"files": {"main": 197, "zfix": 197, "errors": 0, "errors_not_done": 0}, "G2": true, "n": {"exams": 197, "patients": 197}}

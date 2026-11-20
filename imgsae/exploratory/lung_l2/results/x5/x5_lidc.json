@@ -1,0 +1,159 @@
+{
+ "label": "EXPLORATORY external replication on LIDC-IDRI (plan X5, committed 41ca595); frozen NLST definitions; nothing confirmed",
+ "files": {
+  "main": 197,
+  "zfix": 197,
+  "errors": 0,
+  "errors_not_done": 0
+ },
+ "G2b_G2c": {
+  "n_files": 394,
+  "G2b_fail": 0,
+  "G2c_fail": 0,
+  "max_abs": {
+   "hid": 1.2437665102282836e-06,
+   "logit": 5.766394082229453e-07,
+   "calib": 8.881784197001252e-16
+  },
+  "pass_": true
+ },
+ "geometry": {
+  "n_main": 197,
+  "ratio_le_0p65": 197,
+  "zfix_needed": 197,
+  "zfix_present": 197,
+  "lung_cut_z": 184
+ },
+ "axes_member_agreement_lidc_main": [
+  0.7984,
+  0.9248,
+  0.8942,
+  0.9413,
+  0.8213,
+  0.8807,
+  0.8738,
+  0.8404,
+  0.8762,
+  0.7592,
+  0.7168
+ ],
+ "check_max_abs_lbar1_from_pooled_minus_saved": 1.577162791477349e-07,
+ "replication": {
+  "counts": {
+   "exams": 197,
+   "patients": 197
+  },
+  "hypotheses": [
+   {
+    "id": "H1",
+    "name": "z-fix moves Sybil's score materially",
+    "direction": ">",
+    "null": 0.3,
+    "est": 0.649746192893401,
+    "ci95": [
+     0.583756345177665,
+     0.7157360406091371
+    ],
+    "p_one_sided": 7.721589837153585e-26,
+    "null_rejected_holm_over_3": true
+   },
+   {
+    "id": "H2",
+    "name": "z-fix lowers Sybil's score",
+    "direction": "<",
+    "null": -0.1,
+    "est": -0.176703399686417,
+    "ci95": [
+     -0.2599139124147008,
+     -0.0946521004860475
+    ],
+    "p_one_sided": 0.0365313488636018,
+    "null_rejected_holm_over_3": true
+   },
+   {
+    "id": "H6",
+    "name": "shared axis 0 of `pooled` (z-geometry) carries the z-fix drop of Sybil's score",
+    "direction": ">",
+    "null": 0.2,
+    "est": 0.39542449934029483,
+    "ci95": [
+     0.3869721671901056,
+     0.403308411840305
+    ],
+    "p_one_sided": 0.0,
+    "null_rejected_holm_over_3": true
+   }
+  ],
+  "mean_delta_lbar1_axis0_off": 0.21872110527982888,
+  "mean_delta_lbar1_from_pooled": -0.17670339406046595,
+  "share_exams_h6_above_0p20": 0.9796954314720813
+ },
+ "C1_axis0_shift_dev_sd": {
+  "est": -2.760125502969405,
+  "lo": -2.796531025368938,
+  "hi": -2.7167350690648346,
+  "sd": 0.0209964561581062,
+  "n_draws": 2000,
+  "note": "secondary; NLST dev -2.740, test -2.729"
+ },
+ "flags_tau90_descriptive": {
+  "flagged_main": 64,
+  "flagged_variant": 61,
+  "lost": 11,
+  "gained": 8,
+  "changed": 19,
+  "flagged_in_either": 72,
+  "discordant_share_of_flagged_in_either": 0.2638888888888889
+ },
+ "by_maker": {
+  "GE MEDICAL SYSTEMS": {
+   "n": 134,
+   "mean_d1": -0.28018220423150864,
+   "mean_h6": 0.410341485617818
+  },
+  "Philips": {
+   "n": 46,
+   "mean_d1": -0.005801618706596906,
+   "mean_h6": 0.37427105160983587
+  },
+  "SIEMENS": {
+   "n": 17,
+   "mean_d1": 0.17651294642949808,
+   "mean_h6": 0.33508228959988345
+  }
+ },
+ "by_thickness": {
+  "0.9": {
+   "n": 2,
+   "mean_d1": -0.4762555994093418
+  },
+  "1.0": {
+   "n": 1,
+   "mean_d1": 0.49839825630187984
+  },
+  "1.25": {
+   "n": 129,
+   "mean_d1": -0.29489516916489883
+  },
+  "1.5": {
+   "n": 5,
+   "mean_d1": 0.19202705763280387
+  },
+  "2.0": {
+   "n": 51,
+   "mean_d1": 0.0362479565336424
+  },
+  "2.5": {
+   "n": 6,
+   "mean_d1": 0.04326570630073553
+  },
+  "3.0": {
+   "n": 2,
+   "mean_d1": 0.22792623694986106
+  },
+  "4.0": {
+   "n": 1,
+   "mean_d1": 0.16079224348068255
+  }
+ }
+}

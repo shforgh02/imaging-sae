@@ -1,0 +1,15 @@
+{
+ "rid": "lung_l2_audit-056",
+ "task": "lung_l2_audit",
+ "profile": "forghanishayan",
+ "app": "imgsae-lung-l2",
+ "job": "run_lidc_L1_0_197",
+ "call_ids": [
+  "fc-01M7VW7JHJWAQ30NKB7A7GR2BC"
+ ],
+ "rate_h": 0.9072,
+ "timeout_min": 60,
+ "worst_usd": 1.0525600000000002,
+ "launched": "2026-11-20T07:02:47",
+ "result_name": "run_lidc_L1_0_197__forghanishayan"
+}
