@@ -200,6 +200,58 @@ Plan committed before anything was computed (`413dc07`); scripts and dev check (
 2. **The clearest harm is in the thresholds:** Sybil's dev-chosen cut misses 25 of 86 cancers on test, against 5 for the radiologists and 4 for the form's dev cut (which also raises 148 fewer false alarms per 1,000 than the radiologists).
 3. **The stretch moves Sybil's attention away from the nodule** (replicated on test) and adds about 26 alarms per 1,000 stretched exams at τ90.
 
+## 3f. Plan X8: Sybil against published rules that we did not fit (EXPLORATORY, post hoc; 21 Nov)
+- **Why:** the strongest objection to the form is "you fitted it yourselves on NLST". X8 uses two published rules with **no fitting by us**: **Lung-RADS** (v1.1 rules) and **Brock** (PanCan full model with spiculation), both built from the NLST records. Plan in `docs/EXECUTION_LOG.md` (21 Nov, commit `06a8eef`, before anything was computed); script `x8_fixed_rules.py`; dev check `806188a`; test run once, output committed before reading (`c02538c`): `results/x8/x8_fixed_rules_{dev,test}.json`.
+- **Code check (dev):** our Lung-RADS ≥ 3 calls 14.2% of cancer-free baseline exams positive and 6.0% after baseline; Pinsky et al. 2015 (whole NLST) found 12.8% and 5.3%. Test: 15.7% and 7.3%; sensitivity 78.0% and 80.0% (Pinsky 84.9%, 78.6%).
+- **Limits:** this is Lung-RADS **reconstructed from the NLST forms**, not the radiologists' own Lung-RADS reading. NLST does not record the solid part of part-solid nodules (two assumptions; they change 60 of 6,715 test exams and the AUROC by at most 0.008). Brock without family history (not in the public tables).
+
+**1. AUROC on test (participant bootstrap; Sybil s1 for 1 year, s6 for 6 years):**
+| Endpoint (cancers) | Sybil | Lung-RADS | Lung-RADS + size | Brock | Size alone | Form (C1) | Findings only (C2) |
+|---|---|---|---|---|---|---|---|
+| E1 1 year, all screens (86) | 0.914 | 0.880 | 0.905 | 0.906 | 0.900 | **0.947** | 0.938 |
+| E2 1 year, baseline (41) | 0.927 | 0.870 | 0.900 | 0.915 | 0.908 | 0.927 | 0.925 |
+| E4 6 years, baseline (131) | 0.724 | 0.638 | 0.650 | 0.658 | 0.653 | 0.742 | 0.747 |
+| W2 E4 without cancers after a positive screen (50) | 0.573 | 0.521 | 0.521 | 0.513 | 0.511 | 0.620 | 0.621 |
+
+| Sybil minus … | Lung-RADS | Brock | Form (C1) |
+|---|---|---|---|
+| E1 | +0.034 [−0.012, +0.081] | +0.008 [−0.031, +0.047] | −0.033 [−0.067, −0.003] |
+| E2 | +0.057 [−0.009, +0.125] | +0.011 [−0.047, +0.074] | −0.000 [−0.055, +0.053] |
+| E4 | **+0.086 [+0.040, +0.137]** | **+0.066 [+0.020, +0.113]** | −0.019 [−0.061, +0.028] |
+| W2 | +0.052 [−0.036, +0.143] | +0.060 [−0.022, +0.145] | −0.047 [−0.131, +0.036] |
+
+E6 (exams called negative): 5 cancers, no claim.
+
+**2. Does Sybil add to the rule? (combination fitted on dev, applied to test; X1 M2):**
+| | Rule alone | Rule + Sybil | Gain |
+|---|---|---|---|
+| E1, Lung-RADS (categories) | 0.868 | 0.929 | **+0.061 [+0.019, +0.104]** |
+| E1, Brock | 0.906 | 0.923 | +0.017 [−0.018, +0.052] |
+| E4, Lung-RADS | 0.644 | 0.720 | **+0.076 [+0.032, +0.119]** |
+| E4, Brock | 0.658 | 0.725 | **+0.067 [+0.015, +0.118]** |
+
+- Sybil's coefficient given the rule (E1): 0.57 [0.40, 0.78] (Lung-RADS), 0.78 [0.63, 0.95] (Brock).
+- The cross-fitted gains in the file (+0.09 to +0.14) are inflated: refitting the rule fold by fold lowers the rule's own AUROC (Lung-RADS 0.868 → 0.81; Brock 0.906 → 0.83; checked after the run, no new analysis), so the dev-fitted gain above is the fair number.
+- For comparison: the form alone (0.947) is above Lung-RADS + Sybil (0.929).
+
+**3. Harm at cuts fixed on dev (E1; 86 cancers, 6,588 cancer-free exams):**
+| Rule on test | Cancers caught | False alarms per 1,000 exams |
+|---|---|---|
+| Radiologists' NLST call | 81 (94.2%) | 364 |
+| Lung-RADS ≥ 3 (no cut to choose) | 68 (79.1%) | 100 |
+| Lung-RADS ≥ 4A | 67 (77.9%) | 64 |
+| Sybil, cut set on dev to Lung-RADS ≥ 3's **dev sensitivity** (76.1%) | **47 (54.7%)** | 28 |
+| Sybil, cut set on dev to Lung-RADS ≥ 3's **dev false-alarm rate** | 69 (80.2%) | 91 |
+
+- At the same false-alarm level as Lung-RADS, Sybil catches about the same cancers: +1.2 points [−8.4, +10.3], −9.4 false alarms per 1,000 [−20.2, +0.9]. On dev the same cut caught 92% (81 of 88): dev flatters Sybil again.
+- Lung-RADS itself transfers (76.1% on dev, 79.1% on test); Sybil's sensitivity-matched cut does not (77.3% on dev, 54.7% on test).
+
+**What X8 shows (exploratory):**
+1. **Against published rules that nobody fitted on NLST, Sybil is not worse.** At 1 year it is about equal to Brock and to Lung-RADS with size, and slightly above plain Lung-RADS (interval includes 0). At 6 years it is clearly better than both (+0.07 to +0.09).
+2. **Sybil adds to Lung-RADS** (+0.06 at 1 year, +0.08 at 6 years). So the form message must be stated precisely: Sybil adds nothing beyond **the radiologists' full record combined by a model fitted on the same trial**; it does add beyond the **coarse clinical rule**.
+3. **The form's edge comes from combining the full record** (call, comparison with prior scans, other findings), not from any single standard rule. Whether such a fitted model transfers to other hospitals is not known; only an outside dataset can answer this.
+4. **The threshold harm replicates:** Sybil's cut chosen on dev misses 21 more cancers on test than Lung-RADS (47 vs 68), while Lung-RADS needs no cut and holds its sensitivity.
+
 ## 4. What the results allow us to say, and what not (run rule 4)
 **Can say (test, frozen, Holm):**
 - Sybil's output depends on its slice-spacing step: in about 1 test exam in 9 the chest is stretched along z (759 of 6,715); giving Sybil the true spacing lowers its 1-year logit by 0.37 on average and moves 66% of these exams by at least a quarter SD (H1, H2).
@@ -225,7 +277,7 @@ Plan committed before anything was computed (`413dc07`); scripts and dev check (
 **Working title:** "Auditing a deployed lung-screening AI at the feature level, with rules fixed in advance: a slice-spacing shortcut inside Sybil."
 
 **Main messages (each with its test evidence):**
-1. On its own held-out NLST test split, Sybil did not add information beyond what the trial radiologists recorded (L1 primary; L2 frozen secondary; section 2.1b), also when the radiologists' final call is removed from the comparator (section 3b, exploratory; work-up bias favours the radiologists' record at 1 year, so the later-cancer endpoints and section 3e carry this message); it does beat the coarse screening call and nodule size, the kind of comparator used in Sybil's own paper. Its dev-tuned thresholds do not transfer (a rule-out cut lost 27% of cancers). *Lesson: a development split used for tuning, and a categorical comparator, both give a misleading picture of an AI's added value.*
+1. On its own held-out NLST test split, Sybil did not add information beyond what the trial radiologists recorded (L1 primary; L2 frozen secondary; section 2.1b), also when the radiologists' final call is removed from the comparator (section 3b, exploratory; work-up bias favours the radiologists' record at 1 year, so the later-cancer endpoints and section 3e carry this message); it does beat the coarse screening call and nodule size, the kind of comparator used in Sybil's own paper (**Correction, 21 Nov:** against nodule size only at 6 years, +0.071 [+0.026, +0.118]; at 1 year +0.014 [−0.023, +0.053], interval includes 0; section 3f). Its dev-tuned thresholds do not transfer (a rule-out cut lost 27% of cancers). **Scope (X8, 21 Nov, exploratory; section 3f):** against published rules that we did not fit (Lung-RADS, Brock, built from the NLST records), Sybil is about equal at 1 year and better at 6 years, and it adds to Lung-RADS; so "no added value" holds against the full record combined by a model fitted on NLST, not against the coarse clinical rule. *Lesson: a development split used for tuning, and a categorical comparator, both give a misleading picture of an AI's added value.*
 2. A preprocessing step of Sybil (slices placed at the slice thickness, not the true spacing) stretches the chest in about 1 exam in 9; correcting it lowers the score in a large majority of these exams (H1, H2). The alarm changes less than predicted (H3 failed: 4.5%).
 3. The effect is localised: one direction shared by all five ensemble members ("z-geometry axis") carries the whole average change, on new scans (H6), and the same axis carries the score jump in real yearly screening when the reconstruction changes (H7, mostly GE).
 4. The kernel matters little (H4). On dev, the sparse dictionaries gave no valid and useful features (the SAE failed the validity marks; NMF at `pooled` passed them but rebuilt the vector worse than the dev mean; S4 and step R): Sybil's last layers are close to one risk dial plus a few shared technical axes.
