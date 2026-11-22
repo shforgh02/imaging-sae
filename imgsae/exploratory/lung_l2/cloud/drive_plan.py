@@ -41,7 +41,7 @@ try:
     # Modal bills a restarted (preempted) attempt too; write the billed cost into the ledger once the last hour is complete
     if not a.no_reconcile:
         DR.time.sleep(70 * 60)
-        p = DR.subprocess.run([DR.PY, str(Path(__file__).resolve().parent / "reconcile_billing.py"), "--profile", a.profile], cwd=DR.ROOT,
+        p = DR.subprocess.run([DR.PY, str(Path(__file__).resolve().parent / "reconcile_billing.py"), "--profile", a.profile, "--task", DR.task_of(a.root)], cwd=DR.ROOT,
                               env=DR.env_for(a.profile), capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=900)
         end.log("reconcile_billing %s: exit %d %s" % (a.profile, p.returncode, (p.stdout or p.stderr or "").strip()[-300:]))
 finally:

@@ -31,30 +31,56 @@ N_RANDOM, SEED_RANDOM = 800, 1
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("manifest"); ap.add_argument("out"); ap.add_argument("--copies", required=True); ap.add_argument("--root", default="unseen")
     ap.add_argument("--dry-dev", action="store_true"); ap.add_argument("--tables", default=r"D:\Shayan\imgsae_data\nlst_public\tables")
-    ap.add_argument("--split", default=r"D:\Shayan\imgsae_data\nlst_public\Shetty_et_al(Google)_data_splits.p"); a = ap.parse_args()
+    ap.add_argument("--split", default=r"D:\Shayan\imgsae_data\nlst_public\Shetty_et_al(Google)_data_splits.p")
+    ap.add_argument("--meta", default=r"D:\Shayan\imgsae_data\idc_index_25.0.5\nlst_series_meta.csv")
+    ap.add_argument("--run-info", default=r"D:\Shayan\imgsae_data\lung_l2_vol\l2\run_info"); a = ap.parse_args()
     M = pd.read_csv(a.manifest, dtype={"pid": str}, low_memory=False); M = M[M.variant == "main"]
     if a.dry_dev:
         M = M[M.tier.isin(["D1", "D2", "D3"])]; rnd = set(M.sample(n=N_RANDOM, random_state=SEED_RANDOM).series_uid)
     else:
-        info = json.loads((HERE / "results/o2_manifest.json").read_text()); rnd = None   # the random sample is rebuilt below and checked against its hash
-    rec = {}
+        # amendment A1 (22 Nov; review R2): O2c only after the O2a + O2b output is committed
+        import subprocess
+        o2a = HERE / "results" / "o2" / "o2_analysis_unseen.json"; rel = "results/o2/o2_analysis_unseen.json"
+        ok = o2a.exists() and subprocess.run(["git", "ls-files", "--error-unmatch", rel], capture_output=True, cwd=HERE).returncode == 0 \
+            and subprocess.run(["git", "diff", "--quiet", "HEAD", "--", rel], capture_output=True, cwd=HERE).returncode == 0
+        if not ok: raise SystemExit("REFUSED: commit results/o2/o2_analysis_unseen.json (O2a + O2b) before O2c")
+        if "STOPPED" in json.loads(o2a.read_text()): raise SystemExit("REFUSED: the O2a + O2b run stopped; O2c does not run")
+        rnd = None   # the random sample is rebuilt below and checked against the frozen hash
+    rec, npz_of = {}, {}
     for c in a.copies.split(","):
-        for j in glob.glob(str(Path(c) / a.root / "main" / "*.json")):
+        for j in sorted(glob.glob(str(Path(c) / a.root / "main" / "*.json"))):
             u = Path(j).stem
-            if u not in rec: rec[u] = json.load(open(j))
+            if u not in rec and Path(j[:-5] + ".npz").exists(): rec[u] = json.load(open(j)); npz_of[u] = j[:-5] + ".npz"
+    # amendment A1: frozen inputs hash-checked (results/s5, heads, calibrator by s6_frozen_analysis.load_frozen; form parameters, LF content)
+    import hashlib
+    import s6_frozen_analysis as FA
+    FA.load_frozen(HERE / "results" / "s5", Path(a.run_info))
+    if hashlib.sha256((HERE / "results/l2_form_params.json").read_bytes().replace(b"\r\n", b"\n")).hexdigest() != "02ec7c2dda14450ce06a9bc3b127d572ed9c8d6472cf37d550b68ec6283f8034":
+        raise SystemExit("REFUSED: results/l2_form_params.json does not match the frozen hash")
     b = L.build(a.tables, a.split); CM = X1.comparators(b); X = b["X"].copy(); X["pid"] = X.pid.astype(str)
     P = json.loads((HERE / "results/l2_form_params.json").read_text()); X["F1"] = l2_form.predict_logit(P["F1"], X); X["F6"] = l2_form.predict_logit(P["F6"], X)
     X = X1.scores(X, CM)
     E = pd.DataFrame([dict(series_uid=u, pid=str(r["pid"]), study_yr=int(r["study_yr"]), s1=r["calib"][0], s6=r["calib"][5]) for u, r in rec.items() if u in set(M.series_uid)])
     E = E.merge(X[["pid", "study_yr", "y1", "y6", "F1", "F6", "C2_1", "C2_6"]], on=["pid", "study_yr"], how="left")
-    if rnd is None:   # the same draw as the list (o2_manifest.py: seed 1 over the whole selection), checked against the committed hash
+    if rnd is None:   # the same draw as the list (o2_manifest.py: seed 1 over the whole selection), checked against the FROZEN hash (review R5b)
         import hashlib
-        from o2_manifest import N_RANDOM as NR, selection
-        _, sel = selection(r"D:\Shayan\imgsae_data\idc_index_25.0.5\nlst_series_meta.csv", a.split); rnd = set(sel.sample(n=NR, random_state=1).SeriesInstanceUID)
-        if hashlib.sha256("\n".join(sorted(rnd)).encode()).hexdigest() != info["random_sample_for_U3"]["sha256_of_uids"]: raise SystemExit("REFUSED: random sample differs from the list")
+        from o2_manifest import FROZEN_RANDOM_SHA256, N_RANDOM as NR, selection
+        _, sel = selection(a.meta, a.split); rnd = set(sel.sample(n=NR, random_state=1).SeriesInstanceUID)
+        if hashlib.sha256("\n".join(sorted(rnd)).encode()).hexdigest() != FROZEN_RANDOM_SHA256: raise SystemExit("REFUSED: random sample differs from the frozen sample")
     E["random"] = E.series_uid.isin(rnd)
-    res = dict(label=("DRY CHECK on dev (code check before the O2 freeze; not a result)" if a.dry_dev else "O2c form check (descriptive secondary; plan docs/O2_PLAN.md)"),
-               scored_exams=int(len(E)), random_sample_scored=int(E.random.sum()), random_sample_size=len(rnd))
+    # amendment A1: integrity (G2b / G2c, as o2_analysis.py) on every file used; at least 95% of the random sample must be scored
+    import s2_pilot_checks as P2
+    RI = Path(a.run_info); hchk = P2.load_heads(RI / "heads.npz"); cal = json.load(open(RI / "sybil_ensemble_simple_calibrator.json")); nb = nc = 0
+    for u in E.series_uid:
+        z = np.load(npz_of[u])
+        if not all(np.all(np.isfinite(z[k].astype(np.float64))) for k in ("logit", "pooled", "h", "pre") if k in z.files) or not np.all(np.isfinite(np.array(rec[u]["calib"], float))):
+            raise SystemExit(f"REFUSED: non-finite array in {u}")
+        x1, x2, x3, _ = P2.recompute(z, hchk); mp = (1 / (1 + np.exp(-z["logit"].astype(np.float64)))).mean(0)
+        nb += not (x1 == 0.0 and x2 <= 1e-3 and x3 <= 1e-4); nc += not float(np.abs(np.array(P2.calibrate(cal, mp)) - np.array(rec[u]["calib"])).max()) <= 1e-4
+    if nb or nc: raise SystemExit(f"REFUSED: G2b/G2c failed on {nb}/{nc} files")
+    if not a.dry_dev and int(E.random.sum()) < 0.95 * len(rnd): raise SystemExit(f"REFUSED: only {int(E.random.sum())} of {len(rnd)} random-sample exams scored")
+    res = dict(label=("DRY CHECK on dev (code check of amendment A1; not a result)" if a.dry_dev else "O2c form check (descriptive secondary; plan docs/O2_PLAN.md)"),
+               scored_exams=int(len(E)), random_sample_scored=int(E.random.sum()), random_sample_size=len(rnd), G2b_G2c=dict(n_files=int(len(E)), G2b_fail=nb, G2c_fail=nc))
     for ep, y, s, c1, c2, base in (("E1_1year_all_screens", "y1", "s1", "F1", "C2_1", False), ("E4_6years_baseline", "y6", "s6", "F6", "C2_6", True)):
         Q = E[E[y].notna() & ((E.study_yr == 0) if base else True)]
         Q = Q[(Q[y] == 1) | (Q.random & (Q[y] == 0))].reset_index(drop=True); yy = Q[y].to_numpy(int); n_c = int(yy.sum())

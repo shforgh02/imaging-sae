@@ -30,6 +30,9 @@ import series_rule as R  # noqa: E402
 COLS = ["series_uid", "pid", "study_yr", "tier", "variant", "order", "pos", "pilot", "partner_of", "Manufacturer", "ManufacturerModelName",
         "ConvolutionKernel", "kclass", "thick", "spacing_idc", "ratio_idc", "n_images", "size_mb", "url", "StudyInstanceUID"]
 U1_MAX, N_RANDOM = 0.70, 800
+HERE_RESULTS = HERE / "results"
+FROZEN_U12_SHA256 = "fb62526557c132d3faf92eded8ae24c090f1fb2e1152d081edce501d15abf16a"     # results/manifest_unseen.csv at the freeze f39e1bb
+FROZEN_RANDOM_SHA256 = "dbb8ee4651ae032af900b77ec0d966b02ceb5ae5e3057b10e4c1947d22a44e34"  # sorted UIDs of the 800-exam random sample
 
 
 def selection(meta, split_p):
@@ -84,9 +87,19 @@ def main():
                                        basis="cost per GB of S6 and X5 (x6 estimate: z-fix part $16-18 for 492 GB, pairs $2-3 for 86 GB); measured, billing about 5-10% more"),
                 not_selected_exams=int(len(rest)))
     if a.add_u3:
+        # amendment A1 (22 Nov; reviews R2, R5a): U3 only after the outcome-free O2a + O2b output is committed, and U1 + U2 must stay byte-identical
+        import subprocess
+        o2a = HERE_RESULTS / "o2" / "o2_analysis_unseen.json"
+        rel = "o2/o2_analysis_unseen.json"
+        tracked = subprocess.run(["git", "ls-files", "--error-unmatch", rel], capture_output=True, cwd=HERE_RESULTS).returncode == 0
+        clean = subprocess.run(["git", "diff", "--quiet", "HEAD", "--", rel], capture_output=True, cwd=HERE_RESULTS).returncode == 0
+        if not (o2a.exists() and tracked and clean): raise SystemExit("REFUSED: commit results/o2/o2_analysis_unseen.json (O2a + O2b) before --add-u3")
+        if "STOPPED" in json.loads(o2a.read_text()): raise SystemExit("REFUSED: the O2a + O2b run stopped; U3 is not added")
+        u12 = M.to_csv(index=False, lineterminator="\n").encode("utf-8")
+        if hashlib.sha256(u12).hexdigest() != FROZEN_U12_SHA256: raise SystemExit("REFUSED: the rebuilt U1 + U2 rows differ from the frozen list")
         # the only outcome read for the lists: which unseen participants have a lung cancer diagnosis (NLST prsn candx_days)
         P = pd.read_csv(next(Path(a.add_u3).glob("*prsn*.csv")), usecols=["pid", "candx_days"], dtype={"pid": str})
-        ca = set(P.loc[P.candx_days.notna(), "pid"]) & set(sel.PatientID)
+        ca = set(P.loc[pd.to_numeric(P.candx_days, errors="coerce").notna(), "pid"]) & set(sel.PatientID)
         u3 = sel[(sel.PatientID.isin(ca) | sel.SeriesInstanceUID.isin(rnd)) & ~sel.SeriesInstanceUID.isin(M.series_uid)]
         M = pd.concat([M, rows(u3, "U3")], ignore_index=True)
         info["U3"] = dict(rows=int(len(u3)), participants_with_cancer=len(ca), exams_of_cancer_participants=int(sel.PatientID.isin(ca).sum()),

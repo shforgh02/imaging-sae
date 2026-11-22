@@ -1,0 +1,87 @@
+{
+ "label": "DRY CHECK on dev (code check of amendment A1; not a result)",
+ "scored_exams": 7336,
+ "random_sample_scored": 800,
+ "random_sample_size": 800,
+ "G2b_G2c": {
+  "n_files": 7336,
+  "G2b_fail": 0,
+  "G2c_fail": 0
+ },
+ "E1_1year_all_screens": {
+  "counts": {
+   "exams": 876,
+   "participants": 793,
+   "cancers": 88,
+   "controls": 788
+  },
+  "auroc_sybil": {
+   "est": 0.9676323834794648,
+   "lo": 0.9471707663645379,
+   "hi": 0.9845887302055217,
+   "n_draws": 2000
+  },
+  "auroc_form_C1": {
+   "est": 0.9313855560682972,
+   "lo": 0.8951514044783588,
+   "hi": 0.9624206360475903,
+   "n_draws": 2000
+  },
+  "auroc_findings_C2": {
+   "est": 0.9258767881864329,
+   "lo": 0.8860749099440972,
+   "hi": 0.9590062829162649,
+   "n_draws": 2000
+  },
+  "sybil_minus_form": {
+   "est": 0.03624682741116758,
+   "lo": 0.011148944409635214,
+   "hi": 0.06530548366483924,
+   "n_draws": 2000
+  },
+  "sybil_minus_findings": {
+   "est": 0.041755595293031855,
+   "lo": 0.013913866396003182,
+   "hi": 0.07649139556102887,
+   "n_draws": 2000
+  }
+ },
+ "E4_6years_baseline": {
+  "counts": {
+   "exams": 345,
+   "participants": 345,
+   "cancers": 135,
+   "controls": 210
+  },
+  "auroc_sybil": {
+   "est": 0.8433156966490299,
+   "lo": 0.799970368971112,
+   "hi": 0.8838151961924456,
+   "n_draws": 2000
+  },
+  "auroc_form_C1": {
+   "est": 0.7770194003527336,
+   "lo": 0.7272577572984037,
+   "hi": 0.8275869819248401,
+   "n_draws": 2000
+  },
+  "auroc_findings_C2": {
+   "est": 0.7687830687830689,
+   "lo": 0.7173064755483974,
+   "hi": 0.8204272390065585,
+   "n_draws": 2000
+  },
+  "sybil_minus_form": {
+   "est": 0.0662962962962963,
+   "lo": 0.011064827912194373,
+   "hi": 0.11854631077897507,
+   "n_draws": 2000
+  },
+  "sybil_minus_findings": {
+   "est": 0.07453262786596104,
+   "lo": 0.019663804855696763,
+   "hi": 0.12728579338043183,
+   "n_draws": 2000
+  }
+ }
+}

@@ -1,4 +1,4 @@
-"""Write Modal's billed cost into the ledger (field billed_usd) for lung_l2_audit runs of ONE account, so the guard's task and project
+"""Write Modal's billed cost into the ledger (field billed_usd) for the runs of ONE task (default lung_l2_audit; O2: --task o2_unseen) of ONE account, so the guard's task and project
 checks use real cost.
 Why: Modal may preempt a GPU container and restart the input; the restarted attempt's container minutes are all the job reports, so the
 measured cost undercounts (seen on 2026-11-15, run 037). Modal's hourly billing report (per app) of that account is the source of truth.
@@ -7,7 +7,8 @@ those hours) is split over its runs in proportion to their measured cost. Only f
 hour after the last run closed. Hours: ledger times and the report's interval_start are both UTC (see budget.py).
 Accounts (amendment A4): --profile is required; the report is read with the CLI's own --profile option (and MODAL_PROFILE for that
 subprocess); only that account's runs are touched. Never `modal profile activate`. Do not run while a driver is running.
-usage (miniconda python): python reconcile_billing.py --profile armanfo [--dry]
+O2 amendment (22 Nov, review N1): --task added; the default is unchanged.
+usage (miniconda python): python reconcile_billing.py --profile armanfo [--task o2_unseen] [--dry]
 """
 import argparse
 import json
@@ -40,10 +41,10 @@ def billing(day0, day1, profile):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--profile", required=True); ap.add_argument("--dry", action="store_true"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--profile", required=True); ap.add_argument("--task", default=TASK); ap.add_argument("--dry", action="store_true"); a = ap.parse_args()
     L = B.load(); B.need_profile(L, a.profile)
-    runs = [r for r in L["runs"] if r["task"] == TASK and r.get("closed") and B.run_profile(r) == a.profile]
-    if not runs: print(json.dumps(dict(profile=a.profile, runs=[], note="no closed run on this account"))); return
+    runs = [r for r in L["runs"] if r["task"] == a.task and r.get("closed") and B.run_profile(r) == a.profile]
+    if not runs: print(json.dumps(dict(profile=a.profile, task=a.task, runs=[], note="no closed run of this task on this account"))); return
     for r in runs: r["_h"] = hours(datetime.fromisoformat(r["opened"]), datetime.fromisoformat(r["closed"]))
     d0 = min(datetime.fromisoformat(r["opened"]) for r in runs).strftime("%Y-%m-%d")
     d1 = (max(datetime.fromisoformat(r["closed"]) for r in runs) + timedelta(days=1)).strftime("%Y-%m-%d")
