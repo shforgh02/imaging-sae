@@ -1,0 +1,10 @@
+# One-page brief for ethics, data-protection and IT offices
+
+- **Design:** retrospective, secondary analysis of existing screening CT records and outcomes, run entirely inside the partner institution ("code to data"). The coordinating team never receives patient-level data.
+- **What leaves the site:** only `TO_RETURN/aggregate_report.json` (and its human-readable copy `SUMMARY_FOR_REVIEW.txt`), after the site's own review. It contains aggregate statistics only (counts, rates, AUROCs, intervals). It contains no patient-level value, identifier, accession number, date, free text (no series or study descriptions), file path or error message. `OUTPUT_SCHEMA.md` lists every field.
+- **Small cells:** counts from 1 to `--min-cell − 1` (default 10; set it to your local rule, for example 5 or 11) are shown as `<N`; rates from which a small count could be worked back are withheld (secondary suppression); subgroups with fewer cancers or controls than `--min-cell` are not analysed. The number of suppressed cells is reported.
+- **Software:** a single Python file using `numpy` and `pandas` (`pydicom` only for the header-only geometry audit). No network access, no downloads, no executable from outside the kit, no pickle files. Inputs are opened read-only; outputs are written only under `--out`. The source code is short and readable.
+- **Licence and status:** research use only; not a medical device; no clinical decision is made with it. Kit licence: see `LICENSE`. Sybil is not included in v1.0 (see `NOTICE.md`).
+- **Site anonymity:** the site can label itself "A", "B", … (`--site-label`); no institution name is needed in the file.
+- **Authorship and publication:** sites that contribute become co-authors under ICMJE criteria; results are published whatever their direction; the analysis plan is fixed before any site's file is opened.
+- **Phase 2 (optional, later, v1.1):** an offline runner of Sybil with the true slice spacing on overlapping series only, returning the same kind of aggregate numbers (score change, alarm changes). It will be described in an update of this brief before it is used, so one approval can cover both phases if your office allows.

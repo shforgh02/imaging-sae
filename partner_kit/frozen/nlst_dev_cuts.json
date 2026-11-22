@@ -1,0 +1,92 @@
+{
+ "E1_1year_all_screens": [
+  {
+   "label": "sybil_at_nlst_dev_OP_L3",
+   "score": "sybil_prob",
+   "threshold": 0.017993675365094892,
+   "rule": ">",
+   "source": "X9 dev, E1 sybil@OP_L3 (Lung-RADS>=3 false-alarm level); transportability without local recalibration"
+  },
+  {
+   "label": "P_at_nlst_dev_OP_L3",
+   "score": "P",
+   "threshold": -3.6910168192885826,
+   "rule": ">=",
+   "source": "X10 dev, E1_1_year_all_screens P@OP_L3 (Lung-RADS>=3 false-alarm level); transportability without local recalibration"
+  },
+  {
+   "label": "sybil_at_nlst_dev_OP_R",
+   "score": "sybil_prob",
+   "threshold": 0.003950885877035175,
+   "rule": ">=",
+   "source": "X9 dev, E1 sybil@OP_R (radiologists' false-alarm level); transportability without local recalibration"
+  },
+  {
+   "label": "P_at_nlst_dev_OP_R",
+   "score": "P",
+   "threshold": -5.382386896017623,
+   "rule": ">",
+   "source": "X10 dev, E1_1_year_all_screens P@OP_R (radiologists' false-alarm level); transportability without local recalibration"
+  }
+ ],
+ "E2_1year_baseline": [
+  {
+   "label": "sybil_at_nlst_dev_OP_L3",
+   "score": "sybil_prob",
+   "threshold": 0.010938370464701579,
+   "rule": ">",
+   "source": "X9 dev, E2 sybil@OP_L3 (Lung-RADS>=3 false-alarm level); transportability without local recalibration"
+  },
+  {
+   "label": "P_at_nlst_dev_OP_L3",
+   "score": "P",
+   "threshold": -3.789038074773997,
+   "rule": ">=",
+   "source": "X10 dev, E2_1_year_baseline P@OP_L3 (Lung-RADS>=3 false-alarm level); transportability without local recalibration"
+  },
+  {
+   "label": "sybil_at_nlst_dev_OP_R",
+   "score": "sybil_prob",
+   "threshold": 0.0019649702414815395,
+   "rule": ">",
+   "source": "X9 dev, E2 sybil@OP_R (radiologists' false-alarm level); transportability without local recalibration"
+  },
+  {
+   "label": "P_at_nlst_dev_OP_R",
+   "score": "P",
+   "threshold": -5.685523683252751,
+   "rule": ">=",
+   "source": "X10 dev, E2_1_year_baseline P@OP_R (radiologists' false-alarm level); transportability without local recalibration"
+  }
+ ],
+ "E4_6years_baseline": [
+  {
+   "label": "sybil_at_nlst_dev_OP_L3",
+   "score": "sybil_prob",
+   "threshold": 0.10530059801246243,
+   "rule": ">=",
+   "source": "X9 dev, E4 sybil@OP_L3 (Lung-RADS>=3 false-alarm level); transportability without local recalibration"
+  },
+  {
+   "label": "P_at_nlst_dev_OP_L3",
+   "score": "P",
+   "threshold": -2.1899540960351263,
+   "rule": ">=",
+   "source": "X10 dev, E4_6_years_baseline P@OP_L3 (Lung-RADS>=3 false-alarm level); transportability without local recalibration"
+  },
+  {
+   "label": "sybil_at_nlst_dev_OP_R",
+   "score": "sybil_prob",
+   "threshold": 0.03595085191094143,
+   "rule": ">",
+   "source": "X9 dev, E4 sybil@OP_R (radiologists' false-alarm level); transportability without local recalibration"
+  },
+  {
+   "label": "P_at_nlst_dev_OP_R",
+   "score": "P",
+   "threshold": -2.8188276093964575,
+   "rule": ">=",
+   "source": "X10 dev, E4_6_years_baseline P@OP_R (radiologists' false-alarm level); transportability without local recalibration"
+  }
+ ]
+}
