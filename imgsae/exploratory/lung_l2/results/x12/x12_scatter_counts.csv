@@ -1,70 +1,58 @@
 Manufacturer,modern_model,SliceThickness,slice_spacing_mm,series
-ADAC,False,3.0,3.0,820
-"CMS, Inc.",False,3.0,3.0,92
 Canon Medical Systems,True,1.0,1.0,2
 Canon Medical Systems,True,2.0,2.0,2
 Canon Medical Systems,True,3.0,3.0,2
 GE MEDICAL SYSTEMS,False,0.625,0.5,1
-GE MEDICAL SYSTEMS,False,0.625,0.625,117
+GE MEDICAL SYSTEMS,False,0.625,0.625,89
 GE MEDICAL SYSTEMS,False,1.25,0.6,4
-GE MEDICAL SYSTEMS,False,1.25,0.625,252
-GE MEDICAL SYSTEMS,False,1.25,0.725,169
-GE MEDICAL SYSTEMS,False,1.25,0.8,9
-GE MEDICAL SYSTEMS,False,1.25,1.0,592
-GE MEDICAL SYSTEMS,False,1.25,1.25,6404
+GE MEDICAL SYSTEMS,False,1.25,0.625,258
+GE MEDICAL SYSTEMS,False,1.25,0.725,166
+GE MEDICAL SYSTEMS,False,1.25,0.8,5
+GE MEDICAL SYSTEMS,False,1.25,1.0,576
+GE MEDICAL SYSTEMS,False,1.25,1.25,6219
 GE MEDICAL SYSTEMS,False,1.25,2.0,39
-GE MEDICAL SYSTEMS,False,1.25,2.5,7
+GE MEDICAL SYSTEMS,False,1.25,2.5,3
 GE MEDICAL SYSTEMS,False,1.25,3.0,2
 GE MEDICAL SYSTEMS,False,1.25,5.0,1
-GE MEDICAL SYSTEMS,False,1.25,10.0,1140
-GE MEDICAL SYSTEMS,False,2.5,1.0,44
-GE MEDICAL SYSTEMS,False,2.5,1.25,5955
-GE MEDICAL SYSTEMS,False,2.5,1.5,15
-GE MEDICAL SYSTEMS,False,2.5,2.0,20113
-GE MEDICAL SYSTEMS,False,2.5,2.5,28002
-GE MEDICAL SYSTEMS,False,2.5,3.27,10
-GE MEDICAL SYSTEMS,False,2.5,5.0,3
-GE MEDICAL SYSTEMS,False,2.5,10.0,7
-GE MEDICAL SYSTEMS,True,0.625,0.625,54
-GE MEDICAL SYSTEMS,True,1.25,0.625,1
-GE MEDICAL SYSTEMS,True,1.25,1.0,6
-GE MEDICAL SYSTEMS,True,1.25,1.25,78
+GE MEDICAL SYSTEMS,False,1.25,10.0,898
+GE MEDICAL SYSTEMS,False,2.5,1.0,39
+GE MEDICAL SYSTEMS,False,2.5,1.25,5896
+GE MEDICAL SYSTEMS,False,2.5,1.5,13
+GE MEDICAL SYSTEMS,False,2.5,2.0,19878
+GE MEDICAL SYSTEMS,False,2.5,2.5,27537
+GE MEDICAL SYSTEMS,False,2.5,3.27,4
+GE MEDICAL SYSTEMS,False,2.5,10.0,2
+GE MEDICAL SYSTEMS,True,0.625,0.625,41
+GE MEDICAL SYSTEMS,True,1.25,1.0,4
+GE MEDICAL SYSTEMS,True,1.25,1.25,29
 GE MEDICAL SYSTEMS,True,1.25,2.5,1
 GE MEDICAL SYSTEMS,True,2.5,1.25,1
-GE MEDICAL SYSTEMS,True,2.5,2.5,115
+GE MEDICAL SYSTEMS,True,2.5,2.5,63
 Hitachi Medical Corporation,False,1.25,1.125,2
 Hitachi Medical Corporation,False,1.25,1.25,8
-MGH 3D RAD CAD X Lab,False,2.5,2.5,1
 NMS,False,1.25,1.25,1
-NMS,False,3.0,3.0,4
+NMS,False,3.0,3.0,1
 Philips,False,0.9,0.45,2
 Philips,False,1.0,0.5,16
-Philips,False,1.0,0.8,9
-Philips,False,1.0,1.0,128
+Philips,False,1.0,0.8,11
+Philips,False,1.0,1.0,142
 Philips,False,1.0,2.0,23
 Philips,False,1.0,3.0,7
-Philips,False,1.3,1.3,1133
+Philips,False,1.3,1.3,1132
 Philips,False,1.5,0.75,5
-Philips,False,1.5,1.5,1
-Philips,False,1.501,1.5,2
-Philips,False,2.0,1.0,80
-Philips,False,2.0,1.6,10
-Philips,False,2.0,1.8,593
-Philips,False,2.0,2.0,64
-Philips,False,2.5,1.0,5
-Philips,False,2.5,2.5,30
+Philips,False,1.5,1.5,6
+Philips,False,2.0,1.0,59
+Philips,False,2.0,1.6,9
+Philips,False,2.0,1.8,591
+Philips,False,2.0,2.0,67
+Philips,False,2.5,2.5,33
 Philips,False,3.0,1.5,9
 Philips,False,3.0,2.0,2
-Philips,False,3.0,3.0,168
+Philips,False,3.0,3.0,172
 Philips,True,1.0,0.75,16
-Philips,True,1.5,1.5,2
-Philips,True,2.5,2.5,5
-Philips,True,3.0,3.0,37
-Riverain Technologies,False,0.625,0.625,27
-Riverain Technologies,False,1.0,1.0,1
-Riverain Technologies,False,1.25,1.0,3
-Riverain Technologies,False,1.25,1.25,7
-Riverain Technologies,False,2.5,2.5,7
+Philips,True,1.5,1.5,4
+Philips,True,2.5,2.5,7
+Philips,True,3.0,3.0,27
 SIEMENS,False,0.6,0.4,8
 SIEMENS,False,0.6,0.5,38
 SIEMENS,False,0.75,0.4,2
@@ -74,11 +62,11 @@ SIEMENS,False,0.75,0.7,31
 SIEMENS,False,0.75,1.8,22
 SIEMENS,False,0.75,2.0,1
 SIEMENS,False,1.0,0.5,2
-SIEMENS,False,1.0,0.7,226
-SIEMENS,False,1.0,0.8,329
-SIEMENS,False,1.0,1.0,1889
+SIEMENS,False,1.0,0.7,228
+SIEMENS,False,1.0,0.8,330
+SIEMENS,False,1.0,1.0,1902
 SIEMENS,False,1.0,5.0,1
-SIEMENS,False,1.0,10.0,8
+SIEMENS,False,1.0,10.0,9
 SIEMENS,False,1.25,0.5,1
 SIEMENS,False,1.25,1.0,2
 SIEMENS,False,1.25,1.3,1
@@ -86,14 +74,14 @@ SIEMENS,False,1.5,0.7,2
 SIEMENS,False,1.5,0.75,3
 SIEMENS,False,1.5,0.8,1
 SIEMENS,False,1.5,0.9,1
-SIEMENS,False,1.5,1.0,18
+SIEMENS,False,1.5,1.0,16
 SIEMENS,False,1.5,1.2,3
-SIEMENS,False,1.5,1.5,64
+SIEMENS,False,1.5,1.5,46
 SIEMENS,False,2.0,0.9,2
-SIEMENS,False,2.0,1.0,872
+SIEMENS,False,2.0,1.0,864
 SIEMENS,False,2.0,1.5,1852
-SIEMENS,False,2.0,1.8,8491
-SIEMENS,False,2.0,2.0,27073
+SIEMENS,False,2.0,1.8,8489
+SIEMENS,False,2.0,2.0,27042
 SIEMENS,False,2.0,2.5,3
 SIEMENS,False,2.0,5.0,2
 SIEMENS,False,2.0,6.254,9
@@ -104,43 +92,36 @@ SIEMENS,False,2.5,2.0,9
 SIEMENS,False,2.5,2.5,10
 SIEMENS,False,3.0,1.0,2
 SIEMENS,False,3.0,1.4,1
-SIEMENS,False,3.0,1.5,29
-SIEMENS,False,3.0,2.0,112
+SIEMENS,False,3.0,1.5,25
+SIEMENS,False,3.0,2.0,86
 SIEMENS,False,3.0,2.2,2
-SIEMENS,False,3.0,2.5,14
-SIEMENS,False,3.0,2.8,1
-SIEMENS,False,3.0,3.0,900
+SIEMENS,False,3.0,2.5,12
+SIEMENS,False,3.0,3.0,851
 SIEMENS,False,3.0,3.6,1
 SIEMENS,True,0.5,0.5,1
-SIEMENS,True,1.0,0.6,1
-SIEMENS,True,1.0,0.7,2
-SIEMENS,True,1.0,0.8,3
-SIEMENS,True,1.0,1.0,15
-SIEMENS,True,1.0,10.0,1
-SIEMENS,True,1.5,1.5,8
-SIEMENS,True,2.0,1.0,8
-SIEMENS,True,2.0,2.0,20
+SIEMENS,True,1.0,0.8,2
+SIEMENS,True,1.0,1.0,1
+SIEMENS,True,2.0,1.0,5
+SIEMENS,True,2.0,2.0,2
 SIEMENS,True,3.0,1.5,1
-SIEMENS,True,3.0,2.0,17
-SIEMENS,True,3.0,3.0,125
+SIEMENS,True,3.0,2.0,6
+SIEMENS,True,3.0,3.0,57
+Siemens Healthcare,False,1.5,1.0,98
 Siemens Healthineers,True,1.0,0.8,1
-Siemens Healthineers,True,1.0,1.0,9
-Siemens Healthineers,True,2.0,2.0,7
-Siemens Healthineers,True,3.0,1.5,1
-Siemens Healthineers,True,3.0,3.0,73
-TOSHIBA,False,0.5,0.3,18
+Siemens Healthineers,True,1.0,1.0,6
+TOSHIBA,False,0.5,0.3,16
 TOSHIBA,False,1.0,0.5,1
-TOSHIBA,False,1.0,0.8,50
-TOSHIBA,False,1.0,1.0,156
-TOSHIBA,False,2.0,1.0,5
+TOSHIBA,False,1.0,0.8,21
+TOSHIBA,False,1.0,1.0,132
+TOSHIBA,False,2.0,1.0,4
 TOSHIBA,False,2.0,1.5,303
 TOSHIBA,False,2.0,1.7,830
 TOSHIBA,False,2.0,1.8,1339
-TOSHIBA,False,2.0,2.0,3883
+TOSHIBA,False,2.0,2.0,3879
 TOSHIBA,False,2.0,4.0,1
-TOSHIBA,False,3.0,3.0,633
+TOSHIBA,False,3.0,3.0,561
 TOSHIBA,False,3.0,6.0,4
-TOSHIBA,True,1.0,0.8,4
+TOSHIBA,True,1.0,0.8,2
 TOSHIBA,True,2.0,2.0,5
 TOSHIBA,True,3.0,3.0,7
 UIH,False,1.0,0.8,1
@@ -149,5 +130,3 @@ Unknown manufacturer,False,0.7,0.7,2
 Unknown manufacturer,False,1.0,1.0,5
 Unknown manufacturer,False,1.25,1.25,9
 Unknown manufacturer,False,2.5,2.5,1
-"Varian Imaging Laboratories, Switzerland",False,3.0,3.0,10
-Varian Medical Systems,False,3.0,3.0,2

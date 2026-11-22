@@ -16,12 +16,14 @@ CHEST_COLL = {"nlst", "lidc_idri", "covid_19_ny_sbu", "midrc_ricord_1a", "midrc_
               "anti_pd_1_lung", "cptac_luad", "cptac_lscc", "tcga_luad", "tcga_lusc", "nsclc_radiomics", "nsclc_radiogenomics", "nsclc_radiomics_genomics",
               "rider_lung_ct", "lungct_diagnosis", "qin_lung_ct", "lung_fused_ct_pathology", "spie_aapm_lung_ct_challenge"}
 CHEST_WORD = re.compile(r"CHEST|THORAX|THORAC|LUNG|THX|PULM", re.I)
+DEF_EDGE = re.compile(r"SOMATOM\s*DEFINITION\s*EDGE", re.I)   # launched 2012: sensitivity only (Neon review of X12)
 MODERN_COLL = {"covid_19_ny_sbu", "midrc_ricord_1a", "midrc_ricord_1b", "covid_19_ar"}          # plus every cmb_* collection
-MODERN_MODEL = re.compile(r"REVOLUTION\s*(CT|EVO|FRONTIER|APEX|MAXIMA|ACT|HD)|SOMATOM\s*(FORCE|DRIVE|(DEFINITION\s*)?EDGE|CONFIDENCE|GO\.|X\.CITE|X\.CEED)|NAEOTOM|"
-                          r"IQON|INCISIVE|CT\s*5300|SPECTRAL\s*CT\s*7500|AQUILION\s*ONE\s*(GENESIS|PRISM)|AQUILION\s*PRIME\s*SP|AQUILION\s*LIGHTNING|"
+MODERN_MODEL = re.compile(r"REVOLUTION\s*(?:CT|EVO|FRONTIER|APEX|MAXIMA|ACT)|SOMATOM\s*(?:FORCE|DRIVE|EDGE\s*PLUS|CONFIDENCE|GO\.|X\.CITE|X\.CEED)|NAEOTOM|"
+                          r"IQON|INCISIVE|CT\s*5300|SPECTRAL\s*CT\s*7500|AQUILION\s*ONE\s*(?:GENESIS|PRISM)|AQUILION\s*PRIME\s*SP|AQUILION\s*LIGHTNING|"
                           r"AQUILION\s*PRECISION|AQUILION\s*EXCEED|AQUILION\s*SERVE", re.I)
-BAD_TYPE = {"LOCALIZER", "SCOUT", "MIP", "MINIP", "MPR", "REFORMATTED", "PROJECTION", "SCREEN SAVE", "DOSE"}
-BAD_DESC = re.compile(r"\bMIP\b|MINIP|\bAIP\b|\bMPR\b|\bCOR\b|CORON|\bSAG\b|SAGIT|SCOUT|TOPO|LOCALI|SURVIEW|BOLUS|SMARTPREP|DOSE|PROTOCOL|\b3D\b|\bVR\b", re.I)
+BAD_TYPE = re.compile(r"LOCALIZER|SCOUT|\bMIP\b|MINIP|\bAIP\b|\bMPR\b|REFORMATTED|PROJECTION|SCREEN SAVE|DOSE|SECONDARY", re.I)
+BAD_MAKER = re.compile(r"RIVERAIN|ADAC|CMS, INC|VARIAN|ELEKTA|BRAINLAB|ACCURAY|TOMOTHERAPY", re.I)   # post-processing / radiotherapy systems
+BAD_DESC = re.compile(r"\bMIP\b|MINIP|\bAIP\b|\bMPR\b|\bCOR\b|CORON|\bSAG\b|SAGIT|SCOUT|TOPO|LOCALI|SURVIEW|BOLUS|SMARTPREP|DOSE\s*(?:REPORT|INFO)|PATIENT\s*PROTOCOL|\b3D\b|\bVR\b", re.I)
 CLASSES = [("le_0p65", 0, 0.65), ("0p65_0p85", 0.65, 0.85), ("0p85_0p95", 0.85, 0.95), ("0p95_1p05", 0.95, 1.05), ("gt_1p05", 1.05, 99)]
 
 
@@ -54,22 +56,25 @@ def main():
     X = X.merge(ct, on="SeriesInstanceUID", how="inner").merge(vg, on="SeriesInstanceUID", how="left"); att.append(("with a CT header record", len(X)))
     flags = ["single_orientation", "orthogonal_orientation", "unique_slice_positions", "consistent_in_plane_row", "consistent_in_plane_col", "consistent_pixel_spacing",
              "consistent_image_dimensions", "uniform_slice_spacing"]
-    geo_fail = {f: int((X[f] != True).sum()) for f in flags if f in X.columns}   # noqa: E712
-    X = X[X.regularly_spaced_3d_volume == True]; att.append(("regularly spaced 3D volume", len(X)))   # noqa: E712
+    geo_fail = {f: int((X[f].astype("boolean").fillna(False) != True).sum()) for f in flags if f in X.columns}   # noqa: E712
+    geo_fail["no_geometry_record"] = int(X.regularly_spaced_3d_volume.isna().sum())
+    X = X[X.regularly_spaced_3d_volume.astype("boolean").fillna(False)]; att.append(("regularly spaced 3D volume", len(X)))
     X["SliceThickness"] = pd.to_numeric(X.SliceThickness, errors="coerce"); X = X[(X.SliceThickness >= 0.2) & (X.SliceThickness <= 15)]; att.append(("SliceThickness 0.2 to 15 mm", len(X)))
     iop = np.stack(X.ImageOrientationPatient.to_numpy()).astype(float); nz = np.abs(np.cross(iop[:, :3], iop[:, 3:])[:, 2])
     X = X[nz >= 0.95]; att.append(("axial (|n_z| >= 0.95)", len(X)))
-    it = X.ImageType.apply(lambda a: {str(t).upper() for t in (a if a is not None else [])})
-    X = X[~it.apply(lambda s: bool(s & BAD_TYPE))]; att.append(("ImageType not scout / MIP / reformat / dose", len(X)))
+    it = X.ImageType.apply(lambda a: "\\".join(str(t) for t in (a if a is not None else [])))
+    X = X[~it.str.contains(BAD_TYPE)]; att.append(("ImageType not scout / MIP / AIP / reformat / secondary / dose", len(X)))
+    X = X[~X.Manufacturer.fillna("").str.contains(BAD_MAKER)]; att.append(("not a post-processing or radiotherapy system", len(X)))
     X = X[~X.SeriesDescription.fillna("").str.contains(BAD_DESC)]; att.append(("description not MIP / reformat / scout / dose", len(X)))
     X = X[(X.Rows >= 256) & (X.Columns >= 256) & (X.instanceCount >= 30)]; att.append(("matrix >= 256, >= 30 images", len(X)))
-    X = X[(X.instanceCount - 1) * X.slice_spacing_mm >= 150]; att.append(("z coverage >= 150 mm", len(X)))
+    zc = (X.instanceCount - 1) * X.slice_spacing_mm; X = X[(zc >= 150) & (zc <= 450)]; att.append(("z coverage 150 to 450 mm (chest, not chest-abdomen-pelvis)", len(X)))
     chest = X.collection_id.isin(CHEST_COLL) | X.BodyPartExamined.fillna("").str.contains(CHEST_WORD) | X.StudyDescription.fillna("").str.contains(CHEST_WORD) | X.SeriesDescription.fillna("").str.contains(CHEST_WORD)
     X = X[chest].copy(); att.append(("chest", len(X)))
-    X["ratio"] = X.slice_spacing_mm / X.SliceThickness; X["cls"] = X.ratio.apply(cls)
+    X["ratio"] = (X.slice_spacing_mm / X.SliceThickness).round(3); X["cls"] = X.ratio.apply(cls)
     X["band"] = np.where(X.SliceThickness <= 1.25, "le_1p25", np.where(X.SliceThickness <= 3.0, "1p25_3p0", "gt_3p0")); X["sybil_range"] = X.SliceThickness <= 3.0
     X["original"] = X.ImageType.apply(lambda a: "ORIGINAL" in {str(t).upper() for t in (a if a is not None else [])})
-    X["modern_model"] = X.ManufacturerModelName.fillna("").str.contains(MODERN_MODEL)
+    X["modern_model"] = X.ManufacturerModelName.fillna("").str.contains(MODERN_MODEL); X["modern_or_def_edge"] = X.modern_model | X.ManufacturerModelName.fillna("").str.contains(DEF_EDGE)
+    X["maker"] = X.Manufacturer.fillna("?").str.upper().str.replace(r"SIEMENS.*", "SIEMENS", regex=True).str.replace(r"^(TOSHIBA|CANON).*", "TOSHIBA/CANON", regex=True).str.replace(r"^GE .*", "GE", regex=True).str.replace(r"^PHILIPS.*", "PHILIPS", regex=True)
     X["modern_coll"] = X.collection_id.isin(MODERN_COLL) | X.collection_id.str.startswith("cmb_")
     X["pkey"] = X.collection_id + "|" + X.PatientID.astype(str); X["ov65"] = X.cls == "le_0p65"; X["ov85"] = X.ratio <= 0.85
     res = dict(label="X12 (plan 2b88e20; exploratory; metadata only)", attrition=att, geometry_flags_failed_among_ct_header_rows=geo_fail,
@@ -99,16 +104,19 @@ def main():
                     studies_any_le_0p85=boot_share(T.any85, T.pkey), patients_any_le_0p65=boot_share(P.any65, P.index), patients_any_le_0p85=boot_share(P.any85, P.index),
                     by_band={b: dict(series=int((Q.band == b).sum()), le_0p65=float(Q.ov65[Q.band == b].mean()) if (Q.band == b).any() else None,
                                      le_0p85=float(Q.ov85[Q.band == b].mean()) if (Q.band == b).any() else None) for b in ("le_1p25", "1p25_3p0")},
-                    by_maker={m: dict(series=int((Q.Manufacturer == m).sum()), le_0p65=float(Q.ov65[Q.Manufacturer == m].mean()), le_0p85=float(Q.ov85[Q.Manufacturer == m].mean()))
-                              for m in Q.Manufacturer.fillna("?").value_counts().index[:8]},
+                    by_maker={m: dict(series=int((Q.maker == m).sum()), le_0p65=float(Q.ov65[Q.maker == m].mean()), le_0p85=float(Q.ov85[Q.maker == m].mean()))
+                              for m in Q.maker.value_counts().index[:8]},
+                    studies_only_le_0p85=boot_share(T.only85, T.pkey), studies_both_le_0p85_and_contiguous=boot_share(T.any85 & T.cont, T.pkey),
+                    collections_table={c: dict(patients=int(Q.pkey[Q.collection_id == c].nunique()), le_0p65=float(Q.ov65[Q.collection_id == c].mean()), le_0p85=float(Q.ov85[Q.collection_id == c].mean())) for c in Q.collection_id.unique()},
                     classes={c: int((Q.cls == c).sum()) for c, _, _ in CLASSES})
     sets = {"all_chest": X, "nlst": X[X.collection_id == "nlst"], "non_nlst_chest": X[X.collection_id != "nlst"],
             "modern_scanner_models": X[X.modern_model], "modern_collections_2015_on": X[X.modern_coll],
-            "modern_scanner_models_original_only": X[X.modern_model & X.original]}
+            "modern_scanner_models_original_only": X[X.modern_model & X.original], "modern_models_incl_definition_edge_2012": X[X.modern_or_def_edge],
+            "modern_collections_2015_on_original_only": X[X.modern_coll & X.original]}
     res["sets"] = {k: summary(v, k) for k, v in sets.items()}
     # deduplicated sensitivity: one series per study and identical geometry
-    X["sp2"] = X.slice_spacing_mm.round(2); Dd = X.drop_duplicates(["pkey", "StudyInstanceUID", "SliceThickness", "sp2", "instanceCount"])
-    res["dedup_modern_scanner_models"] = summary(Dd[Dd.modern_model], "dedup")
+    X["sp2"] = X.slice_spacing_mm.round(2); Mx = X[X.modern_model & X.sybil_range]
+    res["dedup_modern_scanner_models"] = summary(Mx.drop_duplicates(["pkey", "StudyInstanceUID", "SliceThickness", "sp2", "instanceCount"]), "dedup")
     M = X[X.modern_model & X.sybil_range]
     res["modern_model_strings"] = M.ManufacturerModelName.value_counts().to_dict()
     res["modern_top_protocols"] = M.assign(p=M.SliceThickness.round(3).astype(str) + "/" + M.slice_spacing_mm.round(3).astype(str)).p.value_counts().head(15).to_dict()
