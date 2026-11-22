@@ -1,2 +1,3 @@
 # Lung L2 S5 frozen files: stored byte-exact (no line-ending conversion), so their SHA-256 is the same on every checkout
 imgsae/exploratory/lung_l2/results/s5/** -text
+imgsae/exploratory/lung_l2/results/x10/x10_portable_form_params.json -text
