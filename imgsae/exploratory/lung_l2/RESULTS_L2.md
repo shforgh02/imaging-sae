@@ -369,6 +369,26 @@ Sybil − form: E1 −0.099 [−0.212, +0.017]; E2 +0.027 [−0.120, +0.175]; E4
 3. **P beats the clinical rule at the same false alarms** (1 year: 73 vs 68 cancers; 6 years: 66 vs 54). Sybil raises fewer false alarms than P at the radiologists' sensitivity, most clearly on baseline screens (53 fewer per 1,000).
 4. **For outside partners:** the honest expectation is "a simple record-based model about equals Sybil", not "beats Sybil". P is NLST-fitted; whether it transfers is untested until a partner runs it. The frozen file is what partners would receive.
 
+## 3i. Plan X12: how common are overlapping reconstructions in modern chest CT? (EXPLORATORY; metadata only; 22 Nov)
+- **Why:** the reviewer question "is overlapping reconstruction a 2002–2004 NLST relic?". Plan `2b88e20` (after Neon's assessment of the draft); first run `934e27d`; Neon's review of that run found coding errors of mine in the filters (log 22 Nov; for example "DOSE" removed real low-dose series and whole chest-abdomen-pelvis stacks counted as chest); corrected run `b7bae94`, committed before it was read. All numbers below are from the corrected run.
+- **Data:** the public IDC index (v25.0.5), CT series only; no image, no outcome. Primary axial chest series in Sybil's thickness range (≤ 3 mm): 135,199 chest series after the attrition in the file (phantoms, analysis results, irregular volumes, scouts, MIPs, reformats, secondary and post-processing series, small matrices, coverage outside 150–450 mm removed). "Modern" = scanner models first sold in 2013 or later (dates are shifted by de-identification: 95% of StudyDates fall before 2006, so dates cannot be used), or collections acquired from 2015 on (COVID-19 collections and the Cancer Moonshot Biobank).
+
+| Chest CT (≤ 3 mm), public IDC | Studies | Patients | Studies with a strongly overlapping series (ratio ≤ 0.65; the z-fix regime) | … moderate or strong (≤ 0.85) | … only overlapping series (≤ 0.65) | … both an overlapping (≤ 0.65) and a contiguous series |
+|---|---|---|---|---|---|---|
+| NLST (2002–2007) | 67,184 | 24,707 | 8.9% [8.6, 9.3] | 34.6% | 5.4% | 0.3% |
+| Other collections (all eras) | 4,287 | 3,570 | 8.7% [7.8, 9.7] | 18.7% | 7.0% | 1.7% |
+| Scanner models first sold 2013+ | 189 | 144 | **3.7% [0.6, 7.9]** | **19.0% [11.9, 26.2]** | 0.5% | 3.2% |
+| Collections acquired 2015+ | 1,146 | 756 | **6.2% [4.3, 8.2]** | 12.3% | 1.3% | 4.8% |
+
+- **Clustered by site and protocol:** in the 2015+ collections the strong-overlap share ranges from 0% (most collections) to 32% (`covid_19_ar`, 19 patients); the Mayo low-dose CT collection (2016–2020, 50 patients) has every series moderately overlapping (≤ 0.85) and none at ≤ 0.65. The strongly overlapping modern series are ratio-0.5 protocols (2.0/1.0, 2.5/1.25, 3.0/1.5 mm) on current Siemens and GE scanners; the moderate ones are mostly 1.0/0.75, 1.0/0.8, 1.25/1.0 and 3.0/2.0 mm. Interval lower bounds are by patient and understate site-to-site variation.
+- **Sensitivities:** including "SOMATOM Definition Edge" (launched 2012) gives 3.6% and 17.5%; ImageType ORIGINAL only gives the same numbers for the 2015+ collections.
+
+**What X12 shows (exploratory):**
+1. **Strong overlap (the regime the frozen tests measured) is uncommon in public modern chest CT**: about 4–6% of studies, against about 9% in NLST. It is not an NLST-only relic, but it must not be described as a large fixed share of modern CT.
+2. **Moderate overlap (ratio 0.65 to 0.85) is common** (12–19% of modern studies; every series of the modern low-dose collection); its effect on Sybil is not yet measured (task 2, X11, tests stretch factors 1.25 and 1.5).
+3. **Exposure depends on site protocol and on which series is sent to Sybil:** most modern studies with a strongly overlapping series also hold a contiguous one (3–5% of studies hold both), so the choice of series, or a change of that choice between yearly screens (H7), decides whether Sybil sees a stretched chest; Sybil gives no warning either way.
+4. Current screening and nodule-volumetry guidance appears to allow or recommend overlapping intervals (QIBA 2023, ACR–STR, ESTI 2019; search excerpts only, to be checked in task 6 before citing).
+
 ## 4. What the results allow us to say, and what not (run rule 4)
 **Can say (test, frozen, Holm):**
 - Sybil's output depends on its slice-spacing step: in about 1 test exam in 9 the chest is stretched along z (759 of 6,715); giving Sybil the true spacing lowers its 1-year logit by 0.37 on average and moves 66% of these exams by at least a quarter SD (H1, H2).
