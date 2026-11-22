@@ -2,6 +2,9 @@
 PC's CPU with the frozen job's own functions (cloud/l2_sybil_modal.py is imported, never edited). Outcome-free (no label is read).
 Each finished exam is written at once (npz of the variant arrays, then a json written last as the done marker); a rerun skips done exams.
 usage (sybil env python, -I): python -I x11_score.py <x11_list.csv> <out dir> <download dir> <cloud dev dir> [--only N] [--smoke]
+Amendment A1 (22 Nov, after Neon's review of the analysis script, with 32 arm A exams done and NO arm B exam scored; arm A unchanged):
+arm B also runs `main_air` (true geometry, air z-padding; every arm B true volume is z-padded), and f = 2.5 goes to up to 5 exams per maker
+instead of the first 20 in list order (which would have been 12 GE + 8 Philips and no Siemens or Toshiba).
 """
 import argparse
 import glob
@@ -51,7 +54,7 @@ def main():
     L = pd.read_csv(a.list); os.makedirs(a.out, exist_ok=True)
     model = J._model()
     for net in model.ensemble: net.to("cpu")
-    nA = nB = 0; n_decim1 = 0; n_f25 = 0
+    nA = nB = 0; n_decim1 = 0; n_f25 = {}   # amendment A1 (22 Nov, before any arm B exam was scored): f = 2.5 on up to 5 exams PER MAKER
     for r in L.itertuples():
         if a.only and (nA + nB) >= a.only: break
         done = os.path.join(a.out, r.series_uid + ".json")
@@ -59,7 +62,7 @@ def main():
         if r.arm == "A": nA += 1
         else: nB += 1
         if os.path.exists(done):
-            rec = json.load(open(done)); n_decim1 += int("decim1" in rec["variants"]); n_f25 += int("f25_sp" in rec["variants"]); continue
+            rec = json.load(open(done)); n_decim1 += int("decim1" in rec["variants"]); n_f25[r.maker] = n_f25.get(r.maker, 0) + int("f25_sp" in rec["variants"]); continue
         t0 = time.time(); d = os.path.join(a.dl, r.series_uid); os.makedirs(d, exist_ok=True)
         res = subprocess.run([S5, "--no-sign-request", "--endpoint-url", "https://s3.amazonaws.com", "cp", r.url, d + "/"], capture_output=True, text=True, timeout=600)
         if res.returncode: raise SystemExit(f"download failed {r.series_uid}: {res.stderr[-300:]}")
@@ -83,16 +86,18 @@ def main():
                 if n_decim1 < 10: V["decim1"] = (vol(s, x2d[:, 1::2])[0], 0); n_decim1 += 1
         else:
             if ident: V["main_sp"] = (vm, 0)
+            V["main_air"] = (vol(s, x2d, z_pad=AIR)[0], AIR)   # amendment A1: the true geometry with air z-padding (reference of B5)
             for f, k in ((1.25, "f125_sp"), (1.5, "f15_sp"), (2.0, "f20_sp")): V[k] = (vol(s, x2d, z_spacing=thick * f)[0], 0)
             _, shp20 = vol(s, x2d, z_spacing=thick * 2.0); info["T_f20"] = shp20[3]
             V["f20_air"] = (vol(s, x2d, z_spacing=thick * 2.0, z_pad=AIR)[0], AIR)
             V["f20_padmatch"] = (vol(s, x2d, z_spacing=thick * 2.0, match_T=min(shp_m[3], 200))[0], 0)
-            if shp20[3] >= 200 and n_f25 < 20: V["f25_sp"] = (vol(s, x2d, z_spacing=thick * 2.5)[0], 0); n_f25 += 1
+            if shp20[3] >= 200 and n_f25.get(r.maker, 0) < 5:
+                V["f25_sp"] = (vol(s, x2d, z_spacing=thick * 2.5)[0], 0); n_f25[r.maker] = n_f25.get(r.maker, 0) + 1
         out, skipped, prof = {}, {}, {}
         for k, (v, padv) in V.items():
             prof[k] = pad_profile(v, padv)
             # an air-padded volume without any z padding is identical to its Sybil-padded twin: no forward pass, reuse the twin
-            if k == "main_air" and torch.equal(v, vm): skipped[k] = "identical to main (no z padding)"; continue
+            if k == "main_air" and torch.equal(v, vm): skipped[k] = "identical to main (no z padding)"; continue   # arm A and B
             if k == "f20_air" and torch.equal(v, V["f20_sp"][0]): skipped[k] = "identical to f20_sp (no z padding)"; continue
             if k == "zfix_air" and "zfix_sp" in V and torch.equal(v, V["zfix_sp"][0]): skipped[k] = "identical to zfix_sp"; continue
             arr, mean, calib = J._forward(model, v, "cpu")
