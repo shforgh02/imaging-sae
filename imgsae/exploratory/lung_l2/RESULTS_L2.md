@@ -324,6 +324,44 @@ Sybil − form: E1 −0.099 [−0.212, +0.017]; E2 +0.027 [−0.120, +0.175]; E4
 4. **PPV is low for every score** (3% to 14% at 1 year) because only 1.3% of exams have a cancer within a year; **NPV is above 99.6% for every score**, so NPV cannot separate them. Likelihood ratios and false alarms per 1,000 are the more useful numbers here.
 5. **Cuts set on cancer-free dev exams transfer to test** (test false-alarm shares at most 3.4 points above dev; the fixed rules themselves rise by up to 3.2 points, because test has more positive calls); cuts set on dev cancers do not (X7, X8).
 
+## 3h. Plan X10: a reduced "portable" form for outside partners (EXPLORATORY; 22 Nov)
+- **Why:** other screening sites do not record NLST's 43 form items. The lead: "creat it in train set ... first testing in dev and test set we have". Plan `39f3f7a` (before anything was computed); script, dev check and **frozen parameter file** `results/x10/x10_portable_form_params.json` (SHA-256 `106da977…`, stored byte-exact) `1cba113`/`bd4f8d8`; test run once, output committed before reading (`c474463`).
+- **The portable form P (a strict subset of F; same model, penalty and train rows as F; never refit):** largest nodule ≥ 4 mm: longest diameter and its log, ground-glass, part-solid, spiculated, upper lobe; number of nodules; emphysema; age, sex, current smoking; repeat screens only: growth, new abnormality, screening round. P1 (1 year, all screens) 14 items; P6 (6 years, baseline) 11 items. Secondary: P + the screening call (positive or negative).
+
+**1. AUROC and AUPRC on test:**
+| Endpoint (cancers) | Sybil | Full form F (43 items) | **Portable P** | P + call | Lung-RADS | Brock |
+|---|---|---|---|---|---|---|
+| E1 1 year, all screens (86) | 0.914 | 0.947 | **0.914** | 0.915 | 0.879 | 0.905 |
+| E2 1 year, baseline (41) | 0.927 | 0.927 | **0.909** | 0.911 | 0.869 | 0.915 |
+| E4 6 years, baseline (131) | 0.724 | 0.742 | **0.735** | 0.739 | 0.639 | 0.658 |
+| W2 E4 without cancers after a positive screen (50) | 0.573 | 0.620 | **0.623** | 0.622 | 0.522 | 0.515 |
+| AUPRC E1 (prevalence 0.013) | 0.320 | 0.419 | 0.313 | 0.312 | 0.160 | 0.256 |
+
+| | Sybil − P | F − P (what the 29 dropped items add) |
+|---|---|---|
+| E1 | 0.000 [−0.040, +0.041] | **+0.034 [+0.011, +0.060]** |
+| E2 | +0.018 [−0.043, +0.083] | +0.018 [+0.002, +0.041] |
+| E4 | −0.011 [−0.059, +0.039] | +0.008 [−0.009, +0.026] |
+| W2 | −0.050 [−0.143, +0.043] | −0.003 [−0.039, +0.033] |
+
+**2. At fixed cuts (set on cancer-free dev exams; X9 rule):**
+| Level | Endpoint | Lung-RADS ≥ 3 or call | Sybil | F | **P** |
+|---|---|---|---|---|---|
+| L3 (about 10% false alarms) | E1 (86) | 68 | 69 | 77 | **73** (false alarms 101 per 1,000; P − Lung-RADS +5.8 points [0.0, +12.0]) |
+| L3 | E2 (41) | 32 | 36 (32 fewer false alarms per 1,000 than P [16, 49]) | 37 | 36 |
+| L3 | E4 (131) | 54 | 63 | 59 | 66 (P − Lung-RADS +9.2 points [+1.8, +16.8]) |
+| R (radiologists' level) | E1 (86) | 81 | 82 (26 fewer false alarms per 1,000 than P [7, 46]) | 83 | 79 |
+| R | E2 (41) | 39 | 39 (53 fewer per 1,000 than P [28, 78]) | 39 | 38 |
+| R | E4 (131) | 78 | 86 | 100 | 96 |
+
+**3. Does Sybil add to P? (weights fitted on dev; cross-fitted in brackets):** E1 +0.017 [−0.015, +0.048] (+0.020 [−0.005, +0.042]); E4 +0.011 [−0.026, +0.047] (+0.021 [−0.007, +0.048]). The call adds nothing to P (P + call within 0.004 of P everywhere).
+
+**What X10 shows (exploratory):**
+1. **A 14-item form that most screening programmes can fill ranks cancers as well as Sybil** on the NLST test split: equal at 1 year (0.914 vs 0.914), slightly above at 6 years (0.735 vs 0.724; intervals wide), and Sybil adds little to it.
+2. **The full form's 1-year edge over Sybil comes from the 29 items P leaves out** (+0.034 [+0.011, +0.060]); at 6 years P keeps almost all of F's information (−0.008). Which of the dropped items matter was not tested.
+3. **P beats the clinical rule at the same false alarms** (1 year: 73 vs 68 cancers; 6 years: 66 vs 54). Sybil raises fewer false alarms than P at the radiologists' sensitivity, most clearly on baseline screens (53 fewer per 1,000).
+4. **For outside partners:** the honest expectation is "a simple record-based model about equals Sybil", not "beats Sybil". P is NLST-fitted; whether it transfers is untested until a partner runs it. The frozen file is what partners would receive.
+
 ## 4. What the results allow us to say, and what not (run rule 4)
 **Can say (test, frozen, Holm):**
 - Sybil's output depends on its slice-spacing step: in about 1 test exam in 9 the chest is stretched along z (759 of 6,715); giving Sybil the true spacing lowers its 1-year logit by 0.37 on average and moves 66% of these exams by at least a quarter SD (H1, H2).
