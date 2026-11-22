@@ -46,7 +46,7 @@ def km_censoring(T, E):
     """Kaplan-Meier of the censoring distribution on unique times (events before censorings at a tie); returns (times, G after each time)."""
     u = np.unique(T); G, out = 1.0, []
     for t in u:
-        at_risk = (T >= t).sum(); c = ((T == t) & (E == 0)).sum()
+        c = ((T == t) & (E == 0)).sum(); at_risk = ((T > t) | ((T == t) & (E == 0))).sum()   # events at t leave the risk set first
         G *= (1 - c / at_risk) if at_risk else 1.0; out.append(G)
     return u, np.array(out)
 
@@ -69,18 +69,31 @@ def auc_ipcw(T, E, s, t):
 
 
 def logreg(X, y, offset=None, ridge=0.0, iters=100):
-    """logistic regression by damped Newton-Raphson; None if the outcome has one class or the fit diverges. ridge on slopes only."""
+    """logistic regression by Newton-Raphson with step halving on the (penalised) log-likelihood; ridge on slopes only.
+    Returns None if the outcome has one class, or the fit does not converge (separation, a flat likelihood) or gives |b| >= 50."""
     y = np.asarray(y, float)
     if len(np.unique(y)) < 2: return None
     X = np.column_stack([np.ones(len(y))] + ([np.asarray(X, float).reshape(len(y), -1)] if X is not None else []))
     off = np.zeros(len(y)) if offset is None else np.asarray(offset, float); b = np.zeros(X.shape[1]); R = ridge * np.eye(len(b)); R[0, 0] = 0
+
+    def ll(b_):
+        eta = X @ b_ + off; return float(np.sum(y * eta - np.logaddexp(0, eta)) - 0.5 * b_ @ R @ b_)
+    cur = ll(b)
     for _ in range(iters):
-        eta = np.clip(X @ b + off, -30, 30); p = 1 / (1 + np.exp(-eta)); W = p * (1 - p); g = X.T @ (y - p) - R @ b; H = (X * W[:, None]).T @ X + R
-        step = np.linalg.solve(H + 1e-8 * np.eye(len(b)), g); mx = float(np.max(np.abs(step)))
-        if mx > 5: step *= 5 / mx
-        b = b + step
-        if mx < 1e-10: break
-    return b if np.all(np.isfinite(b)) and np.max(np.abs(b)) < 50 else None
+        eta = np.clip(X @ b + off, -30, 30); p = 1 / (1 + np.exp(-eta)); W = p * (1 - p); g = X.T @ (y - p) - R @ b
+        H = (X * W[:, None]).T @ X + R
+        try: step = np.linalg.solve(H + 1e-10 * np.eye(len(b)), g)
+        except np.linalg.LinAlgError: return None
+        if np.max(np.abs(step)) < 1e-8: return b if np.max(np.abs(b)) < 50 else None   # converged (under separation the step stays large)
+        t = 1.0
+        while t > 1e-8:
+            new = ll(b + t * step)
+            if np.isfinite(new) and new >= cur - 1e-12: break
+            t /= 2
+        else: return None
+        b, cur = b + t * step, new
+        if not np.all(np.isfinite(b)) or np.max(np.abs(b)) >= 50: return None
+    return None                                                                 # not converged within iters
 
 
 def logit(p): p = np.clip(np.asarray(p, float), 1e-6, 1 - 1e-6); return np.log(p / (1 - p))
@@ -112,16 +125,22 @@ class Supp:
     def __init__(self, k): self.k, self.n = k, 0
 
     def count(self, n, round5=False):
+        """counts 1 .. k-1 -> "<k"; with round5, other counts are rounded to a multiple of 5 (a positive count never becomes 0)."""
         if n is None: return None
         n = int(n)
         if 0 < n < self.k: self.n += 1; return f"<{self.k}"
-        return int(5 * round(n / 5)) if round5 else n
+        if not round5 or n == 0: return n
+        return max(5, int(5 * round(n / 5)))
 
     def share(self, num, den, digits=3):
+        """a share only when the count and its complement are 0 or >= k; a positive share that rounds to 0 is shown as "<0.001" (digits 3)."""
         num, den = int(num), int(den)
         if den == 0: return None
         if (0 < num < self.k) or (0 < den - num < self.k): self.n += 1; return "withheld"
-        return round(num / den, digits)
+        v = round(num / den, digits)
+        if v == 0 and num > 0: return f"<{10 ** -digits:g}"
+        if v == 1 and num < den: return f">{1 - 10 ** -digits:g}"
+        return v
 
 
 def clean(o):
@@ -239,9 +258,25 @@ def build_items(E, N, log):
         if un.any(): log(f"lung_rads: {int(un.sum())} values not in 0, 1, 2, 3, 4A, 4B, 4X (S/C allowed), set missing")
     neg = X.days_to_cancer < 0
     if neg.any(): log(f"{int(neg.sum())} exams after a lung cancer diagnosis (negative days_to_cancer) left out"); X = X[~neg].copy()
-    fix = X.days_to_cancer.notna() & (X.days_to_last_followup < X.days_to_cancer)
+    fix = X.days_to_cancer.notna() & (X.days_to_last_followup.isna() | (X.days_to_last_followup < X.days_to_cancer))
     X.loc[fix, "days_to_last_followup"] = X.loc[fix, "days_to_cancer"]
+    if X.max_dia.isna().mean() > 0.2: log(f"WARNING: nodule size missing in {X.max_dia.isna().mean():.0%} of exams (give 0 when there is no nodule >= 4 mm)")
     return X
+
+
+NODULE_ITEMS = {"big_gg", "big_mixed", "big_spic", "big_upper", "n_nod"}; REPEAT_ITEMS = {"gw2", "pre1"}; P_MIN_COMPLETE = 0.8
+
+
+def p_check(X, feats):
+    """is the form usable at this site? Each item is checked where it applies (nodule items on exams with a nodule >= 4 mm; growth and new
+    nodule on repeat screens with one; the rest on all exams). The form is evaluated only if every item is >= 80% complete there; otherwise it
+    is not evaluated anywhere (no exam is dropped because one column is missing). Returns (usable, {item: (n missing, n applicable)})."""
+    has = X.max_dia > 0; rep = X.screen_round > 0; out = {}
+    for c in feats:
+        st = has if c in NODULE_ITEMS else ((has & rep) if c in REPEAT_ITEMS else pd.Series(True, index=X.index))
+        out[c] = (int(X.loc[st, c].isna().sum()), int(st.sum()))
+    ok = all(n == 0 or (1 - m / n) >= P_MIN_COMPLETE for m, n in out.values())
+    return ok, out
 
 
 def outcome(X, years, baseline_only):
@@ -282,10 +317,9 @@ def coef_given_P(sP, sS, yy):
     return f
 
 
-def endpoint(X, P, name, years, base, pk, sk, sp, cuts_all):
+def endpoint(X, P, name, years, base, pk, sk, sp, cuts_all, use_P):
     y, m, T, Ev = outcome(X, years, base); feats = P[pk]["features"]
     elig = m & y.notna() & X[sk].notna(); Pok = X[feats].notna().all(1)
-    use_P = bool(elig.sum() > 0 and (elig & Pok).sum() >= 0.5 * elig.sum())
     Q = X[elig & Pok].copy() if use_P else X[elig].copy(); Q["y"] = y[Q.index]; yy = Q.y.to_numpy(int); n1, n0 = int(yy.sum()), int((yy == 0).sum())
     o = dict(P_evaluated=use_P)
     if n1 < sp.k or n0 < sp.k:
@@ -307,8 +341,8 @@ def endpoint(X, P, name, years, base, pk, sk, sp, cuts_all):
     if dok.mean() > 0.9: S["sybil_plus_demographics_crossfit"] = oof(np.c_[sS, np.nan_to_num(dz)], dok)
     if use_P:
         sP = p_logit(P[pk], Q); S["P"] = sP; S["P_plus_sybil_crossfit"] = oof(np.c_[sP, sS], np.ones(len(yy), bool))
-    has_lr = "lung_rads" in Q and Q.lung_rads.notna().sum() >= 0.5 * len(Q)
-    lr_rows = Q.lung_rads.notna().to_numpy() if has_lr else None
+    lr_rows = Q.lung_rads.notna().to_numpy() if "lung_rads" in Q else None
+    has_lr = lr_rows is not None and lr_rows.sum() >= 0.5 * len(Q) and int(yy[lr_rows].sum()) >= sp.k and int((yy[lr_rows] == 0).sum()) >= sp.k
     if has_lr: S["lung_rads"] = Q.lung_rads.to_numpy(float)
     names = list(S)
     pairs = [(u, v) for u, v in (("sybil", "P"), ("sybil_plus_demographics_crossfit", "P"), ("P_plus_sybil_crossfit", "P"), ("sybil", "lung_rads"), ("P", "lung_rads")) if u in S and v in S]
@@ -355,26 +389,40 @@ def endpoint(X, P, name, years, base, pk, sk, sp, cuts_all):
             m_ = bt.stats(sc_fn, MK); m_.pop("_draws"); thr, strict = site_cut(S[k][yy == 0], spec); f0 = (S[k] > thr) if strict else (S[k] >= thr)
             tabs[f"{k}_at_site_specificity_{int(spec * 100)}"] = secondary(m_, f0, yy, sp, dict(note="cut set on the site's cancer-free exams, re-estimated in every bootstrap draw (> or >= as closer to the target)"))
     o["measures_at_cuts"] = tabs
-    return o, (len(Q), n1)
+    return o, dict(exams=len(Q), participants=int(Q.participant_id.nunique()), cancers=n1, controls=n0)
+
+
+EPS = (("E1_1year_all_screens", 1, False, "P1", "sybil_1yr"), ("E2_1year_baseline", 1, True, "P1", "sybil_1yr"), ("E4_6years_baseline", 6, True, "P6", "sybil_6yr"))
 
 
 def compare(E, N, a, log):
     P = frozen("x10_portable_form_params.json"); cuts_all = frozen("nlst_dev_cuts.json"); X = build_items(E, N, log); sp = Supp(a.min_cell)
-    res = dict(kit_version=VERSION, site=a.site_label, min_cell=a.min_cell, endpoints={})
-    res["missing_items"] = {c: ("none" if int(X[c].isna().sum()) == 0 else sp.share(int(X[c].isna().sum()), len(X), 2)) for c in P["P1"]["features"]}
+    res = dict(kit_version=VERSION, site=a.site_label, min_cell=a.min_cell, endpoints={},
+               site_metadata=dict(lung_rads_version=a.lung_rads_version, nodule_diameter_type=a.diameter_type, cancer_ascertainment=a.cancer_ascertainment,
+                                  input="nodule table" if N is not None else "exam table only"))
+    use = {}
+    for pk in ("P1", "P6"):
+        ok, ms = p_check(X, P[pk]["features"]); use[pk] = ok
+        res[f"form_{pk}_items_missing_where_applicable"] = {c: ("none" if m == 0 else sp.share(m, n, 2)) for c, (m, n) in ms.items()}
+        res[f"form_{pk}_evaluated"] = ok
     sizes = {}
-    for name, years, base, pk, sk in (("E1_1year_all_screens", 1, False, "P1", "sybil_1yr"), ("E2_1year_baseline", 1, True, "P1", "sybil_1yr"), ("E4_6years_baseline", 6, True, "P6", "sybil_6yr")):
-        o, sz = endpoint(X, P, name, years, base, pk, sk, sp, cuts_all); res["endpoints"][name] = o; sizes[name] = sz
-    # complementary suppression: E1 minus E2 counts (repeat screens) must not reveal a small count
-    if sizes.get("E1_1year_all_screens") and sizes.get("E2_1year_baseline"):
-        de = sizes["E1_1year_all_screens"][0] - sizes["E2_1year_baseline"][0]; dc = sizes["E1_1year_all_screens"][1] - sizes["E2_1year_baseline"][1]
-        if 0 < de < a.min_cell or 0 < dc < a.min_cell:
-            res["endpoints"]["E2_1year_baseline"]["counts"] = dict(note="withheld: would reveal a small count of repeat screens by subtraction from E1"); sp.n += 1
-    n = len(X); cm = dict(exams=sp.count(n), participants=sp.count(int(X.participant_id.nunique())))
+    for name, years, base, pk, sk in EPS:
+        o, sz = endpoint(X, P, name, years, base, pk, sk, sp, cuts_all, use[pk]); res["endpoints"][name] = o; sizes[name] = sz
+    # complementary suppression: E1 - E2 (repeat screens) and E4 - E2 (baseline, 1 to 6 years) must not reveal a small count of exams,
+    # participants, cancers or controls; if they could, E2 keeps its AUROC, differences and calibration but loses every count-revealing number
+    for big in ("E1_1year_all_screens", "E4_6years_baseline"):
+        b_, s_ = sizes.get(big), sizes.get("E2_1year_baseline")
+        if b_ and s_ and any(0 < abs(b_[k] - s_[k]) < a.min_cell for k in b_):
+            e2 = res["endpoints"]["E2_1year_baseline"]
+            for k in ("counts", "dropped_incomplete_P_items", "censored_share", "measures_at_cuts"):
+                if k in e2 and not (isinstance(e2[k], dict) and "note" in e2[k] and len(e2[k]) == 1):
+                    e2[k] = dict(note=f"withheld: a small count could be worked out by subtraction from {big}"); sp.n += 1
+    n = len(X); cm = dict(exams=sp.count(n, True), participants=sp.count(int(X.participant_id.nunique()), True), note_counts="rounded to a multiple of 5")
     if n >= a.min_cell:
-        cm.update(age_mean=round(float(X.age_scan.mean()), 1), age_sd=round(float(X.age_scan.std()), 1), followup_median_days=float(X.days_to_last_followup.median()),
-                  followup_iqr_days=[float(X.days_to_last_followup.quantile(0.25)), float(X.days_to_last_followup.quantile(0.75))],
-                  female_share=sp.share(int((X.gender == 2).sum()), int(X.gender.notna().sum())), current_smoker_share=sp.share(int((X.cigsmok == 1).sum()), int(X.cigsmok.notna().sum())),
+        if X.age_scan.notna().sum() >= a.min_cell: cm.update(age_mean=round(float(X.age_scan.mean()), 1), age_sd=round(float(X.age_scan.std()), 1))
+        if X.days_to_last_followup.notna().sum() >= a.min_cell:
+            cm.update(followup_median_days=round(float(X.days_to_last_followup.median())), followup_iqr_days=[round(float(X.days_to_last_followup.quantile(q))) for q in (0.25, 0.75)])
+        cm.update(female_share=sp.share(int((X.gender == 2).sum()), int(X.gender.notna().sum())), current_smoker_share=sp.share(int((X.cigsmok == 1).sum()), int(X.cigsmok.notna().sum())),
                   baseline_share=sp.share(int((X.screen_round == 0).sum()), n), nodule_ge4mm_share=sp.share(int((X.max_dia > 0).sum()), int(X.max_dia.notna().sum())))
         if "lung_rads" in X:
             cm["lung_rads_ge3_share"] = sp.share(int((X.lung_rads >= 3).sum()), int(X.lung_rads.notna().sum())); cm["lung_rads_0_share"] = sp.share(int(X.lung_rads_0.sum()), n)
@@ -398,19 +446,29 @@ def geometry(root, manifest, a, log):
         if not uid: no_uid += 1; continue
         s = series.setdefault(uid, dict(pos=[], iop=None, thick=None, maker=None, bad_type=False, enhanced=False, study=str(getattr(d, "StudyInstanceUID", ""))))
         t_ = STD_TS.get(str(getattr(getattr(d, "file_meta", None), "TransferSyntaxUID", "")), "other"); ts[t_] = ts.get(t_, 0) + 1
-        s["maker"] = s["maker"] or str(getattr(d, "Manufacturer", "") or ""); s["bad_type"] |= bool(BAD_IT.search("\\".join(map(str, getattr(d, "ImageType", []) or []))))
+        s["maker"] = s["maker"] or str(getattr(d, "Manufacturer", "") or "")
+        it = getattr(d, "ImageType", None) or []; s["bad_type"] |= bool(BAD_IT.search(it if isinstance(it, str) else "\\".join(map(str, it))))
         try: nfr = int(str(getattr(d, "NumberOfFrames", 1) or 1).strip() or 1)
         except ValueError: nfr = 1
         try:
-            if nfr > 1 and hasattr(d, "PerFrameFunctionalGroupsSequence"):
-                s["enhanced"] = True; sh = d.SharedFunctionalGroupsSequence[0] if hasattr(d, "SharedFunctionalGroupsSequence") else None
+            if nfr > 1 and getattr(d, "PerFrameFunctionalGroupsSequence", None):
+                s["enhanced"] = True; shs = getattr(d, "SharedFunctionalGroupsSequence", None); sh = shs[0] if shs else None
+
+                def tag(fr, seq, attr, n=None):
+                    """the attribute from the per-frame group, else from the shared group; None if absent or of the wrong length."""
+                    for grp in (fr, sh):
+                        q = getattr(grp, seq, None) if grp is not None else None
+                        v = getattr(q[0], attr, None) if q else None
+                        if v not in (None, ""):
+                            try: v = [float(x) for x in v] if n else float(v)
+                            except (TypeError, ValueError): continue
+                            if n is None or len(v) == n: return v
+                    return None
                 for fr in d.PerFrameFunctionalGroupsSequence:
-                    pm = getattr(fr, "PixelMeasuresSequence", None) or (getattr(sh, "PixelMeasuresSequence", None) if sh is not None else None)
-                    po = getattr(fr, "PlaneOrientationSequence", None) or (getattr(sh, "PlaneOrientationSequence", None) if sh is not None else None)
-                    pp = getattr(fr, "PlanePositionSequence", None)
-                    if pm and s["thick"] is None: s["thick"] = float(pm[0].SliceThickness)
-                    if po and s["iop"] is None: s["iop"] = [float(v) for v in po[0].ImageOrientationPatient]
-                    if pp: s["pos"].append([float(v) for v in pp[0].ImagePositionPatient])
+                    if s["thick"] is None: s["thick"] = tag(fr, "PixelMeasuresSequence", "SliceThickness")
+                    if s["iop"] is None: s["iop"] = tag(fr, "PlaneOrientationSequence", "ImageOrientationPatient", 6)
+                    pp = tag(fr, "PlanePositionSequence", "ImagePositionPatient", 3)
+                    if pp is not None: s["pos"].append(pp)
             else:
                 ipp, iop = list(getattr(d, "ImagePositionPatient", []) or []), list(getattr(d, "ImageOrientationPatient", []) or [])
                 if len(ipp) == 3: s["pos"].append([float(v) for v in ipp])
@@ -453,7 +511,8 @@ def geometry(root, manifest, a, log):
                 Pp = J.merge(J, on="participant_id", suffixes=("_a", "_b")); Pp = Pp[Pp.screen_round_b == Pp.screen_round_a + 1]
                 out["consecutive_screen_pairs"] = dict(n=sp.count(len(Pp), R5), stretch_status_changes=sp.count(int((Pp.st_a != Pp.st_b).sum()), R5))
     out["cells_suppressed"] = sp.n
-    out["note"] = "counts rounded to a multiple of 5; counts below min_cell shown as <min_cell; makers with fewer series than min_cell merged into OTHER/UNKNOWN"
+    out["note"] = ("counts rounded to a multiple of 5 (a positive count is never shown as 0); " if R5 else "counts NOT rounded (self-test only); ") + \
+        "counts below min_cell shown as <min_cell; makers with fewer series than min_cell merged into OTHER/UNKNOWN; the counts are of CT series and studies, not of people"
     return out
 
 
@@ -469,13 +528,39 @@ def write(res, out):
     (to / "SUMMARY_FOR_REVIEW.txt").write_text("\n".join(lines), encoding="utf-8"); return h
 
 
-KEY_BLOCKS = ("compare", "compare_exam_table_only"); KEY_EPS = ("E1_1year_all_screens", "E2_1year_baseline", "E4_6years_baseline")
+KEY_BLOCKS = ("compare", "compare_exam_table_only", "compare_no_margin_column"); KEY_EPS = ("E1_1year_all_screens", "E2_1year_baseline", "E4_6years_baseline")
+
+
+def unit_checks():
+    """small known-answer checks of the input coding and the numerics (synthetic values; no data)."""
+    log = lambda m: None   # noqa: E731
+    out = {}
+    v = yn(pd.Series(["1.0", "0.0", "", "Y", " no ", "x"]), "t", log).tolist(); out["yn_1.0_0.0_blank"] = v[:2] == [1.0, 0.0] and np.isnan(v[2]) and v[3:5] == [1.0, 0.0] and np.isnan(v[5])
+    N = pd.DataFrame(dict(exam_id=["e1", "e1", "e2", "e3"], diameter_mm=["12", "8", "", "3"], volume_mm3=["", "", "523.6", ""], calcified=["Y", "n", "", "N"],
+                          type=["solid", "Part Solid", "ground glass", "solid"], lobe=["RUL", " Right  Upper Lobe", "lingula", "LLL"], spiculated=["", "1", "0", ""]))
+    It = nodule_items(N, log).set_index("exam_id")
+    out["calcified_largest_left_out"] = bool(abs(It.loc["e1", "max_dia"] - 8) < 1e-9 and It.loc["e1", "big_mixed"] == 1 and It.loc["e1", "big_upper"] == 1 and It.loc["e1", "big_spic"] == 1)
+    out["volume_to_diameter_and_lingula"] = bool(abs(It.loc["e2", "max_dia"] - 10.0) < 1e-3 and It.loc["e2", "big_gg"] == 1 and It.loc["e2", "big_upper"] == 0)
+    out["nodule_below_4mm_left_out"] = "e3" not in It.index
+    lr = norm_str(pd.Series(["4AS ", "4B C", "4x", "0", "3", "2S", ""])).str.replace(r"\s+", "", regex=True).str.replace(r"[SC]+$", "", regex=True)
+    out["lung_rads_parsing"] = lr.map({"1": 1, "2": 2, "3": 3, "4A": 4, "4B": 5, "4X": 6}).fillna(-1).tolist() == [4, 5, 6, -1, 3, 2, -1]
+    u, G = km_censoring(np.array([1.0, 1.0, 2.0]), np.array([1, 0, 0])); out["km_events_before_censorings"] = bool(np.allclose(G, [0.5, 0.0]))
+    out["logreg_separation_gives_None"] = logreg(np.array([0.0, 0.0, 1.0, 1.0]), np.array([0, 0, 1, 1])) is None
+    rng = np.random.default_rng(3); xx = rng.normal(size=400); yy = (rng.random(400) < 1 / (1 + np.exp(-(0.5 + 1.2 * xx)))).astype(int); b = logreg(xx, yy)
+    out["logreg_converges"] = b is not None and abs(b[1] - 1.2) < 0.4
+    s4, s1 = Supp(4), Supp(1)
+    out["suppression_rules"] = s4.count(2, True) == "<4" and s1.count(2, True) == 5 and s1.count(0, True) == 0 and Supp(10).share(3, 1000) == "withheld" and Supp(10).share(10, 100000) == "<0.001"
+    Xc = pd.DataFrame(dict(max_dia=[0, 6, 8, 0], screen_round=[0, 1, 1, 0], big_spic=[0, np.nan, np.nan, 0], gw2=[0, 1, 0, 0]))
+    out["form_off_when_an_item_is_missing_where_it_applies"] = p_check(Xc, ["max_dia", "big_spic", "gw2"])[0] is False and p_check(Xc, ["max_dia", "gw2"])[0] is True
+    return out
 
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--compare"); ap.add_argument("--nodules"); ap.add_argument("--geometry"); ap.add_argument("--series-manifest")
     ap.add_argument("--selftest", action="store_true"); ap.add_argument("--write-reference", action="store_true", help=argparse.SUPPRESS)
     ap.add_argument("--out", default="partner_output"); ap.add_argument("--min-cell", type=int, default=10); ap.add_argument("--site-label", default="A")
+    ap.add_argument("--lung-rads-version", default="not stated", help="e.g. 1.1, 2022, none"); ap.add_argument("--diameter-type", default="not stated", help="longest, mean or volume")
+    ap.add_argument("--cancer-ascertainment", default="not stated", help="registry, records or mixed")
     a = ap.parse_args()
     if not (a.selftest or a.compare or a.geometry): ap.print_help(); return
     local = Path(a.out) / "LOCAL_DO_NOT_SEND"; local.mkdir(parents=True, exist_ok=True)
@@ -483,19 +568,31 @@ def main():
         def log(msg): logf.write(msg + "\n")
         if a.selftest:
             sys.path.insert(0, str(KIT / "synthetic")); import make_synthetic as MS
-            ex, no, ex2, dc = MS.make(local / "synthetic")
+            ex, no, ex2, dc, man = MS.make(local / "synthetic")
             g_args = argparse.Namespace(**{**vars(a), "min_cell": 1, "no_round": True})   # synthetic headers: no suppression or rounding, so the classes can be checked
-            res = dict(kit_version=VERSION, selftest=True, compare=compare(read_csv(ex), read_csv(no), a, log), compare_exam_table_only=compare(read_csv(ex2), None, a, log),
-                       geometry=geometry(dc, None, g_args, log))
-            h = write(res, a.out)
+            res = dict(kit_version=VERSION, selftest=True, unit_checks=unit_checks(), compare=compare(read_csv(ex), read_csv(no), a, log),
+                       compare_exam_table_only=compare(read_csv(ex2), None, a, log), compare_no_margin_column=compare(read_csv(ex2).drop(columns=["spiculated"]), None, a, log),
+                       geometry=geometry(dc, man, g_args, log))
+            h = write(res, a.out); g = res["geometry"]; nm = res["compare_no_margin_column"]
+            structure = dict(no_margin_column_form_off=nm["form_P1_evaluated"] is False and all("P" not in e.get("auroc", {}) and "sybil" in e.get("auroc", {}) for e in nm["endpoints"].values()),
+                             geometry_classes=g["all_axial_series"] == {"ratio_le_0p65": 2, "0p65_0p85": 1, "0p85_0p95": 0, "0p95_1p05": 2, "gt_1p05": 0, "ratio_0_or_irregular": 0},
+                             geometry_scout_excluded=g["attrition"]["excluded_scout_or_reformat"] == 1, geometry_enhanced_shared_and_per_frame=g["enhanced_multiframe_series"] == 2,
+                             geometry_study_with_both=g["studies"]["with_both_overlapping_and_contiguous"] == 1,
+                             geometry_manifest_pairs=g.get("consecutive_screen_pairs") == {"n": 1, "stretch_status_changes": 1})
             got = {f"{b}|{e}|{s}": res[b]["endpoints"][e]["auroc"][s]["est"] for b in KEY_BLOCKS for e in KEY_EPS for s in ("sybil", "P")
                    if "auroc" in res[b]["endpoints"][e] and s in res[b]["endpoints"][e]["auroc"]}
             ref = KIT / "frozen" / "selftest_expected_key_numbers.json"
-            if a.write_reference: ref.write_text(json.dumps(got, indent=1, sort_keys=True) + "\n", encoding="utf-8", newline="\n"); print("reference written", h); return
+            checks_ok = all(res["unit_checks"].values()) and all(structure.values())
+            if not checks_ok: print("FAILED checks:", [k for k, v in {**res["unit_checks"], **structure}.items() if not v])
+            if a.write_reference:
+                if not checks_ok: sys.exit(1)
+                ref.write_text(json.dumps(got, indent=1, sort_keys=True) + "\n", encoding="utf-8", newline="\n"); print("reference written", h); return
             keyn = json.loads(ref.read_text(encoding="utf-8-sig"))
             same = set(got) == set(keyn) and all(got[k] is not None and abs(got[k] - v) <= 1e-6 for k, v in keyn.items())
-            print(f"selftest: output SHA-256 {h}; key numbers {'equal to the reference' if same else 'DIFFERENT from the reference'} -> {'PASS' if same else 'FAIL'}")
-            sys.exit(0 if same else 1)
+            ok = same and checks_ok
+            print(f"selftest: output SHA-256 {h}; {len(res['unit_checks'])} unit checks and {len(structure)} structure checks {'pass' if checks_ok else 'FAIL'}; "
+                  f"key numbers {'equal to the reference' if same else 'DIFFERENT from the reference'} -> {'PASS' if ok else 'FAIL'}")
+            sys.exit(0 if ok else 1)
         res = dict(kit_version=VERSION)
         if a.compare: res["compare"] = compare(read_csv(a.compare), read_csv(a.nodules) if a.nodules else None, a, log)
         if a.geometry: res["geometry"] = geometry(a.geometry, a.series_manifest, a, log)

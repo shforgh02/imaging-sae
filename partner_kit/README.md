@@ -11,7 +11,7 @@
 ## Steps
 1. `python run_partner.py --selftest --out test_output` — runs on synthetic data shipped with the kit and must print `PASS`.
 2. Prepare your exam table (and, if you have one, your nodule table) as described in `CODING_SHEET.md`.
-3. `python run_partner.py --compare exams.csv [--nodules nodules.csv] --out site_output --min-cell 10`
+3. `python run_partner.py --compare exams.csv [--nodules nodules.csv] --out site_output --min-cell 10 --lung-rads-version 1.1 --diameter-type longest --cancer-ascertainment registry` (the last three describe your records; give what is true for your site, or leave them out)
 4. Optional, outcome-free: `python run_partner.py --geometry <folder with your CT DICOM files> [--series-manifest series_sent_to_sybil.csv] --out site_output`
 5. Review `site_output/TO_RETURN/SUMMARY_FOR_REVIEW.txt` (the full content of the file to share, with its SHA-256). Row-level warnings stay in `site_output/LOCAL_DO_NOT_SEND/` and are never shared.
 
@@ -21,6 +21,7 @@
 - Sybil's coefficient given P; calibration (observed / expected, calibration intercept and slope, Brier score) for **both** Sybil and P.
 - Sensitivity, specificity, PPV, false alarms and missed cancers per 1,000 exams at (a) the NLST cuts frozen in `frozen/nlst_dev_cuts.json` ("transportability without local recalibration") and (b) 90% and 95% specificity on your cancer-free exams, re-estimated in every bootstrap draw ("discrimination at matched false-alarm workload").
 - An aggregate case-mix table (age mean and SD, shares, follow-up median).
+- **When the form is evaluated:** each form item is checked where it applies (nodule items on exams with a nodule ≥ 4 mm; growth and new nodule on repeat screens with one). If any item is less than 80% complete there, the form is not evaluated at your site and Sybil (and Lung-RADS) are analysed on all exams; no exam is dropped because a column is missing. Otherwise exams with a missing form item are left out of every comparison (their number is reported).
 
 ## Frozen files (`frozen/`, hashes in `MANIFEST.sha256`)
 - `x10_portable_form_params.json`: the 14-item form (SHA-256 `106da977…`; the program refuses to run if it differs).

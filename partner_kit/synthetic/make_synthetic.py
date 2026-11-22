@@ -1,8 +1,10 @@
 """Partner kit v1.0: a synthetic dataset for --selftest (random numbers only; no real person). Deterministic (seed 0).
-make(folder) -> (exams.csv with a nodule table, nodules.csv, exams_only.csv with awkward codings, dicom folder).
-exams_only.csv uses 1/0 with blanks, spelled-out types and lobes, numeric and suffixed Lung-RADS ("4AS ", "4B C", "0") and blank cells, to test the
-input coding. The DICOM files hold headers only: an overlapping series (2.5 / 1.25 mm), a contiguous one (1.25 / 1.25), a moderate one (1.0 / 0.75),
-a scout that must be excluded, and an Enhanced multi-frame CT series (2.0 / 1.0) whose geometry sits in the functional groups.
+make(folder) -> (exams.csv with a nodule table, nodules.csv, exams_only.csv with awkward codings, dicom folder, series manifest).
+nodules.csv also holds volume-only rows (diameter blank), calcified nodules larger than the largest non-calcified one (to be left out) and
+spelled-out lobes ("Right Upper Lobe", "left upper", "lingula"). exams_only.csv uses 1/0 with blanks, spelled-out nodule types ("part solid",
+"ground glass"), numeric and suffixed Lung-RADS ("4AS ", "4B C", "0") and blank cells, to test the input coding. The DICOM files hold headers
+only: an overlapping series (2.5 / 1.25 mm), a contiguous one (1.25 / 1.25), a moderate one (1.0 / 0.75), a scout that must be excluded, an
+Enhanced multi-frame CT series with its geometry in the shared group (2.0 / 1.0) and one with it in the per-frame groups (1.5 / 1.5).
 """
 from pathlib import Path
 
@@ -28,9 +30,13 @@ def make(folder):
             typ, spic, lobe = str(rng.choice(["solid", "part-solid", "ground-glass"], p=[0.8, 0.1, 0.1])), str(rng.choice(["Y", "N"], p=[0.1, 0.9])), str(rng.choice(["RUL", "RML", "RLL", "LUL", "lingula", "LLL"]))
             grow, new = ("Y" if (r > 0 and has and rng.random() < 0.1) else "N"), ("Y" if (r > 0 and has and rng.random() < 0.1) else "N")
             if has:
+                lobe_txt = {"RUL": "Right Upper Lobe", "LUL": "left upper"}.get(lobe, lobe) if rng.random() < 0.3 else lobe
                 for j in range(int(rng.integers(1, 3))):
-                    nods.append(dict(exam_id=ex, diameter_mm=d if j == 0 else float(np.round(rng.uniform(2, d), 1)), type=typ if j == 0 else "solid", spiculated=spic if j == 0 else "N",
-                                     lobe=lobe if j == 0 else "RLL", calcified="N", growth=grow if j == 0 else "N", new=new if j == 0 else "N"))
+                    dj = d if j == 0 else float(np.round(rng.uniform(2, d), 1)); vol_only = rng.random() < 0.05
+                    nods.append(dict(exam_id=ex, diameter_mm="" if vol_only else dj, volume_mm3=round(np.pi / 6 * dj ** 3, 3) if vol_only else "", type=typ if j == 0 else "solid",
+                                     spiculated=spic if j == 0 else "N", lobe=lobe_txt if j == 0 else "RLL", calcified="N", growth=grow if j == 0 else "N", new=new if j == 0 else "N"))
+                if rng.random() < 0.05:   # a calcified granuloma larger than every non-calcified nodule: must be left out
+                    nods.append(dict(exam_id=ex, diameter_mm=d + 5, volume_mm3="", type="solid", spiculated="N", lobe="RLL", calcified="Y", growth="N", new="N"))
             # the same exam in an exam-only table with awkward codings
             yn10 = lambda v: "" if rng.random() < 0.02 else ("1" if v == "Y" else "0")   # noqa: E731
             lr2 = {"4A": "4AS ", "4B": "4B C"}.get(lr, lr) if rng.random() < 0.5 else lr
@@ -45,7 +51,9 @@ def make(folder):
     pd.DataFrame(rows).to_csv(ex_p, index=False, lineterminator="\n"); pd.DataFrame(nods).to_csv(no_p, index=False, lineterminator="\n")
     pd.DataFrame(rows2).to_csv(ex2_p, index=False, lineterminator="\n", encoding="utf-8-sig")
     dc = folder / "dicom"; _dicom(dc)
-    return ex_p, no_p, ex2_p, dc
+    man = folder / "series_manifest.csv"
+    pd.DataFrame(dict(series_uid=["1.2.826.0.1.3680043.10.999.1", "1.2.826.0.1.3680043.10.999.2"], participant_id=["S1", "S1"], screen_round=[0, 1])).to_csv(man, index=False, lineterminator="\n")
+    return ex_p, no_p, ex2_p, dc, man
 
 
 def _dicom(dc):
@@ -76,3 +84,11 @@ def _dicom(dc):
     for k in range(40):
         fr = Dataset(); pp = Dataset(); pp.ImagePositionPatient = [0.0, 0.0, -k * 1.0]; fr.PlanePositionSequence = Sequence([pp]); frames.append(fr)
     ds.PerFrameFunctionalGroupsSequence = Sequence(frames); ds.save_as(str(d_ / "enhanced.dcm"), write_like_original=False)
+    # Enhanced CT with the geometry in the per-frame groups only (thickness 1.5, spacing 1.5)
+    s_uid = "1.2.826.0.1.3680043.10.999.6"; d_ = dc / "6"; d_.mkdir(parents=True, exist_ok=True)
+    ds = base(d_ / "enhanced_pf.dcm", s_uid, f"{s_uid}.1", "1.2.840.10008.5.1.4.1.1.2.1"); ds.StudyInstanceUID = "1.2.826.0.1.3680043.10.999.7"; ds.Manufacturer = "SIEMENS"
+    ds.ImageType = "ORIGINAL\\PRIMARY\\AXIAL"; ds.NumberOfFrames = "40"; ds.SharedFunctionalGroupsSequence = Sequence([Dataset()]); frames = []
+    for k in range(40):
+        fr = Dataset(); pp = Dataset(); pp.ImagePositionPatient = [0.0, 0.0, -k * 1.5]; pm = Dataset(); pm.SliceThickness = 1.5; po = Dataset(); po.ImageOrientationPatient = [1, 0, 0, 0, 1, 0]
+        fr.PlanePositionSequence = Sequence([pp]); fr.PixelMeasuresSequence = Sequence([pm]); fr.PlaneOrientationSequence = Sequence([po]); frames.append(fr)
+    ds.PerFrameFunctionalGroupsSequence = Sequence(frames); ds.save_as(str(d_ / "enhanced_pf.dcm"), write_like_original=False)
