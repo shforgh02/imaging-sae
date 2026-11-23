@@ -180,7 +180,7 @@ Plan committed before anything was computed (`413dc07`); scripts and dev check (
 |---|---|---|---|---|
 | Radiologists' call | (their actual call) | 81 | 94.2% | 364 |
 | Sybil | dev cut matched to the radiologists' dev sensitivity (τ_rad) | **61** | **70.9%** | 65 |
-| Form | the same rule, dev | **82** | **95.3%** | **216** |
+| Form | the same rule, dev | **82** | **95.3%** | **215** |
 | Findings only (no call) | the same rule, dev | 82 | 95.3% | 280 |
 | Sybil | frozen τ90 | 72 | 83.7% | 115 |
 | Form | frozen τ90 | 77 | 89.5% | 113 |
