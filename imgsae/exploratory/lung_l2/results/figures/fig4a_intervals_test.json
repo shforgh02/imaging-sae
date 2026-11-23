@@ -1,0 +1,59 @@
+{
+ "root": "test",
+ "plan": "docs/EXECUTION_LOG.md, 2026-11-23, Figure 4 panel (a)",
+ "counts": {
+  "exams": 759,
+  "participants": 342
+ },
+ "bootstrap": "S6 boot_stat: participant bootstrap, 2,000 draws, seed 0, 2.5/97.5 percentiles",
+ "delta_lbar1_as_sybil": {
+  "est": -0.36645970921261756,
+  "lo": -0.41117558162954265,
+  "hi": -0.3200346311959874,
+  "sd": 0.02366687548921023,
+  "n_draws": 2000
+ },
+ "delta_lbar1_axis0_off": {
+  "est": 0.04010214037343679,
+  "lo": -0.004993329823420539,
+  "hi": 0.08667514509978182,
+  "sd": 0.023387545901821346,
+  "n_draws": 2000
+ },
+ "delta_lbar1_axis0_carried": {
+  "est": 0.4065618495860544,
+  "lo": 0.4014155279408585,
+  "hi": 0.41127994760474834,
+  "sd": 0.0025635011416088502,
+  "n_draws": 2000
+ },
+ "share_exams_abs_delta_lbar1_ge_quarter_sd": {
+  "as_sybil": 0.7075098814229249,
+  "axis0_off": 0.5401844532279315
+ },
+ "delta_lbar6_as_sybil": {
+  "est": -0.2627733290344248,
+  "lo": -0.3024757343652584,
+  "hi": -0.22088743334432864,
+  "sd": 0.02097816529105263,
+  "n_draws": 2000
+ },
+ "delta_lbar6_axis0_off": {
+  "est": 0.043847388414998016,
+  "lo": 0.0035938421891263087,
+  "hi": 0.08608695415282325,
+  "sd": 0.02106162572878773,
+  "n_draws": 2000
+ },
+ "delta_lbar6_axis0_carried": {
+  "est": 0.3066207174494228,
+  "lo": 0.30232179188884745,
+  "hi": 0.3106042357035908,
+  "sd": 0.0020902366290244225,
+  "n_draws": 2000
+ },
+ "share_exams_abs_delta_lbar6_ge_quarter_sd": {
+  "as_sybil": 0.6574440052700923,
+  "axis0_off": 0.5454545454545454
+ }
+}
