@@ -1348,3 +1348,36 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
 - **Plan of one free follow-up check (descriptive, outcome-free, dev only; written and committed before it is computed):** does axis 0 already rise in ordinary scans when the natural padding slab gets thin? On all dev main runs (`imgsae_data/lung_l2/dev/arrays_dev_main.npz`, already scored; no new Sybil run), axis 0 (frozen axes, dev SD units, the same code as `x11_analysis.py`) against the padded slices in Sybil's box p = 200 − `m_n_real_slices` (`exams_dev.csv`; slices with any non-zero voxel of Sybil's tensor), by group: contiguous (ratio 0.95–1.05), stretched (0 < ratio ≤ 0.65), other. Bins of p: 0, 1–8, 9–16, 17–24, 25–32, 33–48, 49–64, 65–80, > 80. Per bin and group: n, mean, median, 5th and 95th percentiles, and the mean's 95% interval (participant bootstrap, 2,000 draws, seed 0). Summary: among contiguous exams, the share with p ≤ 16 and with p ≤ 32, and the Spearman correlation of p with axis 0. Columns read: `series_uid`, `pid`, `grp`, `ratio`, `tag_maker`, `m_n_real_slices`, `n_images`, `true_spacing` only (no outcome). Script `x11_padcurve.py`, output `results/x11/x11_padcurve_dev.json`; reported as a descriptive secondary of X11.
 - **Done (output `0c497f0`, committed before it was read):** 7,336 dev main runs, 0 missing measures; contiguous mean −0.576 (equal to the X11 distribution). Axis 0 follows one curve against the padded slices p, whatever the group: p > 80 −0.63, 65–80 −0.60, 49–64 −0.45, 33–48 +0.28, 25–32 +1.14, 17–24 +1.64, 9–16 +2.11, 1–8 +2.22, 0 +2.25 (all scans). At equal p the groups agree (17–24: stretched +1.63, other +1.64; 25–32: +1.19, +1.14, contiguous +1.11 with n = 5). Contiguous scans: median p 74 (5th–95th percentile 55–92; scan length 270–363 mm); p ≤ 16 in 0.07%, ≤ 32 in 0.19%; Spearman(p, axis 0) −0.72. Other scans (ratio 0.65–0.95 or > 1.05): 419 of 2,274 (18%) have p ≤ 32. Reading: the axis depends on how much padding is left (steep between about 48 and 16 padded slices), not on why; ordinary contiguous NLST scans sit on the flat part.
 - **Text and figures updated:** `RESULTS_L2.md` new section 3j (X11, with "cannot say"), section 0 item 3, 3i item 2 (moderate overlap), section 4, section 6 message 3; `RESULTS_R_dev.md` note on the dev name. Figure 3: H6 title "shared axis 0 carries the drop", footnote gives the frozen name and the X11 reading. Figure 4: title "a signal from Sybil's own padding"; (b) stretch dose (axis 0; 1-year logit and A0; the true scan with air padding; f = 2 at the same filling on the axis-0 plot only); (c) padding variants with the 1-year logit and the exam-level scatter (pad-matched logits marked "not read"; every second slice beside the z-fix on the same 36 scans); (d) the padding curve. `docs/FIGURE_PLAN.md` row 4 updated. Rendered with headless Edge and checked by eye (two label overlaps fixed). Figures 2, 5, 6 unchanged byte for byte.
+
+## 2026-11-23: Neon's check of the X11 write-up (`imgsae_data/gemini_review/gemini_x11_writeup.txt`), corrections, and a post hoc finer-bin version of the padding curve (planned and committed before it is computed)
+- **Checked by me and true (corrections of my write-up, `c1bf012`):**
+  - (1) "pad-matched logits (+0.55, −0.42, +0.53)" mixed two measures. +0.55 and −0.42 are with axis 0 off; +0.53 is the total. Correct: total 1-year logit +0.14, −0.43, +0.53; with axis 0 off +0.55, −0.42, +0.52.
+  - (2) The list of absolute axis-0 values mixed weighted and unweighted means. Dev-weighted (arm A): Sybil's padding −0.57, air +1.85, mirrored anatomy +2.15, stretched main run +2.23 (box full or nearly full: 11 of 63 are still padded). The entry above says +2.14 and +2.20 (unweighted).
+  - (3) Padding curve:
+    - "the three groups agree (17–24: +1.63 and +1.64)" cites a bin with no contiguous scan (contiguous n = 0 in 1–24).
+    - In the 16-slice bin 33–48 the groups differ (contiguous +0.07, other +0.29, stretched +0.56; intervals apart), because the bin spans the steep part.
+    - "other" also holds the 8 dev scans with ratio 0.
+    - "contiguous scans almost never reach the steep part" used ≤ 32 (0.2%). At ≤ 48 it is 1.5%; 18.7% sit at 49–64 (−0.48, slightly above the floor of −0.60 to −0.63).
+  - (4) Missing limits:
+    - the every-second-slice test is GE (24) and Siemens (12) only, and its noise floor is GE only (n = 10);
+    - arm B is a synthetic z-scaling with 12 scans per maker (f = 2.5: 20 scans);
+    - air is the only other constant value tested ("barely moves it" → about 15% of the shift);
+    - "does not read the anatomical stretch" → "at matched padding the stretch gives 2.2–2.8%, all in the attention blocks".
+  - (5) Figure 4:
+    - too tall for a journal page;
+    - f = 2.5 (20 scans) drawn next to f = 2.0 (48 scans) on the logit plot looks like a jump (paired f = 2.5 − f = 2.0: +0.16, mostly outside axis 0);
+    - hollow circles meant both "A0" and "20 scans";
+    - the air diamond sat left of f = 1;
+    - the panel (c) subtitle was wrong for three rows;
+    - row 3 (mirrored anatomy) did not say that 36% of slice attention falls on the mirrored slices.
+  - (6) The log entry above says 57,430 CPU seconds; the file says 57,425.
+- **Changes:**
+  - `RESULTS_L2.md` 3i, 3j and section 6 corrected.
+  - Figure 4 keeps (a)–(c). Panel (b): f = 2.5 only on the axis-0 plot with its paired difference; A0 as triangles; the diamond at f = 1. Panel (c): rows grouped (main rows, then controls), each row names its reference, GE + Siemens on the every-second-slice row.
+  - Panel (a): its scatter note now uses the 6-year logit (65.7% → 54.5%) like H1.
+  - The padding curve moves to a supplementary figure (S1).
+  - Figure 3 footnote: "an exploratory dev experiment (no outcome read)".
+- **Post hoc finer bins (descriptive; added after Neon's review, so labelled post hoc; the planned output stays as committed):**
+  - Same script and data, with 8-slice bins (0, 1–8, …, 89–96, > 96) and five groups: overlapping (0 < ratio ≤ 0.65), moderate (0.65 < ratio < 0.95), contiguous (0.95–1.05), gaps (> 1.05), ratio 0 or missing.
+  - Same statistics and participant bootstrap. The bootstrap guard becomes "at least 2 participants" (Neon's nit; no planned number changes).
+  - Output `results/x11/x11_padcurve_fine_dev.json`, committed before it is read. The planned run is repeated and must give the committed file byte for byte.
