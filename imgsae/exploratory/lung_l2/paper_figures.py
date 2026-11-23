@@ -199,9 +199,53 @@ def fig6(out):
     s.save(out / "fig6_clinical.svg")
 
 
+def box(s, x, y, w, lines, edge=BASE, head=None, h=None):
+    hh = h or 16 * len(lines) + 14; rect(s, x, y, w, hh, SURF, edge, 1.5, rx=6)
+    for i, (t, size, col, wt) in enumerate(lines): s.text(x + 10, y + 20 + i * 16, t, size, col, weight=wt)
+    return hh
+
+
+def arrow(s, x1, y1, x2, y2):
+    s.line(x1, y1, x2, y2, INK2, 1.5); s.el.append(f'<path d="M{x2:.1f},{y2:.1f} l-4,-8 l8,0 Z" fill="{INK2}"/>' if x1 == x2 else "")
+
+
+def fig2(out):
+    """study flow from committed counts: lung_l0/results/l0_results.json, results/s6/assemble_test.json, the dev assemble record (logged),
+    results/manifest_unseen.csv tiers, results/manifest_lidc.csv (X5)."""
+    L0 = json.loads((HERE.parent / "lung_l0" / "results" / "l0_results.json").read_text()); P = L0["participants"]; C = L0["counts_all_screens"]
+    AT = json.loads((HERE / "results" / "s6" / "assemble_test.json").read_text())
+    import csv
+    U = list(csv.DictReader(open(HERE / "results" / "manifest_unseen.csv", encoding="utf-8")))
+    u1 = [r_ for r_ in U if r_["tier"] == "U1"]; u2 = [r_ for r_ in U if r_["tier"] == "U2"]
+    nl = sum(1 for _ in csv.DictReader(open(HERE / "results" / "manifest_lidc.csv", encoding="utf-8")))
+    s = Svg(1060, 560); s.text(20, 28, "Figure 2. Study flow", 15, weight="bold")
+    B, I, M = (INK, "bold"), (INK2, "normal"), (MUTED, "normal")
+    box(s, 300, 50, 420, [(f"NLST, CT arm (public tables, IDC): {P['ct_arm_in_public_table']:,} participants", 12, *B),
+                          ("CT images and DICOM headers from IDC; outcomes from the NLST tables", 10, *I)])
+    arrow(s, 510, 98, 510, 128); s.line(130, 128, 930, 128, INK2, 1.5)
+    cols = [(20, "Sybil's train split", [f"{P['by_group']['train']:,} participants, {C['train']['exams']:,} exams", "Sybil was trained here (by its developers)", "we fit only the radiologists' forms (F, P) here"], BASE),
+            (280, "Sybil's dev split", [f"{P['by_group']['dev']:,} participants; 7,336 series scored", "Sybil's model selection split: in-sample", "our discovery work; X11 (mechanism, no outcome)"], BASE),
+            (540, "Sybil's test split (held out)", [f"{P['by_group']['test']:,} participants; {AT['n_main']:,} series scored", f"+ {AT['n_zfix']} z-fix runs, {AT['n_pair']} kernel pairs", f"1-year outcome: {AT['outcomes']['y1']['pos'] + AT['outcomes']['y1']['neg']:,} exams, {AT['outcomes']['y1']['pos']} cancers",
+                                                   "six pre-registered tests; exploratory X1-X10"], BLUE),
+            (800, "Never used by Sybil (O2)", [f"{P['by_group']['unseen']:,} participants, {C['unseen']['exams']:,} exams", f"lists: U1 {len(u1):,} series, U2 {len(u2):,} series", "pre-registered; scoring from 1 Dec 2026", f"(cancer-poor: {C['unseen']['participants_with_later_cancer']} with a later cancer)"], ORANGE)]
+    for x, title, lines, edge in cols:
+        arrow(s, x + 120, 128, x + 120, 150)
+        box(s, x, 150, 240, [(title, 11, *B)] + [(t, 10, *I) for t in lines], edge=edge)
+    s.text(20, 290, "All NLST groups are the same trial (33 US centres, 2002-2004 enrolment): every NLST result is internal testing, including O2.", 10, INK2)
+    box(s, 20, 320, 480, [("LIDC-IDRI (7 US academic centres; clinical CT, not screening)", 11, *B),
+                          (f"{nl} scans with overlapping slices (one per patient; GE 134, Philips 46, Siemens 17)", 10, *I),
+                          ("external replication of the mechanism only (no cancer outcome)", 10, *I)], edge=BLUE)
+    box(s, 540, 320, 480, [("Imaging Data Commons, all chest CT (DICOM headers only)", 11, *B),
+                           ("how common overlapping series are today (X12); no model run", 10, *I),
+                           ("NLST collection licence CC BY 4.0; LIDC-IDRI CC BY 3.0", 10, *M)])
+    s.text(20, 430, "Selection rules, exclusions at each step and the cut-offs are in the protocol (section 5), O2_PLAN.md and RESULTS_L2.md 3d, 3i.", 10, MUTED)
+    s.text(20, 446, "Blue edge: confirmatory results (test) and the external mechanism replication; orange edge: pre-registered, not yet run.", 10, MUTED)
+    s.save(out / "fig2_flow.svg")
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("out"); ap.add_argument("--ct-dir"); a = ap.parse_args(); out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
-    fig5(out); fig6(out)
+    fig2(out); fig5(out); fig6(out)
     if a.ct_dir: fig1(Path(a.ct_dir), Path(a.ct_dir))                          # Figure 1 holds CT pixels: written next to the PNGs, outside git
     print("figures written")
 
