@@ -43,11 +43,15 @@ def main():
     cm, cz = coronal(vm, row), coronal(vz, row)
     pad_m = [int(i) for i in np.where((vm[0, 0] == 0).flatten(1).all(1).numpy())[0]]; pad_z = [int(i) for i in np.where((vz[0, 0] == 0).flatten(1).all(1).numpy())[0]]
     inc = bool(pos[-1] > pos[0])   # slice order of the volume follows the sorted positions
+    import pydicom
+    cols = int(pydicom.dcmread(paths[0], stop_before_pixels=True).Columns)   # Sybil resizes each slice to 256 columns: true column size = pixel x cols / 256 x resample
+    def lung_rows(img):   # rows (volume order) with lung-dark pixels in the central columns: first and last = lung ends inside the box
+        r_ = np.where(((img[:, 40:216] > 62) & (img[:, 40:216] < 100)).sum(1) > 12)[0]; return [int(r_.min()), int(r_.max())] if len(r_) else None
     Image.fromarray(cm).save(os.path.join(out, "fig1_coronal_main.png")); Image.fromarray(cz).save(os.path.join(out, "fig1_coronal_zfix.png"))
     vs = [float(v) for v in s._meta.voxel_spacing]
     info = dict(series_uid=r.series_uid, maker=r.maker, model=r.tag_model, thickness_mm=thick, true_spacing_mm=spacing, ratio=round(spacing / thick, 3), n_images=int(len(pos)),
                 T_resampled_main=int(shp_m[3]), T_resampled_zfix=int(shp_z[3]), coronal_row=int(row), padded_rows_main=pad_m, padded_rows_zfix=pad_z,
-                positions_increase_with_index=inc, sybil_voxel_spacing_after_resample_mm=[float(v) for v in VOXEL_SPACING], meta_voxel_spacing=vs,
+                positions_increase_with_index=inc, dicom_columns=cols, lung_rows_main=lung_rows(cm), lung_rows_zfix=lung_rows(cz), sybil_voxel_spacing_after_resample_mm=[float(v) for v in VOXEL_SPACING], meta_voxel_spacing=vs,
                 note="Sybil's volume: 200 slices of 2.5 mm (its belief) by 256 x 256; main crops a stretched chest at the box ends, z-fix pads a true-length chest")
     json.dump(info, open(os.path.join(out, "fig1_coronal.json"), "w"), indent=1); shutil.rmtree(d, ignore_errors=True)
     print(json.dumps({k: v for k, v in info.items() if not k.startswith("padded")}, indent=None), "| padded rows main", len(pad_m), "zfix", len(pad_z))

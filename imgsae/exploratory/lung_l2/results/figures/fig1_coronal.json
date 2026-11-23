@@ -85,6 +85,15 @@
   199
  ],
  "positions_increase_with_index": true,
+ "dicom_columns": 512,
+ "lung_rows_main": [
+  32,
+  199
+ ],
+ "lung_rows_zfix": [
+  66,
+  151
+ ],
  "sybil_voxel_spacing_after_resample_mm": [
   0.703125,
   0.703125,
