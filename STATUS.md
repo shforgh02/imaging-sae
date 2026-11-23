@@ -2,6 +2,13 @@
 
 **Updated:** 2026-11-23 · **Phase:** Lung L2 **test done** (N4 to N6), exploratory X1, X3, X4, X5, X7, X8, X9, X10 done; **O2 plan frozen** (`docs/O2_PLAN.md`), runs from 1 December. First freeze: `c593005`. S3 is complete: all 7,336 dev exams + 998 z-fix + 500 kernel-pair series, 0 failures, S3 gate passed. · **Machine:** ASUS Vivobook Pro 16X (M7600QE), RTX 3050 Ti 4 GB (CUDA; held at 210 MHz by a faulty board power sensor, constant 752.67 W reading, diagnosed 7 Nov; not fixable in software. **Correction, 22 Nov:** this line said "a power setting")
 
+**December: start here (a new chat).** Work paused on 23 Nov; everything is committed and pushed (last result commit `5f9f0cb`).
+1. Read this file, then `docs/O2_PLAN.md` sections 7 and 9 (amendment A1, item 4 = the launch steps).
+2. From 1 December: check usage on all three Modal accounts first (`budget.py status --profile P --no-log`, December near $0); then the three smokes and the identity gate `o2_identity_smoke.py` (must print PASS); then `imgsae/exploratory/lung_l2/cloud/run_o2.cmd` (started by hand). Order: `o2_analysis.py` output committed before `--add-u3` and `o2_form.py`.
+3. Early December: outreach to 3 groups (the lead sends the emails; partner kit v1.0 ready, MIT).
+4. Optional, not planned, not started: Neon's CPU test that varies the thickness of the padding slab on purpose (free, about 1–2 h; would make Supplementary Figure S1 experimental). Needs a plan committed first and the lead's yes.
+5. Ask Neon (read-only, `antigravity-cli-reviewer` memory) at each step, as the lead asked.
+
 **Now (2026-11-23, later): TASK 2 (X11) DONE — AXIS 0 IS A PADDING AXIS. ALL SIX FIGURES DRAWN. NEXT: O2 FROM 1 DECEMBER (AS FROZEN), OUTREACH EARLY DECEMBER.**
 - **X11 (exploratory, dev only, no outcome; `RESULTS_L2.md` 3j; output `ff52d5b`, committed before it was read):** shared axis 0 reads whether Sybil's 200-slice box holds a thick slab of Sybil's own padding (0 after normalisation, about −600 HU), through max pooling. It does not read the anatomical stretch. Evidence:
   - air padding keeps 14.6% of the z-fix shift;
