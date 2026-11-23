@@ -83,9 +83,53 @@ def fig6(out):
     s.save(out / "fig6_exposure.svg")
 
 
+def fig5(out):
+    """exposure in non-overlapping parts (Neon's assessment): strong overlap without a contiguous alternative, strong overlap with a contiguous
+    series in the same study (the series choice decides), moderate overlap only (0.65-0.85; hatched; tested in X11 only); interval on the strong
+    total; a strip of per-collection series shares."""
+    import csv
+    d = json.loads((HERE / "results" / "x12" / "x12_overlap_prevalence.json").read_text())["sets"]
+    rows = [("NLST (2002-2004 scanners)", "nlst"), ("Modern scanner models (2013 or later)", "modern_scanner_models"), ("Public chest CT collections from 2015", "modern_collections_2015_on")]
+    s = Svg(940, 470); s.text(20, 28, "Figure 5. How often a chest CT study holds an overlapping series (public data, DICOM headers only)", 15, weight="bold")
+    s.el.append(f'<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="{SURF}"/>'
+                f'<line x1="0" y1="0" x2="0" y2="6" stroke="{MUTED}" stroke-width="2"/></pattern></defs>')
+    px, pw, xmax, top, rh = 330, 520, 0.40, 70, 70
+    for t in ticks(0, xmax, 4):
+        xx = px + t / xmax * pw; s.line(xx, top - 6, xx, top + 3 * rh - 10, GRID); s.text(xx, top + 3 * rh + 4, f"{t * 100:.0f}%", 10, MUTED, "middle")
+    s.text(px, top + 3 * rh + 20, "share of studies", 10, MUTED)
+    for ri, (lab, key) in enumerate(rows):
+        v = d[key]; y = top + ri * rh; h = 22
+        s.text(20, y + 14, lab, 11, INK); s.text(20, y + 29, f"{v['studies']:,} studies, {v['patients']:,} people", 10, MUTED)
+        strong, both, mod = v["studies_any_le_0p65"]["share"], v["studies_both_le_0p65_and_contiguous"]["share"], v["studies_any_le_0p85"]["share"] - v["studies_any_le_0p65"]["share"]
+        parts = [(strong - both, BLUE, None), (both, "#86b6ef", None), (mod, "url(#hatch)", MUTED)]; x = px
+        for w, fill, stroke in parts:
+            ww = w / xmax * pw
+            if ww > 0: rect(s, x, y, max(ww - 2, 0.5), h, fill, stroke or "none", 1 if stroke else 0)
+            x += ww
+        lo, hi = v["studies_any_le_0p65"]["lo"], v["studies_any_le_0p65"]["hi"]; yi = y + h + 7
+        s.line(px + lo / xmax * pw, yi, px + hi / xmax * pw, yi, INK2, 1.5)
+        s.text(px + strong / xmax * pw + 4, y - 4, f"strong {strong * 100:.1f}%", 10, INK2)
+        s.text(px + (strong + mod) / xmax * pw + 6, y + 15, f"+ moderate {mod * 100:.1f}%", 10, MUTED)
+    ly = top + 3 * rh + 40
+    for i, (lab, fill, stroke) in enumerate((("strong overlap (ratio <= 0.65), no contiguous series in the study", BLUE, None),
+                                             ("strong overlap, a contiguous series also present (the series sent to Sybil decides)", "#86b6ef", None),
+                                             ("moderate overlap only (0.65 to 0.85): effect tested in X11 only", "url(#hatch)", MUTED))):
+        rect(s, 20, ly + i * 18 - 9, 14, 10, fill, stroke or "none", 1 if stroke else 0); s.text(40, ly + i * 18, lab, 10, INK2)
+    s.text(560, ly - 2, "black line: 95% interval of the strong total", 10, MUTED)
+    # per-collection strip (collections with >= 20 patients; series level)
+    cols = [r_ for r_ in csv.DictReader(open(HERE / "results" / "x12" / "x12_per_collection.csv", encoding="utf-8")) if int(r_["patients"]) >= 20 and r_["collection_id"] != "nlst"]
+    sy = ly + 78; s.text(20, sy, f"Per collection ({len(cols)} public chest CT collections with >= 20 people, NLST excluded): share of series with strong overlap", 10, INK2)
+    for t in (0, 0.25, 0.5):
+        xx = px + t / 0.5 * pw; s.text(xx, sy + 34, f"{t * 100:.0f}%", 10, MUTED, "middle")
+    s.line(px, sy + 18, px + pw, sy + 18, BASE, 1)
+    for r_ in cols: s.dot(px + min(float(r_["le_0p65"]), 0.5) / 0.5 * pw, sy + 18, BLUE, 3.5)
+    s.text(20, 462, "Header-only audit of IDC (mostly diagnostic and oncology CT, not screening); study-level shares; intervals by bootstrap over patients. Filters and sets: RESULTS_L2.md 3i.", 9, MUTED)
+    s.save(out / "fig5_exposure.svg")
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("out"); ap.add_argument("--ct-dir"); a = ap.parse_args(); out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
-    fig6(out)
+    fig5(out)
     if a.ct_dir: fig1(Path(a.ct_dir), Path(a.ct_dir))                          # Figure 1 holds CT pixels: written next to the PNGs, outside git
     print("figures written")
 
