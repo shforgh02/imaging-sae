@@ -3762,11 +3762,13 @@
  "selftest": true,
  "unit_checks": {
   "calcified_largest_left_out": true,
+  "cross_endpoint_suppression": true,
   "form_off_when_an_item_is_missing_where_it_applies": true,
   "km_events_before_censorings": true,
   "logreg_converges": true,
   "logreg_separation_gives_None": true,
   "lung_rads_parsing": true,
+  "min_cell_11_never_shows_10": true,
   "nodule_below_4mm_left_out": true,
   "suppression_rules": true,
   "volume_to_diameter_and_lingula": true,

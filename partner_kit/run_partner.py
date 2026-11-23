@@ -88,7 +88,7 @@ def logreg(X, y, offset=None, ridge=0.0, iters=100):
         t = 1.0
         while t > 1e-8:
             new = ll(b + t * step)
-            if np.isfinite(new) and new >= cur - 1e-12: break
+            if np.isfinite(new) and new >= cur - 1e-11 * max(1.0, abs(cur)): break   # relative tolerance (summation noise on large cohorts)
             t /= 2
         else: return None
         b, cur = b + t * step, new
@@ -130,7 +130,7 @@ class Supp:
         n = int(n)
         if 0 < n < self.k: self.n += 1; return f"<{self.k}"
         if not round5 or n == 0: return n
-        return max(5, int(5 * round(n / 5)))
+        return max(5 * ((self.k + 4) // 5), 5, int(5 * round(n / 5)))   # never below min_cell (e.g. 11 -> 15 with --min-cell 11)
 
     def share(self, num, den, digits=3):
         """a share only when the count and its complement are 0 or >= k; a positive share that rounds to 0 is shown as "<0.001" (digits 3)."""
@@ -395,6 +395,29 @@ def endpoint(X, P, name, years, base, pk, sk, sp, cuts_all, use_P):
 EPS = (("E1_1year_all_screens", 1, False, "P1", "sybil_1yr"), ("E2_1year_baseline", 1, True, "P1", "sybil_1yr"), ("E4_6years_baseline", 6, True, "P6", "sybil_6yr"))
 
 
+def cross_suppress(sizes, k):
+    """complementary suppression across endpoints: for every pair of endpoints that still show counts, if exams, participants, cancers or
+    controls differ by 1 .. k-1, the endpoint other than the primary E1 (E2 before E4 when E1 is not in the pair) loses its count-revealing
+    numbers; repeated until no pair can reveal a small count (a baseline-only site, where E1 = E2, is covered). Returns {withheld: other}."""
+    shown = [n for n, _, _, _, _ in EPS if sizes.get(n)]; out = {}; changed = True
+    while changed:
+        changed = False
+        for i in range(len(shown)):
+            for j in range(i + 1, len(shown)):
+                u, v = shown[i], shown[j]
+                if any(0 < abs(sizes[u][q] - sizes[v][q]) < k for q in sizes[u]):
+                    drop = v if u == "E1_1year_all_screens" else (u if u == "E2_1year_baseline" else v)
+                    out[drop] = v if drop == u else u; shown.remove(drop); changed = True; break
+            if changed: break
+    return out
+
+
+def round_tree(o, d):
+    if isinstance(o, dict): return {k: round_tree(v, d) for k, v in o.items()}
+    if isinstance(o, (float, np.floating)) and np.isfinite(o): return round(float(o), d)
+    return o
+
+
 def compare(E, N, a, log):
     P = frozen("x10_portable_form_params.json"); cuts_all = frozen("nlst_dev_cuts.json"); X = build_items(E, N, log); sp = Supp(a.min_cell)
     res = dict(kit_version=VERSION, site=a.site_label, min_cell=a.min_cell, endpoints={},
@@ -402,21 +425,18 @@ def compare(E, N, a, log):
                                   input="nodule table" if N is not None else "exam table only"))
     use = {}
     for pk in ("P1", "P6"):
-        ok, ms = p_check(X, P[pk]["features"]); use[pk] = ok
+        ok, ms = p_check(X[X.screen_round == 0] if P[pk].get("baseline_only") else X, P[pk]["features"]); use[pk] = ok   # P6 is used on baseline screens only
         res[f"form_{pk}_items_missing_where_applicable"] = {c: ("none" if m == 0 else sp.share(m, n, 2)) for c, (m, n) in ms.items()}
         res[f"form_{pk}_evaluated"] = ok
     sizes = {}
     for name, years, base, pk, sk in EPS:
         o, sz = endpoint(X, P, name, years, base, pk, sk, sp, cuts_all, use[pk]); res["endpoints"][name] = o; sizes[name] = sz
-    # complementary suppression: E1 - E2 (repeat screens) and E4 - E2 (baseline, 1 to 6 years) must not reveal a small count of exams,
-    # participants, cancers or controls; if they could, E2 keeps its AUROC, differences and calibration but loses every count-revealing number
-    for big in ("E1_1year_all_screens", "E4_6years_baseline"):
-        b_, s_ = sizes.get(big), sizes.get("E2_1year_baseline")
-        if b_ and s_ and any(0 < abs(b_[k] - s_[k]) < a.min_cell for k in b_):
-            e2 = res["endpoints"]["E2_1year_baseline"]
-            for k in ("counts", "dropped_incomplete_P_items", "censored_share", "measures_at_cuts"):
-                if k in e2 and not (isinstance(e2[k], dict) and "note" in e2[k] and len(e2[k]) == 1):
-                    e2[k] = dict(note=f"withheld: a small count could be worked out by subtraction from {big}"); sp.n += 1
+    for name, other in cross_suppress(sizes, a.min_cell).items():
+        e = res["endpoints"][name]
+        for k in ("counts", "dropped_incomplete_P_items", "censored_share", "measures_at_cuts"):
+            if e.get(k) is not None: e[k] = dict(note=f"withheld: a small count could be worked out by subtraction from {other}"); sp.n += 1
+        for k in ("auroc", "logit_auroc", "differences", "calibration", "sybil_coefficient_given_P", "auroc_ipcw"):
+            if k in e: e[k] = round_tree(e[k], 3)                           # rounded so that n1 x n0 cannot be recovered from a full-precision AUROC
     n = len(X); cm = dict(exams=sp.count(n, True), participants=sp.count(int(X.participant_id.nunique()), True), note_counts="rounded to a multiple of 5")
     if n >= a.min_cell:
         if X.age_scan.notna().sum() >= a.min_cell: cm.update(age_mean=round(float(X.age_scan.mean()), 1), age_sd=round(float(X.age_scan.std()), 1))
@@ -550,6 +570,12 @@ def unit_checks():
     out["logreg_converges"] = b is not None and abs(b[1] - 1.2) < 0.4
     s4, s1 = Supp(4), Supp(1)
     out["suppression_rules"] = s4.count(2, True) == "<4" and s1.count(2, True) == 5 and s1.count(0, True) == 0 and Supp(10).share(3, 1000) == "withheld" and Supp(10).share(10, 100000) == "<0.001"
+    out["min_cell_11_never_shows_10"] = Supp(11).count(11, True) >= 11 and Supp(11).count(12, True) >= 11 and Supp(11).count(10, True) == "<11"
+    base = dict(exams=1000, participants=1000, cancers=20, controls=980)
+    out["cross_endpoint_suppression"] = (cross_suppress({"E1_1year_all_screens": base, "E2_1year_baseline": dict(base), "E4_6years_baseline": dict(exams=900, participants=900, cancers=25, controls=875)}, 10)
+                                         == {"E4_6years_baseline": "E1_1year_all_screens"} and
+                                         set(cross_suppress({"E1_1year_all_screens": dict(exams=3000, participants=1500, cancers=60, controls=2940), "E2_1year_baseline": base,
+                                                             "E4_6years_baseline": dict(exams=995, participants=995, cancers=40, controls=955)}, 10)) == {"E2_1year_baseline"})
     Xc = pd.DataFrame(dict(max_dia=[0, 6, 8, 0], screen_round=[0, 1, 1, 0], big_spic=[0, np.nan, np.nan, 0], gw2=[0, 1, 0, 0]))
     out["form_off_when_an_item_is_missing_where_it_applies"] = p_check(Xc, ["max_dia", "big_spic", "gw2"])[0] is False and p_check(Xc, ["max_dia", "gw2"])[0] is True
     return out
