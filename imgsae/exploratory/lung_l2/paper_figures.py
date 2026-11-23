@@ -3,6 +3,9 @@ the validated two-slot palette of s6_figures.py (blue #2a78d6, orange #eb6834; i
   fig1_mechanism.svg   (a) schematic of overlapping slices placed at the slice thickness; (b) one public NLST dev exam, coronal, as Sybil sees
                        it and at the true spacing (PNG from fig1_coronal.py, embedded; written OUTSIDE git because it holds CT pixels)
   fig2_flow.svg        study flow from committed counts
+  fig3_hypotheses.svg  the six pre-registered hypotheses (test, dev) and the LIDC-IDRI replication
+  fig4_mechanism_inside.svg  (a) test: the z-fix change and the follow-up jump with and without shared axis 0 (results/figures/fig4a_intervals_test.json,
+                       results/s6); (b, c) X11 (dev, exploratory) once results/x11/x11_analysis_dev.json exists
   fig5_exposure.svg    how often a chest CT study holds an overlapping series (results/x12), in non-overlapping parts
   fig6_clinical.svg    operating points and threshold transfer on NLST test (results/x9, results/x7, results/s4/s4_u3_dev.json)
 usage (venv python): python paper_figures.py <out dir for figures without CT pixels> [--ct-dir <dir with fig1_coronal_*.png and json>]
@@ -264,6 +267,50 @@ def fig3(out):
     s.save(out / "fig3_hypotheses.svg")
 
 
+def fig4(out):
+    """where the effect sits inside Sybil. (a) NLST test (pre-registered H2, H6, H7): mean change of Sybil's logit as Sybil gives it (blue,
+    filled) and with shared axis 0 of `pooled` set to its dev mean in every member (grey, hollow), with 95% participant-bootstrap intervals.
+    Sources: results/figures/fig4a_intervals_test.json (plan 23 Nov), results/s6/s6_test.json (H7, its axis-0-off b, axis-0 shifts).
+    (b, c) X11 (dev, exploratory): drawn from results/x11/x11_analysis_dev.json once it exists."""
+    from s6_figures import fmt
+    A4 = json.loads((HERE / "results" / "figures" / "fig4a_intervals_test.json").read_text())
+    S6 = json.loads((HERE / "results" / "s6" / "s6_test.json").read_text()); H7 = [h for h in S6["hypotheses"] if h["id"] == "H7"][0]
+    F7 = S6["secondary_new_freeze"]["H7_followup"]; C1 = S6["secondary_new_freeze"]["C1_zfix_moves_axis0_dev_sd"]
+    s = Svg(1060, 600); s.text(20, 28, "Figure 4. Where the slice-spacing effect sits inside Sybil", 15, weight="bold")
+    # ---- panel (a)
+    s.text(20, 58, "a", 13, weight="bold"); s.text(36, 58, "NLST test, pre-registered (H2, H6, H7): mean change of Sybil's logit", 12, INK, weight="bold")
+    s.text(36, 74, "as Sybil gives it, and with shared axis 0 switched off (set to its dev mean in all five members; nothing refitted)", 10, INK2)
+    rows = [("z-fix, 1-year logit", f"{A4['counts']['exams']} stretched exams, {A4['counts']['participants']} people", A4["delta_lbar1_as_sybil"], A4["delta_lbar1_axis0_off"]),
+            ("z-fix, 6-year logit", "same exams", A4["delta_lbar6_as_sybil"], A4["delta_lbar6_axis0_off"]),
+            ("follow-up jump b, 1-year", f"{H7['counts']['pairs']:,} yearly pairs, {H7['counts']['changed']} changed stretch",
+             dict(est=H7["est"], lo=H7["ci95"][0], hi=H7["ci95"][1]), F7["b_axis0_off"])]
+    a, b = -0.5, 0.5; lx, rx = 250, 470; Xh = lambda v: lx + (v - a) / (b - a) * (rx - lx)   # noqa: E731
+    top, gh = 100, 74; bot = top + gh * len(rows)
+    for tt in (-0.4, -0.2, 0.0, 0.2, 0.4): s.line(Xh(tt), top - 6, Xh(tt), bot, GRID); s.text(Xh(tt), bot + 14, fmt(tt), 10, MUTED, "middle")
+    s.line(Xh(0), top - 6, Xh(0), bot, INK2, 1.5); s.text(Xh(0), top - 10, "no change", 9.5, INK2, "middle")
+    s.text((lx + rx) / 2, bot + 30, "mean change of the logit (z-fix minus as read; later minus earlier screen per stretch change)", 9.5, MUTED, "middle")
+    for i, (lab, sub, on, off) in enumerate(rows):
+        y0 = top + gh * i; s.text(20, y0 + 18, lab, 11, INK, weight="bold"); s.text(20, y0 + 32, sub, 9.5, MUTED)
+        for j, (v, col, hollow, name) in enumerate(((on, BLUE, False, "as Sybil gives it"), (off, MUTED, True, "axis 0 off"))):
+            y = y0 + 16 + j * 22; s.line(Xh(v["lo"]), y, Xh(v["hi"]), y, col, 2); mark(s, "circle", Xh(v["est"]), y, col, r=4.5, hollow=hollow)
+            s.text(rx + 12, y + 4, f"{name}: {v['est']:+.3f} [{v['lo']:+.3f}, {v['hi']:+.3f}]", 9.5, INK2 if not hollow else MUTED)
+    sh = A4["share_exams_abs_delta_lbar1_ge_quarter_sd"]; au = S6["secondary_new_freeze"]["H6_auroc_axis0_off"]["y1"]["diff_off_minus_plain"]
+    notes = [f"Switching axis 0 off removes the mean shift, not the exam-by-exam scatter: z-fix exams whose 1-year logit moves >= 1/4 SD:",
+             f"{100 * sh['as_sybil']:.1f}% as Sybil gives it, {100 * sh['axis0_off']:.1f}% with axis 0 off. 1-year AUROC with axis 0 off minus as given: "
+             f"{au['est']:+.4f} [{au['lo']:+.3f}, {au['hi']:+.3f}] (no change detected; secondary).",
+             f"The z-fix moves axis 0 by {C1['est']:.2f} dev SD [{C1['lo']:.2f}, {C1['hi']:.2f}]; a change of stretch between yearly screens moves it by",
+             f"{F7['axis0_jump_per_stretch_change_dev_sd']['est']:.2f} dev SD [{F7['axis0_jump_per_stretch_change_dev_sd']['lo']:.2f}, {F7['axis0_jump_per_stretch_change_dev_sd']['hi']:.2f}]. "
+             f"H7 is partly seen before the freeze; {121} of its {H7['counts']['changed']} changed pairs involve GE."]
+    for k, t in enumerate(notes): s.text(20, bot + 54 + 14 * k, t, 9.5, MUTED)
+    # ---- panels (b, c): X11 (dev, exploratory)
+    xf = HERE / "results" / "x11" / "x11_analysis_dev.json"
+    if not xf.exists():
+        for k, (lab, t) in enumerate((("b", "X11 arm B: synthetic stretch on non-overlapping dev scans (axis 0 and the logit against the stretch factor)"),
+                                      ("c", "X11 arm A: the z-fix shift split into padding value, box filling, constant slab and every-second-slice decimation"))):
+            y = 470 + k * 50; s.text(20, y, lab, 13, weight="bold"); s.text(36, y, t, 11, INK2); s.text(36, y + 16, "dev, exploratory; drawn when the X11 analysis is committed", 10, MUTED)
+    s.save(out / "fig4_mechanism_inside.svg")
+
+
 def box(s, x, y, w, lines, edge=BASE, head=None, h=None):
     hh = h or 16 * len(lines) + 14; rect(s, x, y, w, hh, SURF, edge, 1.5, rx=6)
     for i, (t, size, col, wt) in enumerate(lines): s.text(x + 10, y + 20 + i * 16, t, size, col, weight=wt)
@@ -310,7 +357,7 @@ def fig2(out):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("out"); ap.add_argument("--ct-dir"); a = ap.parse_args(); out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
-    fig2(out); fig3(out); fig5(out); fig6(out)
+    fig2(out); fig3(out); fig4(out); fig5(out); fig6(out)
     if a.ct_dir: fig1(Path(a.ct_dir), Path(a.ct_dir))                          # Figure 1 holds CT pixels: written next to the PNGs, outside git
     print("figures written")
 
