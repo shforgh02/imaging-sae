@@ -3,7 +3,9 @@ Does shared axis 0 already rise in ordinary scans when the natural padding slab 
 All dev main runs (already scored on the cloud; no new Sybil run); axis 0 with the frozen axes in dev SD units, the same code as
 x11_analysis.py; padded slices p = 200 - m_n_real_slices (slices of Sybil's tensor with any non-zero voxel; cloud/image_measures.py).
 Only outcome-free columns are read. Participant bootstrap of each mean (2,000 draws, seed 0).
-usage (venv python, from this folder): python x11_padcurve.py <assembled dev dir> <out json> [--frozen results/s5] [--run-info <dir>]
+usage (venv python, from this folder): python x11_padcurve.py <assembled dev dir> <out json> [--frozen results/s5] [--run-info <dir>] [--fine]
+--fine (POST HOC, added after Neon's review of the write-up; plan in the log 23 Nov, committed before it ran): 8-slice bins and five ratio
+groups (overlapping, moderate, contiguous, gaps, ratio 0 or missing). Without --fine the output is the planned one.
 """
 import argparse
 import json
@@ -19,6 +21,7 @@ import s6_frozen_analysis as FA  # noqa: E402
 
 COLS = ["series_uid", "pid", "grp", "ratio", "tag_maker", "m_n_real_slices", "n_images", "true_spacing"]
 BINS = [("0", 0, 0), ("1-8", 1, 8), ("9-16", 9, 16), ("17-24", 17, 24), ("25-32", 25, 32), ("33-48", 33, 48), ("49-64", 49, 64), ("65-80", 65, 80), (">80", 81, 200)]
+BINS_FINE = [("0", 0, 0)] + [(f"{a}-{a + 7}", a, a + 7) for a in range(1, 96, 8)] + [(">96", 97, 200)]
 N_BOOT, SEED = 2000, 0
 
 
@@ -33,7 +36,7 @@ def boot_mean(x, pid):
 
 def summ(x, pid):
     if len(x) == 0: return dict(n=0)
-    lo, hi, npid = boot_mean(x, pid) if len(x) >= 2 else (None, None, len(set(pid)))
+    lo, hi, npid = boot_mean(x, pid) if len(set(pid)) >= 2 else (None, None, len(set(pid)))
     return dict(n=int(len(x)), participants=npid, mean=float(x.mean()), lo=lo, hi=hi, median=float(np.median(x)), p05=float(np.quantile(x, 0.05)), p95=float(np.quantile(x, 0.95)))
 
 
@@ -43,7 +46,8 @@ def spearman(a, b):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("assembled"); ap.add_argument("out")
-    ap.add_argument("--frozen", default=str(HERE / "results" / "s5")); ap.add_argument("--run-info", default=r"D:\Shayan\imgsae_data\lung_l2_vol\l2\run_info"); a = ap.parse_args()
+    ap.add_argument("--frozen", default=str(HERE / "results" / "s5")); ap.add_argument("--run-info", default=r"D:\Shayan\imgsae_data\lung_l2_vol\l2\run_info")
+    ap.add_argument("--fine", action="store_true"); a = ap.parse_args()
     A = Path(a.assembled); _, _, _, _, _, _, AX = FA.load_frozen(Path(a.frozen), Path(a.run_info))
     sd0, mu0 = float(AX["axis_sd_dev"][0]), float(AX["axis_mean_dev"][0])
     Ed = pd.read_csv(A / "exams_dev.csv", usecols=COLS, dtype={"pid": str}, low_memory=False)
@@ -58,6 +62,17 @@ def main():
     cont, strt = D.ratio.between(0.95, 1.05), (D.ratio > 0) & (D.ratio <= 0.65)
     D["group"] = np.where(cont, "contiguous_0p95_1p05", np.where(strt, "stretched_0_0p65", "other"))
     ok = D.p.notna() & (D.p >= 0)
+    if a.fine:
+        mod, gap = (D.ratio > 0.65) & (D.ratio < 0.95), D.ratio > 1.05
+        D["group"] = np.where(strt, "overlapping_0_0p65", np.where(mod, "moderate_0p65_0p95", np.where(cont, "contiguous_0p95_1p05", np.where(gap, "gaps_gt_1p05", "ratio_0_or_missing"))))
+        res = dict(label="X11 POST HOC finer bins (after Neon's review of the write-up): axis 0 against the padded slices in Sybil's box (dev main runs; outcome-free)",
+                   plan="docs/EXECUTION_LOG.md, 2026-11-23, Neon's check of the X11 write-up: post hoc finer bins",
+                   counts=dict(exams=int(len(D)), with_padded_slices=int(ok.sum()), by_group={g: int((D.group == g).sum()) for g in sorted(D.group.unique())}), bins={})
+        for g in sorted(D.group.unique()) + ["all"]:
+            Dg = D[ok] if g == "all" else D[ok & (D.group == g)]; res["bins"][g] = {}
+            for name, lo, hi in BINS_FINE:
+                m = Dg.p.between(lo, hi); res["bins"][g][name] = summ(Dg.axis0[m].to_numpy(), Dg.pid[m].to_numpy())
+        Path(a.out).write_text(json.dumps(res, indent=1, allow_nan=False) + "\n", encoding="utf-8", newline="\n"); print("written", a.out); return
     res = dict(label="X11 descriptive follow-up: axis 0 against the padded slices in Sybil's box (dev main runs; outcome-free; exploratory)",
                plan="docs/EXECUTION_LOG.md, 2026-11-23, plan of one free follow-up check",
                axis0_check_mean_contiguous=float(D.loc[cont, "axis0"].mean()),
