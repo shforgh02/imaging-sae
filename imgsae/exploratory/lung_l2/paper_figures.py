@@ -226,6 +226,44 @@ def fig6(out):
     s.save(out / "fig6_clinical.svg")
 
 
+def fig3(out):
+    """the six pre-registered hypotheses (test = confirmatory, blue; dev = discovery, grey) with the exploratory external LIDC-IDRI replication
+    (orange) on H1, H2, H6; H3 drawn as not confirmed; H7 tagged partly seen. Sources: results/s6/s6_test.json, results/s5/s6_dev_as_if_test.json,
+    results/x5/x5_lidc.json."""
+    from s6_figures import fmt
+    T = {h["id"]: h for h in json.loads((HERE / "results" / "s6" / "s6_test.json").read_text())["hypotheses"]}
+    D = {h["id"]: h for h in json.loads((HERE / "results" / "s5" / "s6_dev_as_if_test.json").read_text())["hypotheses"]}
+    L = {h["id"]: h for h in json.loads((HERE / "results" / "x5" / "x5_lidc.json").read_text())["replication"]["hypotheses"]}
+    names = dict(H1=("H1  the z-fix moves the score", "share of exams moving >= 1/4 SD (test: > 30%)"), H2=("H2  the z-fix lowers the score", "mean change of the 1-year logit (test: < -0.1)"),
+                 H3=("H3  the z-fix changes the alarm", "share of exams whose alarm changes (test: > 5%)"), H4=("H4  a kernel change rarely changes the alarm", "share of kernel pairs whose alarm changes (test: < 5%)"),
+                 H6=("H6  shared axis 0 carries the drop", "logit carried by axis 0 (test: > 0.2)"), H7=("H7  follow-up jump when the stretch changes", "b, consecutive yearly screens (test: > 0.1)"))
+    s = Svg(1000, 560); s.text(20, 28, "Figure 3. The six pre-registered hypotheses (Holm over six, one-sided) and the external replication on LIDC-IDRI", 15, weight="bold")
+    for i_, (lab, col) in enumerate((("NLST test (confirmatory)", BLUE), ("NLST dev (discovery)", MUTED), ("LIDC-IDRI, 7 centres (exploratory replication)", ORANGE))):
+        s.dot(30 + i_ * 250, 52, col); s.text(40 + i_ * 250, 56, lab, 11, INK2)
+    for k, hid in enumerate(("H1", "H2", "H3", "H4", "H6", "H7")):
+        t, d = T[hid], D[hid]; x0, y0, w = 20 + (k % 3) * 325, 84 + (k // 3) * 220, 305
+        rows = [("test", t["est"], *t["ci95"], BLUE), ("dev", d["est"], *d["ci95"], MUTED)] + ([("LIDC-IDRI", L[hid]["est"], *L[hid]["ci95"], ORANGE)] if hid in L else [])
+        ok = t["confirmed_holm"]
+        if not ok:
+            s.el.append(f'<rect x="{x0 - 8}" y="{y0 - 18}" width="{w + 6}" height="200" fill="none" stroke="{MUTED}" stroke-width="1.5" stroke-dasharray="5,4" rx="6"/>')
+        s.text(x0, y0, names[hid][0], 12, INK if ok else MUTED, weight="bold"); s.text(x0, y0 + 15, names[hid][1], 10, INK2)
+        vals = [v for r_ in rows for v in r_[1:4]] + [t["null"]]; a, b = min(vals), max(vals); pad = (b - a) * 0.15 or 0.1; a, b = a - pad, b + pad
+        lx, rx = x0 + 80, x0 + w - 10; Xh = lambda v: lx + (v - a) / (b - a) * (rx - lx)   # noqa: E731
+        top = y0 + 34; rh = 26; bot = top + rh * len(rows) + 6
+        for tt in ticks(a, b): s.line(Xh(tt), top, Xh(tt), bot, GRID); s.text(Xh(tt), bot + 14, fmt(tt), 10, MUTED, "middle")
+        s.line(Xh(t["null"]), top - 4, Xh(t["null"]), bot, INK2, 1.5); s.text(Xh(t["null"]), top - 7, f"null {fmt(t['null'])}", 10, INK2, "middle")
+        for i_, (lab, est, cl, ch, col) in enumerate(rows):
+            y = top + rh * i_ + rh / 2 + 2; s.text(x0, y + 4, lab, 11, INK2); s.line(Xh(cl), y, Xh(ch), y, col, 2); s.dot(Xh(est), y, col)
+        pv = t["p_one_sided"]; ptxt = "p < 0.001" if pv < 0.001 else f"p = {pv:.3f}"
+        res = (f"confirmed (Holm), one-sided {ptxt}" if ok else f"NOT CONFIRMED (one-sided p = {pv:.2f})")
+        s.text(x0, bot + 32, res, 10, INK if ok else MUTED, weight="bold" if not ok else "normal")
+        if hid == "H7": s.text(x0, bot + 46, "partly seen before the freeze; 121 of the 134 changed pairs involve GE", 9, MUTED)
+        if hid == "H3": s.text(x0, bot + 46, "alarm discordance 4.5%; the z-fix loses more alarms than it adds", 9, MUTED)
+    s.text(20, 535, "Test: 759 z-fix exams (342 participants) for H1-H3 and H6; 500 kernel pairs for H4; 4,353 consecutive-screen pairs (134 changed) for H7. LIDC-IDRI: 197 scans,", 9.5, MUTED)
+    s.text(20, 549, "one per patient (GE 134, Philips 46, Siemens 17), no cancer outcome, Holm over its three tests, exploratory. Intervals: 95% participant bootstrap.", 9.5, MUTED)
+    s.save(out / "fig3_hypotheses.svg")
+
+
 def box(s, x, y, w, lines, edge=BASE, head=None, h=None):
     hh = h or 16 * len(lines) + 14; rect(s, x, y, w, hh, SURF, edge, 1.5, rx=6)
     for i, (t, size, col, wt) in enumerate(lines): s.text(x + 10, y + 20 + i * 16, t, size, col, weight=wt)
@@ -272,7 +310,7 @@ def fig2(out):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("out"); ap.add_argument("--ct-dir"); a = ap.parse_args(); out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
-    fig2(out); fig5(out); fig6(out)
+    fig2(out); fig3(out); fig5(out); fig6(out)
     if a.ct_dir: fig1(Path(a.ct_dir), Path(a.ct_dir))                          # Figure 1 holds CT pixels: written next to the PNGs, outside git
     print("figures written")
 
