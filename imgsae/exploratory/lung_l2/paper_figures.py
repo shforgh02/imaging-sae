@@ -237,33 +237,58 @@ def fig3(out):
     T = {h["id"]: h for h in json.loads((HERE / "results" / "s6" / "s6_test.json").read_text())["hypotheses"]}
     D = {h["id"]: h for h in json.loads((HERE / "results" / "s5" / "s6_dev_as_if_test.json").read_text())["hypotheses"]}
     L = {h["id"]: h for h in json.loads((HERE / "results" / "x5" / "x5_lidc.json").read_text())["replication"]["hypotheses"]}
-    names = dict(H1=("H1  the z-fix moves the score", "share of exams moving >= 1/4 SD (test: > 30%)"), H2=("H2  the z-fix lowers the score", "mean change of the 1-year logit (test: < -0.1)"),
-                 H3=("H3  the z-fix changes the alarm", "share of exams whose alarm changes (test: > 5%)"), H4=("H4  a kernel change rarely changes the alarm", "share of kernel pairs whose alarm changes (test: < 5%)"),
-                 H6=("H6  shared axis 0 carries the drop", "logit carried by axis 0 (test: > 0.2)"), H7=("H7  follow-up jump when the stretch changes", "b, consecutive yearly screens (test: > 0.1)"))
-    s = Svg(1000, 560); s.text(20, 28, "Figure 3. The six pre-registered hypotheses (Holm over six, one-sided) and the external replication on LIDC-IDRI", 15, weight="bold")
-    for i_, (lab, col) in enumerate((("NLST test (confirmatory)", BLUE), ("NLST dev (discovery)", MUTED), ("LIDC-IDRI, 7 centres (exploratory replication)", ORANGE))):
-        s.dot(30 + i_ * 250, 52, col); s.text(40 + i_ * 250, 56, lab, 11, INK2)
+    S6 = json.loads((HERE / "results" / "s6" / "s6_test.json").read_text()); zf, kf = S6["secondary_new_freeze"]["zfix_flags"], S6["secondary_new_freeze"]["kernel_flags"]
+    TH = json.loads((HERE / "results" / "s5" / "frozen_thresholds_L2.json").read_text())["thresholds"]
+    # titles state each frozen hypothesis and its direction (HYPOTHESES_L2.md; "rarely" for H4 was removed at the S5 review as too strong)
+    names = dict(H1=("H1  the z-fix moves the score", "share of exams whose 6-year logit moves", ">= 1/4 dev SD (test: > 30%)"),
+                 H2=("H2  the z-fix lowers the score", "mean change of the 1-year logit,", "z-fix minus as read (test: < -0.10)"),
+                 H3=("H3  the z-fix changes the alarm", "share of exams whose alarm changes", "(test: > 5%)"),
+                 H4=("H4  a kernel change alters the alarm in < 5%", "share of sharp/soft kernel pairs whose", "alarm differs (test: < 5%)"),
+                 H6=("H6  axis 0 (z-geometry) carries the drop", "1-year logit change removed by switching", "axis 0 off (test: > 0.20)"),
+                 H7=("H7  jump at a stretch change (partly seen)", "b: 1-year logit change per change of stretch,", "consecutive yearly screens, form-adjusted (test: > 0.10)"))
+    pct = {"H1", "H3", "H4"}
+    def lab_v(hid, v): return (f"{100 * v:.1f}%" if hid in pct else f"{v:+.3f}" if hid != "H6" else f"{v:.3f}")   # noqa: E306
+    def tick_v(hid, v): return (f"{100 * v:.0f}%" if hid in pct else fmt(v))   # noqa: E306
+    s = Svg(1000, 618); s.text(20, 28, "Figure 3. The six pre-registered hypotheses (Holm over six, one-sided) and the external replication on LIDC-IDRI", 15, weight="bold")
+    s.dot(30, 52, BLUE); s.text(40, 56, "NLST test (confirmatory)", 11, INK2)
+    mark(s, "circle", 230, 52, MUTED, r=3.5, hollow=True); s.text(240, 56, "NLST dev (discovery; Sybil's model selection split)", 11, INK2)
+    mark(s, "diamond", 560, 52, ORANGE, r=4); s.text(570, 56, "LIDC-IDRI, 7 centres, clinical CT (exploratory replication)", 11, INK2)
     for k, hid in enumerate(("H1", "H2", "H3", "H4", "H6", "H7")):
-        t, d = T[hid], D[hid]; x0, y0, w = 20 + (k % 3) * 325, 84 + (k // 3) * 220, 305
-        rows = [("test", t["est"], *t["ci95"], BLUE), ("dev", d["est"], *d["ci95"], MUTED)] + ([("LIDC-IDRI", L[hid]["est"], *L[hid]["ci95"], ORANGE)] if hid in L else [])
+        t, d = T[hid], D[hid]; x0, y0, w = 20 + (k % 3) * 325, 90 + (k // 3) * 250, 305
+        rows = [("test", t["est"], *t["ci95"], BLUE, "test"), ("dev", d["est"], *d["ci95"], MUTED, "dev")] + ([("LIDC-IDRI", L[hid]["est"], *L[hid]["ci95"], ORANGE, "lidc")] if hid in L else [])
         ok = t["confirmed_holm"]
         if not ok:
-            s.el.append(f'<rect x="{x0 - 8}" y="{y0 - 18}" width="{w + 6}" height="200" fill="none" stroke="{MUTED}" stroke-width="1.5" stroke-dasharray="5,4" rx="6"/>')
-        s.text(x0, y0, names[hid][0], 12, INK if ok else MUTED, weight="bold"); s.text(x0, y0 + 15, names[hid][1], 10, INK2)
+            s.el.append(f'<rect x="{x0 - 8}" y="{y0 - 18}" width="{w + 6}" height="232" fill="none" stroke="{INK2}" stroke-width="1.5" stroke-dasharray="5,4" rx="6"/>')
+        s.text(x0, y0, names[hid][0], 12, INK if ok else INK2, weight="bold"); s.text(x0, y0 + 15, names[hid][1], 9.5, INK2); s.text(x0, y0 + 28, names[hid][2], 9.5, INK2)
         vals = [v for r_ in rows for v in r_[1:4]] + [t["null"]]; a, b = min(vals), max(vals); pad = (b - a) * 0.15 or 0.1; a, b = a - pad, b + pad
-        lx, rx = x0 + 80, x0 + w - 10; Xh = lambda v: lx + (v - a) / (b - a) * (rx - lx)   # noqa: E731
-        top = y0 + 34; rh = 26; bot = top + rh * len(rows) + 6
-        for tt in ticks(a, b): s.line(Xh(tt), top, Xh(tt), bot, GRID); s.text(Xh(tt), bot + 14, fmt(tt), 10, MUTED, "middle")
-        s.line(Xh(t["null"]), top - 4, Xh(t["null"]), bot, INK2, 1.5); s.text(Xh(t["null"]), top - 7, f"null {fmt(t['null'])}", 10, INK2, "middle")
-        for i_, (lab, est, cl, ch, col) in enumerate(rows):
-            y = top + rh * i_ + rh / 2 + 2; s.text(x0, y + 4, lab, 11, INK2); s.line(Xh(cl), y, Xh(ch), y, col, 2); s.dot(Xh(est), y, col)
-        pv = t["p_one_sided"]; ptxt = "p < 0.001" if pv < 0.001 else f"p = {pv:.3f}"
-        res = (f"confirmed (Holm), one-sided {ptxt}" if ok else f"NOT CONFIRMED (one-sided p = {pv:.2f})")
-        s.text(x0, bot + 32, res, 10, INK if ok else MUTED, weight="bold" if not ok else "normal")
-        if hid == "H7": s.text(x0, bot + 46, "partly seen before the freeze; 121 of the 134 changed pairs involve GE", 9, MUTED)
-        if hid == "H3": s.text(x0, bot + 46, "alarm discordance 4.5%; the z-fix loses more alarms than it adds", 9, MUTED)
-    s.text(20, 535, "Test: 759 z-fix exams (342 participants) for H1-H3 and H6; 500 kernel pairs for H4; 4,353 consecutive-screen pairs (134 changed) for H7. LIDC-IDRI: 197 scans,", 9.5, MUTED)
-    s.text(20, 549, "one per patient (GE 134, Philips 46, Siemens 17), no cancer outcome, Holm over its three tests, exploratory. Intervals: 95% participant bootstrap.", 9.5, MUTED)
+        lx, rx = x0 + 62, x0 + 188; Xh = lambda v: lx + (v - a) / (b - a) * (rx - lx)   # noqa: E731
+        top = y0 + 50; rh = 26; bot = top + rh * len(rows) + 6
+        for tt in ticks(a, b, 3): s.line(Xh(tt), top, Xh(tt), bot, GRID); s.text(Xh(tt), bot + 14, tick_v(hid, tt), 9.5, MUTED, "middle")
+        s.line(Xh(t["null"]), top - 4, Xh(t["null"]), bot, INK2, 1.5); s.text(Xh(t["null"]), top - 7, f"null {tick_v(hid, t['null'])}", 9.5, INK2, "middle")
+        for i_, (lab, est, cl, ch, col, kind) in enumerate(rows):
+            y = top + rh * i_ + rh / 2 + 2
+            if kind == "lidc": s.el.append(f'<line x1="{x0}" y1="{y - rh / 2:.1f}" x2="{x0 + w - 4}" y2="{y - rh / 2:.1f}" stroke="{GRID}" stroke-width="1" stroke-dasharray="3,3"/>')
+            s.text(x0, y + 4, lab, 10.5 if kind != "dev" else 10, INK2 if kind != "dev" else MUTED)
+            if kind == "test": s.line(Xh(cl), y, Xh(ch), y, col, 2); s.dot(Xh(est), y, col)
+            elif kind == "dev": s.line(Xh(cl), y, Xh(ch), y, col, 1.2); mark(s, "circle", Xh(est), y, col, r=3.5, hollow=True)
+            else: s.line(Xh(cl), y, Xh(ch), y, col, 2); mark(s, "diamond", Xh(est), y, col, r=4)
+            s.text(x0 + 196, y + 4, f"{lab_v(hid, est)} [{lab_v(hid, cl)}, {lab_v(hid, ch)}]", 9, INK2 if kind != "dev" else MUTED)
+        pv = t["p_one_sided"]; ptxt = "p < 0.001" if pv < 1e-3 else (f"p = {pv:.4f}" if pv < 0.01 else f"p = {pv:.2f}")
+        res = (f"NLST test: confirmed (Holm), one-sided {ptxt}" if ok else f"NLST test: NOT CONFIRMED (one-sided p = {pv:.2f})")
+        s.text(x0, bot + 32, res, 10, INK if ok else INK2, weight="bold" if not ok else "normal")
+        if hid in L:
+            lp = L[hid]["p_one_sided"]; s.text(x0, bot + 46, "LIDC-IDRI (exploratory): one-sided " + ("p < 0.001" if lp < 1e-3 else f"p = {lp:.3f}"), 9.5, INK2)
+        if hid == "H3": s.text(x0, bot + 46, f"alarms lost {zf['lost']}, gained {zf['gained']} of {T['H3']['counts']['exams']} exams: the z-fix loses more than it adds", 9, MUTED)
+        if hid == "H4": s.text(x0, bot + 46, f"test and dev both had {kf['changed']} of {T['H4']['counts']['pairs']} pairs with a changed alarm", 9, MUTED)
+        if hid == "H7": s.text(x0, bot + 46, f"partly seen before the freeze; 121 of the {T['H7']['counts']['changed']} changed pairs involve GE", 9, MUTED)
+    tc, dc = T["H7"]["counts"], D["H7"]["counts"]
+    foot = [f"Counts, test (dev): z-fix exams {T['H1']['counts']['exams']} ({D['H1']['counts']['exams']}), participants {T['H1']['counts']['participants']} ({D['H1']['counts']['participants']}) for H1-H3 and H6; "
+            f"kernel pairs {T['H4']['counts']['pairs']} ({D['H4']['counts']['pairs']}) for H4; consecutive yearly pairs {tc['pairs']:,} ({dc['pairs']:,}), changed {tc['changed']} ({dc['changed']}) for H7.",
+            "z-fix: the same images given to Sybil at their true slice spacing (from the slice positions) instead of at the slice thickness. Alarm: Sybil's 1-year risk at or above",
+            f"the frozen dev cut tau90 = {TH['tau90_s1']:.3f}. Axis 0: one direction shared by Sybil's five members inside its last pooled layer. H5 and H5' were moved to the secondary list before the test",
+            f"split was opened. LIDC-IDRI: 197 scans with strongly overlapping slices (one per patient; GE 134, Philips 46, Siemens 17), no cancer outcome, the frozen NLST dev SD ({TH['sd_ref_lbar6_all_dev_main']:.2f}) and axis 0,",
+            "Holm over its three tests; a different population (clinical CT), so it is a marker of replication, not part of the confirmatory family. Intervals: 95% participant bootstrap."]
+    for i_, t_ in enumerate(foot): s.text(20, 548 + 14 * i_, t_, 9, MUTED)
     s.save(out / "fig3_hypotheses.svg")
 
 
@@ -311,8 +336,9 @@ def fig4(out):
     s.save(out / "fig4_mechanism_inside.svg")
 
 
-def box(s, x, y, w, lines, edge=BASE, head=None, h=None):
+def box(s, x, y, w, lines, edge=BASE, head=None, h=None, dash=False):
     hh = h or 16 * len(lines) + 14; rect(s, x, y, w, hh, SURF, edge, 1.5, rx=6)
+    if dash: s.el[-1] = s.el[-1].replace("/>", ' stroke-dasharray="6,4"/>')
     for i, (t, size, col, wt) in enumerate(lines): s.text(x + 10, y + 20 + i * 16, t, size, col, weight=wt)
     return hh
 
@@ -324,34 +350,50 @@ def arrow(s, x1, y1, x2, y2):
 def fig2(out):
     """study flow from committed counts: lung_l0/results/l0_results.json, results/s6/assemble_test.json, the dev assemble record (logged),
     results/manifest_unseen.csv tiers, results/manifest_lidc.csv (X5)."""
-    L0 = json.loads((HERE.parent / "lung_l0" / "results" / "l0_results.json").read_text()); P = L0["participants"]; C = L0["counts_all_screens"]
-    AT = json.loads((HERE / "results" / "s6" / "assemble_test.json").read_text())
-    import csv
-    U = list(csv.DictReader(open(HERE / "results" / "manifest_unseen.csv", encoding="utf-8")))
-    u1 = [r_ for r_ in U if r_["tier"] == "U1"]; u2 = [r_ for r_ in U if r_["tier"] == "U2"]
-    nl = sum(1 for _ in csv.DictReader(open(HERE / "results" / "manifest_lidc.csv", encoding="utf-8")))
-    s = Svg(1060, 560); s.text(20, 28, "Figure 2. Study flow", 15, weight="bold")
+    R = HERE / "results"; ld = lambda p: json.loads(p.read_text(encoding="utf-8"))   # noqa: E731
+    L0 = ld(HERE.parent / "lung_l0" / "results" / "l0_results.json"); P = L0["participants"]; C = L0["counts_all_screens"]
+    AT = ld(R / "s6" / "assemble_test.json"); S0 = ld(R / "s0_series_rule.json")["dev"]; S1 = ld(R / "s1_manifest.json"); MT = ld(R / "s6_manifest_test.json")
+    FP = ld(R / "l2_form_params.json"); O2 = ld(R / "o2_manifest.json"); X5 = ld(R / "x5_lidc_manifest.json"); X12 = ld(R / "x12" / "x12_overlap_prevalence.json")
+    S6 = ld(R / "s6" / "s6_test.json"); P2 = ld(R / "x7" / "x7_sensitivity_test.json")["P2_censoring_E4"]["description"]
+    y1, y6 = S6["secondary"]["y1"]["counts"], S6["secondary"]["y6"]["counts"]; att = dict(X12["attrition"]); ac = X12["sets"]["all_chest"]
+    assert S0["studies_with_selected_series"] - S1["dev_main_rows"] == 2 * S0["dup_pid_year"] and O2["exams_selected"] - O2["not_selected_exams"] == O2["U1"]["rows"] + O2["U2"]["rows"]
+    s = Svg(1060, 500); s.text(20, 28, "Figure 2. Study flow", 15, weight="bold")
     B, I, M = (INK, "bold"), (INK2, "normal"), (MUTED, "normal")
-    box(s, 300, 50, 420, [(f"NLST, CT arm (public tables, IDC): {P['ct_arm_in_public_table']:,} participants", 12, *B),
-                          ("CT images and DICOM headers from IDC; outcomes from the NLST tables", 10, *I)])
-    arrow(s, 510, 98, 510, 128); s.line(130, 128, 930, 128, INK2, 1.5)
-    cols = [(20, "Sybil's train split", [f"{P['by_group']['train']:,} participants, {C['train']['exams']:,} exams", "Sybil was trained here (by its developers)", "we fit only the radiologists' forms (F, P) here"], BASE),
-            (280, "Sybil's dev split", [f"{P['by_group']['dev']:,} participants; 7,336 series scored", "Sybil's model selection split: in-sample", "our discovery work; X11 (mechanism, no outcome)"], BASE),
-            (540, "Sybil's test split (held out)", [f"{P['by_group']['test']:,} participants; {AT['n_main']:,} series scored", f"+ {AT['n_zfix']} z-fix runs, {AT['n_pair']} kernel pairs", f"1-year outcome: {AT['outcomes']['y1']['pos'] + AT['outcomes']['y1']['neg']:,} exams, {AT['outcomes']['y1']['pos']} cancers",
-                                                   "six pre-registered tests; exploratory X1-X10"], BLUE),
-            (800, "Never used by Sybil (O2)", [f"{P['by_group']['unseen']:,} participants, {C['unseen']['exams']:,} exams", f"lists: U1 {len(u1):,} series, U2 {len(u2):,} series", "pre-registered; scoring from 1 Dec 2026", f"(cancer-poor: {C['unseen']['participants_with_later_cancer']} with a later cancer)"], ORANGE)]
-    for x, title, lines, edge in cols:
-        arrow(s, x + 120, 128, x + 120, 150)
-        box(s, x, 150, 240, [(title, 11, *B)] + [(t, 10, *I) for t in lines], edge=edge)
-    s.text(20, 290, "All NLST groups are the same trial (33 US centres, 2002-2004 enrolment): every NLST result is internal testing, including O2.", 10, INK2)
-    box(s, 20, 320, 480, [("LIDC-IDRI (7 US academic centres; clinical CT, not screening)", 11, *B),
-                          (f"{nl} scans with overlapping slices (one per patient; GE 134, Philips 46, Siemens 17)", 10, *I),
-                          ("external replication of the mechanism only (no cancer outcome)", 10, *I)], edge=BLUE)
-    box(s, 540, 320, 480, [("Imaging Data Commons, all chest CT (DICOM headers only)", 11, *B),
-                           ("how common overlapping series are today (X12); no model run", 10, *I),
-                           ("NLST collection licence CC BY 4.0; LIDC-IDRI CC BY 3.0", 10, *M)])
-    s.text(20, 430, "Selection rules, exclusions at each step and the cut-offs are in the protocol (section 5), O2_PLAN.md and RESULTS_L2.md 3d, 3i.", 10, MUTED)
-    s.text(20, 446, "Blue edge: confirmatory results (test) and the external mechanism replication; orange edge: pre-registered, not yet run.", 10, MUTED)
+    # internal NLST frame
+    s.el.append(f'<rect x="10" y="40" width="1040" height="282" fill="none" stroke="{GRID}" stroke-width="1.5" rx="8"/>')
+    s.text(20, 58, "INTERNAL TESTING: NLST, one trial (33 US centres, enrolment 2002-2004). Every split, including the participants Sybil never used, is internal.", 10.5, INK2, weight="bold")
+    box(s, 302, 68, 460, [(f"NLST CT arm (public tables): {P['ct_arm_in_public_table']:,} participants", 12, *B),
+                          (f"Sybil's published split file: {P['split_file']:,}; not in it: {P['by_group']['unseen']:,}", 10, *I)])
+    arrow(s, 532, 114, 532, 132); s.line(142, 132, 922, 132, INK2, 1.5)
+    tr, dv, ts, un = (P["by_group"][k] for k in ("train", "dev", "test", "unseen"))
+    cols = [(20, "Sybil's train split", [f"{tr:,} participants, {C['train']['exams']:,} exams", "Sybil was trained here (by its developers)", "we fit only the radiologists' forms here:",
+                                         f"1-year: {FP['F1']['n_fit']:,} exams ({C['train']['exams'] - FP['F1']['n_fit']} without a", f"  1-year outcome), {FP['F1']['n_fit_pos']} cancers",
+                                         f"6-year: {FP['F6']['n_fit']:,} baseline exams, {FP['F6']['n_fit_pos']} cancers"], BASE, False),
+            (280, "Sybil's dev split (discovery)", [f"{dv:,} participants, {C['dev']['exams']:,} exams in tables", f"{S0['ct_studies']:,} CT studies on IDC; {S0['ct_studies'] - S0['studies_with_selected_series']} without",
+                                                   f"  an eligible series, {2 * S0['dup_pid_year']} duplicate person-years", f"{S1['dev_main_rows']:,} scored ({S1['participants']:,} participants; 0 failed)",
+                                                   "Sybil's model selection split: in-sample", "used for our discovery work"], BASE, False),
+            (540, "Sybil's test split (held out)", [f"{ts:,} participants, {C['test']['exams']:,} exams in tables", f"split file: {MT['split_test_series']:,} series, all scored (0 failed)",
+                                                    f"+ {AT['n_zfix']} z-fix runs, {AT['n_pair']} kernel pairs", f"1-year: {y1['exams']:,} exams ({AT['n_main'] - y1['exams']} unknown), {y1['cancers']} cancers",
+                                                    f"6-year, baseline: {P2['observed']:,} of {P2['baseline_exams']:,} ({P2['censored']} censored),", f"  {P2['cancers']} cancers. Six pre-registered tests"], BLUE, False),
+            (800, "Never used by Sybil", [f"{un:,} participants ({C['unseen']['participants']:,} with {C['unseen']['exams']:,} exams)", f"{O2['unseen_participants_with_ct']:,} with CT on IDC; {O2['participants_selected']:,} kept",
+                                          f"  ({O2['exams_selected']:,} exams); {O2['not_selected_exams']:,} not", f"  overlapping and not a partner scan", f"{O2['U1']['rows']:,} overlapping scans ({O2['U1']['participants']:,} people)",
+                                          f"+ {O2['U2']['rows']} partner scans; pre-registered, from 1 Dec"], MUTED, True)]
+    for x, title, lines, edge, dash in cols:
+        arrow(s, x + 122, 132, x + 122, 148)
+        box(s, x, 148, 245, [(title, 11, *B)] + [(t, 10, *I) for t in lines], edge=edge, dash=dash)
+    s.text(20, 290, f"Only {C['unseen']['participants_with_later_cancer']} of the never-used participants have a later lung cancer, so this group tests the mechanism, not cancer detection.", 10, INK2)
+    s.text(20, 306, "Exams with an unknown outcome are left out only of the analyses that need that outcome. Sybil's developers do not state why participants are outside the split file.", 10, MUTED)
+    # outside NLST
+    s.text(20, 350, "EXTERNAL REPLICATION OF THE MECHANISM", 10.5, INK2, weight="bold"); s.text(540, 350, "HOW COMMON THE GEOMETRY IS TODAY (HEADERS ONLY)", 10.5, INK2, weight="bold")
+    mk = X5["by_maker"]
+    box(s, 20, 360, 500, [("LIDC-IDRI (7 US academic centres; clinical CT, not screening)", 11, *B),
+                          (f"{X5['lidc_patients']:,} patients ({X5['lidc_ct_series']:,} CT series) → {X5['patients']} with a strongly overlapping series", 10, *I),
+                          (f"(one per patient; GE {mk['GE MEDICAL SYSTEMS']}, Philips {mk['Philips']}, Siemens {mk['SIEMENS']}); no cancer outcome", 10, *I)], edge=ORANGE)
+    box(s, 540, 360, 500, [("Imaging Data Commons, all CT collections (no model run)", 11, *B),
+                           (f"{att['CT series']:,} CT series → {att['chest']:,} axial chest series → {ac['series']:,} at ≤ 3 mm", 10, *I),
+                           (f"({ac['studies']:,} studies, {ac['patients']:,} patients, {ac['collections']} collections)", 10, *I)])
+    s.text(20, 464, "Edges: blue = confirmatory (pre-registered, test split); orange = exploratory external replication; dashed grey = pre-registered, not yet run.", 10, MUTED)
+    s.text(20, 480, "Image data: NLST on Imaging Data Commons (CC BY 4.0), LIDC-IDRI (CC BY 3.0); outcomes from the NLST tables. Selection rules and cut-offs: Methods and Supplement.", 10, MUTED)
     s.save(out / "fig2_flow.svg")
 
 

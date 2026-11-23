@@ -24,12 +24,12 @@
 |---|---|---|---|---|---|---|---|
 | H1 | the z-fix moves the score materially (share with \|Δℓ̄_6\| ≥ 0.25 dev SD) | > 0.30 | 0.670 | **0.657 [0.620, 0.695]** | 7e-80 | **confirmed** | 759 exams, 342 participants, 9 one-year cancers |
 | H2 | the z-fix lowers the score (mean Δℓ̄_1) | < −0.10 | −0.326 | **−0.366 [−0.411, −0.320]** | 1e-29 | **confirmed** | same |
-| H3 | the z-fix changes the screening flag (share of exams) | > 0.05 | 0.075 | **0.045 [0.029, 0.063]** | 0.73 | **not confirmed (failed)** | same |
+| H3 | the z-fix changes the screening flag (share of exams) | > 0.05 | 0.075 | **0.045 [0.029, 0.063]** | 0.72 (corrected 23 Nov from 0.73; exact 0.72497) | **not confirmed (failed)** | same |
 | H4 | the kernel changes the flag in fewer than 5% of exams | < 0.05 | 0.018 | **0.018 [0.008, 0.030]** | 3e-8 | **confirmed** | 500 pairs, 500 participants |
 | H6 | shared axis 0 of `pooled` carries the z-fix drop (Δℓ̄_1 with axis 0 off minus Δℓ̄_1) | > +0.20 | +0.408 | **+0.407 [0.401, 0.411]**; halves 0.407 / 0.406 | < 1e-15 | **confirmed** | 759 exams, 342 participants |
 | H7 | in real follow-up, the score jumps with a change of stretch status (OLS b, adjusted for ΔF1) — **partly seen** | > +0.10 | +0.246 | **+0.311 [0.185, 0.435]**; halves 0.419 / 0.226 | 0.0004 | **confirmed** | 4,353 pairs, 2,224 participants, 134 changed (92 stretched → not, 42 not → stretched) |
 
-- **5 of 6 confirmed.** Holm order: H6, H1, H2, H4 (each p far below its level), H7 (p 0.0004 against α/2 = 0.025), H3 (p 0.73 against 0.05: not rejected).
+- **5 of 6 confirmed.** Holm order: H6, H1, H2, H4 (each p far below its level), H7 (p 0.0004 against α/2 = 0.025), H3 (p 0.72 against 0.05: not rejected; corrected 23 Nov from 0.73).
 - **Run rules of N3:** rule 1 (NaN guard) passed before the run (0 missing values in `ratio`, `F1`, `s1`, `v_l1`, `v_l6`; 0 non-finite numbers); all six estimates and p-values are finite, so all six are "evaluated". Rule 2: the attention script ran only after the primary output was committed. Rule 3: the 36 hash-table files were untouched since `c3578c3`; form hash `b4cba3aa…`; ℓ̄_1 rebuilt from `pooled` within 2.7e-7 (limit 5e-3). Rule 4: the wording below.
 - **H4 note (a real coincidence, checked):** the test numbers equal the dev numbers to three digits. Both have 9 changed flags of 500 (6 lost, 3 gained), but the flags themselves differ (test 61 and 58 flagged; dev 64 and 61), and none of the 1,000 test series is a dev series. With 500 different participants and 9 discordant pairs, the bootstrap interval depends only on that count.
 
