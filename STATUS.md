@@ -10,13 +10,14 @@
   - every second slice through **unmodified Sybil** reproduces the z-fix (1.003×);
   - on contiguous scans, air instead of Sybil's padding raises the 1-year logit by 0.245.
   - The test-confirmed results stand; the frozen name "z-geometry" is kept only when H6 is quoted.
-  - Free follow-up check (`0c497f0`): one curve of axis 0 against the padded slices in the box, whatever the reason the slab is thin; ordinary contiguous NLST scans almost never reach the steep part (0.2% with ≤ 32 padded slices).
+  - Free follow-up check (`0c497f0`; finer post hoc bins `a9e0e83`): axis 0 against the padded slices in the box follows one curve, whatever the reason the slab is thin (groups agree within about 0.1 SD in 8-slice bins). 80% of ordinary contiguous NLST scans sit on the flat part; 1.5% have ≤ 48 padded slices. 18% of moderately overlapping dev scans sit on the steep part.
+  - **Neon's second check (of my write-up)** found mixed measures and weights, an unsupported "three groups agree", missing limits and Figure 4 layout problems. All fixed (log 23 Nov).
 - **Neon's review of X11** (`imgsae_data/gemini_review/gemini_x11_result.txt`): no bug that could create the pattern. It found three errors in my draft reading, all fixed in the text and Figure 4:
   - a logit compared on different exams;
   - "all four makers" said of the logit;
   - "air padding might fix Sybil" (the exam-level scatter stays).
 - **Decisions:** no air-padding arm in O2 (29 one-year cancers cannot test discrimination; it would break the frozen hash table). The test split is not used again.
-- **Figures:** Figure 4 complete: (a) test; (b) stretch dose; (c) padding variants; (d) the padding curve. Figure 3: H6 title without "z-geometry". Gallery: `D:\Shayan\imgsae_data\figures\ALL_FIGURES.html` (F5).
+- **Figures:** Figure 4 complete: (a) test; (b) stretch dose; (c) padding variants, main rows then controls. The padding curve is Supplementary Figure S1. Figure 3: H6 title without "z-geometry". Gallery: `D:\Shayan\imgsae_data\figures\ALL_FIGURES.html` (F5).
 
 **Earlier (2026-11-23): TASKS 1, 3, 4, 6 DONE; TASK 5 FIGURES 1, 2, 3, 5, 6 DRAWN (FIGURE 4 WAITS FOR X11); X11 RESUMED AFTER A LAPTOP SHUTDOWN. PARTNER KIT LICENCE: MIT (THE LEAD, 23 NOV).**
 - **Laptop shutdown (23 Nov, about 05:11 local):** every finished step was already committed and pushed; only the X11 CPU scoring stopped, at 99 of 111 exams (each finished exam was saved, so nothing is lost); resumed 23 Nov (it skips finished exams).

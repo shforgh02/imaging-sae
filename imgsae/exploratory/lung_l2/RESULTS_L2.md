@@ -13,7 +13,7 @@
 ## 0. In simple words
 1. **Five of the six frozen predictions came true on new data. One failed (H3).**
 2. **The slice-spacing problem is real on the test scans.** When we give Sybil the true slice spacing, its score falls (H2), and two scans in three move by a clear amount (H1). The kernel hardly matters for the alarm (H4).
-3. **We found where the problem sits inside Sybil, and it held on new scans (H6).** One shared direction ("axis 0") in Sybil's `pooled` layer carries the whole average drop. Switch that one direction off, and the z-fix drop goes from −0.37 to +0.04. This is the feature-level result of the project. **What axis 0 reads (X11, 23 Nov, exploratory, section 3j):** whether Sybil's 200-slice box holds a thick slab of Sybil's own grey padding (about −600 HU). An overlapping scan read with the wrong spacing fills the box, so the slab disappears and the score rises. The frozen protocol calls axis 0 "z-geometry"; that name was too broad.
+3. **We found where the problem sits inside Sybil, and it held on new scans (H6).** One shared direction ("axis 0") in Sybil's `pooled` layer carries the whole average drop. Switch that one direction off, and the z-fix drop goes from −0.37 to +0.04. This is the feature-level result of the project. **What axis 0 reads (X11, 23 Nov, exploratory, section 3j):** whether Sybil's 200-slice box holds a thick slab of Sybil's own grey padding (about −600 HU). An overlapping scan read with the wrong spacing fills or nearly fills the box, so the slab disappears and the score rises. The frozen protocol calls axis 0 "z-geometry"; that name was too broad.
 4. **The same thing happens in real screening, without any intervention by us (H7).** When a person's yearly scan changes between stretched and not stretched, Sybil's score jumps, beyond what the radiologist's findings explain. With axis 0 switched off, the jump is gone. **But almost all of it comes from GE scanners** (121 of 134 changed pairs).
 5. **H3 failed.** We predicted that the z-fix changes the alarm in more than 5% of exams. On test it was 4.5% [2.9%, 6.3%]. The z-fix mostly *removed* alarms on test (27 lost, 7 gained), unlike dev (38 lost, 31 gained).
 6. **Dev flattered Sybil a lot.** On dev, Sybil looked much better than the radiologists' recorded findings. On test it is not better: 1-year AUROC 0.914 (Sybil) against 0.947 (the form built from everything the radiologist recorded, including the screening call; section 2.1b), and adding Sybil to the form plus image measures adds nothing (−0.004 [−0.029, +0.020]).
@@ -385,7 +385,7 @@ Sybil − form: E1 −0.099 [−0.212, +0.017]; E2 +0.027 [−0.120, +0.175]; E4
 
 **What X12 shows (exploratory):**
 1. **Strong overlap (the regime the frozen tests measured) is uncommon in public modern chest CT**: about 4–6% of studies, against about 9% in NLST. It is not an NLST-only relic, but it must not be described as a large fixed share of modern CT.
-2. **Moderate overlap (ratio 0.65 to 0.85) is common** (12–19% of modern studies; every series of the modern low-dose collection). **Update 23 Nov (X11, dev, exploratory; section 3j):** a stretch of 1.25 (ratio 0.8) moves axis 0 by +0.81 SD and the 1-year logit by +0.16 [0.07, 0.24]. What matters is how much padding remains in Sybil's box, not the ratio itself.
+2. **Moderate overlap (ratio 0.65 to 0.85) is common** (12–19% of modern studies; every series of the modern low-dose collection). **Update 23 Nov (X11, dev, exploratory, no outcome read; section 3j):** a synthetic stretch of 1.25 (like ratio 0.8) on 48 contiguous dev scans moves axis 0 by +0.81 SD and the 1-year logit by +0.16 [0.07, 0.24]. 18% of the real moderately overlapping dev scans lie on the steep part of the padding curve. What matters is how much padding remains in Sybil's box, not the ratio itself.
 3. **Exposure depends on site protocol and on which series is sent to Sybil:** most modern studies with a strongly overlapping series also hold a contiguous one (3–5% of studies hold both), so the choice of series, or a change of that choice between yearly screens (H7), decides whether Sybil sees a stretched chest; Sybil gives no warning either way.
 4. Current screening and nodule-volumetry guidance allows or recommends overlapping intervals: QIBA 2023 ("overlap of 50% may provide better accuracy and precision compared to contiguous slice reconstruction"), ACR–STR 2024 ("reconstruction intervals equal to or less than the slice thickness"), ESTI ("Slice Interval ≤ slice width … Overlapping reconstructions are not mandatory"). Checked word for word in the original documents on 22 Nov (task 6; `docs/LITERATURE_CHECK_2026-11-22.md` section 3).
 
@@ -395,51 +395,73 @@ Sybil − form: E1 −0.099 [−0.212, +0.017]; E2 +0.027 [−0.120, +0.175]; E4
   - **Arm A:** 63 real overlapping scans (ratio ≤ 0.65; GE 24, Philips 27, Siemens 12; weighted to the dev maker mix).
   - **Arm B:** 48 contiguous scans (12 per maker: GE, Philips, Siemens, Toshiba) stretched on purpose.
   - Output committed before it was read (`ff52d5b`); all gates passed. Neon's review of the result: log 23 Nov.
-- **Background:** Sybil fills the empty part of its 200-slice box with 0 after its normalisation. That is a uniform grey of about −600 HU, the centre of Sybil's lung window, not air (`cloud/image_measures.py` lines 3–5). A normal chest scan is shorter than the box (500 mm at 2.5 mm), so it is padded at both ends. An overlapping scan read with the wrong spacing is twice as long, so it fills the box.
+- **Background:** Sybil fills the empty part of its 200-slice box with 0 after its normalisation. That is a uniform grey of about −600 HU, the centre of Sybil's lung window, not air (`cloud/image_measures.py` lines 3–5). A normal chest scan is shorter than the box (500 mm at 2.5 mm), so it is padded at both ends. An overlapping scan read with the wrong spacing looks 1.5 to 2 times as long (twice for the common 50% overlap), so it fills or nearly fills the box.
 
 | Pre-set criterion | Result (dev; mean [95% interval]) | Verdict |
 |---|---|---|
 | A1 padding value | z-fix with **air** instead of Sybil's padding (both runs): keeps **14.6% [14.0, 15.2]** of the axis-0 shift (−2.79 SD → −0.41); 1-year logit change −0.285 → **−0.038 [−0.168, +0.100]** | the padding value is a primary driver |
-| A2 padding amount | box filling 97.8%; the stretch at equal filling **2.2% [1.9, 2.6]** | box filling drives |
-| A3 constant slab | mirrored anatomy instead of padding removes **97.4%** | the constant slab drives it |
-| A4 real non-overlapping series | every second slice of the same scans, **unmodified Sybil**: **1.003 [1.002, 1.003]** times the z-fix shift (36 exams; 1-year logit −0.276 vs −0.266 for the z-fix on the same exams) | the effect is reproduced with unmodified Sybil; the overlap itself does not matter |
-| B1, B2 stretch dose | f = 1.25 / 1.5 / 2.0: axis 0 **+0.81 / +2.41 / +2.83 SD**, 1-year logit +0.16 / +0.39 / +0.39 [0.23, 0.54]; axis 0 and its logit part A0 rise in all four makers (the total logit not in Philips: +0.06 [−0.32, +0.43]) | met |
-| B3, B4 | f = 2 at equal filling keeps 2.8%; f = 2.5 − f = 2.0 +0.08 SD (box already full) | box filling dominates; saturation |
-| B5 | the true scan with air padding, no stretch: axis 0 **+2.41 SD**, 1-year logit **+0.245 [0.226, 0.265]** (+0.23 to +0.27 in each maker) | the padding value drives the stretch effect |
+| A2 padding amount | box filling 97.8%; the stretch at equal filling **2.2% [1.9, 2.6]** (all in the attention parts; max-pool part 0.00) | box filling drives |
+| A3 constant slab | mirrored anatomy instead of padding removes **97.4%** (Sybil puts 36% of its slice attention on the mirrored slices) | the constant slab drives it |
+| A4 real non-overlapping series | every second slice of the same scans, **unmodified Sybil**: **1.003 [1.002, 1.003]** times the z-fix shift. **36 scans with ratio 0.5: GE 24 and Siemens 12 only** (the 1 Philips scan is left out by the rule of ≥ 5 per maker). 1-year logit −0.276 vs −0.266 for the z-fix on the same scans. Noise floor 0.013 SD from a second phase on 10 GE scans | the effect is reproduced with unmodified Sybil; the overlap itself does not matter |
+| B1, B2 stretch dose | **synthetic z-scaling** of 48 contiguous scans, 12 per maker. f = 1.25 / 1.5 / 2.0: axis 0 **+0.81 / +2.41 / +2.83 SD**, 1-year logit +0.16 / +0.39 / +0.39 [0.23, 0.54]. Axis 0 and its logit part A0 rise in all four makers; the total logit does not in Philips (+0.06 [−0.32, +0.43]) | met |
+| B3, B4 | f = 2 at equal filling keeps 2.8% [2.4, 3.1]. f = 2.5 − f = 2.0 on the same 20 scans (5 per maker): axis 0 +0.08 SD (box already full); 1-year logit +0.16 [0.07, 0.27], mostly outside axis 0 (A0 +0.01) | box filling dominates; saturation |
+| B5 | the true scan with air padding, no stretch: axis 0 **+2.41 SD**, 1-year logit **+0.245 [0.226, 0.265]** (+0.23 to +0.27 in each maker); f = 2 against it keeps 15.0% [14.5, 15.5] of the axis-0 shift | the padding value drives the stretch effect |
 
 - **Where it sits:**
   - The z-fix shift lies in the max-pool part of `pooled` (−2.71 of −2.79 SD); the two attention parts give −0.08.
-  - Sybil's slice attention puts 0.7% of its weight on padded slices.
-- **Value-specific:** absolute axis 0 (dev SD) by what fills the box ends:
+  - Sybil's slice attention puts 0.7% (first attention pool) and 0.3% (second) of its weight on padded slices.
+- **Value-specific:** absolute axis 0 (dev SD; arm A, weighted to the dev maker mix) by what fills the box ends:
   - Sybil's padding −0.57;
   - air +1.85;
-  - mirrored anatomy +2.14;
-  - nothing (box full) +2.20.
-  - So the axis reacts to a thick slab of Sybil's own −600 HU value. A slab of air, which looks like the air around every body, barely moves it.
-- **Follow-up check (free; planned in `330e387`; output `0c497f0`, `results/x11/x11_padcurve_dev.json`):** axis 0 of all 7,336 dev main runs against the padded slices in Sybil's box. It follows **one curve, whatever the reason the slab is thin**:
-  - padded slices > 64: about −0.6;
+  - mirrored anatomy +2.15;
+  - the stretched scan as Sybil reads it +2.23 (box full or nearly full; 11 of 63 still have some padding).
+  - So the axis reacts to a thick slab of Sybil's own −600 HU value. An air slab (−1,000 HU, the only other constant value tested) gives about 15% of the shift. Values between were not tested.
+- **Follow-up check (free; planned in `330e387`; output `0c497f0`, `results/x11/x11_padcurve_dev.json`):** axis 0 of all 7,336 dev main runs against the padded slices in Sybil's box (both ends together; 0 = box full). Planned 16-slice bins, all scans:
+  - > 80: −0.63;
+  - 65–80: −0.60;
   - 49–64: −0.45;
   - 33–48: +0.28;
   - 25–32: +1.14;
   - 17–24: +1.64;
-  - ≤ 16: +2.1 to +2.25.
-  - In each bin the stretched, contiguous and other scans agree (for example 17–24: +1.63 and +1.64).
-  - Ordinary contiguous NLST scans (270–363 mm, 5th–95th percentile) almost never reach the steep part: median 74 padded slices; only 0.2% have ≤ 32.
-  - Among the 2,274 "other" dev scans (ratio 0.65–0.95 or > 1.05), 419 (18%) have ≤ 32 padded slices (bin means of axis 0 +1.1 to +2.2).
+  - 9–16: +2.11;
+  - ≤ 8: +2.2.
+  - In the wide bin 33–48 the groups differ (contiguous +0.07, other +0.29, overlapping +0.56), because the bin spans the steepest part. **Neon caught this.**
+- **Post hoc 8-slice bins** (added after Neon's review; `a9e0e83`, `x11_padcurve_fine_dev.json`; groups by ratio). Where groups share a bin, they agree to within about 0.1 SD:
+  - 33–40: contiguous +0.48, moderate +0.54, overlapping +0.60;
+  - 49–56: −0.39, −0.37, −0.39;
+  - 57–64: −0.52, −0.51;
+  - only 41–48 keeps a small gap (−0.03 vs +0.06).
+  - **So axis 0 depends on how much padding is left, not on why it is thin.**
+- **Ordinary contiguous NLST scans** (scan length 270–363 mm, 5th–95th percentile) lie mostly on or near the flat part:
+  - 80% have > 64 padded slices (−0.58 to −0.65);
+  - 18.7% have 49–64 (−0.39 to −0.52);
+  - 1.5% have ≤ 48;
+  - 0.2% have ≤ 32.
+- **Moderate overlap (ratio 0.65–0.95; 2,255 dev scans) spans the whole curve:** 413 (18%) have ≤ 32 padded slices (bin means +1.1 to +2.2).
 
 **What X11 shows (exploratory):**
-1. **Axis 0 is a padding axis.** It reads whether Sybil's 200-slice box holds a thick slab of Sybil's own padding value, mostly through max pooling. It does not read the anatomical stretch. The frozen name "z-geometry" (H6) is kept only when the protocol is quoted.
-2. **The test-confirmed results stand, and the mechanism is now concrete.** Misreading the spacing of an overlapping scan doubles its length in Sybil's eyes, fills the box and removes the padding slab. Axis 0 rises by about 2.8 SD and the 1-year logit by about 0.4. Reading the true spacing returns these scans to the axis-0 range of contiguous scans (−0.57 vs −0.58).
-3. **Unmodified Sybil gives two reconstructions of the same scan different scores** (A4): the every-second-slice series reproduces the z-fix change.
+1. **Axis 0 is a padding axis.** It reads how much of Sybil's 200-slice box is a thick slab of Sybil's own padding value, mostly through max pooling. At matched padding the anatomical stretch gives only 2.2–2.8% of the shift, all in the attention parts. The frozen name "z-geometry" (H6) is kept only when the protocol is quoted.
+2. **The test-confirmed results stand, and the mechanism is now concrete.** Misreading the spacing of an overlapping scan makes it 1.5–2 times as long in Sybil's eyes. That fills or nearly fills the box and removes the padding slab. Axis 0 rises by about 2.8 SD, and its part of the 1-year logit (A0) by about 0.4; the total change varies by maker. Reading the true spacing returns these scans to the axis-0 range of contiguous scans (−0.57 vs −0.58).
+3. **Unmodified Sybil gives two reconstructions of the same scan different scores** (A4): an every-second-slice series of 36 GE and Siemens dev scans (ratio 0.5) reproduces the z-fix change.
 4. **Sybil's score depends on a preprocessing constant.** On contiguous scans, air instead of Sybil's padding raises the 1-year logit by 0.245 with no stretch at all. This is an intervention on the model's input, so it is causal for the score. It says nothing about accuracy: Sybil was trained with this padding.
-5. **Moderate overlap (X12: common in modern CT) also moves the axis when it thins the slab enough.** Stretch 1.25 (ratio 0.8): axis 0 +0.81, 1-year logit +0.16 [0.07, 0.24]. What matters is the padding left in the box, not the ratio itself.
+5. **Moderate overlap (X12: common in modern CT) also moves the axis when it thins the slab enough.**
+   - A synthetic stretch of 1.25 (like ratio 0.8) on 48 contiguous dev scans: axis 0 +0.81, 1-year logit +0.16 [0.07, 0.24].
+   - Among real dev scans with moderate overlap, 18% lie on the steep part of the curve.
+   - What matters is the padding left in the box, not the ratio itself.
 
 **Cannot say (X11):**
 - that air padding fixes Sybil. With air on both sides the exam-by-exam scatter stays: the 6-year logit moves ≥ 1/4 SD in 73.5% vs 76.0%. Air also moves ordinary scans out of their axis-0 range;
 - that Sybil's padding lowers accuracy (no outcome read);
 - that long scans such as chest–abdomen–pelvis behave the same (not tested; the curve only suggests it);
 - that the logit rose in every maker (axis 0 and A0 did);
-- anything from the pad-matched logits (+0.55, −0.42, +0.53): pad-matching also cuts off about half of the lung.
+- anything from the pad-matched logits: total +0.14, −0.43, +0.53; with axis 0 off +0.55, −0.42, +0.52. Pad-matching also cuts off about half of the lung.
+- **Limits:**
+  - dev scans only (already used for discovery), exploratory, no outcome;
+  - 63 + 48 scans;
+  - arm B is a synthetic z-scaling, not a real overlapping reconstruction, with 12 scans per maker;
+  - the every-second-slice test is GE and Siemens only;
+  - air is the only other padding value tested;
+  - the padding curve is observational (scans with thin padding differ in other ways too), though the interventions above point the same way.
 - **Not used:** `estimates.B.f20_air` (its reference is the Sybil-padded scan, so it equals `f20`).
 - **Decisions:**
   - no air-padding arm in O2 (29 one-year cancers cannot test discrimination; it would need a second amendment of the frozen O2 files);
@@ -473,7 +495,7 @@ Sybil − form: E1 −0.099 [−0.212, +0.017]; E2 +0.027 [−0.120, +0.175]; E4
 **Main messages (each with its test evidence):**
 1. On its own held-out NLST test split, Sybil did not add information beyond what the trial radiologists recorded (L1 primary; L2 frozen secondary; section 2.1b), also when the radiologists' final call is removed from the comparator (section 3b, exploratory; work-up bias favours the radiologists' record at 1 year, so the later-cancer endpoints and section 3e carry this message); it does beat the coarse screening call and nodule size, the kind of comparator used in Sybil's own paper (**Correction, 21 Nov:** against nodule size only at 6 years, +0.071 [+0.026, +0.118]; at 1 year +0.014 [−0.023, +0.053], interval includes 0; section 3f). Its dev-tuned thresholds do not transfer (a rule-out cut lost 27% of cancers). **Scope (X8, 21 Nov, exploratory; section 3f):** against published rules that we did not fit (Lung-RADS, Brock, built from the NLST records), Sybil is about equal at 1 year and better at 6 years, and it adds to Lung-RADS; so "no added value" holds against the full record combined by a model fitted on NLST, not against the coarse clinical rule. **Correction, 22 Nov (X9, section 3g):** with the corrected rules Sybil is about equal to Lung-RADS and Brock at 1 year; at 6 years it beats Lung-RADS (+0.085) but not clearly Brock; it adds to Lung-RADS (+0.05 at 1 year, +0.06 at 6 years, not +0.06 and +0.08). "No added value beyond the form" means no meaningful gain in AUROC or net benefit; Sybil does carry a small, statistically detectable extra signal (coefficient 0.44 [0.27, 0.64], section 3b). At the same false alarms the form catches more 1-year cancers (77 vs 69 of 86); on baseline screens Sybil gives fewer false alarms at the same sensitivity. *Lesson: a development split used for tuning, and a categorical comparator, both give a misleading picture of an AI's added value.*
 2. A preprocessing step of Sybil (slices placed at the slice thickness, not the true spacing) stretches the chest in about 1 exam in 9; correcting it lowers the score in a large majority of these exams (H1, H2). The alarm changes less than predicted (H3 failed: 4.5%).
-3. The effect is localised: one direction shared by all five ensemble members (axis 0; frozen name "z-geometry axis") carries the whole average change, on new scans (H6), and the same axis carries the score jump in real yearly screening when the reconstruction changes (H7, mostly GE). **Mechanism (X11, dev, exploratory; section 3j):** axis 0 is a padding axis. Sybil's max pooling registers whether a thick slab of its own −600 HU padding is in the 200-slice box, and its risk head adds about 0.4 logit when the slab is missing. Misreading the spacing fills the box. Unmodified Sybil on a true non-overlapping series of the same scan reproduces the z-fix. *Lesson for any 3D model with a fixed input box: a constant pad value read by global max pooling becomes a hidden input.*
+3. The effect is localised: one direction shared by all five ensemble members (axis 0; frozen name "z-geometry axis") carries the whole average change, on new scans (H6), and the same axis carries the score jump in real yearly screening when the reconstruction changes (H7, mostly GE). **Mechanism (X11, dev, exploratory, no outcome read; section 3j):** axis 0 is a padding axis. Sybil's max pooling registers how much of the 200-slice box is a thick slab of its own −600 HU padding. When the slab is missing, about 0.4 is added to the 1-year logit through axis 0 (the total change varies by maker). Misreading the spacing fills or nearly fills the box. Unmodified Sybil on an every-second-slice series of the same scan reproduces the z-fix (36 GE and Siemens dev scans). *Lesson for any 3D model with a fixed input box: a constant pad value read by global max pooling becomes a hidden input.*
 4. The kernel matters little (H4). On dev, the sparse dictionaries gave no valid and useful features (the SAE failed the validity marks; NMF at `pooled` passed them but rebuilt the vector worse than the dev mean; S4 and step R): Sybil's last layers are close to one risk dial plus a few shared technical axes.
 5. What we did not find: no harm shown (too few cancers), no improvement from any feature-level edit.
 

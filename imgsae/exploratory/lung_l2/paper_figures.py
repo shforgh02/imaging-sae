@@ -5,8 +5,8 @@ the validated two-slot palette of s6_figures.py (blue #2a78d6, orange #eb6834; i
   fig2_flow.svg        study flow from committed counts
   fig3_hypotheses.svg  the six pre-registered hypotheses (test, dev) and the LIDC-IDRI replication
   fig4_mechanism_inside.svg  (a) test: the z-fix change and the follow-up jump with and without shared axis 0 (results/figures/fig4a_intervals_test.json,
-                       results/s6); (b, c) X11 (dev, exploratory; results/x11/x11_analysis_dev.json): arm B stretch dose, arm A padding variants;
-                       (d) axis 0 against the padded slices of all dev main runs (results/x11/x11_padcurve_dev.json)
+                       results/s6); (b, c) X11 (dev, exploratory; results/x11/x11_analysis_dev.json): arm B stretch dose, arm A padding variants
+  figS1_padding_curve.svg  supplement: axis 0 against the padded slices of all dev main runs (results/x11/x11_padcurve_fine_dev.json, post hoc bins)
   fig5_exposure.svg    how often a chest CT study holds an overlapping series (results/x12), in non-overlapping parts
   fig6_clinical.svg    operating points and threshold transfer on NLST test (results/x9, results/x7, results/s4/s4_u3_dev.json)
 usage (venv python): python paper_figures.py <out dir for figures without CT pixels> [--ct-dir <dir with fig1_coronal_*.png and json>]
@@ -286,8 +286,8 @@ def fig3(out):
     foot = [f"Counts, test (dev): z-fix exams {T['H1']['counts']['exams']} ({D['H1']['counts']['exams']}), participants {T['H1']['counts']['participants']} ({D['H1']['counts']['participants']}) for H1-H3 and H6; "
             f"kernel pairs {T['H4']['counts']['pairs']} ({D['H4']['counts']['pairs']}) for H4; consecutive yearly pairs {tc['pairs']:,} ({dc['pairs']:,}), changed {tc['changed']} ({dc['changed']}) for H7.",
             "z-fix: the same images given to Sybil at their true slice spacing (from the slice positions) instead of at the slice thickness. Alarm: Sybil's 1-year risk at or above",
-            f"the frozen dev cut tau90 = {TH['tau90_s1']:.3f}. Axis 0: one direction shared by Sybil's five members in its pooled layer (frozen name \"z-geometry\"; an exploratory experiment showed that",
-            "it reads whether a thick slab of Sybil's own padding is in its 200-slice box; Figure 4). H5 and H5' were moved to the secondary list before the test split was opened.",
+            f"the frozen dev cut tau90 = {TH['tau90_s1']:.3f}. Axis 0: one direction shared by Sybil's five members in its pooled layer (frozen name \"z-geometry\"; an exploratory dev experiment",
+            "with no outcome read showed that it reads whether a thick slab of Sybil's own padding is in its 200-slice box; Figure 4). H5 and H5' were moved to the secondary list before the test split was opened.",
             f"LIDC-IDRI: 197 scans with strongly overlapping slices (one per patient; GE 134, Philips 46, Siemens 17), no cancer outcome, the frozen NLST dev SD ({TH['sd_ref_lbar6_all_dev_main']:.2f}) and axis 0, Holm over its",
             "three tests; a different population (clinical CT), so it is a marker of replication, not part of the confirmatory family. Intervals: 95% participant bootstrap."]
     for i_, t_ in enumerate(foot): s.text(20, 548 + 14 * i_, t_, 9, MUTED)
@@ -299,7 +299,8 @@ def fig4(out):
     filled) and with shared axis 0 of `pooled` set to its dev mean in every member (grey, hollow), with 95% participant-bootstrap intervals.
     Sources: results/figures/fig4a_intervals_test.json (plan 23 Nov), results/s6/s6_test.json (H7, its axis-0-off b, axis-0 shifts).
     (b, c) X11 (dev, exploratory; results/x11/x11_analysis_dev.json; Neon's corrections of 23 Nov: matched z-fix values for the every-second-
-    slice row, pad-matched logits not drawn as effects, the exam-level scatter shown). (d) results/x11/x11_padcurve_dev.json."""
+    slice row, pad-matched logits not drawn as effects, the exam-level scatter shown; after Neon's check of the write-up: f = 2.5 on the axis-0
+    plot only, A0 as triangles, controls grouped below the main rows, the padding curve moved to Supplementary Figure S1)."""
     from s6_figures import fmt
     A4 = json.loads((HERE / "results" / "figures" / "fig4a_intervals_test.json").read_text())
     S6 = json.loads((HERE / "results" / "s6" / "s6_test.json").read_text()); H7 = [h for h in S6["hypotheses"] if h["id"] == "H7"][0]
@@ -322,8 +323,8 @@ def fig4(out):
         for j, (v, col, hollow, name) in enumerate(((on, BLUE, False, "as Sybil gives it"), (off, MUTED, True, "axis 0 off"))):
             y = y0 + 16 + j * 22; s.line(Xh(v["lo"]), y, Xh(v["hi"]), y, col, 2); mark(s, "circle", Xh(v["est"]), y, col, r=4.5, hollow=hollow)
             s.text(rx + 12, y + 4, f"{name}: {v['est']:+.3f} [{v['lo']:+.3f}, {v['hi']:+.3f}]", 9.5, INK2 if not hollow else MUTED)
-    sh = A4["share_exams_abs_delta_lbar1_ge_quarter_sd"]; au = S6["secondary_new_freeze"]["H6_auroc_axis0_off"]["y1"]["diff_off_minus_plain"]
-    notes = [f"Switching axis 0 off removes the mean shift, not the exam-by-exam scatter: z-fix exams whose 1-year logit moves >= 1/4 SD:",
+    sh = A4["share_exams_abs_delta_lbar6_ge_quarter_sd"]; au = S6["secondary_new_freeze"]["H6_auroc_axis0_off"]["y1"]["diff_off_minus_plain"]
+    notes = [f"Switching axis 0 off removes the mean shift, not the exam-by-exam scatter: z-fix exams whose 6-year logit moves >= 1/4 SD (as in H1):",
              f"{100 * sh['as_sybil']:.1f}% as Sybil gives it, {100 * sh['axis0_off']:.1f}% with axis 0 off. 1-year AUROC with axis 0 off minus as given: "
              f"{au['est']:+.4f} [{au['lo']:+.3f}, {au['hi']:+.3f}] (no change detected; secondary).",
              f"The z-fix moves axis 0 by {C1['est']:.2f} dev SD [{C1['lo']:.2f}, {C1['hi']:.2f}]; a change of stretch between yearly screens moves it by",
@@ -338,11 +339,9 @@ def fig4(out):
             y = 470 + k * 50; s.text(20, y, lab, 13, weight="bold"); s.text(36, y, t, 11, INK2); s.text(36, y + 16, "dev, exploratory; drawn when the X11 analysis is committed", 10, MUTED)
         s.save(out / "fig4_mechanism_inside.svg"); return
     X = json.loads(xf.read_text(encoding="utf-8")); EB, EA = X["estimates"]["B"], X["estimates"]["A"]; C = X["criteria"]
-    PC = json.loads((HERE / "results" / "x11" / "x11_padcurve_dev.json").read_text(encoding="utf-8"))
-    s.h = 1500; s.el[0] = f'<rect width="{s.w}" height="{s.h}" fill="{SURF}"/>'
-    # ---- panel (b): arm B, synthetic stretch of contiguous scans (pooled over 4 makers, 12 each)
+    # ---- panel (b): arm B, synthetic z-stretch of contiguous scans (pooled over 4 makers, 12 each)
     yb = 448; s.text(20, yb, "b", 13, weight="bold")
-    s.text(36, yb, "Stretching normal scans on purpose: 48 non-overlapping dev scans, 12 per maker (exploratory; no outcome read)", 12, INK, weight="bold")
+    s.text(36, yb, "Synthetic z-stretch of 48 contiguous dev scans, 12 per maker (exploratory; no outcome read)", 12, INK, weight="bold")
     s.text(36, yb + 16, "Stretch factor f = how much longer Sybil sees the scan (f = 1: the scan as it is; f = 2: what Sybil does to a 50%-overlapping scan read with the wrong spacing)", 10, INK2)
     P = lambda c, m: EB[c][m]["pooled"]   # noqa: E731
     zero = dict(est=0.0, lo=0.0, hi=0.0)
@@ -350,111 +349,138 @@ def fig4(out):
     f25 = (2.5, P("f25", "d_ax0"), P("f25", "d_l1"), P("f25", "A0"))
     pm = (2.0, P("f20_padmatch", "d_ax0"), P("f20_padmatch", "d_l1"), P("f20_padmatch", "A0"))
     air = (1.0, P("main_air", "d_ax0"), P("main_air", "d_l1"), P("main_air", "A0"))
+    b4 = C["B4"]["f25_minus_f20_axis0"]
     top, ph = yb + 50, 190
-    for x0, w, idx, ylo, yhi, ytk, ttl in ((70, 400, 1, -0.4, 3.3, (0, 1, 2, 3), "change of shared axis 0 (dev SD)"),
-                                          (600, 400, 2, -0.15, 0.9, (0, 0.2, 0.4, 0.6, 0.8), "change of the 1-year logit (blue) and its axis-0 part A0 (grey)")):
-        Xf = lambda f, x0=x0, w=w: x0 + (f - 0.9) / (2.65 - 0.9) * w   # noqa: E731
+    for x0, w, idx, ylo, yhi, ytk, ttl, fmax in ((70, 400, 1, -0.4, 3.3, (0, 1, 2, 3), "change of shared axis 0 (dev SD)", 2.65),
+                                                (600, 400, 2, -0.15, 0.65, (0, 0.2, 0.4, 0.6), "change of the 1-year logit", 2.2)):
+        Xf = lambda f, x0=x0, w=w, fmax=fmax: x0 + (f - 0.85) / (fmax - 0.85) * w   # noqa: E731
         Yv = lambda v, ylo=ylo, yhi=yhi: top + ph - (v - ylo) / (yhi - ylo) * ph   # noqa: E731
         s.text(x0, top - 12, ttl, 10.5, INK, weight="bold")
         for t in ytk: s.line(x0, Yv(t), x0 + w, Yv(t), GRID); s.text(x0 - 6, Yv(t) + 3.5, fmt(t), 9.5, MUTED, "end")
         s.line(x0, Yv(0), x0 + w, Yv(0), INK2, 1.2)
-        for f in (1.0, 1.25, 1.5, 2.0, 2.5): s.text(Xf(f), top + ph + 14, fmt(f), 9.5, MUTED, "middle")
+        for f in ((1.0, 1.25, 1.5, 2.0, 2.5) if idx == 1 else (1.0, 1.25, 1.5, 2.0)): s.text(Xf(f), top + ph + 14, fmt(f), 9.5, MUTED, "middle")
         s.text(x0 + w / 2, top + ph + 28, "stretch factor f", 9.5, MUTED, "middle")
-        series = [(idx, BLUE, 0.0)] + ([(3, MUTED, 0.04)] if idx == 2 else [])
-        for j, col, dx in series:
+        series = [(idx, BLUE, 0.0, "circle")] + ([(3, MUTED, 0.03, "triangle")] if idx == 2 else [])
+        for j, col, dx, shp in series:
             pts = [(Xf(r[0] + dx), Yv(r[j]["est"])) for r in seq]
             s.el.append('<polyline points="' + " ".join(f"{a:.1f},{b:.1f}" for a, b in pts) + f'" fill="none" stroke="{col}" stroke-width="1.6" stroke-opacity="0.8"/>')
-            for r in seq + [f25]:
-                v = r[j]; x = Xf(r[0] + dx); s.line(x, Yv(v["lo"]), x, Yv(v["hi"]), col, 2); mark(s, "circle", x, Yv(v["est"]), col, r=4, hollow=(j == 3) or r is f25)
-        s.text(Xf(2.5), Yv(f25[idx]["hi"]) - 8, "f = 2.5: 20 scans", 9, MUTED, "middle")
-        v = air[idx]; x = Xf(1.0) - 12; s.line(x, Yv(v["lo"]), x, Yv(v["hi"]), ORANGE, 2); mark(s, "diamond", x, Yv(v["est"]), ORANGE, r=4.5)
-        s.text(x - 6, Yv(v["est"]) - 22, "true scan, air instead", 9, ORANGE); s.text(x - 6, Yv(v["est"]) - 11, "of Sybil's padding", 9, ORANGE)
+            for r in seq + ([f25] if idx == 1 else []):
+                v = r[j]; x = Xf(r[0] + dx); s.line(x, Yv(v["lo"]), x, Yv(v["hi"]), col, 2); mark(s, shp, x, Yv(v["est"]), col, r=4, hollow=r is f25)
         if idx == 1:
+            s.text(Xf(2.5), Yv(f25[1]["hi"]) - 20, "f = 2.5: 20 scans;", 9, MUTED, "middle")
+            s.text(Xf(2.5), Yv(f25[1]["hi"]) - 9, f"{b4['est']:+.2f} vs f = 2 on them", 9, MUTED, "middle")
             v = pm[1]; x = Xf(2.0) + 14; s.line(x, Yv(v["lo"]), x, Yv(v["hi"]), INK2, 2); mark(s, "square", x, Yv(v["est"]), INK2, r=4.5, hollow=True)
-            s.text(x + 9, Yv(v["est"]) - 7, "f = 2 at the same filling", 9, INK2)
-    b4 = C["B4"]["f25_minus_f20_axis0"]; phil = C["B2"]["by_maker"]["PHILIPS"]["lbar1"]; k3 = C["B3"]["kept_share_axis0"]
-    nb = [f"Axis 0 rises with f and stops once Sybil's 200-slice box is full (f = 2.5 minus f = 2.0 on the same 20 scans: {b4['est']:+.2f} SD [{b4['lo']:+.2f}, {b4['hi']:+.2f}]). "
-          f"Axis 0 and A0 rise in all four makers; the total",
-          f"1-year logit at f = 2 does not in every maker (Philips {phil['est']:+.2f} [{phil['lo']:+.2f}, {phil['hi']:+.2f}]). Square: f = 2 cut back to the true scan's number of slices and padded like it keeps "
-          f"{100 * k3['est']:.1f}% [{100 * k3['lo']:.1f}, {100 * k3['hi']:.1f}]",
-          f"of the axis-0 shift (its logit, {pm[2]['est']:+.2f}, is not read: the cut removes about half of the lung). Diamond: no stretch at all, only air instead of Sybil's padding: axis 0 {air[1]['est']:+.2f} SD, "
-          f"1-year logit {air[2]['est']:+.3f} [{air[2]['lo']:+.3f}, {air[2]['hi']:+.3f}]."]
+            mark(s, "diamond", x0 + 14, top + 2, ORANGE, r=4); s.text(x0 + 24, top + 6, "f = 1 with air instead of Sybil's padding", 9.5, INK2)
+            mark(s, "square", x0 + 14, top + 18, INK2, r=4, hollow=True); s.text(x0 + 24, top + 22, "f = 2 at the same filling as the true scan", 9.5, INK2)
+        else:
+            mark(s, "circle", x0 + w - 200, top + 2, BLUE, r=4); s.text(x0 + w - 192, top + 6, "1-year logit", 9.5, INK2)
+            mark(s, "triangle", x0 + w - 200, top + 18, MUTED, r=4); s.text(x0 + w - 192, top + 22, "A0: its axis-0 part", 9.5, INK2)
+            mark(s, "diamond", x0 + w - 200, top + 34, ORANGE, r=4); s.text(x0 + w - 192, top + 38, "f = 1 with air (1-year logit)", 9.5, INK2)
+        v = air[idx]; x = Xf(1.0); s.line(x, Yv(v["lo"]), x, Yv(v["hi"]), ORANGE, 2); mark(s, "diamond", x, Yv(v["est"]), ORANGE, r=4.5)
+    phil = C["B2"]["by_maker"]["PHILIPS"]["lbar1"]; k3 = C["B3"]["kept_share_axis0"]
+    nb = [f"Axis 0 rises with f and stops once Sybil's 200-slice box is full. Axis 0 and A0 rise in all four makers; the total 1-year logit at f = 2 does not in every maker "
+          f"(Philips {phil['est']:+.2f} [{phil['lo']:+.2f}, {phil['hi']:+.2f}]).",
+          f"Square: f = 2 cut back to the true scan's slice count and padded like it keeps {100 * k3['est']:.1f}% [{100 * k3['lo']:.1f}, {100 * k3['hi']:.1f}] of the axis-0 shift "
+          f"(its logit is not read: the cut removes about half of the lung).",
+          f"Diamond: no stretch, only air instead of Sybil's padding: axis 0 {air[1]['est']:+.2f} SD, 1-year logit {air[2]['est']:+.3f} [{air[2]['lo']:+.3f}, {air[2]['hi']:+.3f}]. "
+          f"The stretch is a resampling of the images, not a real overlapping reconstruction."]
     for k, t in enumerate(nb): s.text(20, top + ph + 48 + 14 * k, t, 9.5, MUTED)
-    # ---- panel (c): arm A, the z-fix shift of real overlapping scans under changes of the padding
+    # ---- panel (c): arm A, real overlapping scans: main comparisons, then controls (axis 0 only)
     yc = top + ph + 112; s.text(20, yc, "c", 13, weight="bold")
-    s.text(36, yc, "What the z-fix changes in real overlapping scans: 63 dev scans (GE 24, Philips 27, Siemens 12; weighted to the dev maker mix; exploratory; no outcome read)", 12, INK, weight="bold")
-    s.text(36, yc + 16, "Each row: the scan read with its true spacing minus the scan as Sybil reads it, with the empty ends of Sybil's 200-slice box filled in different ways", 10, INK2)
+    s.text(36, yc, "Real overlapping dev scans: 63 scans (GE 24, Philips 27, Siemens 12; weighted to the dev maker mix; exploratory; no outcome read)", 12, INK, weight="bold")
+    s.text(36, yc + 16, "Change within the same scans; each row names what is compared. \"Sybil's run\" = the scan as Sybil reads it (wrong spacing, Sybil's padding)", 10, INK2)
     W = lambda c, m: EA[c][m]["dev_weighted"]   # noqa: E731
     a4 = C["A4"]; zm = W("zfix", "d_ax0_maxpool"); za = W("zfix", "d_ax0_attn1")["est"] + W("zfix", "d_ax0_attn2")["est"]
-    NR = "not read (cut-back scan loses about half of the lung)"
-    rowsc = [("z-fix, Sybil's padding (as published)", f"max-pool part {zm['est']:+.2f}, attention parts {za:+.2f}", W("zfix", "d_ax0"), W("zfix", "d_l1"), W("zfix", "big6"), BLUE, False),
-             ("z-fix, air padding (both runs)", "the empty box ends filled with air (-1,000 HU)", W("zfix_air_vs_main_air", "d_ax0"), W("zfix_air_vs_main_air", "d_l1"),
-              W("zfix_air_vs_main_air", "big6"), ORANGE, False),
-             ("z-fix, mirrored anatomy", "box ends filled with the scan mirrored; no constant slab", W("zfix_reflect", "d_ax0"), W("zfix_reflect", "d_l1"), W("zfix_reflect", "big6"), MUTED, True),
-             ("box filling only", "stretched scan cut back to the z-fix's slice count, then padded", W("padmatch", "d_ax0"), None, None, MUTED, True),
-             ("stretch only, same filling", "z-fix minus the cut-back stretched scan", W("zfix_vs_padmatch", "d_ax0"), None, None, MUTED, True),
-             ("every second slice, unmodified Sybil", f"a real non-overlapping series of the same scans ({a4['ratio_decim_over_zfix_axis0']['n']} scans)",
-              EA["decim0"]["d_ax0"]["dev_weighted"], EA["decim0"]["d_l1"]["dev_weighted"], EA["decim0"]["big6"]["dev_weighted"], BLUE, False)]
     zsame = (a4["ratio_decim_over_zfix_axis0"]["denominator"]["est"], a4["ratio_decim_over_zfix_lbar1"]["denominator"]["est"])
+    att_r = W("zfix_reflect", "pad1_var")["est"]
+    rowsc = [("z-fix, Sybil's padding (as published)", f"true spacing minus Sybil's run; max-pool {zm['est']:+.2f}, attention {za:+.2f}",
+              W("zfix", "d_ax0"), W("zfix", "d_l1"), W("zfix", "big6"), BLUE, False, None),
+             ("every second slice, unmodified Sybil", f"that series minus Sybil's run; {a4['ratio_decim_over_zfix_axis0']['n']} GE + Siemens scans",
+              EA["decim0"]["d_ax0"]["dev_weighted"], EA["decim0"]["d_l1"]["dev_weighted"], EA["decim0"]["big6"]["dev_weighted"], BLUE, False, zsame),
+             ("z-fix, air padding", "both runs padded with air (-1,000 HU): z-fix minus that run",
+              W("zfix_air_vs_main_air", "d_ax0"), W("zfix_air_vs_main_air", "d_l1"), W("zfix_air_vs_main_air", "big6"), ORANGE, False, None),
+             ("z-fix, mirrored box ends", f"minus Sybil's run ({100 * att_r:.0f}% of slice attention on the mirror)", W("zfix_reflect", "d_ax0"), None, None, MUTED, True, None),
+             ("box filling only", "stretched scan cut to the z-fix's length, padded; minus Sybil's run", W("padmatch", "d_ax0"), None, None, MUTED, True, None),
+             ("stretch only, same filling", "z-fix minus the cut-back stretched scan", W("zfix_vs_padmatch", "d_ax0"), None, None, MUTED, True, None)]
     lx, rx = 340, 600; xa, xb = -3.2, 0.4; Xc = lambda v: lx + (v - xa) / (xb - xa) * (rx - lx)   # noqa: E731
-    t0, rh = yc + 46, 36; b0 = t0 + rh * len(rowsc)
+    t0, rh, gap = yc + 46, 38, 18; ys = [t0 + rh * i + 14 + (gap if i >= 3 else 0) for i in range(len(rowsc))]; b0 = ys[-1] + 24
     for tt in (-3, -2, -1, 0): s.line(Xc(tt), t0 - 4, Xc(tt), b0, GRID); s.text(Xc(tt), b0 + 14, fmt(tt), 9.5, MUTED, "middle")
     s.line(Xc(0), t0 - 4, Xc(0), b0, INK2, 1.5); s.text((lx + rx) / 2, b0 + 28, "change of shared axis 0 (dev SD)", 9.5, MUTED, "middle")
     s.text(620, t0 - 10, "change of the 1-year logit", 9.5, MUTED); s.text(880, t0 - 10, "6-year logit moves >= 1/4 SD", 9.5, MUTED)
-    for i, (lab, sub, v, l1, bg, col, hol) in enumerate(rowsc):
-        y = t0 + rh * i + 14; s.text(20, y - 2, lab, 10.5, INK, weight="bold"); s.text(20, y + 11, sub, 9, MUTED)
+    yd_ = (ys[2] + ys[3]) / 2 - 2
+    s.el.append(f'<line x1="20" y1="{yd_:.1f}" x2="1040" y2="{yd_:.1f}" stroke="{GRID}" stroke-width="1" stroke-dasharray="4,3"/>')
+    s.text(620, ys[3] + 4, "controls: only the axis-0 change is read (the mirror adds", 9, MUTED); s.text(620, ys[3] + 16, "image content; the cut-back scan loses about half of the lung)", 9, MUTED)
+    for i, (lab, sub, v, l1, bg, col, hol, same) in enumerate(rowsc):
+        y = ys[i]; s.text(20, y - 2, lab, 10.5, INK, weight="bold"); s.text(20, y + 11, sub, 9, MUTED)
         s.line(Xc(v["lo"]), y, Xc(v["hi"]), y, col, 2); mark(s, "circle", Xc(v["est"]), y, col, r=4.5, hollow=hol)
-        last = i == len(rowsc) - 1
-        s.text(Xc(v["est"]) + (10 if v["est"] < -1 else -10), y - 7, f"{v['est']:+.2f}" + (f" (z-fix on them {zsame[0]:+.2f})" if last else ""), 9.5, INK2, "start" if v["est"] < -1 else "end")
-        if l1 is None: s.text(620, y + 4, NR, 9, MUTED)
-        else:
-            s.text(620, y + 4, f"{l1['est']:+.3f} [{l1['lo']:+.3f}, {l1['hi']:+.3f}]", 9.5, INK2 if not hol else MUTED)
-            if last: s.text(620, y + 17, f"z-fix on the same scans: {zsame[1]:+.3f}", 9, MUTED)
-            s.text(880, y + 4, f"{100 * bg['est']:.0f}% [{100 * bg['lo']:.0f}, {100 * bg['hi']:.0f}]", 9.5, INK2 if not hol else MUTED)
+        s.text(Xc(v["est"]) + (10 if v["est"] < -1 else -10), y - 7, f"{v['est']:+.2f}" + (f" (z-fix on the same scans {same[0]:+.2f})" if same else ""), 9.5, INK2, "start" if v["est"] < -1 else "end")
+        if l1 is not None:
+            s.text(620, y + 4, f"{l1['est']:+.3f} [{l1['lo']:+.3f}, {l1['hi']:+.3f}]" + (f"  (z-fix on them {same[1]:+.3f})" if same else ""), 9.5, INK2)
+            s.text(880, y + 4, f"{100 * bg['est']:.0f}% [{100 * bg['lo']:.0f}, {100 * bg['hi']:.0f}]", 9.5, INK2)
     k1, r3, g2, rd = C["A1"]["kept_share_axis0"], C["A3"]["share_removed_axis0"], C["A2"]["share_geometry_part"], a4["ratio_decim_over_zfix_axis0"]
-    nc = [f"Air padding keeps {100 * k1['est']:.1f}% [{100 * k1['lo']:.1f}, {100 * k1['hi']:.1f}] of the axis-0 shift; mirrored anatomy removes {100 * r3['est']:.1f}%; "
+    nc = [f"Air padding keeps {100 * k1['est']:.1f}% [{100 * k1['lo']:.1f}, {100 * k1['hi']:.1f}] of the axis-0 shift; mirrored box ends remove {100 * r3['est']:.1f}%; "
           f"at the same filling the stretch alone gives {100 * g2['est']:.1f}% [{100 * g2['lo']:.1f}, {100 * g2['hi']:.1f}]. Every second slice gives {rd['est']:.3f} "
           f"[{rd['lo']:.3f}, {rd['hi']:.3f}] times the z-fix shift.",
           "With air padding the mean logit change is near 0, but the exam-by-exam scatter stays (right column): air padding does not fix Sybil, and it moves ordinary scans",
-          "out of their usual range of axis 0. Grey rows: mirrored anatomy adds image content, and the cut-back scans lose about half of the lung, so only their axis-0 change is read."]
+          "out of their usual range of axis 0. Every-second-slice row: GE and Siemens only (the one Philips scan with ratio 0.5 is left out by the rule of >= 5 per maker).",
+          "How axis 0 depends on the padding left in the box across all 7,336 dev scans: Supplementary Figure S1."]
     for k, t in enumerate(nc): s.text(20, b0 + 48 + 14 * k, t, 9.5, MUTED)
-    # ---- panel (d): all dev scans as Sybil read them: axis 0 against the padding left in the box
-    yd = b0 + 112; s.text(20, yd, "d", 13, weight="bold")
-    s.text(36, yd, "One curve: axis 0 against the padding left in Sybil's box, all 7,336 dev scans as Sybil read them (no new run; exploratory; no outcome read)", 12, INK, weight="bold")
-    s.text(36, yd + 16, "Padded slices = slices of Sybil's 200-slice input that hold only padding (both ends together); 0 = the box is full", 10, INK2)
-    XB = {"0": 0, "1-8": 4.5, "9-16": 12.5, "17-24": 20.5, "25-32": 28.5, "33-48": 40.5, "49-64": 56.5, "65-80": 72.5, ">80": 88}
-    x0, w, ylo, yhi = 80, 560, -1.0, 2.7; top4, ph4 = yd + 46, 200
-    Xp = lambda p: x0 + (p + 3) / 99 * w; Yp = lambda v: top4 + ph4 - (v - ylo) / (yhi - ylo) * ph4   # noqa: E731
+    s.h = int(b0 + 48 + 14 * len(nc) + 16); s.el[0] = f'<rect width="{s.w}" height="{s.h}" fill="{SURF}"/>'
+    s.save(out / "fig4_mechanism_inside.svg")
+
+
+def figS1(out):
+    """Supplementary Figure S1: absolute shared axis 0 of all dev main runs against the padded slices in Sybil's 200-slice box, by ratio group.
+    Source: results/x11/x11_padcurve_fine_dev.json (POST HOC 8-slice bins, added after Neon's review; the planned 16-slice bins are in
+    x11_padcurve_dev.json). Bins with fewer than 5 scans are not drawn."""
+    from s6_figures import fmt
+    pf = HERE / "results" / "x11" / "x11_padcurve_fine_dev.json"
+    if not pf.exists(): return
+    PF = json.loads(pf.read_text(encoding="utf-8")); PC = json.loads((HERE / "results" / "x11" / "x11_padcurve_dev.json").read_text(encoding="utf-8"))
+    s = Svg(1060, 420)
+    s.text(20, 28, "Supplementary Figure S1. Shared axis 0 against the padding left in Sybil's 200-slice box", 15, weight="bold")
+    s.text(20, 48, "All 7,336 NLST dev scans as Sybil read them (no new run; exploratory; no outcome read). Padded slices: slices holding only padding, both ends together; 0 = box full", 10, INK2)
+    def xb(k): return 0.0 if k == "0" else (100.0 if k == ">96" else (int(k.split("-")[0]) + int(k.split("-")[1])) / 2)   # noqa: E306
+    x0, w, ylo, yhi = 80, 560, -1.0, 2.7; top, ph = 86, 230
+    Xp = lambda p: x0 + (p + 3) / 107 * w; Yp = lambda v: top + ph - (v - ylo) / (yhi - ylo) * ph   # noqa: E731
     q = PC["summary"]["contiguous"]["p_quantiles"]
-    rect(s, Xp(q["0.05"]), top4, Xp(q["0.95"]) - Xp(q["0.05"]), ph4, ORANGE, op=0.08)
-    s.text((Xp(q["0.05"]) + Xp(q["0.95"])) / 2, top4 + 12, "ordinary contiguous scans", 9, ORANGE, "middle")
-    s.text((Xp(q["0.05"]) + Xp(q["0.95"])) / 2, top4 + 24, "(5th to 95th percentile)", 9, ORANGE, "middle")
+    rect(s, Xp(q["0.05"]), top, Xp(q["0.95"]) - Xp(q["0.05"]), ph, ORANGE, op=0.08)
+    s.text((Xp(q["0.05"]) + Xp(q["0.95"])) / 2, top + 12, "contiguous scans,", 9, ORANGE, "middle")
+    s.text((Xp(q["0.05"]) + Xp(q["0.95"])) / 2, top + 24, "5th to 95th percentile", 9, ORANGE, "middle")
     for t in (-1, 0, 1, 2): s.line(x0, Yp(t), x0 + w, Yp(t), GRID); s.text(x0 - 6, Yp(t) + 3.5, fmt(t), 9.5, MUTED, "end")
-    for p in (0, 16, 32, 48, 64, 80, 96): s.text(Xp(p), top4 + ph4 + 14, str(p), 9.5, MUTED, "middle")
-    s.text(x0 + w / 2, top4 + ph4 + 28, "padded slices in Sybil's 200-slice box (> 80 drawn at 88)", 9.5, MUTED, "middle")
-    s.text(x0 - 40, top4 - 10, "shared axis 0 (dev SD), absolute", 10, INK, weight="bold")
-    groups = (("stretched_0_0p65", "overlapping (ratio <= 0.65)", BLUE, "circle", -0.9), ("other_", "other (ratio 0.65-0.95 or > 1.05)", MUTED, "square", 0.0),
-              ("contiguous_0p95_1p05", "contiguous (ratio 0.95-1.05)", ORANGE, "diamond", 0.9))
+    for p in (0, 16, 32, 48, 64, 80, 96): s.text(Xp(p), top + ph + 14, str(p), 9.5, MUTED, "middle")
+    s.text(x0 + w / 2, top + ph + 28, "padded slices in Sybil's 200-slice box (8-slice bins; > 96 drawn at 100)", 9.5, MUTED, "middle")
+    s.text(x0 - 40, top - 12, "shared axis 0 (dev SD), absolute", 10, INK, weight="bold")
+    groups = (("overlapping_0_0p65", "overlapping (ratio <= 0.65)", BLUE, "circle", -0.9), ("moderate_0p65_0p95", "moderate overlap (0.65-0.95)", MUTED, "square", 0.0),
+              ("contiguous_0p95_1p05", "contiguous (0.95-1.05)", ORANGE, "diamond", 0.9))
     for g, lab, col, shp, dx in groups:
-        B = PC["bins"]["other" if g == "other_" else g]; pts = [(Xp(XB[k] + dx), Yp(v["mean"]), v) for k, v in B.items() if v["n"] >= 5]
+        pts = [(Xp(xb(k) + dx), Yp(v["mean"]), v) for k, v in PF["bins"][g].items() if v["n"] >= 5]
         s.el.append('<polyline points="' + " ".join(f"{a:.1f},{b:.1f}" for a, b, _ in pts) + f'" fill="none" stroke="{col}" stroke-width="1.2" stroke-opacity="0.6"/>')
         for a, b, v in pts:
             if v["lo"] is not None: s.line(a, Yp(v["lo"]), a, Yp(v["hi"]), col, 1.6)
             mark(s, shp, a, b, col, r=3.5, hollow=(shp == "square"))
     lgx = 680
     for k, (g, lab, col, shp, dx) in enumerate(groups):
-        mark(s, shp, lgx, top4 + 6 + 18 * k, col, r=4, hollow=(shp == "square")); s.text(lgx + 12, top4 + 10 + 18 * k, lab, 10, INK2)
-    cs, bo = PC["summary"]["contiguous"], PC["bins"]
-    n_other_le32 = sum(bo["other"][k]["n"] for k in ("0", "1-8", "9-16", "17-24", "25-32")); n_other = PC["counts"]["by_group"]["other"]
-    side = [f"At the same padding the three groups agree (17-24 slices: {bo['stretched_0_0p65']['17-24']['mean']:+.2f} and {bo['other']['17-24']['mean']:+.2f}):",
-            "the curve depends on how much padding is left, not on why.",
-            f"Contiguous scans: median {cs['p_quantiles']['0.5']:.0f} padded slices; {100 * cs['share_p_le_32']:.1f}% have 32 or fewer.",
-            f"Other scans: {n_other_le32} of {n_other:,} ({100 * n_other_le32 / n_other:.0f}%) have 32 or fewer.",
-            "The steep part (about 16 to 48 padded slices) is where a thin slab",
-            "already moves the axis; a full box (0) gives the highest values."]
-    for k, t in enumerate(side): s.text(lgx - 8, top4 + 80 + 15 * k, t, 9.5, MUTED)
-    s.text(20, top4 + ph4 + 52, "Each point: mean axis 0 with its 95% participant-bootstrap interval; bins with fewer than 5 scans not drawn; points of a bin are spread sideways so they do not overlap.", 9.5, MUTED)
-    s.save(out / "fig4_mechanism_inside.svg")
+        mark(s, shp, lgx, top + 2 + 18 * k, col, r=4, hollow=(shp == "square")); s.text(lgx + 12, top + 6 + 18 * k, f"{lab}: {PF['counts']['by_group'][g]:,} scans", 10, INK2)
+    B = PF["bins"]; cg = B["contiguous_0p95_1p05"]; nc = PF["counts"]["by_group"]["contiguous_0p95_1p05"]; nm = PF["counts"]["by_group"]["moderate_0p65_0p95"]
+    c64 = sum(v["n"] for k, v in cg.items() if xb(k) > 64); c48 = sum(v["n"] for k, v in cg.items() if xb(k) <= 48)
+    m32 = sum(v["n"] for k, v in B["moderate_0p65_0p95"].items() if xb(k) <= 32)
+    n_other = PF["counts"]["by_group"]["gaps_gt_1p05"] + PF["counts"]["by_group"]["ratio_0_or_missing"]
+    side = [f"Where groups share a bin they agree within about 0.1 SD (49-56: {cg['49-56']['mean']:+.2f}, {B['moderate_0p65_0p95']['49-56']['mean']:+.2f}, "
+            f"{B['overlapping_0_0p65']['49-56']['mean']:+.2f}):",
+            "axis 0 depends on how much padding is left, not on why it is thin.",
+            f"Contiguous scans: {100 * c64 / nc:.0f}% have more than 64 padded slices (flat part);",
+            f"{100 * c48 / nc:.1f}% have 48 or fewer.",
+            f"Moderate overlap: {m32} of {nm:,} ({100 * m32 / nm:.0f}%) have 32 or fewer (steep part).",
+            f"Not drawn: {n_other} scans with gaps (ratio > 1.05) or ratio 0;",
+            "bins with fewer than 5 scans.",
+            "Observational: scans with thin padding may differ in other ways too;",
+            "the experiments of Figure 4 (b, c) point the same way."]
+    for k, t in enumerate(side): s.text(lgx - 8, top + 76 + 15 * k, t, 9.5, MUTED)
+    s.text(20, top + ph + 52, "Each point: mean axis 0 with its 95% participant-bootstrap interval; points of a bin are spread sideways. The 8-slice bins were added after an outside review "
+           "(post hoc);", 9.5, MUTED)
+    s.text(20, top + ph + 66, "the planned 16-slice bins (results/x11/x11_padcurve_dev.json) give the same picture except that the wide 33-48 bin mixes the steep part.", 9.5, MUTED)
+    s.save(out / "figS1_padding_curve.svg")
 
 
 def box(s, x, y, w, lines, edge=BASE, head=None, h=None, dash=False):
@@ -520,7 +546,7 @@ def fig2(out):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("out"); ap.add_argument("--ct-dir"); a = ap.parse_args(); out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
-    fig2(out); fig3(out); fig4(out); fig5(out); fig6(out)
+    fig2(out); fig3(out); fig4(out); fig5(out); fig6(out); figS1(out)
     if a.ct_dir: fig1(Path(a.ct_dir), Path(a.ct_dir))                          # Figure 1 holds CT pixels: written next to the PNGs, outside git
     print("figures written")
 

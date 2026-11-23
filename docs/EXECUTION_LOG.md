@@ -1381,3 +1381,15 @@ Intervals: 97.5% for A1 and A2, 95% for the others (participant bootstrap, 2,000
   - Same script and data, with 8-slice bins (0, 1–8, …, 89–96, > 96) and five groups: overlapping (0 < ratio ≤ 0.65), moderate (0.65 < ratio < 0.95), contiguous (0.95–1.05), gaps (> 1.05), ratio 0 or missing.
   - Same statistics and participant bootstrap. The bootstrap guard becomes "at least 2 participants" (Neon's nit; no planned number changes).
   - Output `results/x11/x11_padcurve_fine_dev.json`, committed before it is read. The planned run is repeated and must give the committed file byte for byte.
+- **Done (`a9e0e83`; the repeated planned run gave the committed file byte for byte):**
+  - Groups: overlapping 924, moderate 2,255, contiguous 4,138, gaps 11, ratio 0 or missing 8 (so "other" was 99% moderate overlap).
+  - Where groups share an 8-slice bin they agree within about 0.1 SD: 33–40 contiguous +0.48, moderate +0.54, overlapping +0.60; 49–56 −0.39, −0.37, −0.39; 57–64 −0.52, −0.51; 65–72 −0.58, −0.57. Only 41–48 keeps a small gap (−0.03 vs +0.06).
+  - Contiguous: 80% have > 64 padded slices (−0.58 to −0.65).
+  - Moderate: 413 of 2,255 (18%) have ≤ 32.
+- **Corrections made:**
+  - `RESULTS_L2.md` 3j: dev-weighted absolute values; both kinds of pad-matched logits; the planned curve and the post hoc bins; the limits (A4 GE + Siemens, noise floor GE only, synthetic stretch, 12 per maker, air the only other value, observational curve); "at matched padding the stretch gives 2.2–2.8%"; "1.5 to 2 times as long"; B3, B4, B5 intervals.
+  - 3i item 2 and section 6 message 3 tagged and qualified.
+  - Figure 4 as planned above. Panel (b): legends instead of labels on the lines.
+  - New `figS1_padding_curve.svg`.
+  - Figure 3 footnote.
+  - Rendered and checked by eye. Figures 2, 5, 6 unchanged byte for byte.
