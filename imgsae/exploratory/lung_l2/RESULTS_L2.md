@@ -387,7 +387,7 @@ Sybil − form: E1 −0.099 [−0.212, +0.017]; E2 +0.027 [−0.120, +0.175]; E4
 1. **Strong overlap (the regime the frozen tests measured) is uncommon in public modern chest CT**: about 4–6% of studies, against about 9% in NLST. It is not an NLST-only relic, but it must not be described as a large fixed share of modern CT.
 2. **Moderate overlap (ratio 0.65 to 0.85) is common** (12–19% of modern studies; every series of the modern low-dose collection); its effect on Sybil is not yet measured (task 2, X11, tests stretch factors 1.25 and 1.5).
 3. **Exposure depends on site protocol and on which series is sent to Sybil:** most modern studies with a strongly overlapping series also hold a contiguous one (3–5% of studies hold both), so the choice of series, or a change of that choice between yearly screens (H7), decides whether Sybil sees a stretched chest; Sybil gives no warning either way.
-4. Current screening and nodule-volumetry guidance appears to allow or recommend overlapping intervals (QIBA 2023, ACR–STR, ESTI 2019; search excerpts only, to be checked in task 6 before citing).
+4. Current screening and nodule-volumetry guidance allows or recommends overlapping intervals: QIBA 2023 ("overlap of 50% may provide better accuracy and precision compared to contiguous slice reconstruction"), ACR–STR 2024 ("reconstruction intervals equal to or less than the slice thickness"), ESTI ("Slice Interval ≤ slice width … Overlapping reconstructions are not mandatory"). Checked word for word in the original documents on 22 Nov (task 6; `docs/LITERATURE_CHECK_2026-11-22.md` section 3).
 
 ## 4. What the results allow us to say, and what not (run rule 4)
 **Can say (test, frozen, Holm):**
