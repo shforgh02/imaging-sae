@@ -9,7 +9,7 @@
 - Run time: a few minutes for tens of thousands of exams.
 
 ## Steps
-1. `python run_partner.py --selftest --out test_output` — runs on synthetic data shipped with the kit and must print `PASS`.
+1. `python run_partner.py --selftest --out test_output` — runs on synthetic data shipped with the kit and must print `PASS`. (`PASS` is the test. The printed SHA-256 of the self-test output can differ between machines and math-library thread settings, because the last digits of some numbers change; this is expected.)
 2. Prepare your exam table (and, if you have one, your nodule table) as described in `CODING_SHEET.md`.
 3. `python run_partner.py --compare exams.csv [--nodules nodules.csv] --out site_output --min-cell 10 --lung-rads-version 1.1 --diameter-type longest --cancer-ascertainment registry` (the last three describe your records; give what is true for your site, or leave them out)
 4. Optional, outcome-free: `python run_partner.py --geometry <folder with your CT DICOM files> [--series-manifest series_sent_to_sybil.csv] --out site_output`

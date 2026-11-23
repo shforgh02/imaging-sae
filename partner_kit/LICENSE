@@ -1,6 +1,27 @@
-LICENCE OF THE PARTNER KIT: NOT YET CHOSEN.
+MIT License
 
-The copyright holder (the study lead) decides the licence before the kit is sent to any partner.
-Proposed: the MIT licence (permissive; allows a partner's legal office to approve the code without a software agreement),
-with this research-use statement: "For research use only. Not a medical device. Not for clinical decision-making."
-Until this file holds a licence text, the kit must not be distributed.
+Copyright (c) 2026 The partner kit authors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+Research-use statement (not part of the licence terms above):
+For research use only. Not a medical device. Not for clinical decision-making.
+Sybil is not included in this kit; see NOTICE.md.
