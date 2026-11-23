@@ -236,6 +236,7 @@ def main():
     # ---- gates from the records
     g1 = [(v.get("max_abs_logit"), v.get("max_abs_pooled")) for r in recs for v in r.get("gate_G1", {}).values()]
     n_ident = sum(1 for r in recs if r.get("gate_G1"))
+    if not all(x is not None and y is not None and np.isfinite(x) and np.isfinite(y) for x, y in g1): raise SystemExit("STOP: a G1 value is missing or not finite")
     res["gates"] = dict(G2_all=all(r.get("gate_G2") is True for r in recs), G1_n=len(g1), G1_exams=n_ident,
                         G1_max_abs_logit=max((x for x, _ in g1), default=None), G1_max_abs_pooled=max((y for _, y in g1), default=None))
     fin = all(x is not None and y is not None and np.isfinite(x) and np.isfinite(y) for x, y in g1)
@@ -319,6 +320,11 @@ def main():
         dr, _ = draws_for(arm, s.index, weighted, name); v = s.to_numpy(float)
         e, d = dr.mean(v, weights_for(arm, name) if (weighted and arm == "A") else None); out = summ(e, d); out["n"] = int(len(dr.rows)); return out
 
+    def abs_mean(arm, name, meas):
+        s = col(arm, name, meas).dropna()
+        if len(s) == 0: return None
+        dr, _ = draws_for(arm, s.index, False); e, d = dr.mean(np.abs(s.to_numpy(float))); out = summ(e, d); out["n"] = int(len(s)); return out
+
     def ratio(arm, num, den, meas, weighted, keep=None, one_minus=False, boundary=None):
         a_, b_ = col(arm, num, meas, keep), col(arm, den, meas, keep); j = a_.dropna().index.intersection(b_.dropna().index)
         if len(j) == 0: return None
@@ -378,13 +384,14 @@ def main():
     sg = mean_of("A", "zfix_vs_decim0", "d_ax0", weighted=True)
     s_abs = Lg[(Lg.arm == "A") & (Lg.cmp == "zfix_vs_decim0")].assign(absd=lambda q: q.d_ax0.abs())
     if len(s_abs):
-        dr4, _ = draws_for("A", s_abs.series_uid.to_numpy(), True); e4, d4 = dr4.mean(s_abs.absd.to_numpy(float), W05w); mabs = summ(e4, d4)
+        dr4, _ = draws_for("A", s_abs.series_uid.to_numpy(), True); e4, d4 = dr4.mean(s_abs.absd.to_numpy(float), W05w); mabs = summ(e4, d4); mabs["n"] = int(len(dr4.rows))
     else: mabs = None
     rep = None if r4 is None or r4["est"] is None else (0.75 <= r4["est"] <= 1.25)
     ovl = None if sg is None or sg["lo"] is None or mabs is None or mabs["est"] is None else (-0.5 < sg["lo"] and sg["hi"] < 0.5 and mabs["est"] < 0.5)
     C["A4"] = dict(weights="dev maker counts of exams with |ratio - 0.5| < 0.02; makers with < 5 exams in the subset left out", ratio_decim_over_zfix_axis0=r4,
                    ratio_decim_over_zfix_lbar1=ratio("A", "decim0", "zfix", "d_l1", wA, keep=dec), signed_mean_zfix_minus_decim0_axis0=sg, mean_abs_zfix_minus_decim0_axis0=mabs,
                    phase_noise_floor_decim1_minus_decim0_axis0=mean_of("A", "decim1_vs_decim0", "d_ax0"),
+                   phase_noise_floor_mean_abs_decim1_minus_decim0_axis0=abs_mean("A", "decim1_vs_decim0", "d_ax0"),
                    by_maker_n=Lg[(Lg.arm == "A") & (Lg.cmp == "decim0")].maker.value_counts().to_dict(),
                    verdict_reproduced=None if rep is None else ("the bug is reproduced with unmodified Sybil" if rep else "not reproduced (outside +-25%)"),
                    verdict_overlap=None if ovl is None else ("slice overlap itself does not matter" if ovl else "not shown that overlap does not matter (interval or mean absolute difference reaches 0.5 dev SD)"))
@@ -400,7 +407,7 @@ def main():
     def paired_diff(meas, n1, n0):
         a_, b_ = col("B", n1, meas), col("B", n0, meas); j = a_.dropna().index.intersection(b_.dropna().index)
         if len(j) == 0: return None
-        dr, _ = draws_for("B", j, False); e, d = dr.mean((a_.loc[j] - b_.loc[j]).to_numpy(float)); return summ(e, d)
+        dr, _ = draws_for("B", j, False); e, d = dr.mean((a_.loc[j] - b_.loc[j]).to_numpy(float)); out = summ(e, d); out["n"] = int(len(j)); return out
     B1 = {}
     for ms, thr in (("d_ax0", 2.0), ("A0", 0.20)):
         s4p, s3p, f125, dlt = slope(ms, (1.0, 1.25, 1.5, 2.0)), slope(ms, (1.25, 1.5, 2.0)), est.get("B", {}).get("f125", {}).get(ms, {}).get("pooled"), paired_diff(ms, "f20", "f125")
