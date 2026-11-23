@@ -127,9 +127,81 @@ def fig5(out):
     s.save(out / "fig5_exposure.svg")
 
 
+def mark(s, shape, x, y, fill, r=5, hollow=False):
+    f, st = (SURF, fill) if hollow else (fill, SURF)
+    if shape == "circle": s.el.append(f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{r}" fill="{f}" stroke="{st}" stroke-width="{2 if hollow else 1.5}"/>')
+    elif shape == "square": s.el.append(f'<rect x="{x - r:.1f}" y="{y - r:.1f}" width="{2 * r}" height="{2 * r}" fill="{f}" stroke="{st}" stroke-width="{2 if hollow else 1.5}"/>')
+    elif shape == "diamond": s.el.append(f'<path d="M{x:.1f},{y - r - 1:.1f} L{x + r + 1:.1f},{y:.1f} L{x:.1f},{y + r + 1:.1f} L{x - r - 1:.1f},{y:.1f} Z" fill="{f}" stroke="{st}" stroke-width="{2 if hollow else 1.5}"/>')
+    else: s.el.append(f'<path d="M{x:.1f},{y - r - 1:.1f} L{x + r + 1:.1f},{y + r:.1f} L{x - r - 1:.1f},{y + r:.1f} Z" fill="{f}" stroke="{st}" stroke-width="{2 if hollow else 1.5}"/>')
+
+
+SCORES = [("sybil", "Sybil", BLUE, "circle"), ("form", "Form (radiologists' findings + age, sex, smoking; fitted on NLST train)", ORANGE, "square"),
+          ("brock", "Brock (published, not fitted)", MUTED, "triangle"), ("rule", "Fixed rule: Lung-RADS >= 4A (L4), >= 3 (L3), radiologists' call (R)", INK, "diamond")]
+RULE = {"L4": "lung_rads_4A", "L3": "lung_rads_3", "R": "radiologists_call"}
+
+
+def fig6(out):
+    """clinical context (exploratory, all NLST test exams): operating points at dev-matched false-alarm levels, 1 year all screens and 6 years
+    baseline; threshold transfer dev -> test (cancer-free cuts keep their false-alarm level; cuts matched on dev cancers lose Sybil's sensitivity)."""
+    X9 = {sp: json.loads((HERE / "results" / "x9" / f"x9_rules_thresholds_{sp}.json").read_text())["thresholds"] for sp in ("dev", "test")}
+    P5 = json.loads((HERE / "results" / "x7" / "x7_sensitivity_test.json").read_text())["P5_harm_at_dev_cuts"]
+    s = Svg(1040, 830); s.text(20, 28, "Figure 6. Clinical context on the NLST test split (exploratory): the same false-alarm levels, and what happens to cuts set on development data", 14, weight="bold")
+
+    def get(T, key): return T["table"][key]
+    # (a) operating points
+    for pi, (E, lab, ylo, yhi) in enumerate((("E1", "1 year, all screens", 0.6, 1.0), ("E4", "6 years, baseline screens", 0.3, 0.85))):
+        T = X9["test"][E]; c = T["counts"]; px, py, pw, ph = 90 + pi * 500, 90, 400, 290
+        s.text(px - 70, py - 30, "a" if pi == 0 else "", 14, weight="bold")
+        s.text(px, py - 30, f"{lab}: {c['exams']:,} exams, {c['cancers']} cancers ({c['prevalence'] * 100:.1f}%)", 12, INK)
+        X = lambda v: px + v / 420 * pw; Y = lambda v: py + ph - (v - ylo) / (yhi - ylo) * ph   # noqa: E731
+        for t in range(0, 421, 100): s.line(X(t), py, X(t), py + ph, GRID); s.text(X(t), py + ph + 14, str(t), 10, MUTED, "middle")
+        for t in ticks(ylo, yhi, 4): s.line(px, Y(t), px + pw, Y(t), GRID); s.text(px - 6, Y(t) + 4, f"{t * 100:.0f}%", 10, MUTED, "end")
+        s.text(px + pw / 2, py + ph + 30, "false alarms per 1,000 exams", 10, INK2, "middle")
+        s.text(px - 55, py - 10, "sensitivity", 10, INK2)
+        for lvl in ("L4", "L3", "R"):
+            pts = []
+            for key, name, col, shp in SCORES:
+                r_ = get(T, RULE[lvl] if key == "rule" else f"{key}@OP_{lvl}"); se, fa = r_["sensitivity"], r_["fa_per_1000_exams"]
+                s.line(X(fa["lo"]), Y(se["est"]), X(fa["hi"]), Y(se["est"]), col, 1); s.line(X(fa["est"]), Y(se["lo"]), X(fa["est"]), Y(se["hi"]), col, 1)
+                mark(s, shp, X(fa["est"]), Y(se["est"]), col); pts.append((fa["est"], se["est"], r_["counts"]["tp"], col))
+            fx = sum(p[0] for p in pts) / len(pts); s.text(X(fx), py - 8, lvl, 11, INK2, "middle", "bold")
+        lab_pts = {k: get(T, RULE["L3"] if k == "rule" else f"{k}@OP_L3") for k, _, _, _ in SCORES}
+        yy = py + ph + 48
+        s.text(px, yy, "At L3, cancers caught: " + ", ".join(f"{nm.split(' (')[0].split(':')[0]} {lab_pts[k]['counts']['tp']}/{c['cancers']}" for k, nm, _, _ in SCORES), 10, INK2)
+    for i, (key, name, col, shp) in enumerate(SCORES): mark(s, shp, 40 + (i % 2) * 500, 490 + (i // 2) * 18, col); s.text(52 + (i % 2) * 500, 494 + (i // 2) * 18, name, 10, INK2)
+    s.text(20, 540, "Levels: cuts set on cancer-free DEV exams to the dev false-alarm share of Lung-RADS >= 4A (L4), >= 3 (L3) and the radiologists' call (R). Lines: 95% participant-bootstrap intervals.", 9, MUTED)
+    s.text(20, 553, "1 year: the form and the fixed rules use the radiologists' reads, which also triggered the work-up (not blind to the outcome); 6 years at baseline avoids most of this and the prior-scan advantage.", 9, MUTED)
+    # (b) threshold transfer, 1 year all screens: dev -> test
+    s.text(20, 590, "b", 14, weight="bold"); s.text(40, 590, "Threshold transfer, 1 year, all screens: development (hollow) -> test (filled)", 12, INK)
+    rows = []
+    for key, nm, col, shp in SCORES[:2] + SCORES[3:]:
+        k = RULE["L3"] if key == "rule" else f"{key}@OP_L3"; d_, t_ = get(X9["dev"]["E1"], k), get(X9["test"]["E1"], k)
+        rows.append(("cut set on cancer-free dev exams (L3)", nm.split(" (")[0].split(":")[0], col, shp, d_["sensitivity"]["est"], t_["sensitivity"]["est"], d_["fa_per_1000_exams"]["est"], t_["fa_per_1000_exams"]["est"]))
+    tgt = P5["dev_target_sensitivity"]
+    for key, nm, col, shp, tk in (("sybil", "Sybil", BLUE, "circle", "sybil"), ("form", "Form", ORANGE, "square", "C1_form")):
+        r_ = P5["rad"]["table"][tk]; rows.append(("cut matched on dev CANCERS (radiologists' dev sensitivity)", nm, col, shp, tgt, r_["sensitivity"], None, r_["fa_per_1000_exams"]))
+    rows.append(("cut matched on dev CANCERS (radiologists' dev sensitivity)", "Radiologists' call", INK, "diamond", tgt, P5["radiologists_test_sensitivity"], None, P5["radiologists_fa_per_1000_exams"]))
+    bx, bw, by = 330, 300, 606; X = lambda v: bx + (v - 0.5) / 0.5 * bw   # noqa: E731
+    ys, grp, y = [], None, by
+    for g, *_ in rows:
+        if g != grp: y += 18; grp = g
+        ys.append(y); y += 20
+    bottom = ys[-1] + 10
+    for t in (0.5, 0.6, 0.7, 0.8, 0.9, 1.0): s.line(X(t), by, X(t), bottom, GRID); s.text(X(t), bottom + 14, f"{t * 100:.0f}%", 10, MUTED, "middle")
+    s.text(bx + bw / 2, bottom + 28, "sensitivity", 10, INK2, "middle"); s.text(bx + bw + 30, by + 4, "false alarms per 1,000 (dev -> test)", 10, INK2)
+    grp = None
+    for i, (g, nm, col, shp, sd, st, fd, ft) in enumerate(rows):
+        y = ys[i]
+        if g != grp: s.text(20, y - 16, g, 10, INK2, weight="bold"); grp = g
+        s.text(220, y + 4, nm, 10, INK); s.line(X(sd), y, X(st), y, col, 2); mark(s, shp, X(sd), y, col, 5, hollow=True); mark(s, shp, X(st), y, col, 5)
+        s.text(bx + bw + 30, y + 4, (f"{fd:.0f} -> {ft:.0f}" if fd is not None else f"(dev not matched) -> {ft:.0f}") + f";  sensitivity {sd * 100:.0f}% -> {st * 100:.0f}%", 10, INK2)
+    s.text(20, 822, "Dev results flatter Sybil (Sybil's developers selected the model on this split). Sources: results/x9 (dev, test), results/x7/x7_sensitivity_test.json P5; RESULTS_L2.md 3e-3g.", 9, MUTED)
+    s.save(out / "fig6_clinical.svg")
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("out"); ap.add_argument("--ct-dir"); a = ap.parse_args(); out = Path(a.out); out.mkdir(parents=True, exist_ok=True)
-    fig5(out)
+    fig5(out); fig6(out)
     if a.ct_dir: fig1(Path(a.ct_dir), Path(a.ct_dir))                          # Figure 1 holds CT pixels: written next to the PNGs, outside git
     print("figures written")
 
